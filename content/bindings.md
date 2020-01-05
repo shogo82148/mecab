@@ -217,7 +217,7 @@ namespace MeCab {
                                 // #define MECAB_EOS_NODE  3
     unsigned char  isbest;      // ベスト解の場合 1, それ以外 0
   
-    float          alpha;       // forward backward の foward log 確率
+    float          alpha;       // forward backward の forward log 確率
     float          beta;        // forward backward の backward log 確率 
     float          prob;        // 周辺確率
                                 // alpha, beta, prob は -l 2 オプションを指定した時に定義されます

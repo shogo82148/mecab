@@ -8,7 +8,7 @@ date: 2020-01-05T15:22:29+09:00
 学習用コーパスからパラメータ(コスト値)を推定することができます.
 MeCab 自身は品詞体系に非依存な設計になっているため,
 独自の品詞体系,  辞書,  コーパスに基づく解析器を作成することができます.
-パラメータ推定には Conditinoal Random Fields ([CRF](http://www.cis.upenn.edu/~pereira/papers/crf.pdf)) を使っています. 
+パラメータ推定には Conditional Random Fields ([CRF](http://www.cis.upenn.edu/~pereira/papers/crf.pdf)) を使っています. 
 
 
 ## 処理の流れ

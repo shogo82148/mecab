@@ -144,7 +144,7 @@ MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<re
   - 解析結果からLattice を作成する Lattice::set_result() メソッドを追加. 単体テスト時のスタブの作成等に利用可能
 - **2013-01-24** MeCab 0.995
   - [部分解析機能]({{<relref partial.md>}})の再実装
-  - [部分解析機能]({{<relref partial.md>}})のためのAPI (Lattice:set_boundary_constarint, Lattice::set_feature_constraint) の追加
+  - [部分解析機能]({{<relref partial.md>}})のためのAPI (Lattice:set_boundary_constraint, Lattice::set_feature_constraint) の追加
 - **2012-06-03** MeCab 0.994
   - [再学習機能]({{<relref "learn.md#retrain">}})の追加 (少量のコーパスと既存モデルを使ったCRFパラメータの更新)
   - ユーザ辞書の単語コストの自動推定機能の追加 (CRFモデルが必要)
@@ -167,7 +167,7 @@ MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<re
   - 細かいバグの修正
 - **2009-09-27** MeCab 0.98
 - UTF16のサポート(実験的)
-  - Windows版での文字コード変換に MutlByteToWideChar等の Native APIを使うように変更
+  - Windows版での文字コード変換に MultiByteToWideChar等の Native APIを使うように変更
   - ソースコードを Google coding style に変更
   - フォーマット指定で EON (end of N-best) の追加 (-S or --eon-format)
   - Shift-JIS環境で半角カタカナの扱いに問題があったのを修正
@@ -244,8 +244,8 @@ MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<re
 
 - IPA 辞書
   - IPA 辞書, IPAコーパス に基づき [CRF]("http://www.cis.upenn.edu/~pereira/papers/crf.pdf) でパラメータ推定した辞書です。 **(推奨)** [ダウンロード](https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7MWVlSDBCSXZMTXM)
-- Juman 辞書
-  - Juamn 辞書, 京都コーパスに基づき [CRF](http://www.cis.upenn.edu/~pereira/papers/crf.pdf) でパラメータ推定した辞書です。 [ダウンロード](https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7X2pESGlLREpxdXM)
+- JUMAN 辞書
+  - JUMAN 辞書, 京都コーパスに基づき [CRF](http://www.cis.upenn.edu/~pereira/papers/crf.pdf) でパラメータ推定した辞書です。 [ダウンロード](https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7X2pESGlLREpxdXM)
 - Unidic 辞書
   - Unidic 辞書, BCCWJコーパスに基づき CRF でパラーメータ推定した辞書です。ダウンロード
 
