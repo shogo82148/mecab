@@ -1,14 +1,17 @@
 package Sexp;
 use Carp;
 use IO::File;
+use utf8;
 use strict;
+use warnings;
+use Encode;
 use base qw/ Exporter /;
 use vars qw/ @EXPORT_OK /;
 @EXPORT_OK = qw/ parse /;
 
 =head1 NAME
 
-Juman::Sexp - S¼°¤òÆÉ¤ß¹ş¤à¥â¥¸¥å¡¼¥ë
+Juman::Sexp - Så¼ã‚’èª­ã¿è¾¼ã‚€ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«
 
 =head1 SYNOPSIS
 
@@ -18,8 +21,8 @@ Juman::Sexp - S¼°¤òÆÉ¤ß¹ş¤à¥â¥¸¥å¡¼¥ë
 
 =head1 DESCRIPTION
 
-C<Juman::Sexp> ¤Ï¡¤Juman ¼­½ñ¤äÀßÄê¥Õ¥¡¥¤¥ë¤ËÍÑ¤¤¤é¤ì¤Æ¤¤¤ëS¼°¤òÆÉ¤ß¹ş
-¤à¤¿¤á¤Î´Ø¿ô C<parse> ¤òÄêµÁ¤·¤Æ¤¤¤ë¡¥
+C<Juman::Sexp> ã¯ï¼ŒJuman è¾æ›¸ã‚„è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã«ç”¨ã„ã‚‰ã‚Œã¦ã„ã‚‹Så¼ã‚’èª­ã¿è¾¼
+ã‚€ãŸã‚ã®é–¢æ•° C<parse> ã‚’å®šç¾©ã—ã¦ã„ã‚‹ï¼
 
 =head1 FUNCTIONS
 
@@ -27,22 +30,22 @@ C<Juman::Sexp> ¤Ï¡¤Juman ¼­½ñ¤äÀßÄê¥Õ¥¡¥¤¥ë¤ËÍÑ¤¤¤é¤ì¤Æ¤¤¤ëS¼°¤òÆÉ¤ß¹ş
 
 =item parse
 
-»ØÄê¤µ¤ì¤¿ÂĞ¾İ¤ò¡¤S¼°¤È¤·¤Æ²òÀÏ¤¹¤ë´Ø¿ô¡¥°Ê²¼¤Î¥ª¥×¥·¥ç¥ó¤ò¼õ¤±ÉÕ¤±¤ë¡¥
+æŒ‡å®šã•ã‚ŒãŸå¯¾è±¡ã‚’ï¼ŒSå¼ã¨ã—ã¦è§£æã™ã‚‹é–¢æ•°ï¼ä»¥ä¸‹ã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’å—ã‘ä»˜ã‘ã‚‹ï¼
 
 =over 4
 
 =item file => FILE
 
-²òÀÏ¤¹¤ë¥Õ¥¡¥¤¥ë¤ò»ØÄê¤¹¤ë¡¥
+è§£æã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æŒ‡å®šã™ã‚‹ï¼
 
 =item string => STRING
 
-²òÀÏ¤¹¤ëÊ¸»úÎó¤ò»ØÄê¤¹¤ë¡¥
+è§£æã™ã‚‹æ–‡å­—åˆ—ã‚’æŒ‡å®šã™ã‚‹ï¼
 
 =item comment => STRING
 
-¥³¥á¥ó¥È³«»ÏÊ¸»úÎó¤ò»ØÄê¤¹¤ë¡¥¥³¥á¥ó¥È¤ò¤Ş¤Ã¤¿¤¯´Ş¤Ş¤Ê¤¤ÂĞ¾İ¤ò²òÀÏ¤¹¤ë
-¾ì¹ç¤Ï¡¤°Ê²¼¤Î¤è¤¦¤ËÌ¤ÄêµÁÃÍ¤ò»ØÄê¤¹¤ë¡¥
+ã‚³ãƒ¡ãƒ³ãƒˆé–‹å§‹æ–‡å­—åˆ—ã‚’æŒ‡å®šã™ã‚‹ï¼ã‚³ãƒ¡ãƒ³ãƒˆã‚’ã¾ã£ãŸãå«ã¾ãªã„å¯¾è±¡ã‚’è§£æã™ã‚‹
+å ´åˆã¯ï¼Œä»¥ä¸‹ã®ã‚ˆã†ã«æœªå®šç¾©å€¤ã‚’æŒ‡å®šã™ã‚‹ï¼
 
   Example:
 
@@ -50,25 +53,25 @@ C<Juman::Sexp> ¤Ï¡¤Juman ¼­½ñ¤äÀßÄê¥Õ¥¡¥¤¥ë¤ËÍÑ¤¤¤é¤ì¤Æ¤¤¤ëS¼°¤òÆÉ¤ß¹ş
 
 =item debug => BOOLEAN
 
-¥Ç¥Ğ¥Ã¥°ÍÑ¤Î¾ğÊó¤ò½ĞÎÏ¤¹¤ë¤è¤¦¤Ë»Ø¼¨¤¹¤ë¡¥
+ãƒ‡ãƒãƒƒã‚°ç”¨ã®æƒ…å ±ã‚’å‡ºåŠ›ã™ã‚‹ã‚ˆã†ã«æŒ‡ç¤ºã™ã‚‹ï¼
 
 =back
 
 =back
 
-Îã¤¨¤Ğ¡¤Ê¸»úÎó¤òÂĞ¾İ¤È¤·¤Æ²òÀÏ¤¹¤ë¾ì¹ç¤Ï¡¤°Ê²¼¤Î¤è¤¦¤Ë»ØÄê¤¹¤ë¡¥
+ä¾‹ãˆã°ï¼Œæ–‡å­—åˆ—ã‚’å¯¾è±¡ã¨ã—ã¦è§£æã™ã‚‹å ´åˆã¯ï¼Œä»¥ä¸‹ã®ã‚ˆã†ã«æŒ‡å®šã™ã‚‹ï¼
 
   Example:
 
     &parse( string =>
-            "(Ì¾»ì (ÉáÄÌÌ¾»ì ((ÆÉ¤ß ¤«¤á)(¸«½Ğ¤·¸ì µµ ¤«¤á ¥«¥á))))" );
+            "(åè© (æ™®é€šåè© ((èª­ã¿ ã‹ã‚)(è¦‹å‡ºã—èª äº€ ã‹ã‚ ã‚«ãƒ¡))))" );
 
-¤³¤Î¾ì¹ç¡¤¼¡¤Î¤è¤¦¤Ê²òÀÏ·ë²Ì¤¬ÊÖ¤µ¤ì¤ë¡¥
+ã“ã®å ´åˆï¼Œæ¬¡ã®ã‚ˆã†ãªè§£æçµæœãŒè¿”ã•ã‚Œã‚‹ï¼
 
-    ( [ 'Ì¾»ì',
-         [ 'ÉáÄÌÌ¾»ì',
-           [ [ 'ÆÉ¤ß', '¤«¤á' ],
-             [ '¸«½Ğ¤·¸ì', 'µµ', '¤«¤á', '¥«¥á' ]
+    ( [ 'åè©',
+         [ 'æ™®é€šåè©',
+           [ [ 'èª­ã¿', 'ã‹ã‚' ],
+             [ 'è¦‹å‡ºã—èª', 'äº€', 'ã‹ã‚', 'ã‚«ãƒ¡' ]
            ]
          ]
        ] )
@@ -85,7 +88,7 @@ sub parse {
     }
     if( $option{file} ){
 	my $file = $option{file};
-	if( my $fh = IO::File->new( $file, "r" ) ){
+	if( my $fh = IO::File->new( $file, "<:utf8" ) ){
 	    my $num = 0;
 	    &_parse( sub { if( $fh->eof ){ undef; } else { $num++; $fh->getline; } },
 		     sub { "at $file line $num"; },
@@ -110,14 +113,14 @@ sub parse {
 sub _parse {
     my( $getline, $place, $comment, $debug ) = @_;
     my $str = "";
-    my @stack;		# shift-reduce Ë¡¤Ç¹½Ê¸²òÀÏ¤¹¤ë¤¿¤á¤Î¥¹¥¿¥Ã¥¯ 
-    my @offset;		# reduce ¤¹¤Ù¤­Í×ÁÇ¿ô¤òµ­Ï¿¤·¤Æ¤ª¤¯¥«¥¦¥ó¥¿
+    my @stack;		# shift-reduce æ³•ã§æ§‹æ–‡è§£æã™ã‚‹ãŸã‚ã®ã‚¹ã‚¿ãƒƒã‚¯ 
+    my @offset;		# reduce ã™ã¹ãè¦ç´ æ•°ã‚’è¨˜éŒ²ã—ã¦ãŠãã‚«ã‚¦ãƒ³ã‚¿
     while(1){
 	$str =~ s/\A\s*//;
 	$str =~ s/\A$comment[^\n]*\n\s*// if $comment;
 	if( ! $str ){
 	    if( $str = &$getline() ){
-		print STDERR "PARSE: $str" if $debug;
+		print STDERR encode_utf8("PARSE: $str") if $debug;
 	    } else {
 		if( @offset ){
 		    die "Syntax error: end of target during parsing.\n";
@@ -126,12 +129,12 @@ sub _parse {
 		}
 	    }
 	}
-	# ³«³ç¸Ì¤ò shift ¤¹¤ë
+	# é–‹æ‹¬å¼§ã‚’ shift ã™ã‚‹
 	elsif( $str =~ s/\A\(// ){
 	    $offset[0]-- if @offset;
 	    unshift( @offset, 0 );
 	}
-	# Ê¸»úÎó¤ò shift ¤¹¤ë
+	# æ–‡å­—åˆ—ã‚’ shift ã™ã‚‹
 	elsif( $str =~ m/\A"/ ){
 	    while(1){
 		if( $str =~ s/\A("(?:[^"\\]+|\\.)*")// ){
@@ -145,12 +148,12 @@ sub _parse {
 		}
 	    }
 	}
-	# ¥·¥ó¥Ü¥ë¤ò shift ¤¹¤ë
+	# ã‚·ãƒ³ãƒœãƒ«ã‚’ shift ã™ã‚‹
 	elsif( $str =~ s/\A([^\s"()]+)// ){
 	    $offset[0]--;
 	    push( @stack, $1 );
 	}
-	# ÊÄ³ç¸Ì(= ¥ê¥¹¥È)¤ò reduce ¤¹¤ë
+	# é–‰æ‹¬å¼§(= ãƒªã‚¹ãƒˆ)ã‚’ reduce ã™ã‚‹
 	elsif( $str =~ s/\A\)// ){
 	    unless( @offset ){
 		die( "Syntax error: too much close brackets ", &$place(), ".\n" );
@@ -183,7 +186,7 @@ TSUCHIYA Masatoshi <tsuchiya@pine.kuee.kyoto-u.ac.jp>
 
 =head1 COPYRIGHT
 
-ÍøÍÑµÚ¤ÓºÆÇÛÉÛ¤Ë¤Ä¤¤¤Æ¤Ï GPL2 ¤Ş¤¿¤Ï Artistic License ¤Ë½¾¤Ã¤Æ¤¯¤À¤µ¤¤¡£
+åˆ©ç”¨åŠã³å†é…å¸ƒã«ã¤ã„ã¦ã¯ GPL2 ã¾ãŸã¯ Artistic License ã«å¾“ã£ã¦ãã ã•ã„ã€‚
 
 =cut
 
