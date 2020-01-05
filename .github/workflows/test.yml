@@ -41,3 +41,27 @@ jobs:
           sudo make install
           make clean
         working-directory: mecab-ipadic
+
+      - name: build jumandic euc-jp
+        run: |
+          ./configure
+          make
+          sudo make install
+          make clean
+        working-directory: mecab-jumandic
+
+      - name: build jumandic shift-jis
+        run: |
+          ./configure --with-charset=sjis
+          make
+          sudo make install
+          make clean
+        working-directory: mecab-jumandic
+
+      - name: build jumandic utf-8
+        run: |
+          ./configure --with-charset=utf8
+          make
+          sudo make install
+          make clean
+        working-directory: mecab-jumandic
