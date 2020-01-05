@@ -48,86 +48,18 @@ MeCabは 京都大学情報学研究科−日本電信電話株式会社コミ�
 
 ## 比較 {#diff}
 
-<table>
-<tr class="even">
-<td align="center"></td>
-<td align="center"><b>MeCab</b></td>
-<td align="center"><a href=
-"http://chasen.naist.jp/">ChaSen</a></td>
-<td align="center">[JUMAN](http://pine.kuee.kyoto-u.ac.jp/nl-resource/juman.html)</td>
-<td align="center">[KAKASI](http://kakasi.namazu.org)</td>
-</tr>
-<tr class="odd">
-<td align="center">解析モデル</td>
-<td align="center">bi-gram マルコフモデル</td>
-<td align="center">可変長マルコフモデル</td>
-<td align="center">bi-gram マルコフモデル</td>
-<td align="center">最長一致</td>
-</tr>
-<tr class="even">
-<td align="center">コスト推定</td>
-<td align="center">コーパスから学習</td>
-<td align="center">コーパスから学習</td>
-<td align="center">人手</td>
-<td align="center">コストという概念無し</td>
-</tr>
-<tr class="odd">
-<td align="center">学習モデル</td>
-<td align="center">[CRF](http://www.cis.upenn.edu/~pereira/papers/crf.pdf) (識別モデル)</td>
-<td align="center">HMM (生成モデル)</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-<tr class="even">
-<td align="center">辞書引きアルゴリズム</td>
-<td align="center">Double Array</td>
-<td align="center">Double Array</td>
-<td align="center">パトリシア木</td>
-<td align="center">Hash?</td>
-</tr>
-<tr class="odd">
-<td align="center">解探索アルゴリズム</td>
-<td align="center">Viterbi</td>
-<td align="center">Viterbi</td>
-<td align="center">Viterbi</td>
-<td align="center">決定的?</td>
-</tr>
-<tr class="even">
-<td align="center">連接表の実装</td>
-<td align="center">2次元 Table</td>
-<td align="center">オートマトン</td>
-<td align="center">2次元 Table?</td>
-<td align="center">連接表無し?</td>
-</tr>
-<tr class="odd">
-<td align="center">品詞の階層</td>
-<td align="center">無制限多階層品詞</td>
-<td align="center">無制限多階層品詞</td>
-<td align="center">2段階固定</td>
-<td align="center">品詞という概念無し?</td>
-</tr>
-<tr class="even">
-<td align="center">未知語処理</td>
-<td align="center">字種 (動作定義を変更可能)</td>
-<td align="center">字種 (変更不可能)</td>
-<td align="center">字種 (変更不可能)</td>
-<td align="center"></td>
-</tr>
-<tr class="odd">
-<td align="center">制約つき解析</td>
-<td align="center">可能</td>
-<td align="center">2.4.0で可能</td>
-<td align="center">不可能</td>
-<td align="center">不可能</td>
-</tr>
-<tr class="even">
-<td align="center">N-best解</td>
-<td align="center">可能</td>
-<td align="center">不可能</td>
-<td align="center">不可能</td>
-<td align="center">不可能</td>
-</tr>
-</table>
+|MeCab|[ChaSen][ChaSen]|[JUMAN][JUMAN]|[KAKASI][KAKASI]
+-|-|-|-
+解析モデル|bi-gram マルコフモデル|可変長マルコフモデル|bi-gram マルコフモデル|最長一致
+コスト推定|コーパスから学習|コーパスから学習|人手|コストという概念無し
+学習モデル|[CRF][CRF] (識別モデル)|HMM (生成モデル)||
+辞書引きアルゴリズム|Double Array|Double Array|パトリシア木|Hash?
+解探索アルゴリズム|Viterbi|Viterbi|Viterbi|決定的?
+連接表の実装|2次元 Table|オートマトン|2次元 Table?|連接表無し?
+品詞の階層|無制限多階層品詞|無制限多階層品詞|2段階固定|品詞という概念無し?
+未知語処理|字種 (動作定義を変更可能)|字種 (変更不可能)|字種 (変更不可能)|
+制約つき解析|可能|2.4.0で可能|不可能|不可能
+N-best解|可能|不可能|不可能|不可能
 
 MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<relref feature.md>}})をご覧ください
 
@@ -452,4 +384,5 @@ CRF のパラメータ推定に [Jorge Nocedal](http://www.ece.nwu.edu/~nocedal)
 
 [CRF]: https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&context=cis_papers "CRF"
 [ChaSen]: https://chasen-legacy.osdn.jp/ "ChaSen"
+[JUMAN]: http://nlp.ist.i.kyoto-u.ac.jp/index.php?JUMAN "JUMAN"
 [KAKASI]: http://kakasi.namazu.org/index.html.en "KAKASI"
