@@ -42,7 +42,7 @@ MeCabは 京都大学情報学研究科−日本電信電話株式会社コミ�
 - 辞書, コーパスに依存しない汎用的な設計
 - 条件付き確率場([CRF][CRF])に基づく高い解析精度
 - [ChaSen][ChaSen] や [KAKASI][KAKASI] に比べ高速
-- 辞書引きアルゴリズム/データ構造に, 高速な TRIE 構造である [Double-Array](http://cl.naist.jp/~taku-ku/software/darts)を採用.
+- 辞書引きアルゴリズム/データ構造に, 高速な TRIE 構造である [Double-Array](http://chasen.org/~taku/software/darts/)を採用.
 - 再入可能なライブラリ
 - 各種スクリプト言語バインディング(perl/ruby/python/java/C#)
 
