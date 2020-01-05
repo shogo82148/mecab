@@ -1,0 +1,67 @@
+name: Test
+
+on:
+  pull_request: {}
+  push: {}
+
+jobs:
+  test-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: test mecab
+        run: |
+          ./configure
+          make
+          make check
+          sudo make install
+          sudo ldconfig
+        working-directory: mecab
+
+      - name: build ipadic euc-jp
+        run: |
+          ./configure
+          make
+          sudo make install
+          make clean
+        working-directory: mecab-ipadic
+
+      - name: build ipadic shift-jis
+        run: |
+          ./configure --with-charset=sjis
+          make
+          sudo make install
+          make clean
+        working-directory: mecab-ipadic
+
+      - name: build ipadic utf-8
+        run: |
+          ./configure --with-charset=utf8
+          make
+          sudo make install
+          make clean
+        working-directory: mecab-ipadic
+
+      - name: build jumandic euc-jp
+        run: |
+          ./configure
+          make
+          sudo make install
+          make clean
+        working-directory: mecab-jumandic
+
+      - name: build jumandic shift-jis
+        run: |
+          ./configure --with-charset=sjis
+          make
+          sudo make install
+          make clean
+        working-directory: mecab-jumandic
+
+      - name: build jumandic utf-8
+        run: |
+          ./configure --with-charset=utf8
+          make
+          sudo make install
+          make clean
+        working-directory: mecab-jumandic

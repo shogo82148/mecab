@@ -1,5 +1,8 @@
 #!/usr/bin/env perl
 
+use utf8;
+use strict;
+use warnings;
 use FindBin qw($Bin);
 use lib "$Bin";
 use Sexp;
@@ -13,7 +16,8 @@ sub main () {
 	my @list = Sexp::parse(file => $file);
 
 	my $c = &read_ctype();
-	open (S, "> $file2") || die "$! $file2\n";
+	my %dic;
+	open S, ">:utf8", $file2 or die "$! $file2\n";
 	for my $m (@list) {
 	    for (&parse_morph($m)) {
 		my $str = &convert($_, $c);
