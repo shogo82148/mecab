@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>
+      MeCab: Yet Another Part-of-Speech and Morphological Analyzer
+    </title>
+    <link type="text/css" rel="stylesheet" href="mecab.css">
+  </head>
+  <body>
+    
+<section id="main">
+  <h1 id="title">スクリプト言語のバインディング</h1>
+  <div>
+        <article id="content">
+           <h2 id="heading">概要</h2>
+<p>各種スクリプト言語 <a href="http://www.perl.com" title="perl">perl</a>,
+<a href="http://www.ruby-lang.org" title="ruby">ruby</a>,
+<a href="http://www.python.org" title="python">python</a>,
+<a href="http://java.sun.com" title="java">Java</a>)
+から, MeCab が提供する形態素解析の機能を利用可能です.
+各バインディングは <a href="http://www.swig.org" title="SWIG">SWIG</a> というプログラムを用いて, 自動生成されています.
+<a href="http://www.swig.org" title="SWIG">SWIG</a> がサポートする他の言語も
+生成可能だと思われますが, 現在は, 作者の管理できる範囲内ということで,
+上記の4つの言語のみを提供しております.</p>
+<h2 id="heading-1">インストール</h2>
+<p>各言語バイディングのインストール方法は, perl/README, ruby/README, python/README,
+java/README を御覧下さい.</p>
+<h2 id="heading-2">とりあえず解析する</h2>
+<p><code>MeCab::Tagger</code> というクラスのインスタンスを生成し, <code>parse</code> (もしくは
+<code>parseToString</code>) というメソッドを呼ぶことで, 解析結果が文字列として取得できます.
+<code>MeCab::Tagger</code> のコンストラクタの引数は, 基本的に mecab の実行形式に与え
+るパラメータと同一で, それらを文字列として与えます.</p>
+<h3 id="perl">perl</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#00f">use</span> MeCab;
+$m = <span style="color:#00f">new</span> MeCab::Tagger (<span style="color:#a31515">&#34;-Ochasen&#34;</span>);
+<span style="color:#00f">print</span> $m-&gt;parse (<span style="color:#a31515">&#34;今日もしないとね&#34;</span>);
+</code></pre></div><h3 id="ruby">ruby</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">require <span style="color:#a31515">&#39;MeCab&#39;</span>
+m = MeCab::Tagger.new (<span style="color:#a31515">&#34;</span><span style="color:#a31515">-Ochasen</span><span style="color:#a31515">&#34;</span>)
+print m.parse (<span style="color:#a31515">&#34;</span><span style="color:#a31515">今日もしないとね</span><span style="color:#a31515">&#34;</span>)
+</code></pre></div><h3 id="python">python</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#00f">import</span> sys
+<span style="color:#00f">import</span> MeCab
+m = MeCab.Tagger (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">-Ochasen</span><span style="color:#a31515">&#34;</span>)
+<span style="color:#00f">print</span> m.parse (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">今日もしないとね</span><span style="color:#a31515">&#34;</span>)
+</code></pre></div><h3 id="java">Java</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#00f">import</span> org.chasen.mecab.Tagger;
+<span style="color:#00f">import</span> org.chasen.mecab.Node;
+<span style="color:#00f">public</span> <span style="color:#00f">static</span> <span style="color:#2b91af">void</span> main(String[] argv) {
+    Tagger tagger = <span style="color:#00f">new</span> Tagger (<span style="color:#a31515">&#34;-Ochasen&#34;</span>);
+    System.out.println (tagger.parse (<span style="color:#a31515">&#34;太郎は二郎にこの本を渡した.&#34;</span>)); 
+}
+</code></pre></div><h2 id="heading-3">各形態素の詳細情報を取得する</h2>
+<p><code>MeCab::Tagger</code> クラスの, <code>parseToNode</code> という
+メソッドを呼ぶことで, 「文頭」という特別な形態素が <code>MeCab::Node</code> クラスのインスタンスとして
+取得できます.</p>
+<p><code>MeCab::Node</code> は, 双方向リストとして表現されており, <code>next</code>, <code>prev</code> というメンバ変数があります.
+それぞれ, 次の形態素, 前の形態素を <code>MeCab::Node</code> クラスのインスタンスとして
+返します. 全形態素には, <code>next</code> を順次呼ぶことでアクセスできます.</p>
+<p><code>MeCab::Node</code> は C 言語のインタフェイスで提供している <code>mecab_node_t</code> をラップしたクラスです.
+<code>mecab_node_t</code> が持つほぼすべてのメンバ変数にアクセスすることができます.
+ただし, <code>surface</code> のみ, 単語そのものが返るように変更しています.</p>
+<p>以下に <a href="http://www.perl.com" title="perl">perl</a> の例を示します. この例では,
+各形態素を順次にアクセスし,形態素の表層文字列, 品詞, その形態素までのコストを表示します.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#00f">use</span> MeCab;
+<span style="color:#00f">my</span> $m = <span style="color:#00f">new</span> MeCab::Tagger (<span style="color:#a31515">&#34;&#34;</span>);
+
+<span style="color:#00f">for</span> (<span style="color:#00f">my</span> $n = $m-&gt;parseToNode (<span style="color:#a31515">&#34;今日もしないとね&#34;</span>); $n ; $n = $n-&gt;{<span style="color:#00f">next</span>}) {
+   printf (<span style="color:#a31515">&#34;%s\t%s\t%d\n&#34;</span>,
+            $n-&gt;{surface},          <span style="color:#008000"># 表層</span>
+            $n-&gt;{feature},          <span style="color:#008000"># 現在の品詞</span>
+            $n-&gt;{cost}              <span style="color:#008000"># その形態素までのコスト</span>
+            );
+}
+</code></pre></div><h2 id="heading-4">エラー処理</h2>
+<p>もし, コンストラクタや, 解析途中でエラーが起きた場合は,
+RuntimeError 例外が発生します.
+例外のハンドリングの方法は, 各言語のリファレンスマニュアルを
+ごらんください. 以下は, <a href="http://www.python.org" title="python">python</a> の例です</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#00f">try</span>:
+    m = MeCab.Tagger (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">-d .</span><span style="color:#a31515">&#34;</span>)
+    <span style="color:#00f">print</span> m.parse (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">今日もしないとね</span><span style="color:#a31515">&#34;</span>)
+<span style="color:#00f">except</span> RuntimeError, e:
+    <span style="color:#00f">print</span> <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">RuntimeError:</span><span style="color:#a31515">&#34;</span>, e;
+</code></pre></div><h2 id="heading-5">注意事項</h2>
+<h3 id="heading-6">文頭,文末形態素</h3>
+<p><code>parseToNode</code> の返り値は, 「文頭」という特別な形態素を示す <code>MeCab::Node</code>
+インタンスです. さらに, 「文末」という特別な形態素も存在いたしますので,
+注意してください. もし, これらを無視したい場合は, 以下のように
+<code>next</code> でそれぞれを読み飛ばしてください.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#00f">my</span> $n = $m-&gt;parseToNode (<span style="color:#a31515">&#34;今日もしないとね&#34;</span>); 
+$n = $n-&gt;{<span style="color:#00f">next</span>}; <span style="color:#008000"># 「文頭」を無視</span>
+
+<span style="color:#00f">while</span> ($n-&gt;{<span style="color:#00f">next</span>}) { <span style="color:#008000"># next を調べる</span>
+  printf (<span style="color:#a31515">&#34;%s\n&#34;</span>, $n-&gt;{surface});
+  $n = $n-&gt;{<span style="color:#00f">next</span>}; <span style="color:#008000"># 次に移動</span>
+}
+</code></pre></div><h3 id="mecabnode-">MeCab::Node の振舞い</h3>
+<p><code>MeCab::Node</code> の実体(メモリ上にある形態素情報)は,
+<code>MeCab::Tagger</code> インスタンスが管理しています. <code>MeCab::Node</code> は,
+Node の実体を指している <strong>参照</strong> にすぎせん. そのために, <code>parseToNode</code> が
+呼ばれる度に, 実体そのものが, 上書きされていきます. 以下のような例はソースの意図する通りには動きません.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">m = MeCab.Tagger (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">&#34;</span>)
+n1 = m.parseToNode (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">今日もしないとね</span><span style="color:#a31515">&#34;</span>) 
+n2 = m.parseToNode (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">さくさくさくら</span><span style="color:#a31515">&#34;</span>)
+
+<span style="color:#008000"># n1 の内容は無効になっている</span>
+<span style="color:#00f">while</span> (n1.hasNode () != 0):
+   <span style="color:#00f">print</span> n1.getSurface ()
+   n1 = n1.next ()
+</code></pre></div><p>上記の例では, <code>n1</code> の指す中身が, 「さくさくさくら」を解析した時点で
+上書きされており, 使用できなくなっています.</p>
+<p>複数の Node を同時にアクセスしたい場合は, 複数の <code>MeCab::Tagger</code> インスタンスを生成してください.</p>
+<h2 id="heading-7">全メソッド</h2>
+<p>以下に, <a href="http://www.swig.org" title="SWIG">SWIG</a> 用のインタフェースファイル
+の一部を示します. バイディングの実装言語の都合上, C++ のシンタックスで
+表記されていますが, 適宜読みかえてください. また, 各メソッドの動作も添え
+ていますので参考にしてください.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#00f">namespace</span> MeCab {
+
+  <span style="color:#00f">class</span> <span style="color:#2b91af">Tagger</span> {
+
+     <span style="color:#008000">// str を解析して文字列として結果を得ます. len は str の長さ(省略可能)
+</span><span style="color:#008000"></span>     string parse(string str, <span style="color:#2b91af">int</span> len);
+  
+     <span style="color:#008000">// parse と同じ
+</span><span style="color:#008000"></span>     string parseToString(string str, <span style="color:#2b91af">int</span> len);
+  
+     <span style="color:#008000">// str を解析して MeCab::Node 型の形態素を返します. 
+</span><span style="color:#008000"></span>     <span style="color:#008000">// この形態素は文頭を示すもので, next を順に辿ることで全形態素にアクセスできます
+</span><span style="color:#008000"></span>     Node parseToNode(string str, <span style="color:#2b91af">int</span> len);
+  
+     <span style="color:#008000">// parse の Nbest 版です. N に nbest の個数を指定します.
+</span><span style="color:#008000"></span>     <span style="color:#008000">// この機能を使う場合は, 起動時オプションとして -l 1 を指定する必要があります
+</span><span style="color:#008000"></span>     string parseNBest(<span style="color:#2b91af">int</span> N, string str, <span style="color:#2b91af">int</span> len);
+  
+     <span style="color:#008000">// 解析結果を, 確からしいものから順番に取得する場合にこの関数で初期化を行います.
+</span><span style="color:#008000"></span>     <span style="color:#2b91af">bool</span>  parseNBestInit(string str, <span style="color:#2b91af">int</span> len);
+  
+     <span style="color:#008000">// parseNbestInit() の後, この関数を順次呼ぶことで, 確からしい解析結果を, 順番に取得できます.
+</span><span style="color:#008000"></span>     string next();
+  
+     <span style="color:#008000">// next() と同じですが, MeCab::Node を返します.
+</span><span style="color:#008000"></span>     Node  nextNode();
+  };
+  
+  <span style="color:#00f">#</span><span style="color:#00f">define MECAB_NOR_NODE  0</span><span style="color:#00f">
+</span><span style="color:#00f"></span>  <span style="color:#00f">#</span><span style="color:#00f">define MECAB_UNK_NODE  1</span><span style="color:#00f">
+</span><span style="color:#00f"></span>  <span style="color:#00f">#</span><span style="color:#00f">define MECAB_BOS_NODE  2</span><span style="color:#00f">
+</span><span style="color:#00f"></span>  <span style="color:#00f">#</span><span style="color:#00f">define MECAB_EOS_NODE  3</span><span style="color:#00f">
+</span><span style="color:#00f"></span>  
+  <span style="color:#00f">struct</span> <span style="color:#2b91af">Node</span> {
+
+    <span style="color:#00f">struct</span> <span style="color:#2b91af">Node</span>  prev;  <span style="color:#008000">// 一つ前の形態素へのポインタ
+</span><span style="color:#008000"></span>    <span style="color:#00f">struct</span> <span style="color:#2b91af">Node</span>  next;  <span style="color:#008000">// 一つ先の形態素へのポインタ
+</span><span style="color:#008000"></span>    
+    <span style="color:#00f">struct</span> <span style="color:#2b91af">Node</span>  enext; <span style="color:#008000">// 同じ位置で終わる形態素へのポインタ
+</span><span style="color:#008000"></span>    <span style="color:#00f">struct</span> <span style="color:#2b91af">Node</span>  bnext; <span style="color:#008000">// 同じ開始位置で始まる形態素へのポインタ
+</span><span style="color:#008000"></span>  
+    string surface;             <span style="color:#008000">// 形態素の文字列情報 
+</span><span style="color:#008000"></span>  			      
+    string feature;             <span style="color:#008000">// CSV で表記された素性情報
+</span><span style="color:#008000"></span>    <span style="color:#2b91af">unsigned</span> <span style="color:#2b91af">int</span>   length;      <span style="color:#008000">// 形態素の長さ
+</span><span style="color:#008000"></span>    <span style="color:#2b91af">unsigned</span> <span style="color:#2b91af">int</span>   rlength;     <span style="color:#008000">// 形態素の長さ(先頭のスペースを含む)
+</span><span style="color:#008000"></span>    <span style="color:#2b91af">unsigned</span> <span style="color:#2b91af">int</span>   id;          <span style="color:#008000">// 形態素に付与される ユニークID
+</span><span style="color:#008000"></span>    <span style="color:#2b91af">unsigned</span> <span style="color:#2b91af">short</span> rcAttr;      <span style="color:#008000">// 右文脈 id 
+</span><span style="color:#008000"></span>    <span style="color:#2b91af">unsigned</span> <span style="color:#2b91af">short</span> lcAttr;      <span style="color:#008000">// 左文脈 id
+</span><span style="color:#008000"></span>    <span style="color:#2b91af">unsigned</span> <span style="color:#2b91af">short</span> posid;       <span style="color:#008000">// 形態素 ID (未使用)
+</span><span style="color:#008000"></span>    <span style="color:#2b91af">unsigned</span> <span style="color:#2b91af">char</span>  char_type;   <span style="color:#008000">// 文字種情報
+</span><span style="color:#008000"></span>    <span style="color:#2b91af">unsigned</span> <span style="color:#2b91af">char</span>  stat;        <span style="color:#008000">// 形態素の種類: 以下のマクロの値
+</span><span style="color:#008000"></span>                                <span style="color:#008000">// #define MECAB_NOR_NODE  0
+</span><span style="color:#008000"></span>                                <span style="color:#008000">// #define MECAB_UNK_NODE  1
+</span><span style="color:#008000"></span>                                <span style="color:#008000">// #define MECAB_BOS_NODE  2
+</span><span style="color:#008000"></span>                                <span style="color:#008000">// #define MECAB_EOS_NODE  3
+</span><span style="color:#008000"></span>    <span style="color:#2b91af">unsigned</span> <span style="color:#2b91af">char</span>  isbest;      <span style="color:#008000">// ベスト解の場合 1, それ以外 0
+</span><span style="color:#008000"></span>  
+    <span style="color:#2b91af">float</span>          alpha;       <span style="color:#008000">// forward backward の foward log 確率
+</span><span style="color:#008000"></span>    <span style="color:#2b91af">float</span>          beta;        <span style="color:#008000">// forward backward の backward log 確率 
+</span><span style="color:#008000"></span>    <span style="color:#2b91af">float</span>          prob;        <span style="color:#008000">// 周辺確率
+</span><span style="color:#008000"></span>                                <span style="color:#008000">// alpha, beta, prob は -l 2 オプションを指定した時に定義されます
+</span><span style="color:#008000"></span>  
+    <span style="color:#2b91af">short</span>          wcost;       <span style="color:#008000">// 単語生起コスト
+</span><span style="color:#008000"></span>    <span style="color:#2b91af">long</span>           cost;        <span style="color:#008000">// 累積コスト
+</span><span style="color:#008000"></span>  };
+}
+</code></pre></div><h2 id="heading-8">サンプルプログラム</h2>
+<p>perl/test.pl, ruby/test.rb, python/test.py, java/test.java
+にそれぞれの言語のサンプルがありますので, 参考にしてください.</p>
+
+        </article>
+  </div>
+</section>
+
+    
+    
+  </body>
+</html>
