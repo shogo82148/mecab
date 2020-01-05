@@ -7,4 +7,4 @@ autoheader
 echo "Running automake ..."
 automake --add-missing --copy
 echo "Running autoreconf ..."
-autoreconf -i
+autoreconf -i -f
