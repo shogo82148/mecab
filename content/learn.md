@@ -8,7 +8,7 @@ date: 2020-01-05T15:22:29+09:00
 学習用コーパスからパラメータ(コスト値)を推定することができます.
 MeCab 自身は品詞体系に非依存な設計になっているため,
 独自の品詞体系,  辞書,  コーパスに基づく解析器を作成することができます.
-パラメータ推定には Conditional Random Fields ([CRF](http://www.cis.upenn.edu/~pereira/papers/crf.pdf)) を使っています. 
+パラメータ推定には Conditional Random Fields ([CRF][CRF]) を使っています. 
 
 
 ## 処理の流れ
@@ -26,7 +26,7 @@ MeCab 自身は品詞体系に非依存な設計になっているため,
   - feature.def
 - [学習用コーパスの準備](#corpus)
 - [学習用バイナリ辞書の作成](#binary)
-- [<a href="http://www.cis.upenn.edu/~pereira/papers/crf.pdf">CRF</a> パラメータの学習](#crf)
+- [CRF パラメータの学習](#crf)
 - [配布用辞書の作成](#dist)
 - [解析用バイナリ辞書の作成](#test)
 - [評価](#eval)
@@ -250,7 +250,7 @@ HIRAGANA,0,0,0,名詞,固有名詞,地域,一般,*,*,*
 
 素性列から内部状態素生列に変換するマッピングを定義します. 
 
-[CRF](http://www.cis.upenn.edu/~pereira/papers/crf.pdf)は, unigram,  左文脈 bigram,  右文脈 bigram の3情報を使って統計情報を計
+[CRF][CRF]は, unigram,  左文脈 bigram,  右文脈 bigram の3情報を使って統計情報を計
 算します. 例えば以下の「美しい川」という以下の例では, 辞書に定義されている素性から unigram素性,  
 左文脈素性(その形態素を左側から見た時の素性),  
 右文脈素性(その形態素を左側から見た時の素性)の3つが使われます. 
@@ -314,7 +314,7 @@ rewrite.def は, 辞書の素性からそれぞれの内部素性へのマッピ
 
 ### feature.def
 
-内部状態の素生列から [CRF](http://www.cis.upenn.edu/~pereira/papers/crf.pdf)の素生列を抽出するためのテンプレートを定義したファイルです
+内部状態の素生列から [CRF][CRF]の素生列を抽出するためのテンプレートを定義したファイルです
 
 
 各行が一テンプレートに対応します. UNIGRAM ではじまるものは UNIGRAM 用のテンプレート, BIGRAM ではじまるものは連接用のテンプレートです. 
@@ -436,11 +436,11 @@ Filler.csv       Noun.nai.csv       Noun.proper.csv  Suffix.csv       feature.de
 
 
 - `-d`: 学習用バイナリ辞書があるディレクトリ (デフォルトはカレント)
-- `-c`: [CRF](http://www.cis.upenn.edu/~pereira/papers/crf.pdf)のハイパーパラメータ
+- `-c`: [CRF][CRF] のハイパーパラメータ
 - `-f`: 素性頻度の閾値
 - `-p NUM`: NUM 並列で学習を実行 (デフォルトは1)
 - `corpus`: 学習データのファイル名
-- `model`: 出力される[CRF](http://www.cis.upenn.edu/~pereira/papers/crf.pdf)パラメータのファイル名
+- `model`: 出力される[CRF][CRF]パラメータのファイル名
 
 
 ハイパーパラメータCは, 学習の「強さ」を決めます. 
@@ -499,7 +499,7 @@ iter=4 err=0.68750 F=0.93685 target=233.72722 diff=0.39248
 
 - `-d`: seed 辞書があるディレクトリ (デフォルトはカレント)
 - `-o`: 配布用辞書の出力先ディレクトリ 
-- `-m`: [CRF](http://www.cis.upenn.edu/~pereira/papers/crf.pdf) のパラメータファイル
+- `-m`: [CRF][CRF] のパラメータファイル
 
 配布用辞書は, seed 辞書と別のディレクトリに出力しなければなりません. 
 通常, 配布辞書ディレクトリ final をアーカイブしてユーザに配布します. 
@@ -596,3 +596,5 @@ LEVEL 4:    96.8367(634968/655710) 97.1218(634968/653785) 96.9791
 再学習は, 現在のパラメータをできるだけ変更せずに新しい学習データにできるだけ適応するような学習が行われます.
 適応先のコーパスの性質が元のコーパスのそれと大きく変わる場合は、元の学習データに対する精度が低下する恐れがあります.
 ご了承下さい
+
+[CRF]: https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&context=cis_papers "CRF"

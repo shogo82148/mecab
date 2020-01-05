@@ -5,7 +5,7 @@ date: 2020-01-05T07:41:50+09:00
 
 ## MeCab (和布蕪)とは {#about-mecab}
 
-MeCabは 京都大学情報学研究科−日本電信電話株式会社コミュニケーション科学基礎研究所 共同研究ユニットプロジェクトを通じて開発されたオープンソース 形態素解析エンジンです。 言語, 辞書,コーパスに依存しない汎用的な設計を 基本方針としています。 パラメータの推定に Conditional Random Fields (CRF) を用 いており, ChaSenが採用している 隠れマルコフモデルに比べ性能が向上しています。また、平均的に ChaSen, Juman, KAKASIより高速に動作します。 ちなみに和布蕪(めかぶ)は, 作者の好物です。
+MeCabは 京都大学情報学研究科−日本電信電話株式会社コミュニケーション科学基礎研究所 共同研究ユニットプロジェクトを通じて開発されたオープンソース 形態素解析エンジンです。 言語, 辞書,コーパスに依存しない汎用的な設計を 基本方針としています。 パラメータの推定に Conditional Random Fields ([CRF][CRF]) を用 いており, ChaSenが採用している 隠れマルコフモデルに比べ性能が向上しています。また、平均的に ChaSen, Juman, KAKASIより高速に動作します。 ちなみに和布蕪(めかぶ)は, 作者の好物です。
 
 ## 目次 {#toc}
 
@@ -40,7 +40,7 @@ MeCabは 京都大学情報学研究科−日本電信電話株式会社コミ�
 ## 特徴 {#feature}
 
 - 辞書, コーパスに依存しない汎用的な設計
-- 条件付き確率場([CRF](http://www.cis.upenn.edu/~pereira/papers/crf.pdf))に基づく高い解析精度
+- 条件付き確率場([CRF][CRF])に基づく高い解析精度
 - [ChaSen](http://chasen.naist.jp) や [KAKASI](ttp://kakasi.namazu.org) に比べ高速
 - 辞書引きアルゴリズム/データ構造に, 高速な TRIE 構造である [Double-Array](http://cl.naist.jp/~taku-ku/software/darts)を採用.
 - 再入可能なライブラリ
@@ -243,9 +243,9 @@ MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<re
 ### MeCab 用の辞書
 
 - IPA 辞書
-  - IPA 辞書, IPAコーパス に基づき [CRF]("http://www.cis.upenn.edu/~pereira/papers/crf.pdf) でパラメータ推定した辞書です。 **(推奨)** [ダウンロード](https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7MWVlSDBCSXZMTXM)
+  - IPA 辞書, IPAコーパス に基づき [CRF][CRF] でパラメータ推定した辞書です。 **(推奨)** [ダウンロード](https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7MWVlSDBCSXZMTXM)
 - JUMAN 辞書
-  - JUMAN 辞書, 京都コーパスに基づき [CRF](http://www.cis.upenn.edu/~pereira/papers/crf.pdf) でパラメータ推定した辞書です。 [ダウンロード](https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7X2pESGlLREpxdXM)
+  - JUMAN 辞書, 京都コーパスに基づき [CRF][CRF] でパラメータ推定した辞書です。 [ダウンロード](https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7X2pESGlLREpxdXM)
 - Unidic 辞書
   - Unidic 辞書, BCCWJコーパスに基づき CRF でパラーメータ推定した辞書です。ダウンロード
 
@@ -449,3 +449,5 @@ CRF のパラメータ推定に [Jorge Nocedal](http://www.ece.nwu.edu/~nocedal)
 
 - J. Nocedal. Updating Quasi-Newton Matrices with Limited Storage (1980), Mathematics of Computation 35, pp. 773-782.
 - D.C. Liu and J. Nocedal. On the Limited Memory Method for Large Scale Optimization (1989), Mathematical Programming B, 45, 3, pp. 503-528.
+
+[CRF]: https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&context=cis_papers "CRF"
