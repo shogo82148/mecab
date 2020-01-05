@@ -54,174 +54,40 @@ eon-format-KEY = STR
 
 ## 出力フォーマット
 
-<table>
-<tr class="odd">
-<td>%s</td>
-<td>形態素種類 (0: 通常, 1: 未知語, 2:文頭, 3:文末)
-</td>
-</tr>
-
-<tr class="even">
-<td>%S</td>
-<td>入力文</td>
-</tr>
-
-<tr class="odd">
-<td>%L</td>
-<td>入力文の長さ</td>
-</tr>
-
-<tr class="even">
-<td>%m</td>
-<td>形態素の表層文字列</td>
-</tr>
-
-<tr class="odd">
-<td>%M</td>
-<td>形態素の表層文字列, ただし空白文字も含めて出力 (%pS を参照のこと)</td>
-</tr>
-
-<tr class="even">
-<td>%h</td>
-<td>素性の内部 ID</td>
-</tr>
-
-<tr class="odd">
-<td>%%</td>
-<td>% そのもの</td>
-</tr>
-
-<tr class="even">
-<td>%c</td>
-<td>単語生起コスト</td>
-</tr>
-
-<tr class="odd">
-<td>%H</td>
-<td>素性 (品詞, 活用, 読み) 等を CSV
-で表現したもの</td>
-</tr>
-
-<tr class="even">
-<td>%t</td>
-<td>文字種 id </td>
-</tr>
-
-<tr class="odd">
-<td>%P</td>
-<td>周辺確率 (-l2 オプションを指定したときのみ有効)</td>
-</tr>
-
-<tr class="even">
-<td>%pi</td>
-<td>形態素に付与されるユニークなID</td>
-</tr>
-
-<tr class="odd">
-<td>%pS</td>
-<td>もし形態素が空白文字列で始まる場合は, その空白文字列を表示 %pS%m と %M は同一</td>
-</tr>
-
-<tr class="even">
-<td>%ps</td>
-<td>開始位置</td>
-</tr>
-
-<tr class="odd">
-<td>%pe</td>
-<td>終了位置</td>
-</tr>
-
-<tr class="even">
-<td>%pC</td>
-<td>1つ前の形態素との連接コスト</td>
-</tr>
-
-<tr class="odd">
-<td>%pw</td>
-<td>%c と同じ</td>
-</tr>
-
-<tr class="even">
-<td>%pc</td>
-<td>連接コスト + 単語生起コスト (文頭から累積)</td>
-</tr>
-
-<tr class="odd">
-<td>%pn</td>
-<td>連接コスト + 単語生起コスト (その形態素単独, %pw + %pC)</td>
-</tr>
-
-<tr class="even">
-<td>%pb</td>
-<td>最適パスの場合 *, それ以外は ' '</td>
-</tr>
-
-<tr class="odd">
-<td>%pP</td>
-<td>周辺確率 (-l2 オプションを指定したときのみ有効)</td>
-</tr>
-
-<tr class="even">
-<td>%pA</td>
-<td>blpha, forward log 確率 (-l2 オプションを指定したときのみ有効)</td>
-</tr>
-
-<tr class="odd">
-<td>%pB</td>
-<td>beta, backward log 確率 (-l2 オプションを指定したときのみ有効)</td>
-</tr>
-
-<tr class="even">
-<td>%pl</td>
-<td>形態素の表層文字列としての長さ, strlen (%m) と同一</td>
-</tr>
-
-<tr class="odd">
-<td>%pL</td>
-<td>形態素の表層文字列としての長さ, ただし空白文字列も含む, strlen(%M) と同一</td>
-</tr>
-
-<tr class="even">
-<td>%phl</td>
-<td>左文脈 id</td>
-</tr>
-
-<tr class="odd">
-<td>%phr</td>
-<td>右文脈 id</td>
-</tr>
-
-<tr class="even">
-<td>%f[N]</td>
-<td>csv で表記された素性の N番目の要素</td>
-</tr>
-
-<tr class="odd">
-<td>%f[N1,N2,N3...]</td>
-<td>N1,N2,N3番目の素性を, "," を
-デリミタとして表示</td>
-</tr>
-
-<tr class="even">
-<td>%FC[N1,N2,N3...]</td>
-<td>N1,N2,N3番目の素性を, C を
-デリミタとして表示.<br>
-ただし, 要素が 空の場合は以降表示が省略される.
-(例)F-[0,1,2]</td>
-</tr>
-
-<tr class="odd">
-<td>\0 \a \b \t \n \v \f \r \\</td>
-<td>通常の エスケープ文字列</td>
-</tr>
-
-<tr class="even">
-<td>\s</td>
-<td>' ' (半角スペース)<br>
- 設定ファイルに記述するときに使用</td>
-</tr>
-</table>
+フォーマット|意味
+-|-
+`%s`|形態素種類 (0: 通常, 1: 未知語, 2:文頭, 3:文末)
+`%S`|入力文
+`%L`|入力文の長さ
+`%m`|形態素の表層文字列
+`%M`|形態素の表層文字列, ただし空白文字も含めて出力 (`%pS` を参照のこと)
+`%h`|素性の内部 ID
+`%%`|`%` そのもの
+`%c`|単語生起コスト
+`%H`|素性 (品詞, 活用, 読み) 等を CSV で表現したもの
+`%t`|文字種 id
+`%P`|周辺確率 (`-l2` オプションを指定したときのみ有効)
+`%pi`|形態素に付与されるユニークなID
+`%pS`|もし形態素が空白文字列で始まる場合は, その空白文字列を表示 `%pS%m` と `%M` は同一
+`%ps`|開始位置
+`%pe`|終了位置
+`%pC`|1つ前の形態素との連接コスト
+`%pw`|`%c` と同じ
+`%pc`|連接コスト + 単語生起コスト (文頭から累積)
+`%pn`|連接コスト + 単語生起コスト (その形態素単独, `%pw` + `%pC`)
+`%pb`|最適パスの場合 `*`, それ以外は `' '`
+`%pP`|周辺確率 (`-l2` オプションを指定したときのみ有効)
+`%pA`|blpha, forward log 確率 (`-l2` オプションを指定したときのみ有効)
+`%pB`|beta, backward log 確率 (`-l2` オプションを指定したときのみ有効)
+`%pl`|形態素の表層文字列としての長さ, `strlen` (`%m`) と同一
+`%pL`|形態素の表層文字列としての長さ, ただし空白文字列も含む, `strlen`(`%M`) と同一
+`%phl`|左文脈 id
+`%phr`|右文脈 id
+`%f[N]`|csv で表記された素性の N番目の要素
+`%f[N1,N2,N3...]`|N1,N2,N3番目の素性を, "," をデリミタとして表示
+`%FC[N1,N2,N3...]`|N1,N2,N3番目の素性を, C をデリミタとして表示.ただし, 要素が 空の場合は以降表示が省略される. (例)`%F-[0,1,2]`
+`\0` `\a` `\b` `\t` `\n` `\v` `\f` `\r` `\\`|通常の エスケープ文字列
+`\s`|' ' (半角スペース) 設定ファイルに記述するときに使用
 
 ## 例
 

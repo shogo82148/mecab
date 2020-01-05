@@ -1,11 +1,24 @@
 ---
-title: "MeCab: Yet Another Part-of-Speech and Morphological Analyzer"
+title: "MeCab @shogo82148 flavored: Yet Another Part-of-Speech and Morphological Analyzer"
 date: 2020-01-05T07:41:50+09:00
 ---
 
+## MeCab @shogo82148 flavored とは {#about-mecab-shogo82148}
+MeCabはオープンソースの形態素解析エンジンです。
+[KyTea](http://www.phontron.com/kytea/index-ja.html), [JUMAN++](http://nlp.ist.i.kyoto-u.ac.jp/index.php?JUMAN++), 
+[Sudachi](https://github.com/WorksApplications/Sudachi), [SentencePiece](https://github.com/google/sentencepiece) 等の
+後発の形態素解析エンジンの開発も進んでいますが、使い勝手の良さや使用例の多さから今なお現役で利用されています。
+しかし、2020年1月現在、[オリジナルのMeCab](http://taku910.github.io/mecab/)の最新リリースは **2013-02-18** MeCab 0.996 です。
+OSやコンパイラのアップデートへの追従、バグフィックス等のメンテナンス作業がほぼ止まっています。
+
+このままではマズいということで
+[@shogo82148](https://github.com/shogo82148/)がオリジナルのMeCabをフォークしてパッチを当てたものが
+MeCab @shogo82148 flavored です。
+機能の追加等は行わず、バグフィックスのみ行う予定です。
+
 ## MeCab (和布蕪)とは {#about-mecab}
 
-MeCabは 京都大学情報学研究科−日本電信電話株式会社コミュニケーション科学基礎研究所 共同研究ユニットプロジェクトを通じて開発されたオープンソース 形態素解析エンジンです。 言語, 辞書,コーパスに依存しない汎用的な設計を 基本方針としています。 パラメータの推定に Conditional Random Fields (CRF) を用 いており, ChaSenが採用している 隠れマルコフモデルに比べ性能が向上しています。また、平均的に ChaSen, Juman, KAKASIより高速に動作します。 ちなみに和布蕪(めかぶ)は, 作者の好物です。
+MeCabは 京都大学情報学研究科−日本電信電話株式会社コミュニケーション科学基礎研究所 共同研究ユニットプロジェクトを通じて開発されたオープンソース 形態素解析エンジンです。 言語, 辞書,コーパスに依存しない汎用的な設計を 基本方針としています。 パラメータの推定に Conditional Random Fields ([CRF][CRF]) を用 いており, ChaSenが採用している 隠れマルコフモデルに比べ性能が向上しています。また、平均的に ChaSen, Juman, KAKASIより高速に動作します。 ちなみに和布蕪(めかぶ)は, 作者の好物です。
 
 ## 目次 {#toc}
 
@@ -40,94 +53,26 @@ MeCabは 京都大学情報学研究科−日本電信電話株式会社コミ�
 ## 特徴 {#feature}
 
 - 辞書, コーパスに依存しない汎用的な設計
-- 条件付き確率場([CRF](http://www.cis.upenn.edu/~pereira/papers/crf.pdf))に基づく高い解析精度
-- [ChaSen](http://chasen.naist.jp) や [KAKASI](ttp://kakasi.namazu.org) に比べ高速
-- 辞書引きアルゴリズム/データ構造に, 高速な TRIE 構造である [Double-Array](http://cl.naist.jp/~taku-ku/software/darts)を採用.
+- 条件付き確率場([CRF][CRF])に基づく高い解析精度
+- [ChaSen][ChaSen] や [KAKASI][KAKASI] に比べ高速
+- 辞書引きアルゴリズム/データ構造に, 高速な TRIE 構造である [Double-Array](http://chasen.org/~taku/software/darts/)を採用.
 - 再入可能なライブラリ
 - 各種スクリプト言語バインディング(perl/ruby/python/java/C#)
 
 ## 比較 {#diff}
 
-<table>
-<tr class="even">
-<td align="center"></td>
-<td align="center"><b>MeCab</b></td>
-<td align="center"><a href=
-"http://chasen.naist.jp/">ChaSen</a></td>
-<td align="center">[JUMAN](http://pine.kuee.kyoto-u.ac.jp/nl-resource/juman.html)</td>
-<td align="center">[KAKASI](http://kakasi.namazu.org)</td>
-</tr>
-<tr class="odd">
-<td align="center">解析モデル</td>
-<td align="center">bi-gram マルコフモデル</td>
-<td align="center">可変長マルコフモデル</td>
-<td align="center">bi-gram マルコフモデル</td>
-<td align="center">最長一致</td>
-</tr>
-<tr class="even">
-<td align="center">コスト推定</td>
-<td align="center">コーパスから学習</td>
-<td align="center">コーパスから学習</td>
-<td align="center">人手</td>
-<td align="center">コストという概念無し</td>
-</tr>
-<tr class="odd">
-<td align="center">学習モデル</td>
-<td align="center">[CRF](http://www.cis.upenn.edu/~pereira/papers/crf.pdf) (識別モデル)</td>
-<td align="center">HMM (生成モデル)</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-<tr class="even">
-<td align="center">辞書引きアルゴリズム</td>
-<td align="center">Double Array</td>
-<td align="center">Double Array</td>
-<td align="center">パトリシア木</td>
-<td align="center">Hash?</td>
-</tr>
-<tr class="odd">
-<td align="center">解探索アルゴリズム</td>
-<td align="center">Viterbi</td>
-<td align="center">Viterbi</td>
-<td align="center">Viterbi</td>
-<td align="center">決定的?</td>
-</tr>
-<tr class="even">
-<td align="center">連接表の実装</td>
-<td align="center">2次元 Table</td>
-<td align="center">オートマトン</td>
-<td align="center">2次元 Table?</td>
-<td align="center">連接表無し?</td>
-</tr>
-<tr class="odd">
-<td align="center">品詞の階層</td>
-<td align="center">無制限多階層品詞</td>
-<td align="center">無制限多階層品詞</td>
-<td align="center">2段階固定</td>
-<td align="center">品詞という概念無し?</td>
-</tr>
-<tr class="even">
-<td align="center">未知語処理</td>
-<td align="center">字種 (動作定義を変更可能)</td>
-<td align="center">字種 (変更不可能)</td>
-<td align="center">字種 (変更不可能)</td>
-<td align="center"></td>
-</tr>
-<tr class="odd">
-<td align="center">制約つき解析</td>
-<td align="center">可能</td>
-<td align="center">2.4.0で可能</td>
-<td align="center">不可能</td>
-<td align="center">不可能</td>
-</tr>
-<tr class="even">
-<td align="center">N-best解</td>
-<td align="center">可能</td>
-<td align="center">不可能</td>
-<td align="center">不可能</td>
-<td align="center">不可能</td>
-</tr>
-</table>
+|MeCab|[ChaSen][ChaSen]|[JUMAN][JUMAN]|[KAKASI][KAKASI]
+-|-|-|-
+解析モデル|bi-gram マルコフモデル|可変長マルコフモデル|bi-gram マルコフモデル|最長一致
+コスト推定|コーパスから学習|コーパスから学習|人手|コストという概念無し
+学習モデル|[CRF][CRF] (識別モデル)|HMM (生成モデル)||
+辞書引きアルゴリズム|Double Array|Double Array|パトリシア木|Hash?
+解探索アルゴリズム|Viterbi|Viterbi|Viterbi|決定的?
+連接表の実装|2次元 Table|オートマトン|2次元 Table?|連接表無し?
+品詞の階層|無制限多階層品詞|無制限多階層品詞|2段階固定|品詞という概念無し?
+未知語処理|字種 (動作定義を変更可能)|字種 (変更不可能)|字種 (変更不可能)|
+制約つき解析|可能|2.4.0で可能|不可能|不可能
+N-best解|可能|不可能|不可能|不可能
 
 MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<relref feature.md>}})をご覧ください
 
@@ -144,7 +89,7 @@ MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<re
   - 解析結果からLattice を作成する Lattice::set_result() メソッドを追加. 単体テスト時のスタブの作成等に利用可能
 - **2013-01-24** MeCab 0.995
   - [部分解析機能]({{<relref partial.md>}})の再実装
-  - [部分解析機能]({{<relref partial.md>}})のためのAPI (Lattice:set_boundary_constarint, Lattice::set_feature_constraint) の追加
+  - [部分解析機能]({{<relref partial.md>}})のためのAPI (Lattice:set_boundary_constraint, Lattice::set_feature_constraint) の追加
 - **2012-06-03** MeCab 0.994
   - [再学習機能]({{<relref "learn.md#retrain">}})の追加 (少量のコーパスと既存モデルを使ったCRFパラメータの更新)
   - ユーザ辞書の単語コストの自動推定機能の追加 (CRFモデルが必要)
@@ -167,7 +112,7 @@ MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<re
   - 細かいバグの修正
 - **2009-09-27** MeCab 0.98
 - UTF16のサポート(実験的)
-  - Windows版での文字コード変換に MutlByteToWideChar等の Native APIを使うように変更
+  - Windows版での文字コード変換に MultiByteToWideChar等の Native APIを使うように変更
   - ソースコードを Google coding style に変更
   - フォーマット指定で EON (end of N-best) の追加 (-S or --eon-format)
   - Shift-JIS環境で半角カタカナの扱いに問題があったのを修正
@@ -243,9 +188,9 @@ MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<re
 ### MeCab 用の辞書
 
 - IPA 辞書
-  - IPA 辞書, IPAコーパス に基づき [CRF]("http://www.cis.upenn.edu/~pereira/papers/crf.pdf) でパラメータ推定した辞書です。 **(推奨)** [ダウンロード](https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7MWVlSDBCSXZMTXM)
-- Juman 辞書
-  - Juamn 辞書, 京都コーパスに基づき [CRF](http://www.cis.upenn.edu/~pereira/papers/crf.pdf) でパラメータ推定した辞書です。 [ダウンロード](https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7X2pESGlLREpxdXM)
+  - IPA 辞書, IPAコーパス に基づき [CRF][CRF] でパラメータ推定した辞書です。 **(推奨)** [ダウンロード](https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7MWVlSDBCSXZMTXM)
+- JUMAN 辞書
+  - JUMAN 辞書, 京都コーパスに基づき [CRF][CRF] でパラメータ推定した辞書です。 [ダウンロード](https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7X2pESGlLREpxdXM)
 - Unidic 辞書
   - Unidic 辞書, BCCWJコーパスに基づき CRF でパラーメータ推定した辞書です。ダウンロード
 
@@ -449,3 +394,8 @@ CRF のパラメータ推定に [Jorge Nocedal](http://www.ece.nwu.edu/~nocedal)
 
 - J. Nocedal. Updating Quasi-Newton Matrices with Limited Storage (1980), Mathematics of Computation 35, pp. 773-782.
 - D.C. Liu and J. Nocedal. On the Limited Memory Method for Large Scale Optimization (1989), Mathematical Programming B, 45, 3, pp. 503-528.
+
+[CRF]: https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&context=cis_papers "CRF"
+[ChaSen]: https://chasen-legacy.osdn.jp/ "ChaSen"
+[JUMAN]: http://nlp.ist.i.kyoto-u.ac.jp/index.php?JUMAN "JUMAN"
+[KAKASI]: http://kakasi.namazu.org/index.html.en "KAKASI"

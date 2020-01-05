@@ -80,16 +80,20 @@ table {
   border: 0em;
 }
 
-table tr.odd {
-      	background-color: #e0e0de;
-	vertical-align: top;
-	border-spacing: 1em;
+table tr:nth-child(odd) {
+  background-color: #e0e0de;
+  vertical-align: top;
+  border-spacing: 1em;
 }
 
-table tr.even {
-	background-color: #efefde;
-	vertical-align: top;
-	border-spacing: 1em;
+table tr:nth-child(even) {
+  background-color: #efefde;
+  vertical-align: top;
+  border-spacing: 1em;
+}
+
+td {
+  text-align: center;
 }
 
 ol, dl {
@@ -153,7 +157,7 @@ div.sidebar {
  float: right;
  width: 19%;
  border-style: solid;
- margin-left: 1%
+ margin-left: 1%;
  margin-top: 0.5em;
  border-width: 0 0 0 0px;
 }

@@ -7,6 +7,7 @@
       MeCab: Yet Another Part-of-Speech and Morphological Analyzer
     </title>
     <link type="text/css" rel="stylesheet" href="mecab.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
   </head>
   <body>
     
@@ -47,141 +48,142 @@ eon-format-KEY = STR
 <pre><code>% mecab -Okey 
 </code></pre><h2 id="heading-3">出力フォーマット</h2>
 <table>
-<tr class="odd">
-<td>%s</td>
-<td>形態素種類 (0: 通常, 1: 未知語, 2:文頭, 3:文末)
-</td>
+<thead>
+<tr>
+<th>フォーマット</th>
+<th>意味</th>
 </tr>
-<tr class="even">
-<td>%S</td>
+</thead>
+<tbody>
+<tr>
+<td><code>%s</code></td>
+<td>形態素種類 (0: 通常, 1: 未知語, 2:文頭, 3:文末)</td>
+</tr>
+<tr>
+<td><code>%S</code></td>
 <td>入力文</td>
 </tr>
-<tr class="odd">
-<td>%L</td>
+<tr>
+<td><code>%L</code></td>
 <td>入力文の長さ</td>
 </tr>
-<tr class="even">
-<td>%m</td>
+<tr>
+<td><code>%m</code></td>
 <td>形態素の表層文字列</td>
 </tr>
-<tr class="odd">
-<td>%M</td>
-<td>形態素の表層文字列, ただし空白文字も含めて出力 (%pS を参照のこと)</td>
+<tr>
+<td><code>%M</code></td>
+<td>形態素の表層文字列, ただし空白文字も含めて出力 (<code>%pS</code> を参照のこと)</td>
 </tr>
-<tr class="even">
-<td>%h</td>
+<tr>
+<td><code>%h</code></td>
 <td>素性の内部 ID</td>
 </tr>
-<tr class="odd">
-<td>%%</td>
-<td>% そのもの</td>
+<tr>
+<td><code>%%</code></td>
+<td><code>%</code> そのもの</td>
 </tr>
-<tr class="even">
-<td>%c</td>
+<tr>
+<td><code>%c</code></td>
 <td>単語生起コスト</td>
 </tr>
-<tr class="odd">
-<td>%H</td>
-<td>素性 (品詞, 活用, 読み) 等を CSV
-で表現したもの</td>
+<tr>
+<td><code>%H</code></td>
+<td>素性 (品詞, 活用, 読み) 等を CSV で表現したもの</td>
 </tr>
-<tr class="even">
-<td>%t</td>
-<td>文字種 id </td>
+<tr>
+<td><code>%t</code></td>
+<td>文字種 id</td>
 </tr>
-<tr class="odd">
-<td>%P</td>
-<td>周辺確率 (-l2 オプションを指定したときのみ有効)</td>
+<tr>
+<td><code>%P</code></td>
+<td>周辺確率 (<code>-l2</code> オプションを指定したときのみ有効)</td>
 </tr>
-<tr class="even">
-<td>%pi</td>
+<tr>
+<td><code>%pi</code></td>
 <td>形態素に付与されるユニークなID</td>
 </tr>
-<tr class="odd">
-<td>%pS</td>
-<td>もし形態素が空白文字列で始まる場合は, その空白文字列を表示 %pS%m と %M は同一</td>
+<tr>
+<td><code>%pS</code></td>
+<td>もし形態素が空白文字列で始まる場合は, その空白文字列を表示 <code>%pS%m</code> と <code>%M</code> は同一</td>
 </tr>
-<tr class="even">
-<td>%ps</td>
+<tr>
+<td><code>%ps</code></td>
 <td>開始位置</td>
 </tr>
-<tr class="odd">
-<td>%pe</td>
+<tr>
+<td><code>%pe</code></td>
 <td>終了位置</td>
 </tr>
-<tr class="even">
-<td>%pC</td>
+<tr>
+<td><code>%pC</code></td>
 <td>1つ前の形態素との連接コスト</td>
 </tr>
-<tr class="odd">
-<td>%pw</td>
-<td>%c と同じ</td>
+<tr>
+<td><code>%pw</code></td>
+<td><code>%c</code> と同じ</td>
 </tr>
-<tr class="even">
-<td>%pc</td>
+<tr>
+<td><code>%pc</code></td>
 <td>連接コスト + 単語生起コスト (文頭から累積)</td>
 </tr>
-<tr class="odd">
-<td>%pn</td>
-<td>連接コスト + 単語生起コスト (その形態素単独, %pw + %pC)</td>
+<tr>
+<td><code>%pn</code></td>
+<td>連接コスト + 単語生起コスト (その形態素単独, <code>%pw</code> + <code>%pC</code>)</td>
 </tr>
-<tr class="even">
-<td>%pb</td>
-<td>最適パスの場合 *, それ以外は ' '</td>
+<tr>
+<td><code>%pb</code></td>
+<td>最適パスの場合 <code>*</code>, それ以外は <code>' '</code></td>
 </tr>
-<tr class="odd">
-<td>%pP</td>
-<td>周辺確率 (-l2 オプションを指定したときのみ有効)</td>
+<tr>
+<td><code>%pP</code></td>
+<td>周辺確率 (<code>-l2</code> オプションを指定したときのみ有効)</td>
 </tr>
-<tr class="even">
-<td>%pA</td>
-<td>blpha, forward log 確率 (-l2 オプションを指定したときのみ有効)</td>
+<tr>
+<td><code>%pA</code></td>
+<td>blpha, forward log 確率 (<code>-l2</code> オプションを指定したときのみ有効)</td>
 </tr>
-<tr class="odd">
-<td>%pB</td>
-<td>beta, backward log 確率 (-l2 オプションを指定したときのみ有効)</td>
+<tr>
+<td><code>%pB</code></td>
+<td>beta, backward log 確率 (<code>-l2</code> オプションを指定したときのみ有効)</td>
 </tr>
-<tr class="even">
-<td>%pl</td>
-<td>形態素の表層文字列としての長さ, strlen (%m) と同一</td>
+<tr>
+<td><code>%pl</code></td>
+<td>形態素の表層文字列としての長さ, <code>strlen</code> (<code>%m</code>) と同一</td>
 </tr>
-<tr class="odd">
-<td>%pL</td>
-<td>形態素の表層文字列としての長さ, ただし空白文字列も含む, strlen(%M) と同一</td>
+<tr>
+<td><code>%pL</code></td>
+<td>形態素の表層文字列としての長さ, ただし空白文字列も含む, <code>strlen</code>(<code>%M</code>) と同一</td>
 </tr>
-<tr class="even">
-<td>%phl</td>
+<tr>
+<td><code>%phl</code></td>
 <td>左文脈 id</td>
 </tr>
-<tr class="odd">
-<td>%phr</td>
+<tr>
+<td><code>%phr</code></td>
 <td>右文脈 id</td>
 </tr>
-<tr class="even">
-<td>%f[N]</td>
+<tr>
+<td><code>%f[N]</code></td>
 <td>csv で表記された素性の N番目の要素</td>
 </tr>
-<tr class="odd">
-<td>%f[N1,N2,N3...]</td>
-<td>N1,N2,N3番目の素性を, "," を
-デリミタとして表示</td>
+<tr>
+<td><code>%f[N1,N2,N3...]</code></td>
+<td>N1,N2,N3番目の素性を, &ldquo;,&rdquo; をデリミタとして表示</td>
 </tr>
-<tr class="even">
-<td>%FC[N1,N2,N3...]</td>
-<td>N1,N2,N3番目の素性を, C を
-デリミタとして表示.<br>
-ただし, 要素が 空の場合は以降表示が省略される.
-(例)F-[0,1,2]</td>
+<tr>
+<td><code>%FC[N1,N2,N3...]</code></td>
+<td>N1,N2,N3番目の素性を, C をデリミタとして表示.ただし, 要素が 空の場合は以降表示が省略される. (例)<code>%F-[0,1,2]</code></td>
 </tr>
-<tr class="odd">
-<td>\0 \a \b \t \n \v \f \r \\</td>
+<tr>
+<td><code>\0</code> <code>\a</code> <code>\b</code> <code>\t</code> <code>\n</code> <code>\v</code> <code>\f</code> <code>\r</code> <code>\\</code></td>
 <td>通常の エスケープ文字列</td>
 </tr>
-<tr class="even">
-<td>\s</td>
-<td>' ' (半角スペース)<br>
- 設定ファイルに記述するときに使用</td>
+<tr>
+<td><code>\s</code></td>
+<td>&rsquo; ' (半角スペース) 設定ファイルに記述するときに使用</td>
 </tr>
+</tbody>
 </table>
 <h2 id="heading-4">例</h2>
 <p>dicrc より抜粋した例</p>

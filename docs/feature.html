@@ -7,6 +7,7 @@
       MeCab: Yet Another Part-of-Speech and Morphological Analyzer
     </title>
     <link type="text/css" rel="stylesheet" href="mecab.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
   </head>
   <body>
     
@@ -28,7 +29,7 @@
 未知語処理が日本語に特化されており, 未知語処理の定義を
 自分で与えることはできない. また, 品詞は2階層までに固定されており,
 品詞体系には一種の制限がある.</p>
-<h3 id="chasenhttpchasennaistjp"><a href="http://chasen.naist.jp">ChaSen</a></h3>
+<h3 id="chasenchasen"><a href="https://chasen-legacy.osdn.jp/" title="ChaSen">ChaSen</a></h3>
 <p>ChaSen の貢献の1つは, 統計処理 (HMM) によって連接コストや単語生起コストを
 推定するようになった点にある. この処理のおかげで, 解析ミスを
 蓄積するだけで自動的にコスト値を推定できるようになった.
@@ -50,7 +51,7 @@ NAISTの内部では利用できるらしいが, 上記の理由から設定す�
 <p>さらに, ChaSen も未知語処理もハードコーディングされており
 自由に定義することはできない.</p>
 <h2 id="mecab-090">MeCab 0.90の機能</h2>
-<h3 id="-conditional-random-fields-crfhttpwwwcisupennedupereirapaperscrfpdf">コスト値推定に <a href="http://www.cis.upenn.edu/~pereira/papers/crf.pdf">Conditional Random Fields, CRF</a>を採用</h3>
+<h3 id="-conditional-random-fields-crfcrf">コスト値推定に <a href="https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&amp;context=cis_papers" title="CRF">Conditional Random Fields, CRF</a>を採用</h3>
 <p>HMM は, 唯一の内部状態を定義する必要があった. 一方 CRF はオーバラップを含めた複数の内部状態を定義することが可能である. この機能により,
 細い品詞階層と粗い品詞階層の確率値を混ぜるといった,
 「スムージング」が自然にかつ自動的に実現できる.

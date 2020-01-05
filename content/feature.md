@@ -23,7 +23,7 @@ Juman 以前の商用的に配布されていた形態素解析器は, 辞書や
 自分で与えることはできない. また, 品詞は2階層までに固定されており,
 品詞体系には一種の制限がある.
 
-### [ChaSen](http://chasen.naist.jp)
+### [ChaSen][ChaSen]
 
 ChaSen の貢献の1つは, 統計処理 (HMM) によって連接コストや単語生起コストを
 推定するようになった点にある. この処理のおかげで, 解析ミスを
@@ -51,7 +51,7 @@ NAISTの内部では利用できるらしいが, 上記の理由から設定す�
 
 ## MeCab 0.90の機能
 
-### コスト値推定に [Conditional Random Fields, CRF](http://www.cis.upenn.edu/~pereira/papers/crf.pdf)を採用
+### コスト値推定に [Conditional Random Fields, CRF][CRF]を採用
 
 HMM は, 唯一の内部状態を定義する必要があった. 一方 CRF はオーバラップを含めた複数の内部状態を定義することが可能である. この機能により, 
 細い品詞階層と粗い品詞階層の確率値を混ぜるといった,
@@ -192,3 +192,6 @@ EOS
 - Canna (学習用コーパスが無いので作るかも?)
 - 中国語解析 (未定)
 - 英語解析 (未定)
+
+[CRF]: https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&context=cis_papers "CRF"
+[ChaSen]: https://chasen-legacy.osdn.jp/ "ChaSen"
