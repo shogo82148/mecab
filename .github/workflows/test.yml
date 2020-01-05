@@ -15,7 +15,7 @@ jobs:
           make
           make check
           sudo make install
-          ldconfig
+          sudo ldconfig
         working-directory: mecab
 
       - name: build ipadic euc-jp
