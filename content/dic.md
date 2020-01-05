@@ -1,117 +1,113 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-"http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>MeCab: 単語の追加方法</title>
-<link type="text/css" rel="stylesheet" href="mecab.css">
-</head>
-<body>
-<h1>単語の追加方法</h1>
+---
+title: "単語の追加方法"
+date: 2020-01-05T15:19:33+09:00
+---
 
-<h2>概要</h2>
-<p>辞書への単語追加には, 二つの方法があります. </p>
+## 概要
 
-<ul>
-<li>システム辞書への追加
-<li>ユーザ辞書への追加
-</ul>
+辞書への単語追加には, 二つの方法があります.
 
-<h2>システム辞書への追加</h2>
-<p>
+- システム辞書への追加
+- ユーザ辞書への追加
+
+## システム辞書への追加
+
 辞書更新が頻繁でないときや, 解析速度を落としたくない時は, 直接
 システム辞書を変更するのがよいでしょう. 
-</p>
-<ul>
-<li>mecab-ipadic があるディレクトリに移動
-<li> foo.csv というファイルを作成 (拡張子が .csv なら何でも可)
-<li> foo.csv に単語を追加
-<li>辞書の再コンパイル + インストール
-<pre>
+
+- mecab-ipadic があるディレクトリに移動
+-  foo.csv というファイルを作成 (拡張子が .csv なら何でも可)
+-  foo.csv に単語を追加
+- 辞書の再コンパイル + インストール
+  - `-f charset`: CSVの文字コード
+  - `-t charset`: バイナリ辞書の文字コード
+
+```
 % /usr/local/libexec/mecab/mecab-dict-index -f euc-jp -t euc-jp
 % su
 # make install 
-</pre>
-<ul>
-<li>-f charset: CSVの文字コード
-<li>-t charset: バイナリ辞書の文字コード
-</ul>
-<p>例: utf-8の辞書を作成する例</p>
- <pre>% /usr/local/libexec/mecab/mecab-dict-index -f euc-jp -t utf8</pre>
-</ul>
-<h2>ユーザ辞書への追加</h2>
-<p>
+```
+
+例: utf-8の辞書を作成する例
+
+```
+% /usr/local/libexec/mecab/mecab-dict-index -f euc-jp -t utf8
+```
+
+## ユーザ辞書への追加
+
 システム辞書の更新は時間がかかります. 辞書の更新が頻繁な場合や, 
-システム辞書を変更する権限が無い場合は, ユーザ辞書を作るのがいいでしょう. </p>
-<ul>
-<li>適当なディレクトリに移動 (例: /home/foo/bar)
-<li>foo.csv というファイルを作成
-<li>foo.csv に単語を追加
-<li>辞書のコンパイル
-<pre>% /usr/local/libexec/mecab/mecab-dict-index -d/usr/local/lib/mecab/dic/ipadic \
--u foo.dic -f euc-jp -t euc-jp foo.csv</pre>
-<ul>
-<li>-d DIR: システム辞書があるディレクトリ
-<li>-u FILE: FILE というユーザファイルを作成
-<li>-f charset: CSVの文字コード
-<li>-t charset: バイナリ辞書の文字コード
-</ul>
-<li> /home/foo/bar/foo.dic ができていることを確認
-<li>/usr/local/lib/mecab/dic/ipadic/dicrc もしくは
-    /usr/local/etc/mecabrc に以下を追加
-<pre>
+システム辞書を変更する権限が無い場合は, ユーザ辞書を作るのがいいでしょう.
+
+- 適当なディレクトリに移動 (例: /home/foo/bar)
+- foo.csv というファイルを作成
+- foo.csv に単語を追加
+- 辞書のコンパイル
+  - `-d DIR`: システム辞書があるディレクトリ
+  - `-u FILE`: FILE というユーザファイルを作成
+  - `-f charset`: CSVの文字コード
+  - `-t charset`: バイナリ辞書の文字コード
+
+```
+% /usr/local/libexec/mecab/mecab-dict-index -d/usr/local/lib/mecab/dic/ipadic \
+-u foo.dic -f euc-jp -t euc-jp foo.csv
+```
+
+-  `/home/foo/bar/foo.dic` ができていることを確認
+- `/usr/local/lib/mecab/dic/ipadic/dicrc` もしくは `/usr/local/etc/mecabrc` に以下を追加
+
+```
 userdic = /home/foo/bar/foo.dic 
-</pre>
-<li>/usr/local/etc/mecabrc を編集する権限が無い場合は
-/usr/local/etc/mecabrc を ~/.mecabrc にコピーし, 上記のエントリを追加
-<li>userdic はCSVフォーマットデ複数指定可能
-<pre>
- userdic = /home/foo/bar/foo.dic,/home/foo/bar2/usr.dic,/home/foo/bar3/bar.dic
-</pre>
-</ul>
+```
 
-<h2>エントリのフォーマット (活用しない語)</h2>
-<p>システム辞書, ユーザ辞書, ともにエントリのフォーマットは同一です. </p>
+- `/usr/local/etc/mecabrc` を編集する権限が無い場合は
+`/usr/local/etc/mecabrc` を `~/.mecabrc` にコピーし, 上記のエントリを追加
+- userdic はCSVフォーマットデ複数指定可能
 
-<p>エントリは, 以下のような CSV で追加します.
-名詞などの活用しない語だと, 登録は簡単です.</p>
+```
+userdic = /home/foo/bar/foo.dic,/home/foo/bar2/usr.dic,/home/foo/bar3/bar.dic
+```
 
-<pre>
+## エントリのフォーマット (活用しない語)
+システム辞書, ユーザ辞書, ともにエントリのフォーマットは同一です. 
+
+エントリは, 以下のような CSV で追加します.
+名詞などの活用しない語だと, 登録は簡単です.
+
+```
 工藤,1223,1223,6058,名詞,固有名詞,人名,名,*,*,くどう,クドウ,クドウ
-</pre>
+```
 
-<p>左から,</p>
+左から,
 
-<pre>
+```
 表層形,左文脈ID,右文脈ID,コスト,品詞,品詞細分類1,品詞細分類2,品詞細分類3,活用形,活用型,原形,読み,発音
-</pre>
-<p>です. </p>
+```
+
+です.
  
-<p>左文脈IDは, その単語を左から見たときの内部状態IDです. 通常システム
-辞書と同一場所にある left-id.def から該当する ID を選択します. 空にしておくと
-mecab-dict-index が自動的に ID を付与します. 
-</p>
+左文脈IDは, その単語を左から見たときの内部状態IDです. 通常システム
+辞書と同一場所にある `left-id.def` から該当する ID を選択します. 空にしておくと
+`mecab-dict-index` が自動的に ID を付与します. 
 
-<p>右文脈IDは, その単語を右から見たときの内部状態IDです. 通常システム
-辞書と同一場所にある right-id.def から該当する ID を選択します. 
-空にしておくと, mecab-dict-index が自動的に ID を付与します. 
-</p>
 
-<p>
+右文脈IDは, その単語を右から見たときの内部状態IDです. 通常システム
+辞書と同一場所にある `right-id.def` から該当する ID を選択します. 
+空にしておくと, `mecab-dict-index` が自動的に ID を付与します. 
+
 コストは,その単語がどれだけ出現しやすいかを示しています. 
 小さいほど, 出現しやすいという意味になります.
 似たような単語と 同じスコアを割り振り, その単位で切り出せない場合は,
 徐々に小さくしていけばいいと思います.
-</p>
 
-<p>さらに,
-自分の好きな情報をCSVが許す範囲で追加してもかまいません.</p>
+さらに,
+自分の好きな情報をCSVが許す範囲で追加してもかまいません.
 
-<pre>
+```
 ユーザ設定,,,10,名詞,一般,*,*,*,*,ユーザ設定,ユーザセッテイ,ユーザセッテイ,追加エントリ
-</pre>
+```
 
-<pre>
+```
 動作例:
 % mecab 
 ユーザ設定が必要です。
@@ -121,16 +117,16 @@ mecab-dict-index が自動的に ID を付与します.
 です    助動詞,*,*,*,特殊・デス,基本形,です,デス,デス
 。      記号,句点,*,*,*,*,。,。,。
 EOS
-</pre>
+```
 
-<h2>エントリのフォーマット (活用する語)</h2>
+## エントリのフォーマット (活用する語)
 
-<p>活用する語は,
+活用する語は,
 自分で活用語展開しなければならないので, 面倒です.
 以下は, 「いそがしい」 という言葉を,
-すべて活用語展開した場合です.</p>
+すべて活用語展開した場合です.
 
-<pre>
+```
 いそがしい,120,120,6078,形容詞,自立,*,*,形容詞・イ段,基本形,いそがしい,イソガシイ,イソガシイ
 いそがし,128,128,6080,形容詞,自立,*,*,形容詞・イ段,文語基本形,いそがしい,イソガシ,イソガシ
 いそがしから,136,136,6079,形容詞,自立,*,*,形容詞・イ段,未然ヌ接続,いそがしい,イソガシカラ,イソガシカラ
@@ -146,15 +142,15 @@ EOS
 いそがしけりゃ,112,112,6079,形容詞,自立,*,*,形容詞・イ段,仮定縮約１,いそがしい,イソガシケリャ,イソガシケリャ
 いそがしきゃ,116,116,6079,形容詞,自立,*,*,形容詞・イ段,仮定縮約２,いそがしい,イソガシキャ,イソガシキャ
 いそがし,104,104,6080,形容詞,自立,*,*,形容詞・イ段,ガル接続,いそがしい,イソガシ,イソガシ
-</pre>
+```
 
-<p>chasen は, grammar.cha cforms.char
+chasen は, `grammar.cha` `cforms.char`
 に文法を記述していれば, 解析中に活用
 展開を行ないます. これを動的活用展開と呼びます.
 よって, chasen では,
-原形(基本形)のみを追加すればよいです.</p>
+原形(基本形)のみを追加すればよいです.
 
-<p>一方, mecab は, 解析中に展開するのをやめ,
+一方, mecab は, 解析中に展開するのをやめ,
 辞書作成時に静的に展開するとい
 う方針(静的活用展開)をとっています.
 この理由は, 計算機のスピードやリソースといった問題に
@@ -163,28 +159,27 @@ EOS
 静的に展開するのが困難でした. 一方, 最近は,
 メモリやディスクに余裕がある ために,
 静的に展開するほうが,
-全体的な解析スピードが向上します.</p>
+全体的な解析スピードが向上します.
 
-<p>将来的には,
+将来的には,
 文法から静的展開を行なえるような枠組にしたいと考えています.
 しかし, 現状では,
-活用展開をユーザに任せています.</p>
+活用展開をユーザに任せています.
 
-<h2>コストの自動推定機能</h2>
-<p>
+## コストの自動推定機能
+
 学習時に出力されたモデルファイルがあれば, 新規単語のコスト値を自動推定することができます.
-mecab-ipadicのモデルファイルは<a href="https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7bnc5aFZSTE9qNnM">こちら</a>よりダウンロード可能です.
+mecab-ipadicのモデルファイルは[こちら](https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7bnc5aFZSTE9qNnM)よりダウンロード可能です.
 (bzip2で圧縮されているため, 適宜解凍してください.) 自動推定を行なう場合は, -m オプションでモデルファイルを指定し, コストのCSVフィールドを空にします. 空以外の値が設定されると, その値が優先されます.
-</p>
-<pre>% /usr/local/libexec/mecab/mecab-dict-index -m model_file -d/usr/local/lib/mecab/dic/ipadic \
--u foo.dic -f euc-jp -t euc-jp foo.csv</pre>
 
-<p>
--a オプションを用いて, コスト値や文脈IDが空のCSVファイルに対し, 自動的にそれらを埋めて新しいCSVを作成することができます. 以下の例では foo.csv から foo2.csv を生成しています.
-</p>
-<pre>
+```
 % /usr/local/libexec/mecab/mecab-dict-index -m model_file -d/usr/local/lib/mecab/dic/ipadic \
--u foo2.csv -f euc-jp -t euc-jp -a foo.csv</pre>
-</body>
-</html>
+-u foo.dic -f euc-jp -t euc-jp foo.csv
+```
 
+`-a` オプションを用いて, コスト値や文脈IDが空のCSVファイルに対し, 自動的にそれらを埋めて新しいCSVを作成することができます. 以下の例では `foo.csv` から `foo2.csv` を生成しています.
+
+```
+% /usr/local/libexec/mecab/mecab-dict-index -m model_file -d/usr/local/lib/mecab/dic/ipadic \
+-u foo2.csv -f euc-jp -t euc-jp -a foo.csv
+```

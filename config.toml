@@ -1,0 +1,21 @@
+baseURL = "https://shogo82148.github.io/mecab/"
+languageCode = "ja-jp"
+title = "MeCab: Yet Another Part-of-Speech and Morphological Analyzer"
+uglyURLs = true
+disableKinds = ["taxonomy", "taxonomyTerm", "RSS", "sitemap"]
+publishDir = "docs"
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[markup]
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = false
+    hl_Lines = ""
+    lineNoStart = 1
+    lineNos = false
+    lineNumbersInTable = true
+    noClasses = true
+    style = "vs"
+    tabWidth = 4

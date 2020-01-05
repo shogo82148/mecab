@@ -1,156 +1,141 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-         "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>スクリプト言語のバインディング</title>
-<link rel=stylesheet href="mecab.css">
-</head>
-<body>
+---
+title: "スクリプト言語のバインディング"
+date: 2020-01-05T15:19:21+09:00
+---
 
-<h1>スクリプト言語のバインディング</h1>
+## 概要
 
-<h2>概要</h2>
-<p>
-各種スクリプト言語
-(<a href="http://www.perl.com">perl</a>, 
-<a href="http://www.ruby-lang.org">ruby</a>, 
-<a href="http://www.python.org">python</a>, 
-<a href="http://java.sun.com">Java</a>)
+各種スクリプト言語 [perl][perl],
+[ruby][ruby],
+[python][python],
+[Java][java])
 から, MeCab が提供する形態素解析の機能を利用可能です.
-各バインディングは <a href="http://www.swig.org">SWIG</a> というプログラ
-ムを用いて, 自動生成されています. <a href="http://www.swig.org">SWIG</a> がサポートする他の言語も
+各バインディングは [SWIG][SWIG] というプログラムを用いて, 自動生成されています.
+[SWIG][SWIG] がサポートする他の言語も
 生成可能だと思われますが, 現在は, 作者の管理できる範囲内ということで, 
 上記の4つの言語のみを提供しております.
-</p>
 
-<h2>インストール</h2>
-<p>
+## インストール
+
 各言語バイディングのインストール方法は, perl/README, ruby/README, python/README,
 java/README を御覧下さい.
-</p>
 
-<h2>とりあえず解析する</h2>
-<p>
-MeCab::Tagger というクラスのインスタンスを生成し, parse (もしくは
-parseToString) というメソッドを呼ぶことで, 解析結果が文字列として取得できます.
-MeCab::Tagger のコンストラクタの引数は, 基本的に mecab の実行形式に与え
+## とりあえず解析する
+
+`MeCab::Tagger` というクラスのインスタンスを生成し, `parse` (もしくは
+`parseToString`) というメソッドを呼ぶことで, 解析結果が文字列として取得できます.
+`MeCab::Tagger` のコンストラクタの引数は, 基本的に mecab の実行形式に与え
 るパラメータと同一で, それらを文字列として与えます.
-</p>
 
-<h3>perl</h3>
-<pre>
+### perl
+
+```perl
 use MeCab;
 $m = new MeCab::Tagger ("-Ochasen");
-print $m-&gt;parse ("今日もしないとね");
-</pre>
+print $m->parse ("今日もしないとね");
+```
 
-<h3>ruby</h3>
-<pre>
+### ruby
+
+```ruby
 require 'MeCab'
 m = MeCab::Tagger.new ("-Ochasen")
 print m.parse ("今日もしないとね")
-</pre>
+```
 
-<h3>python</h3>
-<pre>
+### python
+
+```python
 import sys
 import MeCab
 m = MeCab.Tagger ("-Ochasen")
 print m.parse ("今日もしないとね")
-</pre>
+```
 
-<h3>Java</h3>
-<pre>
+### Java
+
+```java
 import org.chasen.mecab.Tagger;
-import org.chasen.mecab.Node
- public static void main(String[] argv) {
- Tagger tagger = new Tagger ("-Ochasen");
- System.out.println (tagger.parse ("太郎は二郎にこの本を渡した.")); 
+import org.chasen.mecab.Node;
+public static void main(String[] argv) {
+    Tagger tagger = new Tagger ("-Ochasen");
+    System.out.println (tagger.parse ("太郎は二郎にこの本を渡した.")); 
 }
-</pre>
+```
 
-<h2>各形態素の詳細情報を取得する</h2>
-<p>
-MeCab::Tagger クラスの, parseToNode という
-メソッドを呼ぶことで, 「文頭」という特別な形態素が MeCab::Node クラスのインスタンスとして
+## 各形態素の詳細情報を取得する
+
+`MeCab::Tagger` クラスの, `parseToNode` という
+メソッドを呼ぶことで, 「文頭」という特別な形態素が `MeCab::Node` クラスのインスタンスとして
 取得できます.
-</p>
 
-<p>
-MeCab::Node は, 双方向リストとして表現されており, next, prev というメン
-バ変数があります. それぞれ, 次の形態素, 前の形態素を MeCab::Node クラスのインスタンスとして
-返します. 全形態素には, next を順次呼ぶことでアクセスできます.
-</p>
+`MeCab::Node` は, 双方向リストとして表現されており, `next`, `prev` というメンバ変数があります.
+それぞれ, 次の形態素, 前の形態素を `MeCab::Node` クラスのインスタンスとして
+返します. 全形態素には, `next` を順次呼ぶことでアクセスできます.
 
-<p>MeCab::Node は C 言語のインタフェイスで提供している mecab_node_t をラッ
-プしたクラスです. mecab_node_t が持つほぼすべてのメンバ変数にアクセスす
-ることができます. ただし, surface のみ, 単語そのものが返るように変更して
-います.</p>
+`MeCab::Node` は C 言語のインタフェイスで提供している `mecab_node_t` をラップしたクラスです.
+`mecab_node_t` が持つほぼすべてのメンバ変数にアクセスすることができます.
+ただし, `surface` のみ, 単語そのものが返るように変更しています.
 
-<p>
-以下に <a href="http://www.perl.com">perl</a> の例を示します. この例では, 
+以下に [perl][perl] の例を示します. この例では, 
 各形態素を順次にアクセスし,形態素の表層文字列, 品詞, その形態素までのコストを表示します.
-</p>
 
-<pre>
+```perl
 use MeCab;
 my $m = new MeCab::Tagger ("");
 
-for (my $n = $m->parseToNode ("今日もしないとね"); $n ; $n = $n-&gt;{next}) {
+for (my $n = $m->parseToNode ("今日もしないとね"); $n ; $n = $n->{next}) {
    printf ("%s\t%s\t%d\n",
-            $n-&gt;{surface},          # 表層
-	    $n-&gt;{feature},          # 現在の品詞
-	    $n-&gt;{cost}              # その形態素までのコスト
-	    );
+            $n->{surface},          # 表層
+            $n->{feature},          # 現在の品詞
+            $n->{cost}              # その形態素までのコスト
+            );
 }
-</pre>
+```
 
-<h2>エラー処理</h2>
-<p>
+## エラー処理
+
 もし, コンストラクタや, 解析途中でエラーが起きた場合は, 
 RuntimeError 例外が発生します. 
 例外のハンドリングの方法は, 各言語のリファレンスマニュアルを
-ごらんください. 以下は, <a href="http://www.python.org">python</a> の例です
-</p>
+ごらんください. 以下は, [python][python] の例です
 
-<pre>
+```python
 try:
     m = MeCab.Tagger ("-d .")
     print m.parse ("今日もしないとね")
 except RuntimeError, e:
     print "RuntimeError:", e;
-</pre>
+```
 
 
-<h2>注意事項</h2>
-<h3>文頭,文末形態素</h3>
-<p>
-    parseToNode の返り値は, 「文頭」という特別な形態素を示す MeCab::Node
-    インタンスです. さらに, 「文末」という特別な形態素も存在いたしますので,
-    注意してください. もし, これらを無視したい場合は, 以下のように
-    next でそれぞれを読み飛ばしてください.
-<pre>
-my $n = $m-&gt;parseToNode ("今日もしないとね"); 
-$n = $n-&gt;{next}; # 「文頭」を無視
+## 注意事項
 
-while ($n-&gt;{next}) { # next を調べる
-  printf ("%s\n", $n-&gt;{surface});
-  $n = $n-&gt;{next}; # 次に移動
+### 文頭,文末形態素
+
+`parseToNode` の返り値は, 「文頭」という特別な形態素を示す `MeCab::Node`
+インタンスです. さらに, 「文末」という特別な形態素も存在いたしますので,
+注意してください. もし, これらを無視したい場合は, 以下のように
+`next` でそれぞれを読み飛ばしてください.
+
+```perl
+my $n = $m->parseToNode ("今日もしないとね"); 
+$n = $n->{next}; # 「文頭」を無視
+
+while ($n->{next}) { # next を調べる
+  printf ("%s\n", $n->{surface});
+  $n = $n->{next}; # 次に移動
 }
-</pre>
-   
-</p>
+```
 
-<h3>MeCab::Node の振舞い</h3>
-<p>
-MeCab::Node の実体(メモリ上にある形態素情報)は, 
-MeCab::Tagger インスタンスが管理しています. MeCab::Node は,
-Node の実体を指している<b>参照</b>にすぎせん. そのために, parseToNode が
+### MeCab::Node の振舞い
+
+`MeCab::Node` の実体(メモリ上にある形態素情報)は, 
+`MeCab::Tagger` インスタンスが管理しています. `MeCab::Node` は,
+Node の実体を指している **参照** にすぎせん. そのために, `parseToNode` が
 呼ばれる度に, 実体そのものが, 上書きされていきます. 以下のような例はソースの意図する通りには動きません.
-</p>
  
-<pre>
+```python
 m = MeCab.Tagger ("")
 n1 = m.parseToNode ("今日もしないとね") 
 n2 = m.parseToNode ("さくさくさくら")
@@ -159,26 +144,21 @@ n2 = m.parseToNode ("さくさくさくら")
 while (n1.hasNode () != 0):
    print n1.getSurface ()
    n1 = n1.next ()
-</pre>
+```
 
-<p>
-上記の例では, n1 の指す中身が, 「さくさくさくら」を解析した時点で
+上記の例では, `n1` の指す中身が, 「さくさくさくら」を解析した時点で
 上書きされており, 使用できなくなっています. 
-</p>
 
-<p>
-複数の Node を同時にアクセスしたい場合は, 複数の MeCab::Tagger インスタンスを生成してください.
-</p>
+複数の Node を同時にアクセスしたい場合は, 複数の `MeCab::Tagger` インスタンスを生成してください.
 
-<h2>全メソッド</h2>
-<p>
-以下に, <a href="http://www.swig.org">SWIG</a>用のインタフェースファイル
+## 全メソッド
+
+以下に, [SWIG][SWIG] 用のインタフェースファイル
 の一部を示します. バイディングの実装言語の都合上, C++ のシンタックスで
 表記されていますが, 適宜読みかえてください. また, 各メソッドの動作も添え
 ていますので参考にしてください.
-</p>
 
-<pre>
+```cpp
 namespace MeCab {
 
   class Tagger {
@@ -246,11 +226,15 @@ namespace MeCab {
     long           cost;        // 累積コスト
   };
 }
-</pre>
-<h2>サンプルプログラム</h2>
-<p>
+```
+
+## サンプルプログラム
+
 perl/test.pl, ruby/test.rb, python/test.py, java/test.java
 にそれぞれの言語のサンプルがありますので, 参考にしてください.
-</p>
-</body>
-</html>
+
+[perl]: http://www.perl.com "perl"
+[ruby]: http://www.ruby-lang.org "ruby"
+[python]: http://www.python.org "python"
+[Java]: http://java.sun.com "java"
+[SWIG]: http://www.swig.org "SWIG"

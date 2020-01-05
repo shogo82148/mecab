@@ -1,70 +1,58 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-"http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>MeCab: Yet Another Japanese Dependency Structure
-Analyzer</title>
-<link type="text/css" rel="stylesheet" href="mecab.css">
-</head>
-<body>
-<h1>出力フォーマット</h1>
+---
+title: "出力フォーマット"
+date: 2020-01-05T15:19:42+09:00
+---
 
-<h2>概要</h2>
-<p>MeCab は, ChaSen と同様,
+## 概要
+MeCab は, ChaSen と同様,
 出力のフォーマットを比較的自由に再定義することができます.
 また, 設定ファイルにフォーマットを複数記述しておき,
 実行時にそれらを 切り変えることが可能です.
-これは, MeCab 独自の機能です.</p>
+これは, MeCab 独自の機能です.
 
-<h2>出力フォーマットの指定</h2>
+## 出力フォーマットの指定
 
-<p>以下の
-3つ出力フォーマットを変更することができます.</p>
+以下の
+3つ出力フォーマットを変更することができます.
 
-<ul>
-<li>node: 1つの形態素を出力, デフォルトは空文字</li>
-<li>unk:  1つの未知語形態素を出力, デフォルトは node と同一フォーマット</li>
-<li>bos: 形態素解析の結果に先だって出力 (header 的役割), デフォルトは空文字</li>
-<li>eos: 形態素解析の結果の後に出力 (footer 的役割), デフォルトは "EOS\n"</li>
-<li>eon: N-best出力で, N-Bestの出力が終了したときに出力, デフォルトは空文字列</li>
-</ul>
+- node: 1つの形態素を出力, デフォルトは空文字
+- unk:  1つの未知語形態素を出力, デフォルトは node と同一フォーマット
+- bos: 形態素解析の結果に先だって出力 (header 的役割), デフォルトは空文字
+- eos: 形態素解析の結果の後に出力 (footer 的役割), デフォルトは "EOS\n"
+- eon: N-best出力で, N-Bestの出力が終了したときに出力, デフォルトは空文字列
 
-<p>明示的に指定されない場合,
-それぞれのデフォルト文字列が使用されます.</p>
+明示的に指定されない場合,
+それぞれのデフォルト文字列が使用されます.
 
-<p>これらは, 以下の 2つの方法で指定します.</p>
+これらは, 以下の 2つの方法で指定します.
 
-<ul>
-<li>コマンドラインから
+### コマンドラインから
 
-<pre>
+```
 % mecab --node-format=STR --bos-format=STR --eos-format=STR --unk-format=STR --eon-format=STR
-</pre>
-</li>
+```
 
-<li>mecabrc に記述する場合
 
-<p>任意の文字列 KEY を使い, mecabrc
-に以下のように定義.</p>
+### mecabrc に記述する場合
 
-<pre>
+任意の文字列 KEY を使い, mecabrc
+に以下のように定義.
+
+```
 node-format-KEY = STR
 unk-format-KEY = STR
 eos-format-KEY = STR
 bos-format-KEY = STR
 eon-format-KEY = STR
-</pre>
+```
 
-<p>この KEY をコマンドラインから呼び出す.</p>
+この KEY をコマンドラインから呼び出す.
 
-<pre>
+```
 % mecab -Okey 
-</pre>
-</li>
-</ul>
+```
 
-<h2>出力フォーマット</h2>
+## 出力フォーマット
 
 <table>
 <tr class="odd">
@@ -235,11 +223,11 @@ eon-format-KEY = STR
 </tr>
 </table>
 
-<h2>例</h2>
-<p>
+## 例
+
 dicrc より抜粋した例 
-</p>
-<pre>
+
+```
 ; yomi
 node-format-yomi = %pS%f[7]
 unk-format-yomi = %M
@@ -258,13 +246,10 @@ eos-format-csv  = EOS,,,,,,\n
 node-format-chasen = %m\t%f[7]\t%f[6]\t%F-[0,1,2,3]\t%f[4]\t%f[5]\n
 unk-format-chasen  = %m\t%m\t%m\t%F-[0,1,2,3]\t\t\n
 eos-format-chasen  = EOS\n
-</pre>
+```
 
-<h2>注意事項</h2>
+## 注意事項
 
-<p>わかち書き出力 (-Owakati), 
-デフォルトの出力, 出力ダンプ (-Odump) は
-高速性を犠牲にしたく ないために, ハードコーディングされています.</p>
-</body>
-</html>
-
+わかち書き出力 (`-Owakati`), 
+デフォルトの出力, 出力ダンプ (`-Odump`) は
+高速性を犠牲にしたく ないために, ハードコーディングされています.

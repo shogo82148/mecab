@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>
+      MeCab: Yet Another Part-of-Speech and Morphological Analyzer
+    </title>
+    <link type="text/css" rel="stylesheet" href="mecab.css">
+  </head>
+  <body>
+    
+<section id="main">
+  <h1 id="title">未知語処理の定義</h1>
+  <div>
+        <article id="content">
+           <h2 id="heading">概要</h2>
+<p>未知語処理(辞書に載っていない単語の形態素解析の処理)についてユーザが再定義できます。</p>
+<h2 id="heading-1">設定ファイル</h2>
+<p>配布辞書のディレクトリにある char.def と unk.def という2つのファイル
+を変更します.</p>
+<h3 id="chardef">char.def</h3>
+<p>未知語処理のルールです. <a href="learn.html">こちら</a>を御覧ください.</p>
+<h3 id="unkdef">unk.def</h3>
+<p>未知語に対する品詞列のテーブルです. <a href="learn.html">こちら</a>を
+御覧ください.</p>
+<h2 id="heading-2">ケーススタディ</h2>
+<h3 id="1">数字の連続を1つの形態素とする</h3>
+<ul>
+<li>辞書 (*.csv ファイル)から数字のエントリを削除します。
+ipadic の場合は、Noun.number.csv の中から、アラビア数字のエントリを消去します。</li>
+<li>char.def を修正し、数字の連続が未知語になるようにします。</li>
+</ul>
+<pre><code>..
+NUMERIC        1 1 0
+..
+</code></pre><ul>
+<li>unk.def を修正し、数字のコストを小さくします。</li>
+</ul>
+<p>4カラム目のコスト値を 0以下の小さい値に設定します。</p>
+<pre><code>NUMERIC,1204,1204,0,名詞,数,*,*,*,*,*
+</code></pre><ul>
+<li>辞書をコンパイルします。</li>
+</ul>
+<pre><code>% /usr/local/libexec/mecab/mecab-dict-index 
+</code></pre><h3 id="ascii--kakasi">ASCII 文字列は、スペース/タブのみで分割する (kakasiと同一動作)</h3>
+<ul>
+- 辞書 (*.csv ファイル)からアスキー文字列を含むのエントリを削除します。
+- char.def を修正し、スペース、記号を除く文字を同一字種(ASCII)にマッピ
+    ングします。他のエントリも同時にチェックし、0x0021..0x007E の領域を
+    他の字種にマッピングしないようにしてください。
+```
+ASCII       1 1 0
+<p>0x0021..0x007E ASCII</p>
+<pre><code>
+- unk.def を修正し、ASCIIのコストを小さくします。
+4カラム目のコスト値を 0以下の小さい値に設定します。
+</code></pre><p>ASCII,1192,1192,0,名詞,サ変接続,<em>,</em>,<em>,</em>,*</p>
+<pre><code>
+- 辞書をコンパイルします。
+</code></pre><p>% /usr/local/libexec/mecab/mecab-dict-index</p>
+<pre><code></code></pre>
+        </article>
+  </div>
+</section>
+
+    
+    
+  </body>
+</html>
