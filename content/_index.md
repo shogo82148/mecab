@@ -41,7 +41,7 @@ MeCabは 京都大学情報学研究科−日本電信電話株式会社コミ�
 
 - 辞書, コーパスに依存しない汎用的な設計
 - 条件付き確率場([CRF][CRF])に基づく高い解析精度
-- [ChaSen](http://chasen.naist.jp) や [KAKASI](ttp://kakasi.namazu.org) に比べ高速
+- [ChaSen][ChaSen] や [KAKASI][KAKASI] に比べ高速
 - 辞書引きアルゴリズム/データ構造に, 高速な TRIE 構造である [Double-Array](http://cl.naist.jp/~taku-ku/software/darts)を採用.
 - 再入可能なライブラリ
 - 各種スクリプト言語バインディング(perl/ruby/python/java/C#)
@@ -451,3 +451,5 @@ CRF のパラメータ推定に [Jorge Nocedal](http://www.ece.nwu.edu/~nocedal)
 - D.C. Liu and J. Nocedal. On the Limited Memory Method for Large Scale Optimization (1989), Mathematical Programming B, 45, 3, pp. 503-528.
 
 [CRF]: https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&context=cis_papers "CRF"
+[ChaSen]: https://chasen-legacy.osdn.jp/ "ChaSen"
+[KAKASI]: http://kakasi.namazu.org/index.html.en "KAKASI"
