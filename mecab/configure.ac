@@ -1,9 +1,10 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT(src/mecab.cpp)
+AC_INIT([mecab], [0.996])
+AC_CONFIG_SRCDIR([src/mecab.cpp])
+AM_INIT_AUTOMAKE
 AH_TEMPLATE([HAVE_GCC_ATOMIC_OPS], [])
 AH_TEMPLATE([HAVE_OSX_ATOMIC_OPS], [])
 AH_TEMPLATE([HAVE_TLS_KEYWORD], [])
-AM_INIT_AUTOMAKE(mecab, 0.996)
 AC_CONFIG_MACRO_DIR([m4])
 
 # DIC_VERSION XXYY
@@ -36,8 +37,8 @@ AC_HEADER_STDC
 AC_C_CONST
 AC_C_BIGENDIAN
 AC_CHECK_HEADERS(string.h stdlib.h unistd.h fcntl.h stdint.h \
-		sys/stat.h sys/mman.h sys/times.h sys/types.h dirent.h \
-	        ctype.h sys/types.h io.h windows.h pthread.h)
+    sys/stat.h sys/mman.h sys/times.h sys/types.h dirent.h \
+    ctype.h sys/types.h io.h windows.h pthread.h)
 AC_TYPE_OFF_T
 AC_TYPE_SIZE_T
 AC_CHECK_SIZEOF(char)
@@ -107,7 +108,7 @@ AC_SUBST(CHARSET)
 dnl
 dnl check C++ features
 dnl
-AC_DEFUN(CHECK_CXX_STL, [
+AC_DEFUN([CHECK_CXX_STL], [
   AC_MSG_CHECKING(if ${CXX-c++} supports stl <$1> (required))
   AC_TRY_COMPILE(
 	[
