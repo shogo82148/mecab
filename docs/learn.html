@@ -7,6 +7,7 @@
       MeCab: Yet Another Part-of-Speech and Morphological Analyzer
     </title>
     <link type="text/css" rel="stylesheet" href="mecab.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
   </head>
   <body>
     
@@ -18,7 +19,7 @@
 <p>学習用コーパスからパラメータ(コスト値)を推定することができます.
 MeCab 自身は品詞体系に非依存な設計になっているため,
 独自の品詞体系,  辞書,  コーパスに基づく解析器を作成することができます.
-パラメータ推定には Conditinoal Random Fields (<a href="http://www.cis.upenn.edu/~pereira/papers/crf.pdf">CRF</a>) を使っています.</p>
+パラメータ推定には Conditional Random Fields (<a href="https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&amp;context=cis_papers" title="CRF">CRF</a>) を使っています.</p>
 <h2 id="heading-1">処理の流れ</h2>
 <p>データフロー図は次のようになります.</p>
 <p><img src="flow.png" alt=""></p>
@@ -36,7 +37,7 @@ MeCab 自身は品詞体系に非依存な設計になっているため,
 </li>
 <li><a href="#corpus">学習用コーパスの準備</a></li>
 <li><a href="#binary">学習用バイナリ辞書の作成</a></li>
-<li><a href="#crf"><a href="http://www.cis.upenn.edu/~pereira/papers/crf.pdf">CRF</a> パラメータの学習</a></li>
+<li><a href="#crf">CRF パラメータの学習</a></li>
 <li><a href="#dist">配布用辞書の作成</a></li>
 <li><a href="#test">解析用バイナリ辞書の作成</a></li>
 <li><a href="#eval">評価</a></li>
@@ -207,7 +208,7 @@ HIRAGANA,0,0,0,名詞,固有名詞,地域,一般,*,*,*
 自動的に与えられます.</p>
 <h3 id="rewritedef">rewrite.def</h3>
 <p>素性列から内部状態素生列に変換するマッピングを定義します.</p>
-<p><a href="http://www.cis.upenn.edu/~pereira/papers/crf.pdf">CRF</a>は, unigram,  左文脈 bigram,  右文脈 bigram の3情報を使って統計情報を計
+<p><a href="https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&amp;context=cis_papers" title="CRF">CRF</a>は, unigram,  左文脈 bigram,  右文脈 bigram の3情報を使って統計情報を計
 算します. 例えば以下の「美しい川」という以下の例では, 辞書に定義されている素性から unigram素性,<br>
 左文脈素性(その形態素を左側から見た時の素性),<br>
 右文脈素性(その形態素を左側から見た時の素性)の3つが使われます.
@@ -254,7 +255,7 @@ rewrite.def は, 辞書の素性からそれぞれの内部素性へのマッピ
 (助詞|助動詞),終助詞,*,*,*,*,(よ|ヨ)   $1,$2,$3,$4,$5,$6,よ
 ..
 </code></pre><h3 id="featuredef">feature.def</h3>
-<p>内部状態の素生列から <a href="http://www.cis.upenn.edu/~pereira/papers/crf.pdf">CRF</a>の素生列を抽出するためのテンプレートを定義したファイルです</p>
+<p>内部状態の素生列から <a href="https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&amp;context=cis_papers" title="CRF">CRF</a>の素生列を抽出するためのテンプレートを定義したファイルです</p>
 <p>各行が一テンプレートに対応します. UNIGRAM ではじまるものは UNIGRAM 用のテンプレート, BIGRAM ではじまるものは連接用のテンプレートです.</p>
 <p>各テンプレートでは, 以下のマクロを使うことができます</p>
 <ul>
@@ -344,11 +345,11 @@ Filler.csv       Noun.nai.csv       Noun.proper.csv  Suffix.csv       feature.de
 % /usr/local/libexec/mecab/mecab-cost-train -d $WORK/seed -c 1.0 $WORK/seed/corpus $WORK/seed/model
 </code></pre><ul>
 <li><code>-d</code>: 学習用バイナリ辞書があるディレクトリ (デフォルトはカレント)</li>
-<li><code>-c</code>: <a href="http://www.cis.upenn.edu/~pereira/papers/crf.pdf">CRF</a>のハイパーパラメータ</li>
+<li><code>-c</code>: <a href="https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&amp;context=cis_papers" title="CRF">CRF</a> のハイパーパラメータ</li>
 <li><code>-f</code>: 素性頻度の閾値</li>
 <li><code>-p NUM</code>: NUM 並列で学習を実行 (デフォルトは1)</li>
 <li><code>corpus</code>: 学習データのファイル名</li>
-<li><code>model</code>: 出力される<a href="http://www.cis.upenn.edu/~pereira/papers/crf.pdf">CRF</a>パラメータのファイル名</li>
+<li><code>model</code>: 出力される<a href="https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&amp;context=cis_papers" title="CRF">CRF</a>パラメータのファイル名</li>
 </ul>
 <p>ハイパーパラメータCは, 学習の「強さ」を決めます.
 C を大きくすると, 学習データにできるだけフィットしようとしますが,
@@ -390,7 +391,7 @@ iter=4 err=0.68750 F=0.93685 target=233.72722 diff=0.39248
 </code></pre><ul>
 <li><code>-d</code>: seed 辞書があるディレクトリ (デフォルトはカレント)</li>
 <li><code>-o</code>: 配布用辞書の出力先ディレクトリ</li>
-<li><code>-m</code>: <a href="http://www.cis.upenn.edu/~pereira/papers/crf.pdf">CRF</a> のパラメータファイル</li>
+<li><code>-m</code>: <a href="https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&amp;context=cis_papers" title="CRF">CRF</a> のパラメータファイル</li>
 </ul>
 <p>配布用辞書は, seed 辞書と別のディレクトリに出力しなければなりません.
 通常, 配布辞書ディレクトリ final をアーカイブしてユーザに配布します.</p>

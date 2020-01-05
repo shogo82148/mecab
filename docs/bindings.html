@@ -7,6 +7,7 @@
       MeCab: Yet Another Part-of-Speech and Morphological Analyzer
     </title>
     <link type="text/css" rel="stylesheet" href="mecab.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
   </head>
   <body>
     
@@ -176,7 +177,7 @@ n2 = m.parseToNode (<span style="color:#a31515"></span><span style="color:#a3151
 </span><span style="color:#008000"></span>                                <span style="color:#008000">// #define MECAB_EOS_NODE  3
 </span><span style="color:#008000"></span>    <span style="color:#2b91af">unsigned</span> <span style="color:#2b91af">char</span>  isbest;      <span style="color:#008000">// ベスト解の場合 1, それ以外 0
 </span><span style="color:#008000"></span>  
-    <span style="color:#2b91af">float</span>          alpha;       <span style="color:#008000">// forward backward の foward log 確率
+    <span style="color:#2b91af">float</span>          alpha;       <span style="color:#008000">// forward backward の forward log 確率
 </span><span style="color:#008000"></span>    <span style="color:#2b91af">float</span>          beta;        <span style="color:#008000">// forward backward の backward log 確率 
 </span><span style="color:#008000"></span>    <span style="color:#2b91af">float</span>          prob;        <span style="color:#008000">// 周辺確率
 </span><span style="color:#008000"></span>                                <span style="color:#008000">// alpha, beta, prob は -l 2 オプションを指定した時に定義されます

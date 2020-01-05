@@ -8,17 +8,29 @@
       MeCab: Yet Another Part-of-Speech and Morphological Analyzer
     </title>
     <link type="text/css" rel="stylesheet" href="mecab.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
   </head>
   <body>
     
 <main aria-role="main">
   <header class="homepage-header">
-    <h1>MeCab: Yet Another Part-of-Speech and Morphological Analyzer</h1>
+    <h1>MeCab @shogo82148 flavored: Yet Another Part-of-Speech and Morphological Analyzer</h1>
     
   </header>
   <div class="homepage-content">
-    <h2 id="about-mecab">MeCab (和布蕪)とは</h2>
-<p>MeCabは 京都大学情報学研究科−日本電信電話株式会社コミュニケーション科学基礎研究所 共同研究ユニットプロジェクトを通じて開発されたオープンソース 形態素解析エンジンです。 言語, 辞書,コーパスに依存しない汎用的な設計を 基本方針としています。 パラメータの推定に Conditional Random Fields (CRF) を用 いており, ChaSenが採用している 隠れマルコフモデルに比べ性能が向上しています。また、平均的に ChaSen, Juman, KAKASIより高速に動作します。 ちなみに和布蕪(めかぶ)は, 作者の好物です。</p>
+    <h2 id="about-mecab-shogo82148">MeCab @shogo82148 flavored とは</h2>
+<p>MeCabはオープンソースの形態素解析エンジンです。
+<a href="http://www.phontron.com/kytea/index-ja.html">KyTea</a>, <a href="http://nlp.ist.i.kyoto-u.ac.jp/index.php?JUMAN++">JUMAN++</a>,
+<a href="https://github.com/WorksApplications/Sudachi">Sudachi</a>, <a href="https://github.com/google/sentencepiece">SentencePiece</a> 等の
+後発の形態素解析エンジンの開発も進んでいますが、使い勝手の良さや使用例の多さから今なお現役で利用されています。
+しかし、2020年1月現在、<a href="http://taku910.github.io/mecab/">オリジナルのMeCab</a>の最新リリースは <strong>2013-02-18</strong> MeCab 0.996 です。
+OSやコンパイラのアップデートへの追従、バグフィックス等のメンテナンス作業がほぼ止まっています。</p>
+<p>このままではマズいということで
+<a href="https://github.com/shogo82148/">@shogo82148</a>がオリジナルのMeCabをフォークしてパッチを当てたものが
+MeCab @shogo82148 flavored です。
+機能の追加等は行わず、バグフィックスのみ行う予定です。</p>
+<h2 id="about-mecab">MeCab (和布蕪)とは</h2>
+<p>MeCabは 京都大学情報学研究科−日本電信電話株式会社コミュニケーション科学基礎研究所 共同研究ユニットプロジェクトを通じて開発されたオープンソース 形態素解析エンジンです。 言語, 辞書,コーパスに依存しない汎用的な設計を 基本方針としています。 パラメータの推定に Conditional Random Fields (<a href="https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&amp;context=cis_papers" title="CRF">CRF</a>) を用 いており, ChaSenが採用している 隠れマルコフモデルに比べ性能が向上しています。また、平均的に ChaSen, Juman, KAKASIより高速に動作します。 ちなみに和布蕪(めかぶ)は, 作者の好物です。</p>
 <h2 id="toc">目次</h2>
 <ul>
 <li><a href="#feature">特徴</a></li>
@@ -61,92 +73,84 @@
 <h2 id="feature">特徴</h2>
 <ul>
 <li>辞書, コーパスに依存しない汎用的な設計</li>
-<li>条件付き確率場(<a href="http://www.cis.upenn.edu/~pereira/papers/crf.pdf">CRF</a>)に基づく高い解析精度</li>
-<li><a href="http://chasen.naist.jp">ChaSen</a> や <a href="ttp://kakasi.namazu.org">KAKASI</a> に比べ高速</li>
-<li>辞書引きアルゴリズム/データ構造に, 高速な TRIE 構造である <a href="http://cl.naist.jp/~taku-ku/software/darts">Double-Array</a>を採用.</li>
+<li>条件付き確率場(<a href="https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&amp;context=cis_papers" title="CRF">CRF</a>)に基づく高い解析精度</li>
+<li><a href="https://chasen-legacy.osdn.jp/" title="ChaSen">ChaSen</a> や <a href="http://kakasi.namazu.org/index.html.en" title="KAKASI">KAKASI</a> に比べ高速</li>
+<li>辞書引きアルゴリズム/データ構造に, 高速な TRIE 構造である <a href="http://chasen.org/~taku/software/darts/">Double-Array</a>を採用.</li>
 <li>再入可能なライブラリ</li>
 <li>各種スクリプト言語バインディング(perl/ruby/python/java/C#)</li>
 </ul>
 <h2 id="diff">比較</h2>
 <table>
-<tr class="even">
-<td align="center"></td>
-<td align="center"><b>MeCab</b></td>
-<td align="center"><a href=
-"http://chasen.naist.jp/">ChaSen</a></td>
-<td align="center">[JUMAN](http://pine.kuee.kyoto-u.ac.jp/nl-resource/juman.html)</td>
-<td align="center">[KAKASI](http://kakasi.namazu.org)</td>
+<thead>
+<tr>
+<th>MeCab</th>
+<th><a href="https://chasen-legacy.osdn.jp/" title="ChaSen">ChaSen</a></th>
+<th><a href="http://nlp.ist.i.kyoto-u.ac.jp/index.php?JUMAN" title="JUMAN">JUMAN</a></th>
+<th><a href="http://kakasi.namazu.org/index.html.en" title="KAKASI">KAKASI</a></th>
 </tr>
-<tr class="odd">
-<td align="center">解析モデル</td>
-<td align="center">bi-gram マルコフモデル</td>
-<td align="center">可変長マルコフモデル</td>
-<td align="center">bi-gram マルコフモデル</td>
-<td align="center">最長一致</td>
+</thead>
+<tbody>
+<tr>
+<td>解析モデル</td>
+<td>bi-gram マルコフモデル</td>
+<td>可変長マルコフモデル</td>
+<td>bi-gram マルコフモデル</td>
 </tr>
-<tr class="even">
-<td align="center">コスト推定</td>
-<td align="center">コーパスから学習</td>
-<td align="center">コーパスから学習</td>
-<td align="center">人手</td>
-<td align="center">コストという概念無し</td>
+<tr>
+<td>コスト推定</td>
+<td>コーパスから学習</td>
+<td>コーパスから学習</td>
+<td>人手</td>
 </tr>
-<tr class="odd">
-<td align="center">学習モデル</td>
-<td align="center">[CRF](http://www.cis.upenn.edu/~pereira/papers/crf.pdf) (識別モデル)</td>
-<td align="center">HMM (生成モデル)</td>
-<td align="center"></td>
-<td align="center"></td>
+<tr>
+<td>学習モデル</td>
+<td><a href="https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&amp;context=cis_papers" title="CRF">CRF</a> (識別モデル)</td>
+<td>HMM (生成モデル)</td>
+<td></td>
 </tr>
-<tr class="even">
-<td align="center">辞書引きアルゴリズム</td>
-<td align="center">Double Array</td>
-<td align="center">Double Array</td>
-<td align="center">パトリシア木</td>
-<td align="center">Hash?</td>
+<tr>
+<td>辞書引きアルゴリズム</td>
+<td>Double Array</td>
+<td>Double Array</td>
+<td>パトリシア木</td>
 </tr>
-<tr class="odd">
-<td align="center">解探索アルゴリズム</td>
-<td align="center">Viterbi</td>
-<td align="center">Viterbi</td>
-<td align="center">Viterbi</td>
-<td align="center">決定的?</td>
+<tr>
+<td>解探索アルゴリズム</td>
+<td>Viterbi</td>
+<td>Viterbi</td>
+<td>Viterbi</td>
 </tr>
-<tr class="even">
-<td align="center">連接表の実装</td>
-<td align="center">2次元 Table</td>
-<td align="center">オートマトン</td>
-<td align="center">2次元 Table?</td>
-<td align="center">連接表無し?</td>
+<tr>
+<td>連接表の実装</td>
+<td>2次元 Table</td>
+<td>オートマトン</td>
+<td>2次元 Table?</td>
 </tr>
-<tr class="odd">
-<td align="center">品詞の階層</td>
-<td align="center">無制限多階層品詞</td>
-<td align="center">無制限多階層品詞</td>
-<td align="center">2段階固定</td>
-<td align="center">品詞という概念無し?</td>
+<tr>
+<td>品詞の階層</td>
+<td>無制限多階層品詞</td>
+<td>無制限多階層品詞</td>
+<td>2段階固定</td>
 </tr>
-<tr class="even">
-<td align="center">未知語処理</td>
-<td align="center">字種 (動作定義を変更可能)</td>
-<td align="center">字種 (変更不可能)</td>
-<td align="center">字種 (変更不可能)</td>
-<td align="center"></td>
+<tr>
+<td>未知語処理</td>
+<td>字種 (動作定義を変更可能)</td>
+<td>字種 (変更不可能)</td>
+<td>字種 (変更不可能)</td>
 </tr>
-<tr class="odd">
-<td align="center">制約つき解析</td>
-<td align="center">可能</td>
-<td align="center">2.4.0で可能</td>
-<td align="center">不可能</td>
-<td align="center">不可能</td>
+<tr>
+<td>制約つき解析</td>
+<td>可能</td>
+<td>2.4.0で可能</td>
+<td>不可能</td>
 </tr>
-<tr class="even">
-<td align="center">N-best解</td>
-<td align="center">可能</td>
-<td align="center">不可能</td>
-<td align="center">不可能</td>
-<td align="center">不可能</td>
+<tr>
+<td>N-best解</td>
+<td>可能</td>
+<td>不可能</td>
+<td>不可能</td>
 </tr>
+</tbody>
 </table>
 <p>MeCab に至るまでの形態素解析器開発の歴史等は<a href="/mecab/feature.html">こちら</a>をご覧ください</p>
 <h2 id="heading">メーリングリスト</h2>
@@ -166,7 +170,7 @@
 <li><strong>2013-01-24</strong> MeCab 0.995
 <ul>
 <li><a href="/mecab/partial.html">部分解析機能</a>の再実装</li>
-<li><a href="/mecab/partial.html">部分解析機能</a>のためのAPI (Lattice:set_boundary_constarint, Lattice::set_feature_constraint) の追加</li>
+<li><a href="/mecab/partial.html">部分解析機能</a>のためのAPI (Lattice:set_boundary_constraint, Lattice::set_feature_constraint) の追加</li>
 </ul>
 </li>
 <li><strong>2012-06-03</strong> MeCab 0.994
@@ -207,7 +211,7 @@
 <li><strong>2009-09-27</strong> MeCab 0.98</li>
 <li>UTF16のサポート(実験的)
 <ul>
-<li>Windows版での文字コード変換に MutlByteToWideChar等の Native APIを使うように変更</li>
+<li>Windows版での文字コード変換に MultiByteToWideChar等の Native APIを使うように変更</li>
 <li>ソースコードを Google coding style に変更</li>
 <li>フォーマット指定で EON (end of N-best) の追加 (-S or &ndash;eon-format)</li>
 <li>Shift-JIS環境で半角カタカナの扱いに問題があったのを修正</li>
@@ -316,12 +320,12 @@
 <ul>
 <li>IPA 辞書
 <ul>
-<li>IPA 辞書, IPAコーパス に基づき <a href="%22http://www.cis.upenn.edu/~pereira/papers/crf.pdf">CRF</a> でパラメータ推定した辞書です。 <strong>(推奨)</strong> <a href="https://drive.google.com/uc?export=download&amp;id=0B4y35FiV1wh7MWVlSDBCSXZMTXM">ダウンロード</a></li>
+<li>IPA 辞書, IPAコーパス に基づき <a href="https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&amp;context=cis_papers" title="CRF">CRF</a> でパラメータ推定した辞書です。 <strong>(推奨)</strong> <a href="https://drive.google.com/uc?export=download&amp;id=0B4y35FiV1wh7MWVlSDBCSXZMTXM">ダウンロード</a></li>
 </ul>
 </li>
-<li>Juman 辞書
+<li>JUMAN 辞書
 <ul>
-<li>Juamn 辞書, 京都コーパスに基づき <a href="http://www.cis.upenn.edu/~pereira/papers/crf.pdf">CRF</a> でパラメータ推定した辞書です。 <a href="https://drive.google.com/uc?export=download&amp;id=0B4y35FiV1wh7X2pESGlLREpxdXM">ダウンロード</a></li>
+<li>JUMAN 辞書, 京都コーパスに基づき <a href="https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&amp;context=cis_papers" title="CRF">CRF</a> でパラメータ推定した辞書です。 <a href="https://drive.google.com/uc?export=download&amp;id=0B4y35FiV1wh7X2pESGlLREpxdXM">ダウンロード</a></li>
 </ul>
 </li>
 <li>Unidic 辞書
