@@ -16,3 +16,27 @@ jobs:
           make check
           sudo make install
         working-directory: mecab
+
+      - name: build ipadic euc-jp
+        run: |
+          ./configure
+          make
+          sudo make install
+          make clean
+        working-directory: mecab-ipadic
+
+      - name: build ipadic shift-jis
+        run: |
+          ./configure --with-charset=sjis
+          make
+          sudo make install
+          make clean
+        working-directory: mecab-ipadic
+
+      - name: build ipadic utf-8
+        run: |
+          ./configure --with-charset=utf8
+          make
+          sudo make install
+          make clean
+        working-directory: mecab-ipadic
