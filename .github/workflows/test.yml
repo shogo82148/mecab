@@ -179,3 +179,42 @@ jobs:
           make install
           ruby test.rb
         working-directory: mecab/ruby
+
+  test-linux-java:
+    name: test java bindings
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java:
+          - '8'
+          - '9'
+          - '10'
+          - '11'
+          - '12'
+          - '13'
+    steps:
+      - uses: actions/checkout@v2
+      - name: install mecab
+        run: |
+          ./configure
+          make -j2
+          sudo make install
+          sudo ldconfig
+        working-directory: mecab
+      - name: install ipadic utf-8
+        run: |
+          ./configure --with-charset=utf8
+          make
+          sudo make install
+        working-directory: mecab-ipadic
+      - name: setup java ${{ matrix.java }}
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+      - run: java -version
+      - name: build and test
+        run: |
+          make
+          javac -classpath MeCab.jar test.java
+          java -classpath MeCab.jar -classpath . test
+        working-directory: mecab/java
