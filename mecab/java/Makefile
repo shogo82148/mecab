@@ -2,51 +2,55 @@ TARGET=MeCab
 JAVAC=javac
 JAVA=java
 JAR=jar
-CXX=c++
-ifeq ($(OS),Windows_NT)
-    #TBA
-else
-    OS:=$(shell uname -s)
-    ifeq ($(OS),Linux)
-        JAVA_HOME=/usr/lib/jvm/java-6-openjdk
-        JNI_MD_FOLDER=linux
-        LIB_TYPE=-shared
-        LIB_EXT=so
-        LD_PATH_VAR=LD_LIBRARY_PATH
-    endif
-    ifeq ($(OS),Darwin)
-        JAVA_HOME=$(shell /usr/libexec/java_home)
-        JNI_MD_FOLDER=darwin
-        LIB_TYPE=-dynamiclib
-        LIB_EXT=dylib
-        LD_PATH_VAR=DYLD_LIBRARY_PATH
-    endif
-    #TBA
+
+OS:=$(shell uname -s)
+
+ifeq ($(JAVA_HOME),)
+ifeq ($(OS),Linux)
+JAVA_HOME=/usr/lib/jvm/java-6-openjdk # XXX: make more portable
 endif
-INCLUDE=$(JAVA_HOME)/include
+ifeq ($(OS),Darwin)
+JAVA_HOME=$(shell /usr/libexec/java_home)
+endif
+endif
+
+ifeq ($(OS),Linux)
+JNI_PLATFORM=linux
+LIB_TYPE=-shared
+LIB_EXT=so
+LD_PATH_VAR=LD_LIBRARY_PATH
+endif
+ifeq ($(OS),Darwin)
+JNI_PLATFORM=darwin
+LIB_TYPE=-dynamiclib
+LIB_EXT=dylib
+LD_PATH_VAR=DYLD_LIBRARY_PATH
+endif
+JNI_INCLUDEDIR=$(JAVA_HOME)/include
 
 PACKAGE=org/chasen/mecab
 
-LIBS=`mecab-config --libs`
-INC=`mecab-config --cflags` -I$(INCLUDE) -I$(INCLUDE)/$(JNI_MD_FOLDER)
+LIBS+=$(shell mecab-config --libs)
+CPPFLAGS+=$(shell mecab-config --cflags)
+INCLUDES+=-I$(JNI_INCLUDEDIR) -I$(JNI_INCLUDEDIR)/$(JNI_PLATFORM)
 
-ifeq ($(OS),Darwin)
-    LIBS:=-arch x86_64 $(LIBS)
-    INC:=-arch x86_64 $(INC)
-endif
-
+.PHONY: all
 all:
-	$(CXX) -O3 -c -fpic $(TARGET)_wrap.cxx  $(INC)
+	echo $(OS)
+	$(CXX) $(CPPFLAGS) $(INCLUDES) -O3 -c -fpic $(TARGET)_wrap.cxx
 	$(CXX) $(LIB_TYPE) $(TARGET)_wrap.o -o lib$(TARGET).$(LIB_EXT) $(LIBS)
 	$(JAVAC) $(PACKAGE)/*.java
 	$(JAVAC) test.java
 	$(JAR) cfv $(TARGET).jar $(PACKAGE)/*.class
 
+.PHONY: test
 test:
 	env $(LD_PATH_VAR)=. $(JAVA) test
 
+.PHONY: clean
 clean:
-	rm -fr *.jar *.o *.$(LIB_EXT) *.class $(PACKAGE)/*.class
-	
+	$(RM) -fr *.jar *.o *.$(LIB_EXT) *.class $(PACKAGE)/*.class
+
+.PHONY: cleanall
 cleanall:
-	rm -fr $(TARGET).java *.cxx
+	$(RM) -fr $(TARGET).java *.cxx
