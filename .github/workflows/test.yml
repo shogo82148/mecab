@@ -215,6 +215,5 @@ jobs:
       - name: build and test
         run: |
           make
-          javac -classpath MeCab.jar test.java
-          java -classpath MeCab.jar -classpath . test
+          make test
         working-directory: mecab/java
