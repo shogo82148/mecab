@@ -174,7 +174,7 @@ MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<re
 
 ## ダウンロード {#download}
 
-- **MeCab** はフリーソフトウェアです．[GPL](http://www.gnu.org/licenses/gpl.txt)(the GNU General Public License), [LGPL](http://www.gnu.org/licenses/lgpl.txt)(Lesser GNU General Public License), または BSD ライセンスに従って本ソフトウェアを使用,再配布することができます。 詳細は COPYING, GPL, LGPL, BSD各ファイルを参照して下さい．
+- **MeCab** はフリーソフトウェアです．[GPL v2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt)(the GNU General Public License Version 2.0), [LGPL](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt)(Lesser GNU General Public License Version 2.1), または [三条項BSD](https://spdx.org/licenses/BSD-3-Clause.html) ライセンスに従って本ソフトウェアを使用,再配布することができます。 詳細は COPYING, GPL, LGPL, BSD各ファイルを参照して下さい．
 
 ### MeCab 本体
 
