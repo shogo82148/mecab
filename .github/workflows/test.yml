@@ -69,6 +69,7 @@ jobs:
 
   test-linux-perl:
     name: test perl bindings
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         perl:
