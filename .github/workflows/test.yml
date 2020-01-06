@@ -6,6 +6,7 @@ on:
 
 jobs:
   test-linux:
+    name: test on linux
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -65,3 +66,40 @@ jobs:
           sudo make install
           make clean
         working-directory: mecab-jumandic
+
+  test-linux-perl:
+    name: test perl bindings
+    strategy:
+      matrix:
+        perl:
+          - '5.30'
+          - '5.28'
+          - '5.26'
+          - '5.24'
+          - '5.22'
+          - '5.20'
+    steps:
+      - uses: actions/checkout@v2
+      - name: install mecab
+        run: |
+          ./configure
+          make
+          sudo make install
+          sudo ldconfig
+        working-directory: mecab
+      - name: install ipadic utf-8
+        run: |
+          ./configure --with-charset=utf8
+          make
+          sudo make install
+        working-directory: mecab-ipadic
+      - name: setup perl ${{ matrix.perl }}
+        uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: ${{ matrix.perl }}
+      - name: build and test
+        run: |
+          perl Makefile.PL
+          make
+          make test
+        working-directory: mecab/perl
