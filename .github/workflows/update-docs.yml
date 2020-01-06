@@ -1,0 +1,23 @@
+name: Update Documents
+
+on:
+  pull_request: {}
+  push: {}
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: install hugo
+        run: |
+          curl -sSL https://github.com/gohugoio/hugo/releases/download/v0.62.2/hugo_0.62.2_Linux-64bit.tar.gz > hugo.tar.gz
+          tar xf hugo.tar.gz
+          sudo mv hugo /usr/local/bin/
+      - name: install doxygen
+        run: sudo apt-get install doxygen
+      - name: generate documents
+        run: |
+          rm -rf docs
+          hugo
+          doxygen/mecab.cfg
