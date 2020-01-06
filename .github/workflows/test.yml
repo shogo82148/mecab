@@ -13,7 +13,7 @@ jobs:
       - name: test mecab
         run: |
           ./configure
-          make
+          make -j2
           make check
           sudo make install
           sudo ldconfig
@@ -84,7 +84,7 @@ jobs:
       - name: install mecab
         run: |
           ./configure
-          make
+          make -j2
           sudo make install
           sudo ldconfig
         working-directory: mecab
