@@ -45,7 +45,7 @@ print m.parse (<span style="color:#a31515">&#34;</span><span style="color:#a3151
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#00f">import</span> sys
 <span style="color:#00f">import</span> MeCab
 m = MeCab.Tagger (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">-Ochasen</span><span style="color:#a31515">&#34;</span>)
-<span style="color:#00f">print</span> m.parse (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">今日もしないとね</span><span style="color:#a31515">&#34;</span>)
+<span style="color:#00f">print</span> (m.parse (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">今日もしないとね</span><span style="color:#a31515">&#34;</span>))
 </code></pre></div><h3 id="java">Java</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#00f">import</span> org.chasen.mecab.Tagger;
 <span style="color:#00f">import</span> org.chasen.mecab.Node;
@@ -82,9 +82,9 @@ RuntimeError 例外が発生します.
 ごらんください. 以下は, <a href="http://www.python.org" title="python">python</a> の例です</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#00f">try</span>:
     m = MeCab.Tagger (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">-d .</span><span style="color:#a31515">&#34;</span>)
-    <span style="color:#00f">print</span> m.parse (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">今日もしないとね</span><span style="color:#a31515">&#34;</span>)
-<span style="color:#00f">except</span> RuntimeError, e:
-    <span style="color:#00f">print</span> <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">RuntimeError:</span><span style="color:#a31515">&#34;</span>, e;
+    <span style="color:#00f">print</span> (m.parse (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">今日もしないとね</span><span style="color:#a31515">&#34;</span>))
+<span style="color:#00f">except</span> RuntimeError <span style="color:#00f">as</span> e:
+    <span style="color:#00f">print</span> (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">RuntimeError:</span><span style="color:#a31515">&#34;</span>, e)
 </code></pre></div><h2 id="heading-5">注意事項</h2>
 <h3 id="heading-6">文頭,文末形態素</h3>
 <p><code>parseToNode</code> の返り値は, 「文頭」という特別な形態素を示す <code>MeCab::Node</code>
@@ -109,7 +109,7 @@ n2 = m.parseToNode (<span style="color:#a31515"></span><span style="color:#a3151
 
 <span style="color:#008000"># n1 の内容は無効になっている</span>
 <span style="color:#00f">while</span> (n1.hasNode () != 0):
-   <span style="color:#00f">print</span> n1.getSurface ()
+   <span style="color:#00f">print</span> (n1.getSurface ())
    n1 = n1.next ()
 </code></pre></div><p>上記の例では, <code>n1</code> の指す中身が, 「さくさくさくら」を解析した時点で
 上書きされており, 使用できなくなっています.</p>

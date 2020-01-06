@@ -49,7 +49,7 @@ print m.parse ("今日もしないとね")
 import sys
 import MeCab
 m = MeCab.Tagger ("-Ochasen")
-print m.parse ("今日もしないとね")
+print (m.parse ("今日もしないとね"))
 ```
 
 ### Java
@@ -103,9 +103,9 @@ RuntimeError 例外が発生します.
 ```python
 try:
     m = MeCab.Tagger ("-d .")
-    print m.parse ("今日もしないとね")
-except RuntimeError, e:
-    print "RuntimeError:", e;
+    print (m.parse ("今日もしないとね"))
+except RuntimeError as e:
+    print ("RuntimeError:", e)
 ```
 
 
@@ -142,7 +142,7 @@ n2 = m.parseToNode ("さくさくさくら")
 
 # n1 の内容は無効になっている
 while (n1.hasNode () != 0):
-   print n1.getSurface ()
+   print (n1.getSurface ())
    n1 = n1.next ()
 ```
 
