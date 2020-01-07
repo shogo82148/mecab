@@ -320,6 +320,7 @@ AC_OUTPUT([
 	    src/Makefile
 	    src/Makefile.msvc
 	    man/Makefile
+	    doc/Makefile
 	    tests/Makefile
 	    swig/version.h
 	    mecab.iss
