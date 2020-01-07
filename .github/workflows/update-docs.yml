@@ -18,6 +18,7 @@ jobs:
         run: sudo apt-get install doxygen help2man man2html
       - name: build mecab
         run: |
+          ./autogen.sh
           ./configure --enable-utf8-only
           make
         working-directory: mecab

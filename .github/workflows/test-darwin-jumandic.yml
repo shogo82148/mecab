@@ -20,6 +20,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: test mecab
         run: |
+          ./autogen.sh
           ./configure
           make -j$(nproc)
           make check
@@ -27,26 +28,29 @@ jobs:
         working-directory: mecab
       - name: build jumandic euc-jp
         run: |
+          ./autogen.sh
           ./configure
           make
           sudo make install
-          make clean
+          make distclean
         working-directory: mecab-jumandic
 
       - name: build jumandic shift-jis
         run: |
+          ./autogen.sh
           ./configure --with-charset=sjis
           make
           sudo make install
-          make clean
+          make distclean
         working-directory: mecab-jumandic
 
       - name: build jumandic utf-8
         run: |
+          ./autogen.sh
           ./configure --with-charset=utf8
           make
           sudo make install
-          make clean
+          make distclean
         working-directory: mecab-jumandic
 
   test-utf8:
@@ -56,6 +60,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: test mecab
         run: |
+          ./autogen.sh
           ./configure --enable-utf8-only
           make -j$(nproc)
           make check
@@ -63,8 +68,9 @@ jobs:
         working-directory: mecab
       - name: build jumandic utf-8
         run: |
+          ./autogen.sh
           ./configure --with-charset=utf8
           make
           sudo make install
-          make clean
+          make distclean
         working-directory: mecab-jumandic

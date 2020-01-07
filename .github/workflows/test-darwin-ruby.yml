@@ -25,12 +25,14 @@ jobs:
       - uses: actions/checkout@v2
       - name: install mecab
         run: |
+          ./autogen.sh
           ./configure
           make -j$(nproc)
           sudo make install
         working-directory: mecab
       - name: install ipadic utf-8
         run: |
+          ./autogen.sh
           ./configure --with-charset=utf8
           make
           sudo make install
