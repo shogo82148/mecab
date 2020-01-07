@@ -34,8 +34,9 @@ jobs:
         working-directory: mecab
       - run: |
           BRANCH=update-docs-test-$(date +"%Y-%m-%d-%H-%M-%S")
+          git switch -c "$BRANCH"
           git config --global user.name "Ichinose Shogo"
           git config --global user.email shogo82148@gmail.com
           git add docs mecab/doc mecab/man
           git commit -m "auto generate documents $(date +"%Y-%m-%d %H:%M:%S")" || ( echo "no updates" && exit 0 )
-          git push -u origin $BRANCH
+          git push -u origin "$BRANCH"
