@@ -25,6 +25,8 @@ jobs:
           - '12'
           - '13'
     steps:
+      - name: install autotools
+        run: brew install automake autoconf libtool
       - uses: actions/checkout@v2
       - name: install mecab
         run: |

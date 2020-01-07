@@ -17,6 +17,8 @@ jobs:
     name: Test
     runs-on: macOS-latest
     steps:
+      - name: install autotools
+        run: brew install automake autoconf libtool
       - uses: actions/checkout@v2
       - name: test mecab
         run: |
@@ -57,6 +59,8 @@ jobs:
     name: Test UTF-8 only mode
     runs-on: macOS-latest
     steps:
+      - name: install autotools
+        run: brew install automake autoconf libtool
       - uses: actions/checkout@v2
       - name: test mecab
         run: |

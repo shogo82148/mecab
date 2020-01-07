@@ -17,6 +17,8 @@ jobs:
     name: Test
     runs-on: macOS-latest
     steps:
+      - name: install autotools
+        run: brew install automake autoconf libtool
       - uses: actions/checkout@v2
       - name: test mecab
         run: |
