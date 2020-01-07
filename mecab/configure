@@ -19587,7 +19587,7 @@ esac
 
 ac_config_headers="$ac_config_headers config.h"
 
-ac_config_files="$ac_config_files Makefile src/Makefile src/Makefile.msvc man/Makefile doc/Makefile tests/Makefile swig/version.h mecab.iss mecab-config mecabrc"
+ac_config_files="$ac_config_files Makefile src/Makefile src/Makefile.msvc man/Makefile tests/Makefile swig/version.h mecab.iss mecab-config mecabrc"
 
 ac_config_commands="$ac_config_commands default"
 
@@ -20711,7 +20711,6 @@ do
     "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
     "src/Makefile.msvc") CONFIG_FILES="$CONFIG_FILES src/Makefile.msvc" ;;
     "man/Makefile") CONFIG_FILES="$CONFIG_FILES man/Makefile" ;;
-    "doc/Makefile") CONFIG_FILES="$CONFIG_FILES doc/Makefile" ;;
     "tests/Makefile") CONFIG_FILES="$CONFIG_FILES tests/Makefile" ;;
     "swig/version.h") CONFIG_FILES="$CONFIG_FILES swig/version.h" ;;
     "mecab.iss") CONFIG_FILES="$CONFIG_FILES mecab.iss" ;;
