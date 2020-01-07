@@ -4,69 +4,73 @@ Content-type: text/html; charset=UTF-8
 <HTML><HEAD><TITLE>Man page of MECAB</TITLE>
 </HEAD><BODY>
 <H1>MECAB</H1>
-Section: MeCab (1)<BR>Updated: March 2009<BR><A HREF="#index">Index</A>
+Section: User Commands (1)<BR>Updated: January 2020<BR><A HREF="#index">Index</A>
 <A HREF="/cgi-bin/man/man2html">Return to Main Contents</A><HR>
 
 <A NAME="lbAB">&nbsp;</A>
 <H2>NAME</H2>
 
-mecab - manual page for mecab of 0.98pre1
+mecab - manual page for mecab of 0.996
 <A NAME="lbAC">&nbsp;</A>
 <H2>SYNOPSIS</H2>
 
 <B>mecab</B>
 
-[<I>options</I>] <I>files</I>
+[<I>,options/</I>] <I>,files/</I>
 <A NAME="lbAD">&nbsp;</A>
 <H2>DESCRIPTION</H2>
 
 MeCab: Yet Another Part-of-Speech and Morphological Analyzer
 <P>
 
-Copyright(C) 2001-2008 Taku Kudo
+Copyright(C) 2001-2012 Taku Kudo
 Copyright(C) 2004-2008 Nippon Telegraph and Telephone Corporation
 <DL COMPACT>
-<DT><B>-r</B>, <B>--rcfile</B>=<I>FILE</I><DD>
+<DT><B>-r</B>, <B>--rcfile</B>=<I>,FILE/</I><DD>
 use FILE as resource file
-<DT><B>-d</B>, <B>--dicdir</B>=<I>DIR</I><DD>
+<DT><B>-d</B>, <B>--dicdir</B>=<I>,DIR/</I><DD>
 set DIR  as a system dicdir
-<DT><B>-u</B>, <B>--userdic</B>=<I>FILE</I><DD>
+<DT><B>-u</B>, <B>--userdic</B>=<I>,FILE/</I><DD>
 use FILE as a user dictionary
-<DT><B>-l</B>, <B>--lattice-level</B>=<I>INT</I><DD>
-lattice information level (default 0)
+<DT><B>-l</B>, <B>--lattice-level</B>=<I>,INT/</I><DD>
+lattice information level (DEPRECATED)
 <DT><B>-D</B>, <B>--dictionary-info</B><DD>
 show dictionary information and exit
+<DT><B>-O</B>, <B>--output-format-type</B>=<I>,TYPE/</I><DD>
+set output format type (wakati,none,...)
 <DT><B>-a</B>, <B>--all-morphs</B><DD>
 output all morphs(default false)
-<DT><B>-O</B>, <B>--output-format-type</B>=<I>TYPE</I><DD>
-set output format type (wakati,none,...)
+<DT><B>-N</B>, <B>--nbest</B>=<I>,INT/</I><DD>
+output N best results (default 1)
 <DT><B>-p</B>, <B>--partial</B><DD>
-partial parsing mode
-<DT><B>-F</B>, <B>--node-format</B>=<I>STR</I><DD>
+partial parsing mode (default false)
+<DT><B>-m</B>, <B>--marginal</B><DD>
+output marginal probability (default false)
+<DT><B>-M</B>, <B>--max-grouping-size</B>=<I>,INT/</I><DD>
+maximum grouping size for unknown words (default 24)
+<DT><B>-F</B>, <B>--node-format</B>=<I>,STR/</I><DD>
 use STR as the user-defined node format
-<DT><B>-U</B>, <B>--unk-format</B>=<I>STR</I><DD>
-use STR as the user-defined unk format
-<DT><B>-B</B>, <B>--bos-format</B>=<I>STR</I><DD>
-use STR as the user-defined bos format
-<DT><B>-E</B>, <B>--eos-format</B>=<I>STR</I><DD>
-use STR as the user-defined eos format
-<DT><B>-x</B>, <B>--unk-feature</B>=<I>STR</I><DD>
+<DT><B>-U</B>, <B>--unk-format</B>=<I>,STR/</I><DD>
+use STR as the user-defined unknown node format
+<DT><B>-B</B>, <B>--bos-format</B>=<I>,STR/</I><DD>
+use STR as the user-defined beginning-of-sentence format
+<DT><B>-E</B>, <B>--eos-format</B>=<I>,STR/</I><DD>
+use STR as the user-defined end-of-sentence format
+<DT><B>-S</B>, <B>--eon-format</B>=<I>,STR/</I><DD>
+use STR as the user-defined end-of-NBest format
+<DT><B>-x</B>, <B>--unk-feature</B>=<I>,STR/</I><DD>
 use STR as the feature for unknown word
-<DT><B>-b</B>, <B>--input-buffer-size</B>=<I>INT</I><DD>
+<DT><B>-b</B>, <B>--input-buffer-size</B>=<I>,INT/</I><DD>
 set input buffer size (default 8192)
 <DT><B>-P</B>, <B>--dump-config</B><DD>
 dump MeCab parameters
-<DT><B>-M</B>, <B>--open-mutable-dictionary</B><DD>
-open dictioanry with mutable mode (experimental)
 <DT><B>-C</B>, <B>--allocate-sentence</B><DD>
 allocate new memory for input sentence
-<DT><B>-N</B>, <B>--nbest</B>=<I>INT</I><DD>
-output N best results (default 1)
-<DT><B>-t</B>, <B>--theta</B>=<I>FLOAT</I><DD>
+<DT><B>-t</B>, <B>--theta</B>=<I>,FLOAT/</I><DD>
 set temparature parameter theta (default 0.75)
-<DT><B>-c</B>, <B>--cost-factor</B>=<I>INT</I><DD>
+<DT><B>-c</B>, <B>--cost-factor</B>=<I>,INT/</I><DD>
 set cost factor (default 700)
-<DT><B>-o</B>, <B>--output</B>=<I>FILE</I><DD>
+<DT><B>-o</B>, <B>--output</B>=<I>,FILE/</I><DD>
 set the output file name
 <DT><B>-v</B>, <B>--version</B><DD>
 show the version and exit.
@@ -86,6 +90,6 @@ show this help and exit.
 This document was created by
 <A HREF="/cgi-bin/man/man2html">man2html</A>,
 using the manual pages.<BR>
-Time: 03:10:31 GMT, January 07, 2020
+Time: 21:53:35 GMT, January 07, 2020
 </BODY>
 </HTML>
