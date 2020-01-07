@@ -1,327 +1,315 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-"http://www.w3.org/TR/html4/strict.dtd">
+
+<!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>MeCab: Yet Another Japanese Dependency Structure Analyzer</title>
-<link type="text/css" rel="stylesheet" href="mecab.css">
-</head>
-<body>
-<h1>MeCab ライブラリ</h1>
-<p>
-MeCabはC/C++のライブラリを提供しています。また, SWIGを通して Perl/Ruby/Python から利用することも可能です。
-</p>
-<p>
-シングルスレッド環境で単純な形態素解析を行う場合は、MeCab::Tagger クラスのみでほとんどのことが行えます。マルチスレッド環境で1つの辞書を共有しながら形態素解析を行いたい場合や、MeCabの辞書を解析中にアップデートするなど、高度な応用には MeCab::Taggerに加えて、 MeCab::Model, MeCab::Lattice クラスを使用します。
-</p>
-<p>
-C++のAPIセットのドキュメントは<a href="doxygen/annotated.html">こちら</a>を参照ください。
-CのAPIセットは<a href="doxygen/globals.html">こちら</a>を参照ください。
+  <head>
+    <meta charset="utf-8">
+    <title>
+      MeCab: Yet Another Part-of-Speech and Morphological Analyzer
+    </title>
+    <link type="text/css" rel="stylesheet" href="mecab.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  </head>
+  <body>
+    
+<section id="main">
+  <h1 id="title">MeCab ライブラリ</h1>
+  <div>
+        <article id="content">
+           <p>MeCabはC/C++のライブラリを提供しています。また, SWIGを通して Perl/Ruby/Python から利用することも可能です。</p>
+<p>シングルスレッド環境で単純な形態素解析を行う場合は、<code>MeCab::Tagger</code> クラスのみでほとんどのことが行えます。マルチスレッド環境で1つの辞書を共有しながら形態素解析を行いたい場合や、
+MeCabの辞書を解析中にアップデートするなど、高度な応用には <code>MeCab::Tagger</code> に加えて、 <code>MeCab::Model</code>, <code>MeCab::Lattice</code> クラスを使用します。</p>
+<p>C++のAPIセットのドキュメントは<a href="doxygen/annotated.html">こちら</a>を参照ください。
+CのAPIセットは<a href="doxygen/globals.html">こちら</a>を参照ください。</p>
+<h2 id="c-サンプルコード">C++ サンプルコード</h2>
+<p>シングルスレッド環境 (<code>MeCab::Tagger</code>)</p>
+<p>Taggerオブジェクトを生成すると、1つの辞書オブジェクトが生成されます。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#00f">#</span><span style="color:#00f">include</span> <span style="color:#00f">&lt;iostream&gt;</span><span style="color:#00f">
+</span><span style="color:#00f"></span><span style="color:#00f">#</span><span style="color:#00f">include</span> <span style="color:#00f">&lt;mecab.h&gt;</span><span style="color:#00f">
+</span><span style="color:#00f"></span>
+<span style="color:#00f">#</span><span style="color:#00f">define CHECK(eval) if (! eval) { \</span><span style="color:#00f">
+</span><span style="color:#00f"></span><span style="color:#00f">   const char *e = tagger ? tagger-&gt;what() : MeCab::getTaggerError(); \</span><span style="color:#00f">
+</span><span style="color:#00f"></span><span style="color:#00f">   std::cerr &lt;&lt; &#34;Exception:&#34; &lt;&lt; e &lt;&lt; std::endl; \</span><span style="color:#00f">
+</span><span style="color:#00f"></span><span style="color:#00f">   delete tagger; \</span><span style="color:#00f">
+</span><span style="color:#00f"></span><span style="color:#00f">   return -1; }</span><span style="color:#00f">
+</span><span style="color:#00f"></span>
+<span style="color:#008000">// Sample of MeCab::Tagger class.
+</span><span style="color:#008000"></span><span style="color:#2b91af">int</span> main (<span style="color:#2b91af">int</span> argc, <span style="color:#2b91af">char</span> **argv) {
+  <span style="color:#2b91af">char</span> input[1024] = <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">太郎は次郎が持っている本を花子に渡した。</span><span style="color:#a31515">&#34;</span>;
 
-<h2>C++ サンプルコード</h2>
-<p>シングルスレッド環境 (MeCab::Tagger)</p>
-<ul>
-  <li>Taggerオブジェクトを生成すると、1つの辞書オブジェクトが生成されます。
-</ul>
-<pre>
-#include &lt;iostream&gt;
-#include &lt;mecab.h&gt;
-
-#define CHECK(eval) if (! eval) { \
-   const char *e = tagger ? tagger-&gt;what() : MeCab::getTaggerError(); \
-   std::cerr &lt;&lt; "Exception:" &lt;&lt; e &lt;&lt; std::endl; \
-   delete tagger; \
-   return -1; }
-
-// Sample of MeCab::Tagger class.
-int main (int argc, char **argv) {
-  char input[1024] = "太郎は次郎が持っている本を花子に渡した。";
-
-  MeCab::Tagger *tagger = MeCab::createTagger("");
+  MeCab::Tagger *tagger = MeCab::createTagger(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">&#34;</span>);
   CHECK(tagger);
 
-  // Gets tagged result in string format.
-  const char *result = tagger-&gt;parse(input);
+  <span style="color:#008000">// Gets tagged result in string format.
+</span><span style="color:#008000"></span>  <span style="color:#00f">const</span> <span style="color:#2b91af">char</span> *result = tagger-&gt;parse(input);
   CHECK(result);
-  std::cout &lt;&lt; "INPUT: " &lt;&lt; input &lt;&lt; std::endl;
-  std::cout &lt;&lt; "RESULT: " &lt;&lt; result &lt;&lt; std::endl;
+  std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">INPUT: </span><span style="color:#a31515">&#34;</span> &lt;&lt; input &lt;&lt; std::endl;
+  std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">RESULT: </span><span style="color:#a31515">&#34;</span> &lt;&lt; result &lt;&lt; std::endl;
 
-  // Gets N best results in string format.
-  result = tagger-&gt;parseNBest(3, input);
+  <span style="color:#008000">// Gets N best results in string format.
+</span><span style="color:#008000"></span>  result = tagger-&gt;parseNBest(3, input);
   CHECK(result);
-  std::cout &lt;&lt; "NBEST: " &lt;&lt; std::endl &lt;&lt; result;
+  std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">NBEST: </span><span style="color:#a31515">&#34;</span> &lt;&lt; std::endl &lt;&lt; result;
 
-  // Gets N best results in sequence.
-  CHECK(tagger-&gt;parseNBestInit(input));
-  for (int i = 0; i &lt; 3; ++i) {
-    std::cout &lt;&lt; i &lt;&lt; ":" &lt;&lt; std::endl &lt;&lt; tagger-&gt;next();
+  <span style="color:#008000">// Gets N best results in sequence.
+</span><span style="color:#008000"></span>  CHECK(tagger-&gt;parseNBestInit(input));
+  <span style="color:#00f">for</span> (<span style="color:#2b91af">int</span> i = 0; i &lt; 3; ++i) {
+    std::cout &lt;&lt; i &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">:</span><span style="color:#a31515">&#34;</span> &lt;&lt; std::endl &lt;&lt; tagger-&gt;next();
   }
 
-  // Gets Node object.
-  const MeCab::Node* node = tagger-&gt;parseToNode(input);
+  <span style="color:#008000">// Gets Node object.
+</span><span style="color:#008000"></span>  <span style="color:#00f">const</span> MeCab::Node* node = tagger-&gt;parseToNode(input);
   CHECK(node);
-  for (; node; node = node-&gt;next) {
-    std::cout &lt;&lt; node-&gt;id &lt;&lt; ' ';
-    if (node-&gt;stat == MECAB_BOS_NODE)
-      std::cout &lt;&lt; "BOS";
-    else if (node-&gt;stat == MECAB_EOS_NODE)
-      std::cout &lt;&lt; "EOS";
-    else
+  <span style="color:#00f">for</span> (; node; node = node-&gt;next) {
+    std::cout &lt;&lt; node-&gt;id &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span>;
+    <span style="color:#00f">if</span> (node-&gt;stat == MECAB_BOS_NODE)
+      std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">BOS</span><span style="color:#a31515">&#34;</span>;
+    <span style="color:#00f">else</span> <span style="color:#00f">if</span> (node-&gt;stat == MECAB_EOS_NODE)
+      std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">EOS</span><span style="color:#a31515">&#34;</span>;
+    <span style="color:#00f">else</span>
       std::cout.write (node-&gt;surface, node-&gt;length);
 
-    std::cout &lt;&lt; ' ' &lt;&lt; node-&gt;feature
-	      &lt;&lt; ' ' &lt;&lt; (int)(node-&gt;surface - input)
-	      &lt;&lt; ' ' &lt;&lt; (int)(node-&gt;surface - input + node-&gt;length)
-	      &lt;&lt; ' ' &lt;&lt; node-&gt;rcAttr
-	      &lt;&lt; ' ' &lt;&lt; node-&gt;lcAttr
-	      &lt;&lt; ' ' &lt;&lt; node-&gt;posid
-	      &lt;&lt; ' ' &lt;&lt; (int)node-&gt;char_type
-	      &lt;&lt; ' ' &lt;&lt; (int)node-&gt;stat
-	      &lt;&lt; ' ' &lt;&lt; (int)node-&gt;isbest
-	      &lt;&lt; ' ' &lt;&lt; node-&gt;alpha
-	      &lt;&lt; ' ' &lt;&lt; node-&gt;beta
-	      &lt;&lt; ' ' &lt;&lt; node-&gt;prob
-	      &lt;&lt; ' ' &lt;&lt; node-&gt;cost &lt;&lt; std::endl;
+    std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; node-&gt;feature
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; (<span style="color:#2b91af">int</span>)(node-&gt;surface - input)
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; (<span style="color:#2b91af">int</span>)(node-&gt;surface - input + node-&gt;length)
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; node-&gt;rcAttr
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; node-&gt;lcAttr
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; node-&gt;posid
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; (<span style="color:#2b91af">int</span>)node-&gt;char_type
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; (<span style="color:#2b91af">int</span>)node-&gt;stat
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; (<span style="color:#2b91af">int</span>)node-&gt;isbest
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; node-&gt;alpha
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; node-&gt;beta
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; node-&gt;prob
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; node-&gt;cost &lt;&lt; std::endl;
   }
 
-  // Dictionary info.
-  const MeCab::DictionaryInfo *d = tagger-&gt;dictionary_info();
-  for (; d; d = d-&gt;next) {
-    std::cout &lt;&lt; "filename: " &lt;&lt;  d-&gt;filename &lt;&lt; std::endl;
-    std::cout &lt;&lt; "charset: " &lt;&lt;  d-&gt;charset &lt;&lt; std::endl;
-    std::cout &lt;&lt; "size: " &lt;&lt;  d-&gt;size &lt;&lt; std::endl;
-    std::cout &lt;&lt; "type: " &lt;&lt;  d-&gt;type &lt;&lt; std::endl;
-    std::cout &lt;&lt; "lsize: " &lt;&lt;  d-&gt;lsize &lt;&lt; std::endl;
-    std::cout &lt;&lt; "rsize: " &lt;&lt;  d-&gt;rsize &lt;&lt; std::endl;
-    std::cout &lt;&lt; "version: " &lt;&lt;  d-&gt;version &lt;&lt; std::endl;
+  <span style="color:#008000">// Dictionary info.
+</span><span style="color:#008000"></span>  <span style="color:#00f">const</span> MeCab::DictionaryInfo *d = tagger-&gt;dictionary_info();
+  <span style="color:#00f">for</span> (; d; d = d-&gt;next) {
+    std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">filename: </span><span style="color:#a31515">&#34;</span> &lt;&lt;  d-&gt;filename &lt;&lt; std::endl;
+    std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">charset: </span><span style="color:#a31515">&#34;</span> &lt;&lt;  d-&gt;charset &lt;&lt; std::endl;
+    std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">size: </span><span style="color:#a31515">&#34;</span> &lt;&lt;  d-&gt;size &lt;&lt; std::endl;
+    std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">type: </span><span style="color:#a31515">&#34;</span> &lt;&lt;  d-&gt;type &lt;&lt; std::endl;
+    std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">lsize: </span><span style="color:#a31515">&#34;</span> &lt;&lt;  d-&gt;lsize &lt;&lt; std::endl;
+    std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">rsize: </span><span style="color:#a31515">&#34;</span> &lt;&lt;  d-&gt;rsize &lt;&lt; std::endl;
+    std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">version: </span><span style="color:#a31515">&#34;</span> &lt;&lt;  d-&gt;version &lt;&lt; std::endl;
   }
 
-  delete tagger;
+  <span style="color:#00f">delete</span> tagger;
 
-  return 0;
+  <span style="color:#00f">return</span> 0;
 }
-
-</pre>
-
-<h2>C++ サンプルコード</h2>
-<p>マルチスレッド環境 (MeCab::Tagger, MeCab::Model, MeCab::Lattice)</p>
+</code></pre></div><h2 id="c-サンプルコード-1">C++ サンプルコード</h2>
+<p>マルチスレッド環境 (<code>MeCab::Tagger</code>, <code>MeCab::Model</code>, <code>MeCab::Lattice</code>)</p>
 <ul>
-<li>MeCab::createModel() を使い、Modelオブジェクトを生成します
-<li>model->createTagger() を使い、Taggerオブジェクトを生成します。Taggerはスレッド毎に複数作成しても、同一のmodelを共有します。Taggerがアクティブの間は、modelを削除してはなりません。
-<li>model->createLattice もしくは MeCab::createLattice() を使い、Latticeオブジェクトを作成します。Latticeオプジェクトは解析に必要なすべてのローカル変数を含んでいます。必ずスレッド毎に1つのオブジェクトを作成してください
-<li>model->swap(antoher_model) を呼ぶと、model から生成されたすべてのTaggerオブジェクトのモデルを another_modelに置き換えます。この操作はスレッドセーフです。
+<li><code>MeCab::createModel()</code> を使い、Modelオブジェクトを生成します</li>
+<li><code>model-&gt;createTagger()</code> を使い、Taggerオブジェクトを生成します。Taggerはスレッド毎に複数作成しても、同一のmodelを共有します。Taggerがアクティブの間は、modelを削除してはなりません。</li>
+<li><code>model-&gt;createLattice</code> もしくは <code>MeCab::createLattice()</code> を使い、Latticeオブジェクトを作成します。Latticeオプジェクトは解析に必要なすべてのローカル変数を含んでいます。必ずスレッド毎に1つのオブジェクトを作成してください</li>
+<li><code>model-&gt;swap(another_model)</code> を呼ぶと、model から生成されたすべてのTaggerオブジェクトのモデルを another_modelに置き換えます。この操作はスレッドセーフです。</li>
 </ul>
-<pre>
-#include &lt;iostream&gt;
-#include &lt;mecab.h&gt;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#00f">#</span><span style="color:#00f">include</span> <span style="color:#00f">&lt;iostream&gt;</span><span style="color:#00f">
+</span><span style="color:#00f"></span><span style="color:#00f">#</span><span style="color:#00f">include</span> <span style="color:#00f">&lt;mecab.h&gt;</span><span style="color:#00f">
+</span><span style="color:#00f"></span>
+<span style="color:#00f">#</span><span style="color:#00f">define CHECK(eval) if (! eval) { \</span><span style="color:#00f">
+</span><span style="color:#00f"></span><span style="color:#00f">   const char *e = tagger ? tagger-&gt;what() : MeCab::getTaggerError(); \</span><span style="color:#00f">
+</span><span style="color:#00f"></span><span style="color:#00f">   std::cerr &lt;&lt; &#34;Exception:&#34; &lt;&lt; e &lt;&lt; std::endl; \</span><span style="color:#00f">
+</span><span style="color:#00f"></span><span style="color:#00f">   delete tagger; \</span><span style="color:#00f">
+</span><span style="color:#00f"></span><span style="color:#00f">   return -1; }</span><span style="color:#00f">
+</span><span style="color:#00f"></span>
+<span style="color:#2b91af">int</span> main (<span style="color:#2b91af">int</span> argc, <span style="color:#2b91af">char</span> **argv) {
+  <span style="color:#2b91af">char</span> input[1024] = <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">太郎は次郎が持っている本を花子に渡した。</span><span style="color:#a31515">&#34;</span>;
 
-#define CHECK(eval) if (! eval) { \
-   const char *e = tagger ? tagger-&gt;what() : MeCab::getTaggerError(); \
-   std::cerr &lt;&lt; "Exception:" &lt;&lt; e &lt;&lt; std::endl; \
-   delete tagger; \
-   return -1; }
+  <span style="color:#008000">// Create model object.
+</span><span style="color:#008000"></span>  MeCab::Model *model = MeCab::createModel(argc, argv);
 
-int main (int argc, char **argv) {
-  char input[1024] = "太郎は次郎が持っている本を花子に渡した。";
-
-  // Create model object.
-  MeCab::Model *model = MeCab::createModel(argc, argv);
-
-  // Create Tagger
-  // All taggers generated by Model::createTagger() method share
-  // the same model/dictoinary.
-  MeCab::Tagger *tagger = model-&gt;createTagger();
+  <span style="color:#008000">// Create Tagger
+</span><span style="color:#008000"></span>  <span style="color:#008000">// All taggers generated by Model::createTagger() method share
+</span><span style="color:#008000"></span>  <span style="color:#008000">// the same model/dictionary.
+</span><span style="color:#008000"></span>  MeCab::Tagger *tagger = model-&gt;createTagger();
   CHECK(tagger);
 
-  // Create lattice object per thread.
-  MeCab::Lattice *lattice = model-&gt;createLattice();
+  <span style="color:#008000">// Create lattice object per thread.
+</span><span style="color:#008000"></span>  MeCab::Lattice *lattice = model-&gt;createLattice();
 
-  // Gets tagged result in string
-  lattice-&gt;set_sentence(input);
+  <span style="color:#008000">// Gets tagged result in string
+</span><span style="color:#008000"></span>  lattice-&gt;set_sentence(input);
 
-  // this method is thread safe, as long as |lattice| is thread local.
-  CHECK(tagger-&gt;parse(lattice));
+  <span style="color:#008000">// this method is thread safe, as long as |lattice| is thread local.
+</span><span style="color:#008000"></span>  CHECK(tagger-&gt;parse(lattice));
   std::cout &lt;&lt; lattice-&gt;toString() &lt;&lt; std::endl;
 
-  // Gets node object.
-  const MeCab::Node* node = lattice-&gt;bos_node();
+  <span style="color:#008000">// Gets node object.
+</span><span style="color:#008000"></span>  <span style="color:#00f">const</span> MeCab::Node* node = lattice-&gt;bos_node();
   CHECK(node);
-  for (; node; node = node-&gt;next) {
-    std::cout &lt;&lt; node-&gt;id &lt;&lt; ' ';
-    if (node-&gt;stat == MECAB_BOS_NODE)
-      std::cout &lt;&lt; "BOS";
-    else if (node-&gt;stat == MECAB_EOS_NODE)
-      std::cout &lt;&lt; "EOS";
-    else
+  <span style="color:#00f">for</span> (; node; node = node-&gt;next) {
+    std::cout &lt;&lt; node-&gt;id &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span>;
+    <span style="color:#00f">if</span> (node-&gt;stat == MECAB_BOS_NODE)
+      std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">BOS</span><span style="color:#a31515">&#34;</span>;
+    <span style="color:#00f">else</span> <span style="color:#00f">if</span> (node-&gt;stat == MECAB_EOS_NODE)
+      std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">EOS</span><span style="color:#a31515">&#34;</span>;
+    <span style="color:#00f">else</span>
       std::cout.write (node-&gt;surface, node-&gt;length);
 
-    std::cout &lt;&lt; ' ' &lt;&lt; node-&gt;feature
-	      &lt;&lt; ' ' &lt;&lt; (int)(node-&gt;surface - input)
-	      &lt;&lt; ' ' &lt;&lt; (int)(node-&gt;surface - input + node-&gt;length)
-	      &lt;&lt; ' ' &lt;&lt; node-&gt;rcAttr
-	      &lt;&lt; ' ' &lt;&lt; node-&gt;lcAttr
-	      &lt;&lt; ' ' &lt;&lt; node-&gt;posid
-	      &lt;&lt; ' ' &lt;&lt; (int)node-&gt;char_type
-	      &lt;&lt; ' ' &lt;&lt; (int)node-&gt;stat
-	      &lt;&lt; ' ' &lt;&lt; (int)node-&gt;isbest
-	      &lt;&lt; ' ' &lt;&lt; node-&gt;alpha
-	      &lt;&lt; ' ' &lt;&lt; node-&gt;beta
-	      &lt;&lt; ' ' &lt;&lt; node-&gt;prob
-	      &lt;&lt; ' ' &lt;&lt; node-&gt;cost &lt;&lt; std::endl;
+    std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; node-&gt;feature
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; (<span style="color:#2b91af">int</span>)(node-&gt;surface - input)
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; (<span style="color:#2b91af">int</span>)(node-&gt;surface - input + node-&gt;length)
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; node-&gt;rcAttr
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; node-&gt;lcAttr
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; node-&gt;posid
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; (<span style="color:#2b91af">int</span>)node-&gt;char_type
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; (<span style="color:#2b91af">int</span>)node-&gt;stat
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; (<span style="color:#2b91af">int</span>)node-&gt;isbest
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; node-&gt;alpha
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; node-&gt;beta
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; node-&gt;prob
+	      &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#39;</span><span style="color:#a31515"> </span><span style="color:#a31515">&#39;</span> &lt;&lt; node-&gt;cost &lt;&lt; std::endl;
   }
 
 
-  // begin_nodes/end_nodes
-  const size_t len = lattice-&gt;size();
-  for (int i = 0; i &lt;= len; ++i) {
+  <span style="color:#008000">// begin_nodes/end_nodes
+</span><span style="color:#008000"></span>  <span style="color:#00f">const</span> size_t len = lattice-&gt;size();
+  <span style="color:#00f">for</span> (<span style="color:#2b91af">int</span> i = 0; i &lt;= len; ++i) {
     MeCab::Node *b = lattice-&gt;begin_nodes(i);
     MeCab::Node *e = lattice-&gt;end_nodes(i);
-    for (; b; b = b-&gt;bnext) {
-      printf("B[%d] %s\t%s\n", i, b-&gt;surface, b-&gt;feature);
+    <span style="color:#00f">for</span> (; b; b = b-&gt;bnext) {
+      printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">B[%d] %s</span><span style="color:#a31515">\t</span><span style="color:#a31515">%s</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, i, b-&gt;surface, b-&gt;feature);
     }
-    for (; e; e = e-&gt;enext) {
-      printf("E[%d] %s\t%s\n", i, e-&gt;surface, e-&gt;feature);
+    <span style="color:#00f">for</span> (; e; e = e-&gt;enext) {
+      printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">E[%d] %s</span><span style="color:#a31515">\t</span><span style="color:#a31515">%s</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, i, e-&gt;surface, e-&gt;feature);
     }
   }
 
-  // N best results
-  lattice-&gt;set_request_type(MECAB_NBEST);
+  <span style="color:#008000">// N best results
+</span><span style="color:#008000"></span>  lattice-&gt;set_request_type(MECAB_NBEST);
   lattice-&gt;set_sentence(input);
   CHECK(tagger-&gt;parse(lattice));
-  for (int i = 0; i &lt; 10; ++i) {
-    std::cout &lt;&lt; "NBEST: " &lt;&lt; i &lt;&lt; std::endl;
+  <span style="color:#00f">for</span> (<span style="color:#2b91af">int</span> i = 0; i &lt; 10; ++i) {
+    std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">NBEST: </span><span style="color:#a31515">&#34;</span> &lt;&lt; i &lt;&lt; std::endl;
     std::cout &lt;&lt; lattice-&gt;toString();
-    if (!lattice-&gt;next()) {
-      // No more results
-      break;
+    <span style="color:#00f">if</span> (!lattice-&gt;next()) {
+      <span style="color:#008000">// No more results
+</span><span style="color:#008000"></span>      <span style="color:#00f">break</span>;
     }
   }
 
-  // Marginal probabilities
-  lattice-&gt;remove_request_type(MECAB_NBEST);
+  <span style="color:#008000">// Marginal probabilities
+</span><span style="color:#008000"></span>  lattice-&gt;remove_request_type(MECAB_NBEST);
   lattice-&gt;set_request_type(MECAB_MARGINAL_PROB);
   lattice-&gt;set_sentence(input);
   CHECK(tagger-&gt;parse(lattice));
   std::cout &lt;&lt; lattice-&gt;theta() &lt;&lt; std::endl;
-  for (const MeCab::Node *node = lattice-&gt;bos_node();
+  <span style="color:#00f">for</span> (<span style="color:#00f">const</span> MeCab::Node *node = lattice-&gt;bos_node();
        node; node = node-&gt;next) {
     std::cout.write(node-&gt;surface, node-&gt;length);
-    std::cout &lt;&lt; "\t" &lt;&lt; node-&gt;feature;
-    std::cout &lt;&lt; "\t" &lt;&lt; node-&gt;prob &lt;&lt; std::endl;
+    std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">\t</span><span style="color:#a31515">&#34;</span> &lt;&lt; node-&gt;feature;
+    std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">\t</span><span style="color:#a31515">&#34;</span> &lt;&lt; node-&gt;prob &lt;&lt; std::endl;
   }
 
-  // Dictionary info
-  const MeCab::DictionaryInfo *d = model-&gt;dictionary_info();
-  for (; d; d = d-&gt;next) {
-    std::cout &lt;&lt; "filename: " &lt;&lt;  d-&gt;filename &lt;&lt; std::endl;
-    std::cout &lt;&lt; "charset: " &lt;&lt;  d-&gt;charset &lt;&lt; std::endl;
-    std::cout &lt;&lt; "size: " &lt;&lt;  d-&gt;size &lt;&lt; std::endl;
-    std::cout &lt;&lt; "type: " &lt;&lt;  d-&gt;type &lt;&lt; std::endl;
-    std::cout &lt;&lt; "lsize: " &lt;&lt;  d-&gt;lsize &lt;&lt; std::endl;
-    std::cout &lt;&lt; "rsize: " &lt;&lt;  d-&gt;rsize &lt;&lt; std::endl;
-    std::cout &lt;&lt; "version: " &lt;&lt;  d-&gt;version &lt;&lt; std::endl;
+  <span style="color:#008000">// Dictionary info
+</span><span style="color:#008000"></span>  <span style="color:#00f">const</span> MeCab::DictionaryInfo *d = model-&gt;dictionary_info();
+  <span style="color:#00f">for</span> (; d; d = d-&gt;next) {
+    std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">filename: </span><span style="color:#a31515">&#34;</span> &lt;&lt;  d-&gt;filename &lt;&lt; std::endl;
+    std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">charset: </span><span style="color:#a31515">&#34;</span> &lt;&lt;  d-&gt;charset &lt;&lt; std::endl;
+    std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">size: </span><span style="color:#a31515">&#34;</span> &lt;&lt;  d-&gt;size &lt;&lt; std::endl;
+    std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">type: </span><span style="color:#a31515">&#34;</span> &lt;&lt;  d-&gt;type &lt;&lt; std::endl;
+    std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">lsize: </span><span style="color:#a31515">&#34;</span> &lt;&lt;  d-&gt;lsize &lt;&lt; std::endl;
+    std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">rsize: </span><span style="color:#a31515">&#34;</span> &lt;&lt;  d-&gt;rsize &lt;&lt; std::endl;
+    std::cout &lt;&lt; <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">version: </span><span style="color:#a31515">&#34;</span> &lt;&lt;  d-&gt;version &lt;&lt; std::endl;
   }
 
-  // Swap model atomically.
-  MeCab::Model *another_model = MeCab::createModel("");
+  <span style="color:#008000">// Swap model atomically.
+</span><span style="color:#008000"></span>  MeCab::Model *another_model = MeCab::createModel(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">&#34;</span>);
   model-&gt;swap(another_model);
 
-  delete lattice;
-  delete tagger;
-  delete model;
+  <span style="color:#00f">delete</span> lattice;
+  <span style="color:#00f">delete</span> tagger;
+  <span style="color:#00f">delete</span> model;
 
-  return 0;
+  <span style="color:#00f">return</span> 0;
 }
 
-</pre>
-
-<h2>C サンプルコード</h2>
-シングルスレッド環境
-<pre>
-#include &lt;mecab.h&gt;
-#include &lt;stdio.h&gt;
-
-#define CHECK(eval) if (! eval) { \
-    fprintf (stderr, "Exception:%s\n", mecab_strerror (mecab)); \
-    mecab_destroy(mecab); \
-    return -1; }
-
-int main (int argc, char **argv)  {
-  char input[] = "太郎は次郎が持っている本を花子に渡した。";
+</code></pre></div><h2 id="c-サンプルコード-2">C サンプルコード</h2>
+<p>シングルスレッド環境</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#00f">#</span><span style="color:#00f">include</span> <span style="color:#00f">&lt;mecab.h&gt;</span><span style="color:#00f">
+</span><span style="color:#00f"></span><span style="color:#00f">#</span><span style="color:#00f">include</span> <span style="color:#00f">&lt;stdio.h&gt;</span><span style="color:#00f">
+</span><span style="color:#00f"></span>
+<span style="color:#00f">#</span><span style="color:#00f">define CHECK(eval) if (! eval) { \</span><span style="color:#00f">
+</span><span style="color:#00f"></span><span style="color:#00f">    fprintf (stderr, &#34;Exception:%s\n&#34;, mecab_strerror (mecab)); \</span><span style="color:#00f">
+</span><span style="color:#00f"></span><span style="color:#00f">    mecab_destroy(mecab); \</span><span style="color:#00f">
+</span><span style="color:#00f"></span><span style="color:#00f">    return -1; }</span><span style="color:#00f">
+</span><span style="color:#00f"></span>
+<span style="color:#2b91af">int</span> main (<span style="color:#2b91af">int</span> argc, <span style="color:#2b91af">char</span> **argv)  {
+  <span style="color:#2b91af">char</span> input[] = <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">太郎は次郎が持っている本を花子に渡した。</span><span style="color:#a31515">&#34;</span>;
   mecab_t *mecab;
-  const mecab_node_t *node;
-  const char *result;
-  int i;
+  <span style="color:#00f">const</span> mecab_node_t *node;
+  <span style="color:#00f">const</span> <span style="color:#2b91af">char</span> *result;
+  <span style="color:#2b91af">int</span> i;
   size_t len;
 
-  // Create tagger object
-  mecab = mecab_new(argc, argv);
+  <span style="color:#008000">// Create tagger object
+</span><span style="color:#008000"></span>  mecab = mecab_new(argc, argv);
   CHECK(mecab);
 
-  // Gets tagged result in string.
-  result = mecab_sparse_tostr(mecab, input);
+  <span style="color:#008000">// Gets tagged result in string.
+</span><span style="color:#008000"></span>  result = mecab_sparse_tostr(mecab, input);
   CHECK(result)
-  printf ("INPUT: %s\n", input);
-  printf ("RESULT:\n%s", result);
+  printf (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">INPUT: %s</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, input);
+  printf (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">RESULT:</span><span style="color:#a31515">\n</span><span style="color:#a31515">%s</span><span style="color:#a31515">&#34;</span>, result);
 
-  // Gets N best results
-  result = mecab_nbest_sparse_tostr (mecab, 3, input);
+  <span style="color:#008000">// Gets N best results
+</span><span style="color:#008000"></span>  result = mecab_nbest_sparse_tostr (mecab, 3, input);
   CHECK(result);
-  fprintf (stdout, "NBEST:\n%s", result);
+  fprintf (stdout, <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">NBEST:</span><span style="color:#a31515">\n</span><span style="color:#a31515">%s</span><span style="color:#a31515">&#34;</span>, result);
 
   CHECK(mecab_nbest_init(mecab, input));
-  for (i = 0; i < 3; ++i) {
-    printf ("%d:\n%s", i, mecab_nbest_next_tostr (mecab));
+  <span style="color:#00f">for</span> (i = 0; i &lt; 3; ++i) {
+    printf (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">%d:</span><span style="color:#a31515">\n</span><span style="color:#a31515">%s</span><span style="color:#a31515">&#34;</span>, i, mecab_nbest_next_tostr (mecab));
   }
 
-  // Gets node object
-  node = mecab_sparse_tonode(mecab, input);
+  <span style="color:#008000">// Gets node object
+</span><span style="color:#008000"></span>  node = mecab_sparse_tonode(mecab, input);
   CHECK(node);
-  for (; node; node = node-&gt;next) {
-    if (node-&gt;stat == MECAB_NOR_NODE || node-&gt;stat == MECAB_UNK_NODE) {
-      fwrite (node-&gt;surface, sizeof(char), node-&gt;length, stdout);
-      printf("\t%s\n", node-&gt;feature);
+  <span style="color:#00f">for</span> (; node; node = node-&gt;next) {
+    <span style="color:#00f">if</span> (node-&gt;stat == MECAB_NOR_NODE || node-&gt;stat == MECAB_UNK_NODE) {
+      fwrite (node-&gt;surface, <span style="color:#00f">sizeof</span>(<span style="color:#2b91af">char</span>), node-&gt;length, stdout);
+      printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">\t</span><span style="color:#a31515">%s</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, node-&gt;feature);
     }
   }
 
-  // Dictionary info
-  const mecab_dictionary_info_t *d = mecab_dictionary_info(mecab);
-  for (; d; d = d-&gt;next) {
-    printf("filename: %s\n", d-&gt;filename);
-    printf("charset: %s\n", d-&gt;charset);
-    printf("size: %d\n", d-&gt;size);
-    printf("type: %d\n", d-&gt;type);
-    printf("lsize: %d\n", d-&gt;lsize);
-    printf("rsize: %d\n", d-&gt;rsize);
-    printf("version: %d\n", d-&gt;version);
+  <span style="color:#008000">// Dictionary info
+</span><span style="color:#008000"></span>  <span style="color:#00f">const</span> mecab_dictionary_info_t *d = mecab_dictionary_info(mecab);
+  <span style="color:#00f">for</span> (; d; d = d-&gt;next) {
+    printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">filename: %s</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, d-&gt;filename);
+    printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">charset: %s</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, d-&gt;charset);
+    printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">size: %d</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, d-&gt;size);
+    printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">type: %d</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, d-&gt;type);
+    printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">lsize: %d</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, d-&gt;lsize);
+    printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">rsize: %d</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, d-&gt;rsize);
+    printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">version: %d</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, d-&gt;version);
   }
 
   mecab_destroy(mecab);
 
-  return 0;
+  <span style="color:#00f">return</span> 0;
 }
-
-</pre>
-
-<h2>C サンプルコード</h2>
-マルチスレッド環境
-<pre>
-#include &lt;mecab.h&gt;
-#include &lt;stdio.h&gt;
-
-#define CHECK(eval) if (! eval) { \
-    fprintf (stderr, "Exception:%s\n", mecab_strerror (mecab)); \
-    mecab_destroy(mecab); \
-    return -1; }
-
-int main (int argc, char **argv)  {
-  char input[] = "太郎は次郎が持っている本を花子に渡した。";
+</code></pre></div><h2 id="c-サンプルコード-3">C サンプルコード</h2>
+<p>マルチスレッド環境</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#00f">#</span><span style="color:#00f">include</span> <span style="color:#00f">&lt;mecab.h&gt;</span><span style="color:#00f">
+</span><span style="color:#00f"></span><span style="color:#00f">#</span><span style="color:#00f">include</span> <span style="color:#00f">&lt;stdio.h&gt;</span><span style="color:#00f">
+</span><span style="color:#00f"></span>
+<span style="color:#00f">#</span><span style="color:#00f">define CHECK(eval) if (! eval) { \</span><span style="color:#00f">
+</span><span style="color:#00f"></span><span style="color:#00f">    fprintf (stderr, &#34;Exception:%s\n&#34;, mecab_strerror (mecab)); \</span><span style="color:#00f">
+</span><span style="color:#00f"></span><span style="color:#00f">    mecab_destroy(mecab); \</span><span style="color:#00f">
+</span><span style="color:#00f"></span><span style="color:#00f">    return -1; }</span><span style="color:#00f">
+</span><span style="color:#00f"></span>
+<span style="color:#2b91af">int</span> main (<span style="color:#2b91af">int</span> argc, <span style="color:#2b91af">char</span> **argv)  {
+  <span style="color:#2b91af">char</span> input[] = <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">太郎は次郎が持っている本を花子に渡した。</span><span style="color:#a31515">&#34;</span>;
   mecab_model_t *model, *another_model;
   mecab_t *mecab;
   mecab_lattice_t *lattice;
-  const mecab_node_t *node;
-  const char *result;
-  int i;
+  <span style="color:#00f">const</span> mecab_node_t *node;
+  <span style="color:#00f">const</span> <span style="color:#2b91af">char</span> *result;
+  <span style="color:#2b91af">int</span> i;
   size_t len;
 
   model = mecab_model_new(argc, argv);
@@ -336,29 +324,29 @@ int main (int argc, char **argv)  {
   mecab_lattice_set_sentence(lattice, input);
   mecab_parse_lattice(mecab, lattice);
 
-  printf("RESULT: %s\n", mecab_lattice_tostr(lattice));
+  printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">RESULT: %s</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, mecab_lattice_tostr(lattice));
 
   node = mecab_lattice_get_bos_node(lattice);
-  for (;  node; node = node-&gt;next) {
-    printf("%d ", node-&gt;id);
+  <span style="color:#00f">for</span> (;  node; node = node-&gt;next) {
+    printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">%d </span><span style="color:#a31515">&#34;</span>, node-&gt;id);
 
-    if (node-&gt;stat == MECAB_BOS_NODE)
-      printf("BOS");
-    else if (node-&gt;stat == MECAB_EOS_NODE)
-      printf("EOS");
-    else
-      fwrite (node-&gt;surface, sizeof(char), node-&gt;length, stdout);
+    <span style="color:#00f">if</span> (node-&gt;stat == MECAB_BOS_NODE)
+      printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">BOS</span><span style="color:#a31515">&#34;</span>);
+    <span style="color:#00f">else</span> <span style="color:#00f">if</span> (node-&gt;stat == MECAB_EOS_NODE)
+      printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">EOS</span><span style="color:#a31515">&#34;</span>);
+    <span style="color:#00f">else</span>
+      fwrite (node-&gt;surface, <span style="color:#00f">sizeof</span>(<span style="color:#2b91af">char</span>), node-&gt;length, stdout);
 
-    printf(" %s %d %d %d %d %d %d %d %d %f %f %f %ld\n",
+    printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515"> %s %d %d %d %d %d %d %d %d %f %f %f %ld</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>,
 	   node-&gt;feature,
-	   (int)(node-&gt;surface - input),
-	   (int)(node-&gt;surface - input + node-&gt;length),
+	   (<span style="color:#2b91af">int</span>)(node-&gt;surface - input),
+	   (<span style="color:#2b91af">int</span>)(node-&gt;surface - input + node-&gt;length),
 	   node-&gt;rcAttr,
 	   node-&gt;lcAttr,
 	   node-&gt;posid,
-	   (int)node-&gt;char_type,
-	   (int)node-&gt;stat,
-	   (int)node-&gt;isbest,
+	   (<span style="color:#2b91af">int</span>)node-&gt;char_type,
+	   (<span style="color:#2b91af">int</span>)node-&gt;stat,
+	   (<span style="color:#2b91af">int</span>)node-&gt;isbest,
 	   node-&gt;alpha,
 	   node-&gt;beta,
 	   node-&gt;prob,
@@ -366,25 +354,25 @@ int main (int argc, char **argv)  {
   }
 
   len = mecab_lattice_get_size(lattice);
-  for (i = 0; i &lt;= len; ++i) {
+  <span style="color:#00f">for</span> (i = 0; i &lt;= len; ++i) {
     mecab_node_t *b, *e;
     b = mecab_lattice_get_begin_nodes(lattice, (size_t)i);
     e = mecab_lattice_get_end_nodes(lattice, (size_t)i);
-    for (; b; b = b-&gt;bnext) {
-        printf("B[%d] %s\t%s\n", i, b-&gt;surface, b-&gt;feature);
+    <span style="color:#00f">for</span> (; b; b = b-&gt;bnext) {
+        printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">B[%d] %s</span><span style="color:#a31515">\t</span><span style="color:#a31515">%s</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, i, b-&gt;surface, b-&gt;feature);
     }
-    for (; e; e = e-&gt;enext) {
-        printf("E[%d] %s\t%s\n", i, e-&gt;surface, e-&gt;feature);
+    <span style="color:#00f">for</span> (; e; e = e-&gt;enext) {
+        printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">E[%d] %s</span><span style="color:#a31515">\t</span><span style="color:#a31515">%s</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, i, e-&gt;surface, e-&gt;feature);
     }
   }
 
   mecab_lattice_set_sentence(lattice, input);
   mecab_lattice_set_request_type(lattice, MECAB_NBEST);
   mecab_parse_lattice(mecab, lattice);
-  for (i = 0; i &lt; 10; ++i) {
-    fprintf(stdout, "%s", mecab_lattice_tostr(lattice));
-    if (!mecab_lattice_next(lattice)) {
-      break;
+  <span style="color:#00f">for</span> (i = 0; i &lt; 10; ++i) {
+    fprintf(stdout, <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">%s</span><span style="color:#a31515">&#34;</span>, mecab_lattice_tostr(lattice));
+    <span style="color:#00f">if</span> (!mecab_lattice_next(lattice)) {
+      <span style="color:#00f">break</span>;
     }
   }
 
@@ -393,69 +381,56 @@ int main (int argc, char **argv)  {
   mecab_lattice_set_theta(lattice, 0.001);
   mecab_parse_lattice(mecab, lattice);
   node = mecab_lattice_get_bos_node(lattice);
-  for (;  node; node = node-&gt;next) {
-    fwrite(node-&gt;surface, sizeof(char), node-&gt;length, stdout);
-    fprintf(stdout, "\t%s\t%f\n", node-&gt;feature, node-&gt;prob);
+  <span style="color:#00f">for</span> (;  node; node = node-&gt;next) {
+    fwrite(node-&gt;surface, <span style="color:#00f">sizeof</span>(<span style="color:#2b91af">char</span>), node-&gt;length, stdout);
+    fprintf(stdout, <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">\t</span><span style="color:#a31515">%s</span><span style="color:#a31515">\t</span><span style="color:#a31515">%f</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, node-&gt;feature, node-&gt;prob);
   }
 
   mecab_set_lattice_level(mecab, 0);
   mecab_set_all_morphs(mecab, 1);
   node = mecab_sparse_tonode(mecab, input);
   CHECK(node);
-  for (; node; node = node-&gt;next) {
-    fwrite (node-&gt;surface, sizeof(char), node-&gt;length, stdout);
-    printf("\t%s\n", node-&gt;feature);
+  <span style="color:#00f">for</span> (; node; node = node-&gt;next) {
+    fwrite (node-&gt;surface, <span style="color:#00f">sizeof</span>(<span style="color:#2b91af">char</span>), node-&gt;length, stdout);
+    printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">\t</span><span style="color:#a31515">%s</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, node-&gt;feature);
   }
 
-  const mecab_dictionary_info_t *d = mecab_dictionary_info(mecab);
-  for (; d; d = d-&gt;next) {
-    printf("filename: %s\n", d-&gt;filename);
-    printf("charset: %s\n", d-&gt;charset);
-    printf("size: %d\n", d-&gt;size);
-    printf("type: %d\n", d-&gt;type);
-    printf("lsize: %d\n", d-&gt;lsize);
-    printf("rsize: %d\n", d-&gt;rsize);
-    printf("version: %d\n", d-&gt;version);
+  <span style="color:#00f">const</span> mecab_dictionary_info_t *d = mecab_dictionary_info(mecab);
+  <span style="color:#00f">for</span> (; d; d = d-&gt;next) {
+    printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">filename: %s</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, d-&gt;filename);
+    printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">charset: %s</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, d-&gt;charset);
+    printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">size: %d</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, d-&gt;size);
+    printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">type: %d</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, d-&gt;type);
+    printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">lsize: %d</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, d-&gt;lsize);
+    printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">rsize: %d</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, d-&gt;rsize);
+    printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">version: %d</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, d-&gt;version);
   }
 
 
   mecab_destroy(mecab);
   mecab_lattice_destroy(lattice);
-  mecab_model_destory(model);
+  mecab_model_destroy(model);
 
-  return 0;
+  <span style="color:#00f">return</span> 0;
 }
-
-</pre>
-
-<h2><a name="compile">コンパイル方法</a></h2>
-
-<ul>
-<li>UNIX の場合 </li>
-
-<pre>
-% cc -O2 `mecab-config --cflags` example.c -o example \
+</code></pre></div><h2 id="compile"><a name="compile">コンパイル方法</h2>
+<p>UNIX の場合</p>
+<pre><code>% cc -O2 `mecab-config --cflags` example.c -o example \
          `mecab-config --libs`
-</pre>
-
-<li>Windows の場合 </li>
-<p>まず, コンパイル作業を行うディレクトリに include\mecab.h,
-bin\libmecab.dll lib\libmecab.lib をコピーします.
+</code></pre><p>Windows の場合</p>
+<p>まず, コンパイル作業を行うディレクトリに <code>include\mecab.h</code>,
+<code>bin\libmecab.dll</code> <code>lib\libmecab.lib</code> をコピーします.
 この後の作業は, 使用するコンパイラによって微妙に変わります.</p>
+<p>cygwin/mingw 環境の場合</p>
+<pre><code>% gcc -DDLL_IMPORT -I. example.c -o example.exe libmecab.dll
+</code></pre><p>VC++ 環境の場合</p>
+<pre><code>% cl -DDLL_IMPORT -I. example.c libmecab.lib
+</code></pre>
+        </article>
+  </div>
+</section>
 
-<ul>
-<li>cygwin/mingw 環境の場合</li>
-<pre>
-% gcc -DDLL_IMPORT -I. example.c -o example.exe libmecab.dll
-</pre>
-
-<li>VC++ 環境の場合</li>
-<pre>
-% cl -DDLL_IMPORT -I. example.c libmecab.lib
-</pre>
-</ul>
-</ul>
-<hr>
-</body>
+    
+    
+  </body>
 </html>
-

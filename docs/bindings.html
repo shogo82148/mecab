@@ -15,7 +15,7 @@
   <h1 id="title">スクリプト言語のバインディング</h1>
   <div>
         <article id="content">
-           <h2 id="heading">概要</h2>
+           <h2 id="概要">概要</h2>
 <p>各種スクリプト言語 <a href="http://www.perl.com" title="perl">perl</a>,
 <a href="http://www.ruby-lang.org" title="ruby">ruby</a>,
 <a href="http://www.python.org" title="python">python</a>,
@@ -25,10 +25,10 @@
 <a href="http://www.swig.org" title="SWIG">SWIG</a> がサポートする他の言語も
 生成可能だと思われますが, 現在は, 作者の管理できる範囲内ということで,
 上記の4つの言語のみを提供しております.</p>
-<h2 id="heading-1">インストール</h2>
+<h2 id="インストール">インストール</h2>
 <p>各言語バイディングのインストール方法は, perl/README, ruby/README, python/README,
 java/README を御覧下さい.</p>
-<h2 id="heading-2">とりあえず解析する</h2>
+<h2 id="とりあえず解析する">とりあえず解析する</h2>
 <p><code>MeCab::Tagger</code> というクラスのインスタンスを生成し, <code>parse</code> (もしくは
 <code>parseToString</code>) というメソッドを呼ぶことで, 解析結果が文字列として取得できます.
 <code>MeCab::Tagger</code> のコンストラクタの引数は, 基本的に mecab の実行形式に与え
@@ -53,7 +53,7 @@ m = MeCab.Tagger (<span style="color:#a31515"></span><span style="color:#a31515"
     Tagger tagger = <span style="color:#00f">new</span> Tagger (<span style="color:#a31515">&#34;-Ochasen&#34;</span>);
     System.out.println (tagger.parse (<span style="color:#a31515">&#34;太郎は二郎にこの本を渡した.&#34;</span>)); 
 }
-</code></pre></div><h2 id="heading-3">各形態素の詳細情報を取得する</h2>
+</code></pre></div><h2 id="各形態素の詳細情報を取得する">各形態素の詳細情報を取得する</h2>
 <p><code>MeCab::Tagger</code> クラスの, <code>parseToNode</code> という
 メソッドを呼ぶことで, 「文頭」という特別な形態素が <code>MeCab::Node</code> クラスのインスタンスとして
 取得できます.</p>
@@ -75,7 +75,7 @@ m = MeCab.Tagger (<span style="color:#a31515"></span><span style="color:#a31515"
             $n-&gt;{cost}              <span style="color:#008000"># その形態素までのコスト</span>
             );
 }
-</code></pre></div><h2 id="heading-4">エラー処理</h2>
+</code></pre></div><h2 id="エラー処理">エラー処理</h2>
 <p>もし, コンストラクタや, 解析途中でエラーが起きた場合は,
 RuntimeError 例外が発生します.
 例外のハンドリングの方法は, 各言語のリファレンスマニュアルを
@@ -85,8 +85,8 @@ RuntimeError 例外が発生します.
     <span style="color:#00f">print</span> (m.parse (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">今日もしないとね</span><span style="color:#a31515">&#34;</span>))
 <span style="color:#00f">except</span> RuntimeError <span style="color:#00f">as</span> e:
     <span style="color:#00f">print</span> (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">RuntimeError:</span><span style="color:#a31515">&#34;</span>, e)
-</code></pre></div><h2 id="heading-5">注意事項</h2>
-<h3 id="heading-6">文頭,文末形態素</h3>
+</code></pre></div><h2 id="注意事項">注意事項</h2>
+<h3 id="文頭文末形態素">文頭,文末形態素</h3>
 <p><code>parseToNode</code> の返り値は, 「文頭」という特別な形態素を示す <code>MeCab::Node</code>
 インタンスです. さらに, 「文末」という特別な形態素も存在いたしますので,
 注意してください. もし, これらを無視したい場合は, 以下のように
@@ -98,7 +98,7 @@ $n = $n-&gt;{<span style="color:#00f">next</span>}; <span style="color:#008000">
   printf (<span style="color:#a31515">&#34;%s\n&#34;</span>, $n-&gt;{surface});
   $n = $n-&gt;{<span style="color:#00f">next</span>}; <span style="color:#008000"># 次に移動</span>
 }
-</code></pre></div><h3 id="mecabnode-">MeCab::Node の振舞い</h3>
+</code></pre></div><h3 id="mecabnode-の振舞い">MeCab::Node の振舞い</h3>
 <p><code>MeCab::Node</code> の実体(メモリ上にある形態素情報)は,
 <code>MeCab::Tagger</code> インスタンスが管理しています. <code>MeCab::Node</code> は,
 Node の実体を指している <strong>参照</strong> にすぎせん. そのために, <code>parseToNode</code> が
@@ -114,7 +114,7 @@ n2 = m.parseToNode (<span style="color:#a31515"></span><span style="color:#a3151
 </code></pre></div><p>上記の例では, <code>n1</code> の指す中身が, 「さくさくさくら」を解析した時点で
 上書きされており, 使用できなくなっています.</p>
 <p>複数の Node を同時にアクセスしたい場合は, 複数の <code>MeCab::Tagger</code> インスタンスを生成してください.</p>
-<h2 id="heading-7">全メソッド</h2>
+<h2 id="全メソッド">全メソッド</h2>
 <p>以下に, <a href="http://www.swig.org" title="SWIG">SWIG</a> 用のインタフェースファイル
 の一部を示します. バイディングの実装言語の都合上, C++ のシンタックスで
 表記されていますが, 適宜読みかえてください. また, 各メソッドの動作も添え
@@ -186,7 +186,7 @@ n2 = m.parseToNode (<span style="color:#a31515"></span><span style="color:#a3151
 </span><span style="color:#008000"></span>    <span style="color:#2b91af">long</span>           cost;        <span style="color:#008000">// 累積コスト
 </span><span style="color:#008000"></span>  };
 }
-</code></pre></div><h2 id="heading-8">サンプルプログラム</h2>
+</code></pre></div><h2 id="サンプルプログラム">サンプルプログラム</h2>
 <p>perl/test.pl, ruby/test.rb, python/test.py, java/test.java
 にそれぞれの言語のサンプルがありますので, 参考にしてください.</p>
 

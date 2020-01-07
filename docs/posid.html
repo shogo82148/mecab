@@ -15,12 +15,12 @@
   <h1 id="title">品詞IDの定義</h1>
   <div>
         <article id="content">
-           <h2 id="heading">概要</h2>
+           <h2 id="概要">概要</h2>
 <p>出力される素性(品詞)に任意の数値ID を付与することができます.
 通常, 素性は文字列として表現されますが, 機械処理には向いていません.
 数値ID に変換することで, 機械処理が容易になります.</p>
 <p>素性にどの ID を割りあてるかは, ユーザが自由に定義することができます.</p>
-<h2 id="heading-1">設定ファイル</h2>
+<h2 id="設定ファイル">設定ファイル</h2>
 <p>配布辞書のディレクトリにある pos-id.def を変更します.</p>
 <p>1行が1つのマッピングルールに対応します. 各パターンは以下のフォーマットで
 記述します.</p>
@@ -35,7 +35,7 @@
 </ul>
 <p><code>pos-id</code> を変更したら, 辞書をリコンパイルする必要があります.</p>
 <pre><code>/usr/local/libexec/mecab/mecab-dict-index
-</code></pre><h2 id="-id-">品詞 ID の参照</h2>
+</code></pre><h2 id="品詞-id-の参照">品詞 ID の参照</h2>
 <p><a href="format.html">出力フォーマット</a>のマクロ <code>%h</code> を使うことで
 品詞 ID を参照することができます.</p>
 <pre><code>% mecab -F&quot;%m\t%h\n&quot; -E&quot;EOS\n&quot; 
@@ -58,7 +58,7 @@ node = mecab_sparse_tonode(mecab, <span style="color:#a31515"></span><span style
   fwrite (node-&gt;surface, <span style="color:#00f">sizeof</span>(<span style="color:#2b91af">char</span>), node-&gt;length, stdout);
   printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">%d</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, node-&gt;posid)
 }
-</code></pre></div><h2 id="pos-iddef-">pos-id.def の例</h2>
+</code></pre></div><h2 id="pos-iddef-の例">pos-id.def の例</h2>
 <p>単純な例</p>
 <pre><code>名詞 1
 動詞 2

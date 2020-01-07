@@ -1,170 +1,118 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-"http://www.w3.org/TR/html4/strict.dtd">
+
+<!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>MeCab の辞書構造と汎用テキスト変換ツールとしての利用</title>
-<link type="text/css" rel="stylesheet" href="mecab.css">
-</head>
-<body>
-<h1>MeCab の辞書構造と汎用テキスト変換ツールとしての利用</h1>
-
-<h2>概要</h2>
-<p>単語辞書の構造を理解することで, MeCab を汎用的なテキスト変換ツールとして利用することができます. 例えば, 
-ひらがな to カタカナ変換, ローマ字 to ひらがな変換, Auto Link等を MeCab だけで実行できます
-</p>
-
-<h2>ファイル</h2>
-<p>
-単語辞書を構築するには, 最低以下のファイルを作成する必要があります. 
-</p>
-
+  <head>
+    <meta charset="utf-8">
+    <title>
+      MeCab: Yet Another Part-of-Speech and Morphological Analyzer
+    </title>
+    <link type="text/css" rel="stylesheet" href="mecab.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  </head>
+  <body>
+    
+<section id="main">
+  <h1 id="title">MeCab の辞書構造と汎用テキスト変換ツールとしての利用</h1>
+  <div>
+        <article id="content">
+           <h2 id="概要">概要</h2>
+<p>単語辞書の構造を理解することで, MeCab を汎用的なテキスト変換ツールとして利用することができます. 例えば,
+ひらがな to カタカナ変換, ローマ字 to ひらがな変換, Auto Link等を MeCab だけで実行できます</p>
+<h2 id="ファイル">ファイル</h2>
+<p>単語辞書を構築するには, 最低以下のファイルを作成する必要があります.</p>
 <ul>
-<li>*.csv ファイル (単語辞書)
-<li>matrix.def (連接表)
-<li>unk.def (未知語用品詞定義)
-<li>char.def (未知語の文字定義)
-<li>dicrc (設定ファイル)
+<li><code>*.csv</code> ファイル (単語辞書)</li>
+<li><code>matrix.def</code> (連接表)</li>
+<li><code>unk.def</code> (未知語用品詞定義)</li>
+<li><code>char.def</code> (未知語の文字定義)</li>
+<li><code>dicrc</code> (設定ファイル)</li>
 </ul>
-
-<h3>*.csv ファイル</h3>
+<h3 id="csv-ファイル">*.csv ファイル</h3>
 <p>単語辞書です</p>
-
 <p>エントリは, 以下のような CSV で追加します.</p>
-
-<pre>
-test,1223,1223,6058,foo,bar,baz
-</pre>
-
-<p>最初の4つは必須エントリで, それぞれ</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">test,1223,1223,6058,foo,bar,baz
+</code></pre></div><p>最初の4つは必須エントリで, それぞれ</p>
 <ul>
-<li>表層形
-<li>左文脈ID (単語を左から見たときの文脈 ID)
-<li>右文脈ID (単語を右から見たときの文脈 ID)
-<li>単語コスト (小さいほど出現しやすい)
+<li>表層形</li>
+<li>左文脈ID (単語を左から見たときの文脈 ID)</li>
+<li>右文脈ID (単語を右から見たときの文脈 ID)</li>
+<li>単語コスト (小さいほど出現しやすい)</li>
 </ul>
-<p>となっています. コスト値は short int (16bit 整数)
-の範囲におさめる必要があります. </p>
-
-<p>
-5カラム目以降は, ユーザ定義の CSV フィールドです. 基本的に
+<p>となっています. コスト値は <code>short int</code> (16bit 整数)
+の範囲におさめる必要があります.</p>
+<pre><code>5カラム目以降は, ユーザ定義の CSV フィールドです. 基本的に
 どんな内容でも CSV の許す限り追加することができます. 
-</p>
-
-<h3>matrix.def</h3>
-<p>最初の行に連接表のサイズ(前件サイズ, 後件サイズ)を書きます. その後は, 
-連接表の前件の文脈 ID, 後件の文脈IDと, それに対応するコストを書きます. 
-</p>
-<p>ある単語 A, B が連接をなすとき, </p>
+</code></pre><h3 id="matrixdef">matrix.def</h3>
+<p>最初の行に連接表のサイズ(前件サイズ, 後件サイズ)を書きます. その後は,
+連接表の前件の文脈 ID, 後件の文脈IDと, それに対応するコストを書きます.</p>
+<p>ある単語 A, B が連接をなすとき,</p>
 <ul>
-<li>前件文脈ID = 単語Aの右文脈ID 
-<li>後件文脈ID = 単語Bの左文脈ID
+<li>前件文脈ID = 単語Aの右文脈ID</li>
+<li>後件文脈ID = 単語Bの左文脈ID</li>
 </ul>
-
 <p>となります. つまり, 単語辞書に登録した ID が連接表を参照する際の
 キーとなります. コスト値は short int (16bit 整数)
-の範囲におさめる必要があります. </p>
-
-<pre>
-100 120
+の範囲におさめる必要があります.</p>
+<pre><code>100 120
 0 0 1
 0 1 10
 0 2 5
-</pre>
-
-<p>上記の例では, 前件の文脈のサイズが100, 後件の文脈のサイズが 120 となって
-います. また, 前件文脈 0 から 後件文脈 1 への遷移コストが 10 となっています. 
-</p>
-
-<h3>char.def</h3>
-<p>未知語処理のルールです. <a href="learn.html">こちら</a>を御覧ください.
-</p>
-
+</code></pre><p>上記の例では, 前件の文脈のサイズが100, 後件の文脈のサイズが 120 となって
+います. また, 前件文脈 0 から 後件文脈 1 への遷移コストが 10 となっています.</p>
+<h3 id="chardef">char.def</h3>
+<p>未知語処理のルールです. <a href="/mecab/learn.html">こちら</a>を御覧ください.</p>
 <p>以下が最低限の設定 (DEFAULT と SPACE) です</p>
-<pre>
-DEFAULT 1 0 0
+<pre><code>DEFAULT 1 0 0
 SPACE   0 1 0
 0x0020 SPACE
-</pre>
-
-<h3>unk.def</h3>
-<p>未知語に対する品詞列のテーブルです. <a href="learn.html">こちら</a>を
-御覧ください. </p>
-
+</code></pre><h3 id="unkdef">unk.def</h3>
+<p>未知語に対する品詞列のテーブルです. <a href="/mecab/learn.html">こちら</a>を
+御覧ください.</p>
 <p>以下が最低限の設定 (DEFAULT と SPACE) です</p>
-<pre>
-DEFAULT,0,0,0,*
+<pre><code>DEFAULT,0,0,0,*
 SPACE,0,0,0,*
-</pre>
-
-
-<h2>辞書のコンパイル</h2>
-<p>次のコマンドを実行することで, 解析用のバイナリ辞書を作成します. </p>
-<pre>
-% /usr/local/libexec/mecab/mecab-dict-index 
-</pre>
-
-</p>
-
-<h2>ケーススタディ</h2>
+</code></pre><h2 id="辞書のコンパイル">辞書のコンパイル</h2>
+<p>次のコマンドを実行することで, 解析用のバイナリ辞書を作成します.</p>
+<pre><code>% /usr/local/libexec/mecab/mecab-dict-index 
+</code></pre><h2 id="ケーススタディ">ケーススタディ</h2>
 <p>example ディレクトリにいくつかの応用例があります.</p>
-
-<h3>Auto Link</h3>
+<h3 id="auto-link">Auto Link</h3>
 <p>Hatena Keyword のような Auto Link を実装してみます</p>
-<ul>
-<li>url.csv
+<h4 id="urlcsv">url.csv</h4>
 <p>単語としてキーワード, 品詞としてキーワードに対応する URL を書きます.
-連接の状態は1状態で十分なので, 左文脈/右文脈IDともに 0 とします. 
+連接の状態は1状態で十分なので, 左文脈/右文脈IDともに 0 とします.
 コスト値は長いキーワードが優先されるよう設定します. 例えば以下のような関数を使うとよいでしょう.</p>
-<pre>cost = (int)max(-36000, -400 * (length^1.5)) </pre>
-
-url.csv
-<pre>
-Google,0,0,-5878,http://www.google.com/
+<pre><code>cost = (int)max(-36000, -400 * (length^1.5))
+</code></pre><pre><code>Google,0,0,-5878,http://www.google.com/
 Yahoo,0,0,-4472,http://www.yahoo.com/
 ChaSen,0,0,-5878,http://chasen.org/
 京都,0,0,-3200,http://www.city.kyoto.jp/
 ...
-</pre>
-
-<li>matrix.def
-<p>1 状態なので, 連接表のサイズは 1 x 1 となります. 
+</code></pre><h4 id="matrixdef-1">matrix.def</h4>
+<p>1 状態なので, 連接表のサイズは 1 x 1 となります.
 後件 0 から前件 0 の連接コストは 0 とします.</p>
-<pre>
-1 1
+<pre><code>1 1
 0 0 0
-</pre>
-
-<li>char.def
+</code></pre><h4 id="chardef-1">char.def</h4>
 <p>最低限の設定 (DEFAULT と SPACE) です</p>
-<pre>
-DEFAULT 1 0 0
+<pre><code>DEFAULT 1 0 0
 SPACE   0 1 0
 0x0020 SPACE
-</pre>
-
-<li>unk.def
+</code></pre><h4 id="unkdef-1">unk.def</h4>
 <p>最低限の設定 (DEFAULT と SPACE) です</p>
-<pre>
-DEFAULT,0,0,0,*
+<pre><code>DEFAULT,0,0,0,*
 SPACE,0,0,0,*
-</pre>
-
-<li>dicrc
+</code></pre><h4 id="dicrc">dicrc</h4>
 <p>autolink というフォーマットを作成し, それがデフォルトの出力になるようにします</p>
-<pre>
-cost-factor = 800
+<pre><code>cost-factor = 800
 bos-feature = BOS/EOS
 output-format-type=autolink
 
-node-format-autolink = &lt;a href="%H"&gt;%M&lt;/a&gt;
+node-format-autolink = &lt;a href=&quot;%H&quot;&gt;%M&lt;/a&gt;
 unk-format-autolink = %M
 eos-format-autolink = \n
-</pre>
-
-<li>コンパイル + テスト
-<pre>
-% /usr/local/libexec/mecab/mecab-dict-index -f euc-jp -c euc-jp
+</code></pre><h4 id="コンパイル--テスト">コンパイル + テスト</h4>
+<pre><code>% /usr/local/libexec/mecab/mecab-dict-index -f euc-jp -c euc-jp
 reading ./unk.def ..  2
 emitting double-array: 100% |###########################################| 
 reading ./dic.csv ..  4
@@ -174,20 +122,15 @@ done!
 
 % mecab -d .
 京都に行った. 
-&lt;a href="http://www.city.kyoto.jp/"&gt;京都&lt;/a&gt;に行った。
+&lt;a href=&quot;http://www.city.kyoto.jp/&quot;&gt;京都&lt;/a&gt;に行った。
 YahooとGoogle
-&lt;a href="http://www.yahoo.com/"&gt;Yahoo&lt;/a&gt;と&lt;a href="http://www.google.com/"&gt;Google&lt;/a&gt;
-</pre>
-</ul>
-
-<h3>ひらがな to カタカナ変換ツール</h3>
-<ul>
-<li>dic.csv
+&lt;a href=&quot;http://www.yahoo.com/&quot;&gt;Yahoo&lt;/a&gt;と&lt;a href=&quot;http://www.google.com/&quot;&gt;Google&lt;/a&gt;
+</code></pre><h3 id="ひらがな-to-カタカナ変換ツール">ひらがな to カタカナ変換ツール</h3>
+<h4 id="diccsv">dic.csv</h4>
 <p>単語としてひらがな1文字, 品詞として各ひらがな対応するカタカナ1文字を書きます.
-連接の状態は1状態で十分なので, 左文脈/右文脈IDともに 0 とします. 
+連接の状態は1状態で十分なので, 左文脈/右文脈IDともに 0 とします.
 曖昧性がないため コスト値は 0 とします</p>
-<pre>
-う゛,0,0,0,ヴ
+<pre><code>う゛,0,0,0,ヴ
 あ,0,0,0,ア
 い,0,0,0,イ
 う,0,0,0,ウ
@@ -271,36 +214,23 @@ YahooとGoogle
 ゑ,0,0,0,ヱ
 を,0,0,0,ヲ
 ん,0,0,0,ン
-</pre>
-
-<li>matrix.def
-<p>1 状態なので, 連接表のサイズは 1 x 1 となります. 
+</code></pre><h4 id="matrixdef-2">matrix.def</h4>
+<p>1 状態なので, 連接表のサイズは 1 x 1 となります.
 後件 0 から前件 0 の連接コストは 0 とします.</p>
-<pre>
-1 1
+<pre><code>1 1
 0 0 0
-</pre>
-
-<li>char.def
+</code></pre><h4 id="chardef-2">char.def</h4>
 <p>最低限の設定 (DEFAULT と SPACE) です</p>
-<pre>
-DEFAULT 1 0 0
+<pre><code>DEFAULT 1 0 0
 SPACE   0 1 0
 0x0020 SPACE
-</pre>
-
-<li>unk.def
+</code></pre><h4 id="unkdef-2">unk.def</h4>
 <p>最低限の設定 (DEFAULT と SPACE) です</p>
-<pre>
-DEFAULT,0,0,0,*
+<pre><code>DEFAULT,0,0,0,*
 SPACE,0,0,0,*
-</pre>
-
-<li>dicrc
-<p>katakana というフォーマットを作成し, それがデフォルトの出力になるよう
-    にします</p>
-<pre>
-dictionary-charset = euc-jp
+</code></pre><h4 id="dicrc-1">dicrc</h4>
+<p>katakana というフォーマットを作成し, それがデフォルトの出力になるようにします</p>
+<pre><code>dictionary-charset = euc-jp
 cost-factor = 800
 bos-feature = BOS/EOS
 output-format-type=katakana
@@ -308,11 +238,8 @@ output-format-type=katakana
 node-format-katakana = %H
 unk-format-katakana = %M
 eos-format-katakana  = \n
-</pre>
-
-<li>コンパイル + テスト
-<pre>
-% /usr/local/libexec/mecab/mecab-dict-index -f euc-jp -c euc-jp
+</code></pre><h4 id="コンパイル--テスト-1">コンパイル + テスト</h4>
+<pre><code>% /usr/local/libexec/mecab/mecab-dict-index -f euc-jp -c euc-jp
 reading ./unk.def ..  2
 emitting double-array: 100% |###########################################| 
 reading ./dic.csv ..  4
@@ -322,8 +249,12 @@ done!
 % mecab -d .
 これはてすとです
 コレハテストデス
-</pre>
-</ul>
-</body>
-</html>
+</code></pre>
+        </article>
+  </div>
+</section>
 
+    
+    
+  </body>
+</html>

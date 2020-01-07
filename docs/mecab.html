@@ -1,38 +1,30 @@
+Content-type: text/html; charset=UTF-8
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>
-      MeCab: Yet Another Part-of-Speech and Morphological Analyzer
-    </title>
-    <link type="text/css" rel="stylesheet" href="mecab.css">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  </head>
-  <body>
-    
-<section id="main">
-  <h1 id="title">Mecab</h1>
-  <div>
-        <article id="content">
-           <H1>MECAB</H1>
-Section: MeCab (1)<BR>Updated: July 2006<BR>[Index](#index)
-[Return to Main Contents](/cgi-bin/man/man2html)<HR>
-<p><A NAME="lbAB"> </A></p>
-<h2 id="name">NAME</h2>
-<p>mecab - manual page for mecab of 0.92
-<A NAME="lbAC"> </A></p>
-<h2 id="synopsis">SYNOPSIS</h2>
-<p><B>mecab</B></p>
-<p>[<I>options</I>] <I>files</I>
-<A NAME="lbAD"> </A></p>
-<h2 id="description">DESCRIPTION</h2>
-<p>MeCab: Yet Another Part-of-Speech and Morphological Analyzer
-<A NAME="lbAE"> </A></p>
-<h2 id="copyright">COPYRIGHT</h2>
-<p>Copyright © 2001-2006 Taku Kudo
-<BR></p>
-<p>Copyright © 2004-2006 Nippon Telegraph and Telephone Corporation</p>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>Man page of MECAB</TITLE>
+</HEAD><BODY>
+<H1>MECAB</H1>
+Section: MeCab (1)<BR>Updated: March 2009<BR><A HREF="#index">Index</A>
+<A HREF="/cgi-bin/man/man2html">Return to Main Contents</A><HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+mecab - manual page for mecab of 0.98pre1
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>mecab</B>
+
+[<I>options</I>] <I>files</I>
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+MeCab: Yet Another Part-of-Speech and Morphological Analyzer
+<P>
+
+Copyright(C) 2001-2008 Taku Kudo
+Copyright(C) 2004-2008 Nippon Telegraph and Telephone Corporation
 <DL COMPACT>
 <DT><B>-r</B>, <B>--rcfile</B>=<I>FILE</I><DD>
 use FILE as resource file
@@ -42,8 +34,10 @@ set DIR  as a system dicdir
 use FILE as a user dictionary
 <DT><B>-l</B>, <B>--lattice-level</B>=<I>INT</I><DD>
 lattice information level (default 0)
+<DT><B>-D</B>, <B>--dictionary-info</B><DD>
+show dictionary information and exit
 <DT><B>-a</B>, <B>--all-morphs</B><DD>
-output all morphs (default false)
+output all morphs(default false)
 <DT><B>-O</B>, <B>--output-format-type</B>=<I>TYPE</I><DD>
 set output format type (wakati,none,...)
 <DT><B>-p</B>, <B>--partial</B><DD>
@@ -56,40 +50,42 @@ use STR as the user-defined unk format
 use STR as the user-defined bos format
 <DT><B>-E</B>, <B>--eos-format</B>=<I>STR</I><DD>
 use STR as the user-defined eos format
+<DT><B>-x</B>, <B>--unk-feature</B>=<I>STR</I><DD>
+use STR as the feature for unknown word
 <DT><B>-b</B>, <B>--input-buffer-size</B>=<I>INT</I><DD>
-set input buffer size (default BUF_SIZE)
+set input buffer size (default 8192)
+<DT><B>-P</B>, <B>--dump-config</B><DD>
+dump MeCab parameters
+<DT><B>-M</B>, <B>--open-mutable-dictionary</B><DD>
+open dictioanry with mutable mode (experimental)
 <DT><B>-C</B>, <B>--allocate-sentence</B><DD>
 allocate new memory for input sentence
 <DT><B>-N</B>, <B>--nbest</B>=<I>INT</I><DD>
-output N best results  (default 1)
+output N best results (default 1)
 <DT><B>-t</B>, <B>--theta</B>=<I>FLOAT</I><DD>
 set temparature parameter theta (default 0.75)
+<DT><B>-c</B>, <B>--cost-factor</B>=<I>INT</I><DD>
+set cost factor (default 700)
 <DT><B>-o</B>, <B>--output</B>=<I>FILE</I><DD>
 set the output file name
 <DT><B>-v</B>, <B>--version</B><DD>
 show the version and exit.
 <DT><B>-h</B>, <B>--help</B><DD>
 show this help and exit.
+<P>
 </DL>
+
 <HR>
-<A NAME="index">&nbsp;</A>## Index
+<A NAME="index">&nbsp;</A><H2>Index</H2>
 <DL>
-<DT>[NAME](#lbAB)<DD>
-<DT>[SYNOPSIS](#lbAC)<DD>
-<DT>[DESCRIPTION](#lbAD)<DD>
-<DT>[COPYRIGHT](#lbAE)<DD>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
 </DL>
 <HR>
 This document was created by
-[man2html](/cgi-bin/man/man2html),
+<A HREF="/cgi-bin/man/man2html">man2html</A>,
 using the manual pages.<BR>
-Time: 15:16:13 GMT, July 09, 2006
-
-        </article>
-  </div>
-</section>
-
-    
-    
-  </body>
-</html>
+Time: 03:10:31 GMT, January 07, 2020
+</BODY>
+</HTML>

@@ -15,9 +15,9 @@
   <h1 id="title">未知語処理の定義</h1>
   <div>
         <article id="content">
-           <h2 id="heading">概要</h2>
+           <h2 id="概要">概要</h2>
 <p>未知語処理(辞書に載っていない単語の形態素解析の処理)についてユーザが再定義できます。</p>
-<h2 id="heading-1">設定ファイル</h2>
+<h2 id="設定ファイル">設定ファイル</h2>
 <p>配布辞書のディレクトリにある char.def と unk.def という2つのファイル
 を変更します.</p>
 <h3 id="chardef">char.def</h3>
@@ -25,8 +25,8 @@
 <h3 id="unkdef">unk.def</h3>
 <p>未知語に対する品詞列のテーブルです. <a href="learn.html">こちら</a>を
 御覧ください.</p>
-<h2 id="heading-2">ケーススタディ</h2>
-<h3 id="1">数字の連続を1つの形態素とする</h3>
+<h2 id="ケーススタディ">ケーススタディ</h2>
+<h3 id="数字の連続を1つの形態素とする">数字の連続を1つの形態素とする</h3>
 <ul>
 <li>辞書 (*.csv ファイル)から数字のエントリを削除します。
 ipadic の場合は、Noun.number.csv の中から、アラビア数字のエントリを消去します。</li>
@@ -44,7 +44,7 @@ NUMERIC        1 1 0
 <li>辞書をコンパイルします。</li>
 </ul>
 <pre><code>% /usr/local/libexec/mecab/mecab-dict-index 
-</code></pre><h3 id="ascii--kakasi">ASCII 文字列は、スペース/タブのみで分割する (kakasiと同一動作)</h3>
+</code></pre><h3 id="ascii-文字列はスペースタブのみで分割する-kakasiと同一動作">ASCII 文字列は、スペース/タブのみで分割する (kakasiと同一動作)</h3>
 <ul>
 - 辞書 (*.csv ファイル)からアスキー文字列を含むのエントリを削除します。
 - char.def を修正し、スペース、記号を除く文字を同一字種(ASCII)にマッピ

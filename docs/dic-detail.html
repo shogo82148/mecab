@@ -15,10 +15,10 @@
   <h1 id="title">MeCab の辞書構造と汎用テキスト変換ツールとしての利用</h1>
   <div>
         <article id="content">
-           <h2 id="heading">概要</h2>
+           <h2 id="概要">概要</h2>
 <p>単語辞書の構造を理解することで, MeCab を汎用的なテキスト変換ツールとして利用することができます. 例えば,
 ひらがな to カタカナ変換, ローマ字 to ひらがな変換, Auto Link等を MeCab だけで実行できます</p>
-<h2 id="heading-1">ファイル</h2>
+<h2 id="ファイル">ファイル</h2>
 <p>単語辞書を構築するには, 最低以下のファイルを作成する必要があります.</p>
 <ul>
 <li><code>*.csv</code> ファイル (単語辞書)</li>
@@ -27,7 +27,7 @@
 <li><code>char.def</code> (未知語の文字定義)</li>
 <li><code>dicrc</code> (設定ファイル)</li>
 </ul>
-<h3 id="csv-">*.csv ファイル</h3>
+<h3 id="csv-ファイル">*.csv ファイル</h3>
 <p>単語辞書です</p>
 <p>エントリは, 以下のような CSV で追加します.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">test,1223,1223,6058,foo,bar,baz
@@ -71,10 +71,10 @@ SPACE   0 1 0
 <p>以下が最低限の設定 (DEFAULT と SPACE) です</p>
 <pre><code>DEFAULT,0,0,0,*
 SPACE,0,0,0,*
-</code></pre><h2 id="heading-2">辞書のコンパイル</h2>
+</code></pre><h2 id="辞書のコンパイル">辞書のコンパイル</h2>
 <p>次のコマンドを実行することで, 解析用のバイナリ辞書を作成します.</p>
 <pre><code>% /usr/local/libexec/mecab/mecab-dict-index 
-</code></pre><h2 id="heading-3">ケーススタディ</h2>
+</code></pre><h2 id="ケーススタディ">ケーススタディ</h2>
 <p>example ディレクトリにいくつかの応用例があります.</p>
 <h3 id="auto-link">Auto Link</h3>
 <p>Hatena Keyword のような Auto Link を実装してみます</p>
@@ -111,7 +111,7 @@ output-format-type=autolink
 node-format-autolink = &lt;a href=&quot;%H&quot;&gt;%M&lt;/a&gt;
 unk-format-autolink = %M
 eos-format-autolink = \n
-</code></pre><h4 id="--">コンパイル + テスト</h4>
+</code></pre><h4 id="コンパイル--テスト">コンパイル + テスト</h4>
 <pre><code>% /usr/local/libexec/mecab/mecab-dict-index -f euc-jp -c euc-jp
 reading ./unk.def ..  2
 emitting double-array: 100% |###########################################| 
@@ -125,7 +125,7 @@ done!
 &lt;a href=&quot;http://www.city.kyoto.jp/&quot;&gt;京都&lt;/a&gt;に行った。
 YahooとGoogle
 &lt;a href=&quot;http://www.yahoo.com/&quot;&gt;Yahoo&lt;/a&gt;と&lt;a href=&quot;http://www.google.com/&quot;&gt;Google&lt;/a&gt;
-</code></pre><h3 id="-to-">ひらがな to カタカナ変換ツール</h3>
+</code></pre><h3 id="ひらがな-to-カタカナ変換ツール">ひらがな to カタカナ変換ツール</h3>
 <h4 id="diccsv">dic.csv</h4>
 <p>単語としてひらがな1文字, 品詞として各ひらがな対応するカタカナ1文字を書きます.
 連接の状態は1状態で十分なので, 左文脈/右文脈IDともに 0 とします.
@@ -238,7 +238,7 @@ output-format-type=katakana
 node-format-katakana = %H
 unk-format-katakana = %M
 eos-format-katakana  = \n
-</code></pre><h4 id="---1">コンパイル + テスト</h4>
+</code></pre><h4 id="コンパイル--テスト-1">コンパイル + テスト</h4>
 <pre><code>% /usr/local/libexec/mecab/mecab-dict-index -f euc-jp -c euc-jp
 reading ./unk.def ..  2
 emitting double-array: 100% |###########################################| 

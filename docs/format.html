@@ -15,13 +15,13 @@
   <h1 id="title">出力フォーマット</h1>
   <div>
         <article id="content">
-           <h2 id="heading">概要</h2>
+           <h2 id="概要">概要</h2>
 <p>MeCab は, ChaSen と同様,
 出力のフォーマットを比較的自由に再定義することができます.
 また, 設定ファイルにフォーマットを複数記述しておき,
 実行時にそれらを 切り変えることが可能です.
 これは, MeCab 独自の機能です.</p>
-<h2 id="heading-1">出力フォーマットの指定</h2>
+<h2 id="出力フォーマットの指定">出力フォーマットの指定</h2>
 <p>以下の
 3つ出力フォーマットを変更することができます.</p>
 <ul>
@@ -34,9 +34,9 @@
 <p>明示的に指定されない場合,
 それぞれのデフォルト文字列が使用されます.</p>
 <p>これらは, 以下の 2つの方法で指定します.</p>
-<h3 id="heading-2">コマンドラインから</h3>
+<h3 id="コマンドラインから">コマンドラインから</h3>
 <pre><code>% mecab --node-format=STR --bos-format=STR --eos-format=STR --unk-format=STR --eon-format=STR
-</code></pre><h3 id="mecabrc-">mecabrc に記述する場合</h3>
+</code></pre><h3 id="mecabrc-に記述する場合">mecabrc に記述する場合</h3>
 <p>任意の文字列 KEY を使い, mecabrc
 に以下のように定義.</p>
 <pre><code>node-format-KEY = STR
@@ -46,7 +46,7 @@ bos-format-KEY = STR
 eon-format-KEY = STR
 </code></pre><p>この KEY をコマンドラインから呼び出す.</p>
 <pre><code>% mecab -Okey 
-</code></pre><h2 id="heading-3">出力フォーマット</h2>
+</code></pre><h2 id="出力フォーマット">出力フォーマット</h2>
 <table>
 <thead>
 <tr>
@@ -185,7 +185,7 @@ eon-format-KEY = STR
 </tr>
 </tbody>
 </table>
-<h2 id="heading-4">例</h2>
+<h2 id="例">例</h2>
 <p>dicrc より抜粋した例</p>
 <pre><code>; yomi
 node-format-yomi = %pS%f[7]
@@ -205,7 +205,7 @@ eos-format-csv  = EOS,,,,,,\n
 node-format-chasen = %m\t%f[7]\t%f[6]\t%F-[0,1,2,3]\t%f[4]\t%f[5]\n
 unk-format-chasen  = %m\t%m\t%m\t%F-[0,1,2,3]\t\t\n
 eos-format-chasen  = EOS\n
-</code></pre><h2 id="heading-5">注意事項</h2>
+</code></pre><h2 id="注意事項">注意事項</h2>
 <p>わかち書き出力 (<code>-Owakati</code>),
 デフォルトの出力, 出力ダンプ (<code>-Odump</code>) は
 高速性を犠牲にしたく ないために, ハードコーディングされています.</p>

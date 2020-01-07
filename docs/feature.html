@@ -15,7 +15,7 @@
   <h1 id="title">MeCab の開発経緯</h1>
   <div>
         <article id="content">
-           <h2 id="heading">形態素解析の歴史</h2>
+           <h2 id="形態素解析の歴史">形態素解析の歴史</h2>
 <p>オープンな形態素解析器として Juman, ChaSen が存在する. それぞれの
 基本的な開発理念は以下である</p>
 <h3 id="jumanhttpwwwkctu-tokyoacjpnl-resourcejumanhtml"><a href="http://www.kc.t.u-tokyo.ac.jp/nl-resource/juman.html">Juman</a></h3>
@@ -50,8 +50,8 @@ NAISTの内部では利用できるらしいが, 上記の理由から設定す�
 パラメータが多く, 使いこなすのが困難である.</p>
 <p>さらに, ChaSen も未知語処理もハードコーディングされており
 自由に定義することはできない.</p>
-<h2 id="mecab-090">MeCab 0.90の機能</h2>
-<h3 id="-conditional-random-fields-crfcrf">コスト値推定に <a href="https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&amp;context=cis_papers" title="CRF">Conditional Random Fields, CRF</a>を採用</h3>
+<h2 id="mecab-090の機能">MeCab 0.90の機能</h2>
+<h3 id="コスト値推定に-conditional-random-fields-crfcrfを採用">コスト値推定に <a href="https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&amp;context=cis_papers" title="CRF">Conditional Random Fields, CRF</a>を採用</h3>
 <p>HMM は, 唯一の内部状態を定義する必要があった. 一方 CRF はオーバラップを含めた複数の内部状態を定義することが可能である. この機能により,
 細い品詞階層と粗い品詞階層の確率値を混ぜるといった,
 「スムージング」が自然にかつ自動的に実現できる.
@@ -71,7 +71,7 @@ seg:わかち書きの精度, top:品
 詞まで含める, all:活用まですべて含める<br>
 E-HMMs が現状の MeCab/ChaSen</small></p>
 <p><img src="result.png" alt=""></p>
-<h3 id="heading-1">未知語処理の外部定義</h3>
+<h3 id="未知語処理の外部定義">未知語処理の外部定義</h3>
 <p>MeCab 0.90 では, ユーザが未知語処理の戦略を自由に定義可能となる.
 基本的な戦略として字種に基づくわかち書きを行う.
 字種そのものの定義(どの文字コードがどの字種に対応するか),
@@ -102,7 +102,7 @@ ChaSen や Juman に比べれば, 未知語に対する 解析精度の向上が
 14,18
 た      助動詞,*,*,*,特殊・タ,基本形,た,タ,タ   18,20
 。      記号,句点,*,*,*,*,。,。,。      20,22
-</code></pre><h3 id="heading-2">ソフトなわかち書き</h3>
+</code></pre><h3 id="ソフトなわかち書き">ソフトなわかち書き</h3>
 <p>形態素解析器の仕事は, おおざっぱに言えば「入力文を形態素に区切る」こ
 とにある. しかし 「本部長」のように単独の解を得られない場合がある.
 (本/部長 or 本部/長). また長い複合語が定義されている時,
@@ -144,7 +144,7 @@ EOS
 。      記号,句点,*,*,*,*,。,。,。          0.999997    *
 EOS
 </code></pre><p>上記のように「松本」の形態素らしさは周辺のコンテキストで変化する</p>
-<h3 id="heading-3">複数の解析モデルを解析器とは別に配布</h3>
+<h3 id="複数の解析モデルを解析器とは別に配布">複数の解析モデルを解析器とは別に配布</h3>
 <p>解析器とパラメータ(辞書, 連接コスト)が完全に独立に
 設計されるので, 以下の辞書についてのパラメータを個別に配布する.
 ただし, ライセンスは個々の辞書に準ずる</p>
