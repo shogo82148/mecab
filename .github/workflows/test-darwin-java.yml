@@ -15,6 +15,7 @@ jobs:
     name: Test
     runs-on: macOS-latest
     strategy:
+      fail-fast: false
       matrix:
         java:
           - '8'
@@ -30,7 +31,6 @@ jobs:
           ./configure
           make -j$(nproc)
           sudo make install
-          sudo ldconfig
         working-directory: mecab
       - name: install ipadic utf-8
         run: |

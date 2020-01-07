@@ -31,7 +31,6 @@ jobs:
           ./configure
           make -j$(nproc)
           sudo make install
-          sudo ldconfig
         working-directory: mecab
       - name: install ipadic utf-8
         run: |
