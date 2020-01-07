@@ -15,9 +15,8 @@ jobs:
     name: Test
     runs-on: macOS-latest
     steps:
-      - name: install autotools
-        run: brew install automake autoconf libtool gettext
-      - run: echo ::set-env name=ACLOCAL_PATH::/usr/local/opt/gettext/share/aclocal/
+      - name: setup
+        run: .github/setup-darwin.sh
       - uses: actions/checkout@v2
       - name: test mecab
         run: |
@@ -32,9 +31,8 @@ jobs:
     name: UTF-8 only mode
     runs-on: macOS-latest
     steps:
-      - name: install autotools
-        run: brew install automake autoconf libtool gettext
-      - run: echo ::set-env name=ACLOCAL_PATH::/usr/local/opt/gettext/share/aclocal/
+      - name: setup
+        run: .github/setup-darwin.sh
       - uses: actions/checkout@v2
       - name: test mecab
         run: |

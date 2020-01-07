@@ -22,8 +22,8 @@ jobs:
           - '2.5'
           - '2.6'
     steps:
-      - name: install autotools
-        run: brew install automake autoconf libtool gettext
+      - name: setup
+        run: .github/setup-darwin.sh
       - uses: actions/checkout@v2
       - name: install mecab
         run: |
