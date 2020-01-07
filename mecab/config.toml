@@ -1,9 +1,11 @@
+# configure file for hugo https://gohugo.io/
+
 baseURL = "https://shogo82148.github.io/mecab/"
 languageCode = "ja-jp"
 title = "MeCab: Yet Another Part-of-Speech and Morphological Analyzer"
 uglyURLs = true
 disableKinds = ["taxonomy", "taxonomyTerm", "RSS", "sitemap"]
-publishDir = "docs"
+publishDir = "doc"
 
 [markup.goldmark.renderer]
   unsafe = true
