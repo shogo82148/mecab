@@ -48,6 +48,8 @@ jobs:
       - run: java -version
       - name: build and test
         run: |
+          ./autogen.sh
+          ./configure
           make
           make test
         working-directory: mecab/java

@@ -97,3 +97,5 @@ Makefile
 /mecab/python/.venv
 /mecab/python/venv
 .vs
+
+libtool
