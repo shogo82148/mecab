@@ -1,0 +1,70 @@
+name: Test ipadic on Linux
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/test-linux-ipadic.yml'
+      - 'mecab/**'
+      - 'mecab-ipadic/**'
+  push:
+    paths:
+      - '.github/workflows/test-linux-ipadic.yml'
+      - 'mecab/**'
+      - 'mecab-ipadic/**'
+
+jobs:
+  test:
+    name: Build dictionary
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: test mecab
+        run: |
+          ./configure
+          make -j$(nproc)
+          make check
+          sudo make install
+        working-directory: mecab
+      - name: build ipadic euc-jp
+        run: |
+          ./configure
+          make
+          sudo make install
+          make clean
+        working-directory: mecab-ipadic
+
+      - name: build ipadic shift-jis
+        run: |
+          ./configure --with-charset=sjis
+          make
+          sudo make install
+          make clean
+        working-directory: mecab-ipadic
+
+      - name: build ipadic utf-8
+        run: |
+          ./configure --with-charset=utf8
+          make
+          sudo make install
+          make clean
+        working-directory: mecab-ipadic
+
+  test-utf8:
+    name: UTF-8 only mode
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: test mecab
+        run: |
+          ./configure --enable-utf8-only
+          make -j$(nproc)
+          make check
+          sudo make install
+        working-directory: mecab
+      - name: build ipadic utf-8
+        run: |
+          ./configure --with-charset=utf8
+          make
+          sudo make install
+          make clean
+        working-directory: mecab-ipadic
