@@ -1,0 +1,79 @@
+name: jumandic on Linux
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/test-linux-jumandic.yml'
+      - 'mecab/**'
+      - 'mecab-jumandic/**'
+  push:
+    paths:
+      - '.github/workflows/test-linux-jumandic.yml'
+      - 'mecab/**'
+      - 'mecab-jumandic/**'
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - run: sudo apt-get install gettext
+      - uses: actions/checkout@v2
+      - name: test mecab
+        run: |
+          ./autogen.sh
+          ./configure
+          make -j$(nproc)
+          make check
+          sudo make install
+          sudo ldconfig
+        working-directory: mecab
+      - name: build jumandic euc-jp
+        run: |
+          ./autogen.sh
+          ./configure
+          make
+          sudo make install
+          make distclean
+        working-directory: mecab-jumandic
+
+      - name: build jumandic shift-jis
+        run: |
+          ./configure --with-charset=sjis
+          make
+          sudo make install
+          make distclean
+        working-directory: mecab-jumandic
+
+      - name: build jumandic utf-8
+        run: |
+          ./autogen.sh
+          ./configure --with-charset=utf8
+          make
+          sudo make install
+          make distclean
+        working-directory: mecab-jumandic
+
+  test-utf8:
+    name: Test UTF-8 only mode
+    runs-on: ubuntu-latest
+    steps:
+      - run: sudo apt-get install gettext
+      - uses: actions/checkout@v2
+      - name: test mecab
+        run: |
+          ./autogen.sh
+          ./configure --enable-utf8-only
+          make -j$(nproc)
+          make check
+          sudo make install
+          sudo ldconfig
+        working-directory: mecab
+      - name: build jumandic utf-8
+        run: |
+          ./autogen.sh
+          ./configure --with-charset=utf8
+          make
+          sudo make install
+          make distclean
+        working-directory: mecab-jumandic

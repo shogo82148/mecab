@@ -15,10 +15,11 @@ jobs:
           tar xf hugo.tar.gz
           sudo mv hugo /usr/local/bin/
       - name: install doxygen help2man man2html
-        run: sudo apt-get install doxygen help2man man2html
+        run: sudo apt-get install doxygen help2man man2html gettext
       - name: build mecab
         run: |
-          ./configure
+          ./autogen.sh
+          ./configure --enable-utf8-only
           make
         working-directory: mecab
       - name: generate documents

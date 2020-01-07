@@ -1,0 +1,42 @@
+name: mecab on Linux
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/test-linux.yml'
+      - 'mecab/**'
+  push:
+    paths:
+      - '.github/workflows/test-linux.yml'
+      - 'mecab/**'
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - run: sudo apt-get install gettext
+      - uses: actions/checkout@v2
+      - name: test mecab
+        run: |
+          ./autogen.sh
+          ./configure
+          make -j$(nproc)
+          make check
+          sudo make install
+        working-directory: mecab
+
+  test-utf8:
+    name: UTF-8 only mode
+    runs-on: ubuntu-latest
+    steps:
+      - run: sudo apt-get install gettext
+      - uses: actions/checkout@v2
+      - name: test mecab
+        run: |
+          ./autogen.sh
+          ./configure --enable-utf8-only
+          make -j$(nproc)
+          make check
+          sudo make install
+        working-directory: mecab

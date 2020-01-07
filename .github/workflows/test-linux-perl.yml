@@ -1,0 +1,55 @@
+name: Perl Bindings on Linux
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/test-linux-perl.yml'
+      - 'mecab/**'
+  push:
+    paths:
+      - '.github/workflows/test-linux-perl.yml'
+      - 'mecab/**'
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        perl:
+          - '5.30'
+          - '5.28'
+          - '5.26'
+          - '5.24'
+          - '5.22'
+          - '5.20'
+    steps:
+      - run: sudo apt-get install gettext
+      - uses: actions/checkout@v2
+      - name: install mecab
+        run: |
+          ./autogen.sh
+          ./configure
+          make -j$(nproc)
+          sudo make install
+          sudo ldconfig
+        working-directory: mecab
+      - name: install ipadic utf-8
+        run: |
+          ./autogen.sh
+          ./configure --with-charset=utf8
+          make
+          sudo make install
+        working-directory: mecab-ipadic
+      - name: setup perl ${{ matrix.perl }}
+        uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: ${{ matrix.perl }}
+      - run: perl -V
+      - name: build and test
+        run: |
+          perl Makefile.PL
+          make
+          make test
+        working-directory: mecab/perl

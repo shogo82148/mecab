@@ -1,0 +1,56 @@
+name: Java Binding on macOS
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/test-darwin-java.yml'
+      - 'mecab/**'
+  push:
+    paths:
+      - '.github/workflows/test-darwin-java.yml'
+      - 'mecab/**'
+
+jobs:
+  tets:
+    name: Test
+    runs-on: macOS-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        java:
+          - '8'
+          - '9'
+          - '10'
+          - '11'
+          - '12'
+          - '13'
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup
+        run: .github/setup-darwin.sh
+      - name: install mecab
+        run: |
+          ./autogen.sh
+          ./configure
+          make -j$(nproc)
+          sudo make install
+        working-directory: mecab
+      - name: install ipadic utf-8
+        run: |
+          ./autogen.sh
+          ./configure --with-charset=utf8
+          make
+          sudo make install
+        working-directory: mecab-ipadic
+      - name: setup java ${{ matrix.java }}
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+      - run: java -version
+      - name: build and test
+        run: |
+          ./autogen.sh
+          ./configure
+          make
+        # DYLD_LIBRARY_PATH=. java test # FIX ME
+        working-directory: mecab/java
