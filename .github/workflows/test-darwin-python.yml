@@ -1,0 +1,50 @@
+name: Python Binding on macOS
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/test-darwin-python.yml'
+      - 'mecab/**'
+  push:
+    paths:
+      - '.github/workflows/test-darwin-python.yml'
+      - 'mecab/**'
+
+jobs:
+  test:
+    name: Test
+    runs-on: macOS-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python:
+          - '3.8'
+          - '3.7'
+          - '3.6'
+          - '3.5'
+    steps:
+      - uses: actions/checkout@v2
+      - name: install mecab
+        run: |
+          ./configure
+          make -j$(nproc)
+          sudo make install
+          sudo ldconfig
+        working-directory: mecab
+      - name: install ipadic utf-8
+        run: |
+          ./configure --with-charset=utf8
+          make
+          sudo make install
+        working-directory: mecab-ipadic
+      - name: setup python ${{ matrix.python }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -V
+      - name: build and test
+        run: |
+          python setup.py build
+          python setup.py install
+          python test.py
+        working-directory: mecab/python

@@ -1,0 +1,70 @@
+name: jumandic on macOS
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/test-darwin-jumandic.yml'
+      - 'mecab/**'
+      - 'mecab-jumandic/**'
+  push:
+    paths:
+      - '.github/workflows/test-darwin-jumandic.yml'
+      - 'mecab/**'
+      - 'mecab-jumandic/**'
+
+jobs:
+  test:
+    name: Test
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: test mecab
+        run: |
+          ./configure
+          make -j$(nproc)
+          make check
+          sudo make install
+        working-directory: mecab
+      - name: build jumandic euc-jp
+        run: |
+          ./configure
+          make
+          sudo make install
+          make clean
+        working-directory: mecab-jumandic
+
+      - name: build jumandic shift-jis
+        run: |
+          ./configure --with-charset=sjis
+          make
+          sudo make install
+          make clean
+        working-directory: mecab-jumandic
+
+      - name: build jumandic utf-8
+        run: |
+          ./configure --with-charset=utf8
+          make
+          sudo make install
+          make clean
+        working-directory: mecab-jumandic
+
+  test-utf8:
+    name: Test UTF-8 only mode
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: test mecab
+        run: |
+          ./configure --enable-utf8-only
+          make -j$(nproc)
+          make check
+          sudo make install
+        working-directory: mecab
+      - name: build jumandic utf-8
+        run: |
+          ./configure --with-charset=utf8
+          make
+          sudo make install
+          make clean
+        working-directory: mecab-jumandic

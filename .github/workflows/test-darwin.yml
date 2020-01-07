@@ -1,0 +1,38 @@
+name: mecab on macOS
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/test-darwin.yml'
+      - 'mecab/**'
+  push:
+    paths:
+      - '.github/workflows/test-darwin.yml'
+      - 'mecab/**'
+
+jobs:
+  test:
+    name: Test
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: test mecab
+        run: |
+          ./configure
+          make -j$(nproc)
+          make check
+          sudo make install
+        working-directory: mecab
+
+  test-utf8:
+    name: UTF-8 only mode
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: test mecab
+        run: |
+          ./configure --enable-utf8-only
+          make -j$(nproc)
+          make check
+          sudo make install
+        working-directory: mecab
