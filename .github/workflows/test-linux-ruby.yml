@@ -1,4 +1,4 @@
-name: Test Ruby Bindings on Linux
+name: Ruby Bindings on Linux
 
 on:
   pull_request:
@@ -12,7 +12,7 @@ on:
 
 jobs:
   test:
-    name: test
+    name: Test
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false

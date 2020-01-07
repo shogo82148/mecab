@@ -1,4 +1,4 @@
-name: Test Perl Bindings on Linux
+name: Perl Bindings on Linux
 
 on:
   pull_request:

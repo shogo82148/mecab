@@ -1,4 +1,4 @@
-name: Test ipadic on Linux
+name: ipadic on Linux
 
 on:
   pull_request:
@@ -14,7 +14,7 @@ on:
 
 jobs:
   test:
-    name: Build dictionary
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -50,7 +50,7 @@ jobs:
         working-directory: mecab-ipadic
 
   test-utf8:
-    name: UTF-8 only mode
+    name: Test UTF-8 only mode
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

@@ -1,4 +1,4 @@
-name: Test on Linux
+name: mecab on Linux
 
 on:
   pull_request:

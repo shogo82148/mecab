@@ -1,4 +1,4 @@
-name: Test Python Binding on Linux
+name: Python Binding on Linux
 
 on:
   pull_request:
