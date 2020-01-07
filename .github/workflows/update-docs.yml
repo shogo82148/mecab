@@ -28,7 +28,7 @@ jobs:
           ( cd doc && doxygen mecab.cfg )
           make -C doc update-html
           make -C man update-man
-          rm -rf ../docs
+          rm -rf ../docs/*
           cp doc/*.html ../docs/
           cp doc/*.png ../docs/
           cp doc/*.css ../docs/
