@@ -22,6 +22,7 @@ jobs:
           - '2.5'
           - '2.6'
     steps:
+      - run: sudo apt-get install gettext
       - uses: actions/checkout@v2
       - name: install mecab
         run: |

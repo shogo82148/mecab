@@ -15,8 +15,8 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - run: sudo apt-get install gettext
+      - uses: actions/checkout@v2
       - name: test mecab
         run: |
           ./autogen.sh
@@ -30,8 +30,8 @@ jobs:
     name: UTF-8 only mode
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - run: sudo apt-get install gettext
+      - uses: actions/checkout@v2
       - name: test mecab
         run: |
           ./autogen.sh

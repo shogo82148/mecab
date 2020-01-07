@@ -25,6 +25,7 @@ jobs:
           - '5.22'
           - '5.20'
     steps:
+      - run: sudo apt-get install gettext
       - uses: actions/checkout@v2
       - name: install mecab
         run: |

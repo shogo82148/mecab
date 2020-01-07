@@ -23,7 +23,7 @@ jobs:
           - '2.6'
     steps:
       - name: install autotools
-        run: brew install automake autoconf libtool
+        run: brew install automake autoconf libtool gettext
       - uses: actions/checkout@v2
       - name: install mecab
         run: |

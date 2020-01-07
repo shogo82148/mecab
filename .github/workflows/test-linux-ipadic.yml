@@ -17,6 +17,7 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
+      - run: sudo apt-get install gettext
       - uses: actions/checkout@v2
       - name: test mecab
         run: |
@@ -58,6 +59,7 @@ jobs:
     name: Test UTF-8 only mode
     runs-on: ubuntu-latest
     steps:
+      - run: sudo apt-get install gettext
       - uses: actions/checkout@v2
       - name: test mecab
         run: |
