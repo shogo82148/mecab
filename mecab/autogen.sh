@@ -1,7 +1,8 @@
 #!/bin/sh
 
 echo "Running libtoolize ..."
-libtoolize --force --copy
+libtoolize --force --copy \
+  || glibtoolize --force --copy # fallback for macOS
 echo "Running aclocal ..."
 aclocal -I .
 echo "Running autoheader..."
