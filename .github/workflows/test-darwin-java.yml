@@ -25,9 +25,9 @@ jobs:
           - '12'
           - '13'
     steps:
+      - uses: actions/checkout@v2
       - name: setup
         run: .github/setup-darwin.sh
-      - uses: actions/checkout@v2
       - name: install mecab
         run: |
           ./autogen.sh

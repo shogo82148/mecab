@@ -17,9 +17,9 @@ jobs:
     name: Test
     runs-on: macOS-latest
     steps:
+      - uses: actions/checkout@v2
       - name: setup
         run: .github/setup-darwin.sh
-      - uses: actions/checkout@v2
       - name: test mecab
         run: |
           ./autogen.sh
@@ -59,9 +59,9 @@ jobs:
     name: Test UTF-8 only mode
     runs-on: macOS-latest
     steps:
+      - uses: actions/checkout@v2
       - name: setup
         run: .github/setup-darwin.sh
-      - uses: actions/checkout@v2
       - name: test mecab
         run: |
           ./autogen.sh
