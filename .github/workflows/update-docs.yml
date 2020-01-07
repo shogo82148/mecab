@@ -16,27 +16,28 @@ jobs:
           sudo mv hugo /usr/local/bin/
       - name: install doxygen help2man man2html
         run: sudo apt-get install doxygen help2man man2html
-      - name: generate documents
-        run: |
-          rm -rf docs
-          rm -rf mecab/doc
-          hugo
-          doxygen mecab.cfg
-          cp -r docs mecab/docs
       - name: build mecab
         run: |
           ./configure
           make
         working-directory: mecab
-      - run: |
-          make update-man
-          man2html mecab.1 > ../doc/mecab.html
-          cp ../doc/mecab.html ../../docs/mecab.html
-        working-directory: mecab/man
+      - name: generate documents
+        run: |
+          rm -rf doc/*.html doc/*.png doc/doxygen
+          hugo
+          ( cd doc && doxygen mecab.cfg )
+          make -C doc update-html
+          make -C man update-man
+          rm -rf ../docs
+          cp doc/*.html ../docs/
+          cp doc/*.png ../docs/
+          cp doc/*.css ../docs/
+          cp -r doc/doxygen ../docs/doxygen
+        working-directory: mecab
       - run: |
           BRANCH=update-docs-test-$(date +"%Y-%m-%d-%H-%M-%S")
           git config --global user.name "Ichinose Shogo"
           git config --global user.email shogo82148@gmail.com
-          git add docs mecab/doc mecab/man/mecab.1
+          git add docs mecab/doc/*.html mecab/doc/*.png mecab/doc/*.css mecab/doxygen mecab/man/mecab.1
           git commit -m "auto generate documents $(date +"%Y-%m-%d %H:%M:%S")" || ( echo "no updates" && exit 0 )
           git push -u origin $BRANCH
