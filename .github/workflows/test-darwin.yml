@@ -16,7 +16,8 @@ jobs:
     runs-on: macOS-latest
     steps:
       - name: install autotools
-        run: brew install automake autoconf libtool gettext
+        run: brew install automake autoconf libtool
+      - run: brew reinstall gettext
       - uses: actions/checkout@v2
       - name: test mecab
         run: |
