@@ -11,3 +11,4 @@ JAR = @JAR@
 all:
 	$(JAVAC) org/chasen/mecab/*.java
 	$(JAR) cfv MeCab.jar org/chasen/mecab/*.class
+	$(JAVAC) test.java

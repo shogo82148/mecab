@@ -52,5 +52,5 @@ jobs:
           ./autogen.sh
           ./configure
           make
-          make test
+          LD_LIBRARY_PATH=. java test
         working-directory: mecab/java
