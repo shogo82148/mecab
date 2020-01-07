@@ -2,9 +2,7 @@
 
 echo "Running aclocal ..."
 aclocal -I .
-echo "Running autoheader..."
-autoheader
 echo "Running automake ..."
 automake --add-missing --copy
-echo "Running autoreconf ..."
+echo "Running autoconf ..."
 autoconf -i -f
