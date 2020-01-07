@@ -28,16 +28,14 @@ jobs:
           ( cd doc && doxygen mecab.cfg )
           make -C doc update-html
           make -C man update-man
-          rm -rf ../docs/*
-          cp doc/*.html ../docs/
-          cp doc/*.png ../docs/
-          cp doc/*.css ../docs/
-          cp -r doc/doxygen ../docs/doxygen
+          make distclean
+          rm -rf ../docs
+          cp -r doc ../docs
         working-directory: mecab
       - run: |
           BRANCH=update-docs-test-$(date +"%Y-%m-%d-%H-%M-%S")
           git config --global user.name "Ichinose Shogo"
           git config --global user.email shogo82148@gmail.com
-          git add docs mecab/doc/*.html mecab/doc/*.png mecab/doc/*.css mecab/doxygen mecab/man/mecab.1
+          git add docs mecab/doc mecab/man
           git commit -m "auto generate documents $(date +"%Y-%m-%d %H:%M:%S")" || ( echo "no updates" && exit 0 )
           git push -u origin $BRANCH
