@@ -38,7 +38,7 @@ INCLUDES+=-I$(JNI_INCLUDEDIR) -I$(JNI_INCLUDEDIR)/$(JNI_PLATFORM)
 all:
 	echo $(OS)
 	$(CXX) $(CPPFLAGS) $(INCLUDES) -O3 -c -fpic $(TARGET)_wrap.cxx
-	$(CXX) $(LIB_TYPE) $(TARGET)_wrap.o -o lib$(TARGET).$(LIB_EXT) $(LIBS)
+	$(CXX) $(CPPFLAGS) $(LIB_TYPE) $(TARGET)_wrap.o -o lib$(TARGET).$(LIB_EXT) $(LIBS)
 	$(JAVAC) $(PACKAGE)/*.java
 	$(JAVAC) test.java
 	$(JAR) cfv $(TARGET).jar $(PACKAGE)/*.class
