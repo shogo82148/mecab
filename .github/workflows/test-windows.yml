@@ -1,0 +1,23 @@
+name: mecab on Windows
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/test-windows.yml'
+      - 'mecab/**'
+  push:
+    paths:
+      - '.github/workflows/test-windows.yml'
+      - 'mecab/**'
+
+jobs:
+  test:
+    name: Test
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: test mecab
+        run: |
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
+          nmake -f Makefile.x86.msvc
+        working-directory: mecab/src
