@@ -16,23 +16,8 @@ jobs:
           sudo mv hugo /usr/local/bin/
       - name: install doxygen help2man man2html
         run: sudo apt-get install doxygen help2man man2html gettext
-      - name: build mecab
-        run: |
-          ./autogen.sh
-          ./configure --enable-utf8-only
-          make
-        working-directory: mecab
       - name: generate documents
-        run: |
-          rm -rf doc/*.html doc/*.png doc/doxygen
-          hugo
-          ( cd doc && doxygen mecab.cfg )
-          make -C doc update-html
-          make -C man update-man
-          make distclean
-          rm -rf ../docs
-          cp -r doc ../docs
-        working-directory: mecab
+        run: .github/update-docs.sh
       - run: |
           git config --global user.name "Ichinose Shogo"
           git config --global user.email shogo82148@gmail.com
