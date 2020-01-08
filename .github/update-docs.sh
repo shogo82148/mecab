@@ -19,7 +19,7 @@ doxygen mecab.cfg
 make update-html
 
 cd "$ROOT/mecab/man"
-make -C man update-man
+make update-man
 
 cd "$ROOT/mecab"
 make distclean
