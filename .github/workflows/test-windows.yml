@@ -26,7 +26,7 @@ jobs:
         shell: cmd
         run: |
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ matrix.machine }}
-          nmake -f Makefile.msvc MACHINE=${{ matrix.machine }}
+          nmake -f Makefile.msvc.in MACHINE=${{ matrix.machine }}
         working-directory: mecab/src
       - name: test
         shell: bash

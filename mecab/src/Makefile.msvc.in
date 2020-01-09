@@ -8,7 +8,7 @@ LDFLAGS = /nologo /OPT:REF /OPT:ICF /LTCG /NXCOMPAT /DYNAMICBASE /MACHINE:$(MACH
 
 DEFS =  -D_CRT_SECURE_NO_DEPRECATE -DMECAB_USE_THREAD \
         -DDLL_EXPORT -DHAVE_GETENV -DHAVE_WINDOWS_H -DDIC_VERSION=102 \
-        -DVERSION="\"0.996\"" -DPACKAGE="\"mecab\"" \
+        -DVERSION="\"@VERSION@\"" -DPACKAGE="\"mecab\"" \
         -DUNICODE -D_UNICODE \
         -DMECAB_DEFAULT_RC="\"c:\\Program Files\\mecab\\etc\\mecabrc\""
 INC = -I. -I..
