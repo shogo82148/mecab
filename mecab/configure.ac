@@ -318,6 +318,7 @@ AM_CONFIG_HEADER(config.h)
 AC_OUTPUT([
             Makefile
 	    src/Makefile
+	    src/Makefile.msvc
 	    man/Makefile
 	    doc/Makefile
 	    tests/Makefile
