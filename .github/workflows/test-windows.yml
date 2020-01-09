@@ -16,9 +16,16 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
-      - name: test mecab
+      - name: build
         shell: cmd
         run: |
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
           nmake -f Makefile.x64.msvc
         working-directory: mecab/src
+      - name: test
+        shell: bash
+        run: |
+          run-dics.sh
+          run-eval.sh
+          run-cost-train.sh
+        working-directory: mecab/tests
