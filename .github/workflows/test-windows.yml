@@ -14,13 +14,21 @@ jobs:
   test:
     name: Test
     runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        machine:
+          - x64
+          - x86
+    
+      fail-fast: true
     steps:
       - uses: actions/checkout@v2
       - name: build
         shell: cmd
         run: |
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
-          nmake -f Makefile.msvc
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ matrix.machine }}
+          nmake -f Makefile.msvc MACHINE=${{ matrix.machine }}
         working-directory: mecab/src
       - name: test
         shell: bash
