@@ -1,8 +1,6 @@
 name: build release binaries
 
-on:
-  pull_request:
-  push:
+on: release
 
 jobs:
   mecab:
@@ -11,10 +9,18 @@ jobs:
     steps:
       - run: sudo apt-get install gettext
       - uses: actions/checkout@v2
-      - name: test mecab
+      - name: make dist
         run: |
           ./autogen.sh
           ./configure
           make dist
-          echo mecab-*.tar.gz
         working-directory: mecab
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ github.event.release.release.upload_url }}
+          asset_path: mecab/mecab-0.996.tar.gz
+          asset_name: mecab-0.996.tar.gz
+          asset_content_type: application/octet-stream
