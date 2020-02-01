@@ -22,6 +22,7 @@ jobs:
           mkdir -p ../dist/mecab/
           mv mecab-*.tar.gz ../dist/mecab/
           make script-dist
+          mkdir -p ../dist/scripts/
           mv mecab-*.tar.gz ../dist/scripts/
           mecab-config --version > ../dist/mecab-version.txt
         working-directory: mecab
