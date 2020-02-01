@@ -1,6 +1,8 @@
 name: build release binaries
 
-on: release
+on:
+  release:
+    types: [created]
 
 jobs:
   mecab:
@@ -16,11 +18,7 @@ jobs:
           make dist
         working-directory: mecab
       - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+        uses: shogo82148/actions-upload-release-asset@v1
         with:
           upload_url: ${{ github.event.release.release.upload_url }}
-          asset_path: mecab/mecab-0.996.tar.gz
-          asset_name: mecab-0.996.tar.gz
-          asset_content_type: application/octet-stream
+          asset_path: mecab/mecab-*.tar.gz
