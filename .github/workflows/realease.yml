@@ -1,6 +1,7 @@
 name: build release binaries
 
 on:
+  pull_request:
   release:
     types: [created]
 
@@ -18,24 +19,44 @@ jobs:
           make all
           sudo make install
           make dist
+          mkdir -p ../dist/mecab/
+          mv mecab-*.tar.gz ../dist/mecab/
         working-directory: mecab
       - name: build ipadic
         run: |
           ./autogen.sh
           ./configure
           make dist
+          mkdir -p ../dist/mecab-ipadic/
+          mv mecab-ipadic-*.tar.gz ../dist/mecab-ipadic/
         working-directory: mecab-ipadic
       - name: build jumandic
         run: |
           ./autogen.sh
           ./configure
           make dist
+          mkdir -p ../dist/mecab-jumandic/
+          mv mecab-jumandic-*.tar.gz ../dist/mecab-jumandic/
         working-directory: mecab-jumandic
+      - uses: actions/upload-artifact@v1
+        with:
+          name: dist
+          path: dist
       - name: Upload Release Assets
         uses: shogo82148/actions-upload-release-asset@v1
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_path: |
-            mecab/mecab-*.tar.gz
-            mecab-ipadic/mecab-ipadic-*.tar.gz
-            mecab-jumandic/mecab-jumandic-*.tar.gz
+            dist/**/*.tar.gz
+        if: github.event_name == 'release'
+
+  windows:
+    name: windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/download-artifact@v1
+        with:
+          name: dist
+      - run: tar xzvf mecab-*.tar.gz
+        shell: bash
+        working-directory: dist/mecab
