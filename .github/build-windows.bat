@@ -25,7 +25,7 @@ copy .github\mecabrc zip
 cd zip
 7z a ..\mecab-msvc-%BUILD_TYPE%.zip *
 
-cd ..\mecab\python
+cd ..\..\mecab\python
 py -3.8 -m pip install -U setuptools wheel pip
 py -3.8 setup.py bdist_wheel
 py -3.7 -m pip install -U setuptools wheel pip
