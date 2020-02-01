@@ -54,10 +54,26 @@ jobs:
     name: windows
     runs-on: windows-latest
     needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        machine:
+          - x64
+          - x86
     steps:
+      - uses: actions/checkout@v2
       - uses: actions/download-artifact@v1
         with:
           name: dist
-      - run: tar xzvf mecab-*.tar.gz
+      - name: untar
+        run: |
+          tar xzvf mecab-*.tar.gz
+          rm mecab-*.tar.gz
+          mv mecab-*/* .
         shell: bash
         working-directory: dist/mecab
+      - name: build
+        run: call .github\build-windows.bat
+        shell: cmd
+        env:
+          BUILD_TYPE: ${{ matrix.machine }}
