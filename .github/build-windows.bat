@@ -4,10 +4,9 @@ call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliar
 nmake -f Makefile.msvc MACHINE=%BUILD_TYPE%
 
 REM build ipadic
-set PATH=%GITHUB_WORKSPACE%\dist\mecab\src;%GITHUB_WORKSPACE%\dist\mecab\;%PATH%
 cd %GITHUB_WORKSPACE%\dist
 mkdir zip\dic\ipadic
-mecab-dict-index.exe -d mecab-ipadic -o zip\dic\ipadic -f EUC-JP -t UTF-8
+mecab\src\mecab-dict-index.exe -d mecab-ipadic -o zip\dic\ipadic -f EUC-JP -t UTF-8
 
 rem Zip mecab binaries and ipadic
 mkdir zip
@@ -27,6 +26,7 @@ copy %GITHUB_WORKSPACE%\.github\mecabrc zip
 cd zip
 7z a ..\mecab-msvc-%BUILD_TYPE%.zip *
 
+set PATH=%GITHUB_WORKSPACE%\dist\zip\;%PATH%
 cd %GITHUB_WORKSPACE%\dist\scripts
 py -3.8 -m pip install -U setuptools wheel pip
 py -3.8 setup.py bdist_wheel
