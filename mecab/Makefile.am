@@ -18,3 +18,23 @@ dist-hook:
 	  rm -f $(distdir)/$$subdir/*~; \
 	  rm -f $(distdir)/$$subdir/*.{bak,orig}; \
 	done
+
+script-dist:
+	for subdir in perl ruby python java; do \
+	  rm -fr mecab-$${subdir}-@VERSION@; \
+	  mkdir mecab-$${subdir}-@VERSION@; \
+	  cp -r COPYING BSD LGPL GPL AUTHORS mecab-$${subdir}-@VERSION@; \
+	  cp -r $${subdir}/* mecab-$${subdir}-@VERSION@; \
+	  cp -r doc/bindings.html  mecab-$${subdir}-@VERSION@; \
+	  find ./mecab-$${subdir}-@VERSION@ -type d -name CVS | xargs rm -fr; \
+	  find ./mecab-$${subdir}-@VERSION@ -type d -name .svn | xargs rm -fr; \
+	  rm -f mecab-$${subdir}-@VERSION@/*~; \
+	  tar zcfv mecab-$${subdir}-@VERSION@.tar.gz mecab-$${subdir}-@VERSION@; \
+	  rm -fr mecab-$${subdir}-@VERSION@; \
+	done
+
+script-clean:
+	(cd perl; $(MAKE) clean; rm -f Makefile.old Makefile)
+	(cd ruby; $(MAKE) clean; rm -f Makefile *.log)
+	(cd python; python setup.py clean --all)
+	(cd java; $(MAKE) clean;)

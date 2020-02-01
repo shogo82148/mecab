@@ -21,6 +21,8 @@ jobs:
           make dist
           mkdir -p ../dist/mecab/
           mv mecab-*.tar.gz ../dist/mecab/
+          make script-dist
+          mv mecab-*.tar.gz ../dist/scripts/
           mecab-config --version > ../dist/mecab-version.txt
         working-directory: mecab
       - name: build ipadic
@@ -87,6 +89,13 @@ jobs:
           mv mecab-ipadic-*/* .
         shell: bash
         working-directory: dist/mecab-ipadic
+      - name: untar python binding
+        run: |
+          tar xzvf mecab-python-*.tar.gz
+          rm mecab-*.tar.gz
+          mv mecab-python-*/* .
+        shell: bash
+        working-directory: dist/scripts
       - name: build
         run: call .github\build-windows.bat
         shell: cmd
