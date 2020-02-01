@@ -16,7 +16,7 @@ jobs:
         run: |
           ./autogen.sh
           ./configure
-          make all
+          make -j$(nproc) all
           sudo make install
           make dist
           mkdir -p ../dist/mecab/
