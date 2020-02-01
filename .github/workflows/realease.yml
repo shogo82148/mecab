@@ -1,26 +1,41 @@
 name: build release binaries
 
-on: release
+on:
+  release:
+    types: [created]
 
 jobs:
-  mecab:
-    name: mecab
+  build:
+    name: build
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get install gettext
       - uses: actions/checkout@v2
-      - name: make dist
+      - name: build mecab
+        run: |
+          ./autogen.sh
+          ./configure
+          make all
+          sudo make install
+          make dist
+        working-directory: mecab
+      - name: build ipadic
         run: |
           ./autogen.sh
           ./configure
           make dist
-        working-directory: mecab
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+        working-directory: mecab-ipadic
+      - name: build jumandic
+        run: |
+          ./autogen.sh
+          ./configure
+          make dist
+        working-directory: mecab-jumandic
+      - name: Upload Release Assets
+        uses: shogo82148/actions-upload-release-asset@v1
         with:
-          upload_url: ${{ github.event.release.release.upload_url }}
-          asset_path: mecab/mecab-0.996.tar.gz
-          asset_name: mecab-0.996.tar.gz
-          asset_content_type: application/octet-stream
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: |
+            mecab/mecab-*.tar.gz
+            mecab-ipadic/mecab-ipadic-*.tar.gz
+            mecab-jumandic/mecab-jumandic-*.tar.gz
