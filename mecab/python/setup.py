@@ -4,7 +4,7 @@ from distutils.core import setup,Extension
 import subprocess
 
 def cmd1(command):
-    return subprocess.check_output(command.split()).decode().rstrip()
+    return subprocess.check_output(command, shell=True).decode().rstrip()
 
 def cmd2(command):
     return cmd1(command).split()
