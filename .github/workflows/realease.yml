@@ -106,3 +106,7 @@ jobs:
         with:
           name: mecab-msvc-${{ matrix.machine }}-${{ steps.mecab.outputs.version }}.zip
           path: dist/mecab-msvc-${{ matrix.machine }}.zip
+      - uses: actions/upload-artifact@v1
+        with:
+          name: python-wheel
+          path: dist/scripts/dist
