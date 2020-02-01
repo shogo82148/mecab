@@ -61,19 +61,31 @@ jobs:
           - x64
           - x86
     steps:
+      - run: git config --global core.autoCRLF false
       - uses: actions/checkout@v2
       - uses: actions/download-artifact@v1
         with:
           name: dist
-      - name: untar
+      - name: untar mecab
         run: |
           tar xzvf mecab-*.tar.gz
           rm mecab-*.tar.gz
           mv mecab-*/* .
         shell: bash
         working-directory: dist/mecab
+      - name: untar mecab
+        run: |
+          tar xzvf mecab-ipadic-*.tar.gz
+          rm mecab-ipadic-*.tar.gz
+          mv mecab-ipadic-*/* .
+        shell: bash
+        working-directory: dist/mecab-ipadic
       - name: build
         run: call .github\build-windows.bat
         shell: cmd
         env:
           BUILD_TYPE: ${{ matrix.machine }}
+      - uses: actions/upload-artifact@v1
+        with:
+          name: mecab-msvc-${{ matrix.machine }}.zip
+          path: dist/mecab-msvc-${{ matrix.machine }}.zip
