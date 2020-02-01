@@ -22,4 +22,5 @@ copy mecab\LGPL zip
 copy mecab\src\*.lib zip
 copy mecab\src\mecab.h zip
 copy .github\mecabrc zip
-7z a mecab-msvc-%BUILD_TYPE%.zip zip\*
+cd zip
+7z a ..\mecab-msvc-%BUILD_TYPE%.zip *
