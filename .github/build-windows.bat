@@ -1,12 +1,13 @@
 REM build mecab
-cd dist\mecab\src
+cd %GITHUB_WORKSPACE%\dist\mecab\src
 call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" %BUILD_TYPE%
 nmake -f Makefile.msvc MACHINE=%BUILD_TYPE%
 
 REM build ipadic
-cd ..\..\
+set PATH=%GITHUB_WORKSPACE%\dist\mecab\src;%PATH%
+cd %GITHUB_WORKSPACE%\dist
 mkdir zip\dic\ipadic
-mecab\src\mecab-dict-index.exe -d mecab-ipadic -o zip\dic\ipadic -f EUC-JP -t UTF-8
+mecab-dict-index.exe -d mecab-ipadic -o zip\dic\ipadic -f EUC-JP -t UTF-8
 
 rem Zip mecab binaries and ipadic
 mkdir zip
@@ -17,6 +18,7 @@ copy mecab-ipadic\*.csv zip\dic\ipadic\
 copy mecab\src\*.dll zip
 copy mecab\src\*.exe zip
 copy mecab\src\*.lib zip
+copy mecab\*.bat zip
 copy mecab\BSD zip
 copy mecab\LGPL zip
 copy mecab\src\*.lib zip
@@ -25,7 +27,7 @@ copy .github\mecabrc zip
 cd zip
 7z a ..\mecab-msvc-%BUILD_TYPE%.zip *
 
-cd ..\..\mecab\python
+cd %GITHUB_WORKSPACE%\dist\mecab\python
 py -3.8 -m pip install -U setuptools wheel pip
 py -3.8 setup.py bdist_wheel
 py -3.7 -m pip install -U setuptools wheel pip
