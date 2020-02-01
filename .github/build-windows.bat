@@ -4,7 +4,7 @@ call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliar
 nmake -f Makefile.msvc MACHINE=%BUILD_TYPE%
 
 REM build ipadic
-set PATH=%GITHUB_WORKSPACE%\dist\mecab\src;%PATH%
+set PATH=%GITHUB_WORKSPACE%\dist\mecab\src;%GITHUB_WORKSPACE%\dist\mecab\;%PATH%
 cd %GITHUB_WORKSPACE%\dist
 mkdir zip\dic\ipadic
 mecab-dict-index.exe -d mecab-ipadic -o zip\dic\ipadic -f EUC-JP -t UTF-8
