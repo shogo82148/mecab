@@ -53,6 +53,7 @@ jobs:
   windows:
     name: windows
     runs-on: windows-latest
+    needs: build
     steps:
       - uses: actions/download-artifact@v1
         with:
