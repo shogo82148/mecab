@@ -21,6 +21,7 @@ jobs:
           make dist
           mkdir -p ../dist/mecab/
           mv mecab-*.tar.gz ../dist/mecab/
+          mecab-config --version > ../dist/mecab-version.txt
         working-directory: mecab
       - name: build ipadic
         run: |
@@ -66,6 +67,12 @@ jobs:
       - uses: actions/download-artifact@v1
         with:
           name: dist
+      - name: check mecab version
+        id: mecab
+        run: |
+          echo "::set-output name=version::$(cat mecab-version.txt)"
+        shell: bash
+        working-directory: dist
       - name: untar mecab
         run: |
           tar xzvf mecab-*.tar.gz
@@ -73,7 +80,7 @@ jobs:
           mv mecab-*/* .
         shell: bash
         working-directory: dist/mecab
-      - name: untar mecab
+      - name: untar ipadic
         run: |
           tar xzvf mecab-ipadic-*.tar.gz
           rm mecab-ipadic-*.tar.gz
@@ -87,5 +94,5 @@ jobs:
           BUILD_TYPE: ${{ matrix.machine }}
       - uses: actions/upload-artifact@v1
         with:
-          name: mecab-msvc-${{ matrix.machine }}.zip
+          name: mecab-msvc-${{ matrix.machine }}-${{ steps.mecab.outputs.version }}.zip
           path: dist/mecab-msvc-${{ matrix.machine }}.zip
