@@ -20,5 +20,5 @@ jobs:
       - name: Upload Release Asset
         uses: shogo82148/actions-upload-release-asset@v1
         with:
-          upload_url: ${{ github.event.release.release.upload_url }}
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: mecab/mecab-*.tar.gz
