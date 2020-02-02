@@ -134,13 +134,9 @@ jobs:
           mv mecab-*/* .
         shell: bash
         working-directory: dist/mecab
-      - name: configure
-        run: |
-          ./configure
-        shell: bash
-        working-directory: dist/mecab
       - name: build and test
         run: |
+          bash ./configure
           gmake
           gmake check
         shell: cmd
