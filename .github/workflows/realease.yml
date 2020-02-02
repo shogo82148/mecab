@@ -108,5 +108,5 @@ jobs:
           path: dist/mecab-msvc-${{ matrix.machine }}.zip
       - uses: actions/upload-artifact@v1
         with:
-          name: python-wheel
+          name: python-wheel-${{ matrix.machine }}
           path: dist/scripts/dist
