@@ -136,8 +136,8 @@ jobs:
         working-directory: dist/mecab
       - name: build and test
         run: |
-          bash ./configure
+          ./configure
           gmake
           gmake check
-        shell: cmd
+        shell: bash
         working-directory: dist/mecab
