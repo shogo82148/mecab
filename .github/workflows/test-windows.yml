@@ -6,6 +6,8 @@ on:
       - '.github/workflows/test-windows.yml'
       - 'mecab/**'
   push:
+    branches:
+      - master
     paths:
       - '.github/workflows/test-windows.yml'
       - 'mecab/**'
