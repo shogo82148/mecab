@@ -116,7 +116,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get install gettext mingw-w64-x86-64-dev
-      - run: gcc -dumpmachine
       - uses: actions/checkout@v2
       - name: build mecab
         run: |
