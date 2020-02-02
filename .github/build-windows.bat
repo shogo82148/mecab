@@ -26,7 +26,7 @@ copy %GITHUB_WORKSPACE%\.github\mecabrc zip
 cd zip
 7z a ..\mecab-msvc-%BUILD_TYPE%-%MECAB_VERSION%.zip *
 
-if %BUILD_TYPE% == x64 (
+if "%BUILD_TYPE%" == "x64" (
     set PATH=%GITHUB_WORKSPACE%\dist\zip\;%PATH%
     cd %GITHUB_WORKSPACE%\dist\scripts
     py -3.8 -m pip install -U setuptools wheel pip
