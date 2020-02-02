@@ -116,13 +116,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get install gettext mingw-w64
+      - run: gcc -dumpmachine
       - uses: actions/checkout@v2
       - name: build mecab
         run: |
           ./autogen.sh
           ./configure --prefix=${{ github.workspace }}/mingw-bin --host=x86_64-w64-mingw32
           make -j$(nproc) all
-          make install
         working-directory: mecab
       - uses: actions/upload-artifact@v1
         with:
