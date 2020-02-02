@@ -7,6 +7,8 @@ on:
       - 'mecab/**'
       - 'mecab-jumandic/**'
   push:
+    branches:
+      - master
     paths:
       - '.github/workflows/test-linux-jumandic.yml'
       - 'mecab/**'
