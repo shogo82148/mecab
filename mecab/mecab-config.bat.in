@@ -1,0 +1,58 @@
+@echo off
+
+:ARGPARSE
+    if "%~1" == "--cxx" (
+        echo cl.exe
+    ) else if "%~1" == "--cc" (
+        echo cl.exe
+    ) else if "%~1" == "--prefix" (
+        rem TODO
+    ) else if "%~1" == "--exec-prefix" (
+        rem TODO
+    ) else if "%~1" == "--version" (
+        echo @VERSION@
+        exit /B 0
+    ) else if "%~1" == "--help" (
+        call :USAGE
+        exit /B 0
+    ) else if "%~1" == "--cflags" (
+        echo /I %~dp0
+    ) else if "%~1" == "--libs" (
+        rem TODO
+    ) else if "%~1" == "--dicdir" (
+        echo %~dp0dic\ipadic
+    ) else if "%~1" == "--inc-dir" (
+        echo %~dp0
+    ) else if "%~1" == "--libs-only-L" (
+        echo %~dp0
+    ) else if "%~1" == "--libs-only-l" (
+        echo libmecab
+    ) else if "%~1" == "--libexecdir" (
+        rem TODO
+    ) else if "%~1" == "--sysconfdir" (
+        rem TODO
+    ) else (
+        call :USAGE
+        exit \B 1
+    )
+    shift
+if not "%~1" == "" goto ARGPARSE
+goto :EOF
+
+:USAGE
+echo Usage: mecab-config [OPTIONS]
+echo
+echo Options:
+echo   [--cxx]
+echo   [--prefix[=DIR]]
+echo   [--exec-prefix[=DIR]]
+echo   [--libs]
+echo   [--cflags]
+echo   [--dicdir]
+echo   [--libexecdir]
+echo   [--sysconfdir]
+echo   [--libs-only-L]
+echo   [--libs-only-l]
+echo   [--inc-dir]
+echo   [--help]
+goto :EOF

@@ -316,16 +316,17 @@ AC_SUBST(DIC_VERSION)
 
 AM_CONFIG_HEADER(config.h)
 AC_OUTPUT([
-            Makefile
-	    src/Makefile
-	    src/Makefile.msvc
-	    man/Makefile
-	    doc/Makefile
-	    tests/Makefile
-	    swig/version.h
-	    mecab.iss
-	    mecab-config
-	    mecabrc ],
-	    chmod +x mecab-config \
-	    )
+  Makefile
+  src/Makefile
+  src/Makefile.msvc
+  man/Makefile
+  doc/Makefile
+  tests/Makefile
+  swig/version.h
+  mecab.iss
+  mecab-config
+  mecab-config.bat
+  mecabrc ],
+  chmod +x mecab-config \
+)
 
