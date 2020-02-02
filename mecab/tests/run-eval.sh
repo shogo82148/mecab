@@ -3,7 +3,7 @@
 #
 cd eval
 ../../src/mecab-system-eval --level="0 1 2 3 4" system answer > test.out
-diff test.gld test.out;
+diff --strip-trailing-cr test.gld test.out;
 if [ "$?" != "0" ]
 then
   echo "runtests faild in $dir"
