@@ -24,7 +24,7 @@ copy mecab\src\*.lib zip
 copy mecab\src\mecab.h zip
 copy %GITHUB_WORKSPACE%\.github\mecabrc zip
 cd zip
-7z a ..\mecab-msvc-%BUILD_TYPE%.zip *
+7z a ..\mecab-msvc-%BUILD_TYPE%-%MECAB_VERSION%.zip *
 
 set PATH=%GITHUB_WORKSPACE%\dist\zip\;%PATH%
 cd %GITHUB_WORKSPACE%\dist\scripts
