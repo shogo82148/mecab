@@ -121,12 +121,6 @@ jobs:
       - uses: actions/download-artifact@v1
         with:
           name: dist
-      - name: check mecab version
-        id: mecab
-        run: |
-          echo "::set-output name=version::$(cat mecab-version.txt)"
-        shell: bash
-        working-directory: dist
       - name: untar mecab
         run: |
           tar xzvf mecab-*.tar.gz
@@ -134,10 +128,11 @@ jobs:
           mv mecab-*/* .
         shell: bash
         working-directory: dist/mecab
+      - name: setup MSYS2
+        run: choco install msys2
       - name: build and test
         run: |
-          ./configure
+          C:\tools\msys64\usr\bin\bash configure
           gmake
           gmake check
-        shell: bash
         working-directory: dist/mecab
