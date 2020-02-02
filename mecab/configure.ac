@@ -7,6 +7,9 @@ AH_TEMPLATE([HAVE_OSX_ATOMIC_OPS], [])
 AH_TEMPLATE([HAVE_TLS_KEYWORD], [])
 AC_CONFIG_MACRO_DIR([m4])
 
+MECAB_DESCRIPTION='MeCab @shogo82148 flavored: Yet Another Part-of-Speech and Morphological Analyzer'
+AC_SUBST(MECAB_DESCRIPTION)
+
 # DIC_VERSION XXYY
 DIC_VERSION="102"
 
@@ -65,6 +68,15 @@ MECAB_USE_UTF8_ONLY="-DMECAB_USE_UTF8_ONLY"
 else
 MECAB_USE_UTF8_ONLY=""
 fi
+
+AC_ARG_WITH(pkgconfigdir,
+	AC_HELP_STRING([--with-pkgconfigdir],
+	[Use the specified pkgconfig dir (default is libdir/pkgconfig)]),
+	[pkgconfigdir=${withval}],
+	[pkgconfigdir='${libdir}/pkgconfig'])
+AC_MSG_NOTICE([pkgconfig directory is ${pkgconfigdir}])
+MECAB_PKGCONFIG_DIR=${pkgconfigdir}
+AC_SUBST(MECAB_PKGCONFIG_DIR)
 
 LIBS="$LIBS $MECAB_LIBS $LIBICONV"
 AC_SUBST(MECAB_LIBS)
@@ -319,6 +331,7 @@ AC_OUTPUT([
   Makefile
   src/Makefile
   src/Makefile.msvc
+  src/libmecab.pc
   man/Makefile
   doc/Makefile
   tests/Makefile
