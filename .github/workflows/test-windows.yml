@@ -110,3 +110,38 @@ jobs:
           ./run-eval.sh
           ./run-cost-train.sh
         working-directory: dist/mecab/tests
+
+  mingw:
+    name: MinGW
+    runs-on: windows-latest
+    needs: build
+    steps:
+      - run: git config --global core.autoCRLF false
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v1
+        with:
+          name: dist
+      - name: check mecab version
+        id: mecab
+        run: |
+          echo "::set-output name=version::$(cat mecab-version.txt)"
+        shell: bash
+        working-directory: dist
+      - name: untar mecab
+        run: |
+          tar xzvf mecab-*.tar.gz
+          rm mecab-*.tar.gz
+          mv mecab-*/* .
+        shell: bash
+        working-directory: dist/mecab
+      - name: configure
+        run: |
+          ./configure
+        shell: bash
+        working-directory: dist/mecab
+      - name: build and test
+        run: |
+          gmake
+          gmake check
+        shell: cmd
+        working-directory: dist/mecab
