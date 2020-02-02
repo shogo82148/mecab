@@ -111,19 +111,33 @@ jobs:
           ./run-cost-train.sh
         working-directory: dist/mecab/tests
 
-  mingw-build:
-    name: build with MinGW
-    runs-on: ubuntu-latest
+  mingw:
+    name: MinGW
+    runs-on: windows-latest
+    needs: build
     steps:
-      - run: sudo apt-get install gettext mingw-w64-x86-64-dev
+      - run: git config --global core.autoCRLF false
       - uses: actions/checkout@v2
-      - name: build mecab
-        run: |
-          ./autogen.sh
-          ./configure --prefix=${{ github.workspace }}/mingw-bin --host=x86_64-w64-mingw32
-          make -j$(nproc) all
-        working-directory: mecab
-      - uses: actions/upload-artifact@v1
+      - uses: actions/download-artifact@v1
         with:
-          name: mingw-bin
-          path: mingw-bin
+          name: dist
+      - name: check mecab version
+        id: mecab
+        run: |
+          echo "::set-output name=version::$(cat mecab-version.txt)"
+        shell: bash
+        working-directory: dist
+      - name: untar mecab
+        run: |
+          tar xzvf mecab-*.tar.gz
+          rm mecab-*.tar.gz
+          mv mecab-*/* .
+        shell: bash
+        working-directory: dist/mecab
+      - name: build and test
+        run: |
+          ./configure
+          gmake
+          gmake check
+        shell: bash
+        working-directory: dist/mecab
