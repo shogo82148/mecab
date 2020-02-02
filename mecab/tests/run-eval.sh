@@ -1,13 +1,15 @@
 #!/bin/sh
 
 #
-cd eval
+dir="eval"
+cd "$dir" || exit 1
 ../../src/mecab-system-eval --level="0 1 2 3 4" system answer > test.out
-diff --strip-trailing-cr test.gld test.out;
-if [ "$?" != "0" ]
+if --strip-trailing-cr diff test.gld test.out;
 then
+  : success!
+else
   echo "runtests faild in $dir"
-  exit -1
+  exit 1
 fi;
 rm -f test.out
 exit 0
