@@ -110,3 +110,11 @@ jobs:
         with:
           name: python-wheel-${{ matrix.machine }}
           path: dist/scripts/dist
+      - name: Upload Release Assets
+        uses: shogo82148/actions-upload-release-asset@v1
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: |
+            dist/mecab-msvc-*.zip
+            dist/scripts/dist/*.whl
+        if: github.event_name == 'release'
