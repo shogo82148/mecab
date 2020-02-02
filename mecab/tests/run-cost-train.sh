@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd cost-train
+cd cost-train || exit 1
 
 CORPUS=ipa.train
 TEST=ipa.test
