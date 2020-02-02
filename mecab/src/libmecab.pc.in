@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: @PACKAGE@
+Description: @MECAB_DESCRIPTION@
+Version: @VERSION@
+Libs: -L${libdir} -lmecab
+Cflags: -I${includedir}
