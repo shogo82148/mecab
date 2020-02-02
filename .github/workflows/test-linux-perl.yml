@@ -6,6 +6,8 @@ on:
       - '.github/workflows/test-linux-perl.yml'
       - 'mecab/**'
   push:
+    branches:
+      - master
     paths:
       - '.github/workflows/test-linux-perl.yml'
       - 'mecab/**'

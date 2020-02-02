@@ -2,7 +2,9 @@ name: Update Documents
 
 on:
   pull_request: {}
-  push: {}
+  push:
+    branches:
+      - master
 
 jobs:
   update:

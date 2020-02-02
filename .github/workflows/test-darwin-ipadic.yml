@@ -7,6 +7,8 @@ on:
       - 'mecab/**'
       - 'mecab-ipadic/**'
   push:
+    branches:
+      - master
     paths:
       - '.github/workflows/test-darwin-ipadic.yml'
       - 'mecab/**'
