@@ -112,7 +112,7 @@ inline void yield_processor(void) {
 class atomic_int {
   public:
     atomic_int(): val_(0) {}
-    atomic_int(int init): val_(int) {}
+    atomic_int(int init): val_(init) {}
     int add(int a) {
       long ret = ::InterlockedExchangeAdd(&val_, static_cast<long>(a));
       return static_cast<int>(ret);
