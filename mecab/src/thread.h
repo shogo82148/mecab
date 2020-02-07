@@ -19,12 +19,14 @@
 #endif
 #endif
 
-#if defined HAVE_GCC_ATOMIC_OPS || defined HAVE_OSX_ATOMIC_OPS
-#include <sched.h>
-#endif
-
-#if defined HAVE_OSX_ATOMIC_OPS
-#include <libkern/OSAtomic.h>
+#if defined HAVE_CXX11_ATOMIC_OPS
+#  include <thread>
+#  include <atomic>
+#elif defined HAVE_OSX_ATOMIC_OPS
+#  include <libkern/OSAtomic.h>
+#  include <sched.h>
+#elif defined HAVE_GCC_ATOMIC_OPS
+#  include <sched.h>
 #endif
 
 #if defined HAVE_PTHREAD_H
@@ -41,33 +43,94 @@
 
 namespace MeCab {
 
-#if (defined(_WIN32) && !defined(__CYGWIN__))
-#undef atomic_add
-#undef compare_and_swap
-#undef yield_processor
-#define atomic_add(a, b) ::InterlockedExchangeAdd(a, b)
-#define compare_and_swap(a, b, c)  ::InterlockedCompareExchange(a, c, b)
-#define yield_processor() YieldProcessor()
-#define HAVE_ATOMIC_OPS 1
-#endif
+#if defined(HAVE_CXX11_ATOMIC_OPS)
+class atomic_int {
+  public:
+    atomic_int(): val_(0) {}
+    atomic_int(int init): val_(init) {}
+    int add(int a) {
+      return val_.fetch_add(a);
+    }
+    bool compare_and_swap(int a, int b) {
+      return val_.compare_exchange_strong(a, b);
+    }
+    int load() {
+      return val_.load();
+    }
+  private:
+    std::atomic<int> val_;
+};
+inline void yield_processor(void) {
+  std::this_thread::yield();
+}
 
-#ifdef HAVE_GCC_ATOMIC_OPS
-#undef atomic_add
-#undef compare_and_swap
-#undef yield_processor
-#define atomic_add(a, b) __sync_add_and_fetch(a, b)
-#define compare_and_swap(a, b, c)  __sync_val_compare_and_swap(a, b, c)
-#define yield_processor() sched_yield()
+#elif defined(HAVE_OSX_ATOMIC_OPS)
+class atomic_int {
+  public:
+    atomic_int(): val_(0) {}
+    atomic_int(int init): val_(init) {}
+    int add(int a) {
+      return OSAtomicAdd32(a, &val_);
+    }
+    bool compare_and_swap(int a, int b) {
+      return OSAtomicCompareAndSwapInt(a, b, &val_);
+    }
+    int load() {
+      return OSAtomicCompareAndSwapInt(0, 0, &val_);
+    }
+  private:
+    volatile int val_;
+};
+inline void yield_processor(void) {
+  sched_yield();
+}
 #define HAVE_ATOMIC_OPS 1
-#endif
 
-#ifdef HAVE_OSX_ATOMIC_OPS
-#undef atomic_add
-#undef compare_and_swap
-#undef yield_processor
-#define atomic_add(a, b) OSAtomicAdd32(b, a)
-#define compare_and_swap(a, b, c) OSAtomicCompareAndSwapInt(b, c, a)
-#define yield_processor() sched_yield()
+#elif defined(HAVE_GCC_ATOMIC_OPS)
+class atomic_int {
+  public:
+    atomic_int(): val_(0) {}
+    atomic_int(int init): val_(init) {}
+    int add(int a) {
+      return __sync_add_and_fetch(&val_, a);
+    }
+    int compare_and_swap(int a, int b) {
+      return __sync_val_compare_and_swap(&val_, a, b);
+    }
+    int load() {
+      return __sync_val_compare_and_swap(&val_, 0, 0);
+    }
+  private:
+    volatile int val_;
+};
+inline void yield_processor(void) {
+  sched_yield();
+}
+#define HAVE_ATOMIC_OPS 1
+
+#elif (defined(_WIN32) && !defined(__CYGWIN__))
+class atomic_int {
+  public:
+    atomic_int(): val_(0) {}
+    atomic_int(int init): val_(int) {}
+    int add(int a) {
+      long ret = ::InterlockedExchangeAdd(&val_, static_cast<long>(a));
+      return static_cast<int>(ret);
+    }
+    int compare_and_swap(int a, int b) {
+      long ret = ::InterlockedCompareExchange(&val_, static_cast<long>(a), static_cast<long>(b));
+      return static_cast<int>(ret);
+    }
+    int load() {
+      long ret = ::InterlockedCompareExchange(&val_, 0, 0);
+      return static_cast<int>(ret);
+    }
+  private:
+    volatile long val_;
+};
+inline void yield_processor(void) {
+  YieldProcessor();
+}
 #define HAVE_ATOMIC_OPS 1
 #endif
 
@@ -79,26 +142,26 @@ namespace MeCab {
 class read_write_mutex {
  public:
   inline void write_lock() {
-    atomic_add(&write_pending_, 1);
-    while (compare_and_swap(&l_, 0, kWaFlag)) {
+    write_pending_.add(1);
+    while (l_.compare_and_swap(0, kWaFlag)) {
       yield_processor();
     }
   }
   inline void read_lock() {
-    while (write_pending_ > 0) {
+    while (write_pending_.load() > 0) {
       yield_processor();
     }
-    atomic_add(&l_, kRcIncr);
-    while ((l_ & kWaFlag) != 0) {
+    l_.add(kRcIncr);
+    while ((l_.load() & kWaFlag) != 0) {
       yield_processor();
     }
   }
   inline void write_unlock() {
-    atomic_add(&l_, -kWaFlag);
-    atomic_add(&write_pending_, -1);
+    l_.add(-kWaFlag);
+    write_pending_.add(-1);
   }
   inline void read_unlock() {
-    atomic_add(&l_, -kRcIncr);
+    l_.add(-kRcIncr);
   }
 
   read_write_mutex(): l_(0), write_pending_(0) {}
@@ -106,13 +169,8 @@ class read_write_mutex {
  private:
   static const int kWaFlag = 0x1;
   static const int kRcIncr = 0x2;
-#ifdef HAVE_OSX_ATOMIC_OPS
-  volatile int l_;
-  volatile int write_pending_;
-#else
-  long l_;
-  long write_pending_;
-#endif
+  atomic_int l_;
+  atomic_int write_pending_;
 };
 
 class scoped_writer_lock {

@@ -2,6 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([mecab], [0.996.1])
 AC_CONFIG_SRCDIR([src/mecab.cpp])
 AM_INIT_AUTOMAKE
+AH_TEMPLATE([HAVE_CXX11_ATOMIC_OPS], [])
 AH_TEMPLATE([HAVE_GCC_ATOMIC_OPS], [])
 AH_TEMPLATE([HAVE_OSX_ATOMIC_OPS], [])
 AH_TEMPLATE([HAVE_TLS_KEYWORD], [])
@@ -265,6 +266,24 @@ AC_TRY_COMPILE(
   config_error=yes
 ])
 AC_MSG_RESULT([$ac_template])
+
+AC_MSG_CHECKING([if ${CXX-c++} supports C++11 atomic operations (optional)])
+AC_TRY_COMPILE(
+[
+#include <thread>
+#include <atomic>
+],[
+  std::atomic<int> foo(0);
+  std::this_thread::yield();
+],[
+  enable_cxx11_atomic_ops=yes
+],[
+  enable_cxx11_atomic_ops=no
+])
+AC_MSG_RESULT([$enable_cxx11_atomic_ops])
+if test "$enable_cxx11_atomic_ops" = "yes"; then
+AC_DEFINE([HAVE_CXX11_ATOMIC_OPS])
+fi
 
 AC_MSG_CHECKING([if ${CXX-c++} supports GCC native atomic operations (optional)])
 AC_TRY_COMPILE(
