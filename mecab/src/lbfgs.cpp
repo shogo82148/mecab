@@ -34,8 +34,6 @@ static const double eps  = 1e-7;
 static const double lb3_1_gtol = 0.9;
 static const double lb3_1_stpmin = 1e-20;
 static const double lb3_1_stpmax = 1e20;
-static const int lb3_1_mp = 6;
-static const int lb3_1_lp = 6;
 
 inline double sigma(double x) {
   if (x > 0) {

@@ -14,18 +14,13 @@
 #include "utils.h"
 
 namespace MeCab {
-namespace {
-char *mystrdup(const char *str) {
+
+static char *mystrdup(const char *str) {
   const size_t l = std::strlen(str);
   char *r = new char[l + 1];
   std::strncpy(r, str, l+1);
   return r;
 }
-
-char *mystrdup(const std::string &str) {
-  return mystrdup(str.c_str());
-}
-}  // namespace
 
 bool EncoderLearnerTagger::open(Tokenizer<LearnerNode, LearnerPath> *tokenizer,
                                 Allocator<LearnerNode, LearnerPath> *allocator,

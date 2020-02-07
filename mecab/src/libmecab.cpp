@@ -16,12 +16,12 @@
 #endif
 
 namespace {
-const char kUnknownError[] = "Unknown Error";
 const size_t kErrorBufferSize = 256;
 }
 
 #if defined(_WIN32) && !defined(__CYGWIN__)
 namespace {
+const char kUnknownError[] = "Unknown Error";
 DWORD g_tls_index = TLS_OUT_OF_INDEXES;
 }
 
