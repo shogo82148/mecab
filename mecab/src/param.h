@@ -15,7 +15,7 @@
 
 namespace {
 template <class Target, class Source>
-Target lexical_cast(Source arg) {
+inline Target lexical_cast(Source arg) {
   std::stringstream interpreter;
   Target result;
   if (!(interpreter << arg) || !(interpreter >> result) ||
@@ -27,7 +27,7 @@ Target lexical_cast(Source arg) {
 }
 
 template <>
-std::string lexical_cast<std::string, std::string>(std::string arg) {
+inline std::string lexical_cast<std::string, std::string>(std::string arg) {
   return arg;
 }
 }
