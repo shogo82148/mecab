@@ -1,4 +1,4 @@
-name: mecab on Windows
+name: mecab on cygwin
 
 on:
   pull_request:
