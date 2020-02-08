@@ -32,7 +32,7 @@ jobs:
         run: |
           ./autogen.sh
           ./configure
-          make -j$(nproc)
+          make -j2
           sudo make install
         working-directory: mecab
       - name: install ipadic utf-8
