@@ -30,9 +30,15 @@ jobs:
       - name: Set ENV
         run: |
           echo '::set-env name=PATH::C:\tools\cygwin\bin;C:\tools\cygwin\usr\bin'
-      - name: Autoconf
+      - name: configure
         run: |
           bash.exe -c ./autogen.sh
           bash.exe -c ./configure
+        shell: cmd
+        working-directory: mecab
+      - name: make
+        run: |
+          make all
+          make check
         shell: cmd
         working-directory: mecab
