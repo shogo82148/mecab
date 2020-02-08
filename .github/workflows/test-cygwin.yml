@@ -17,6 +17,7 @@ jobs:
     name: Test
     runs-on: windows-latest
     steps:
+      - run: git config --global core.autoCRLF false
       - uses: actions/checkout@v2
       - name: Install cygwin base packages with chocolatey
         run: |
