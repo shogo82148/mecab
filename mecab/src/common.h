@@ -13,12 +13,11 @@
 #include <cstring>
 #include <string>
 #include <iostream>
+#include <sstream>
 
 #ifdef __CYGWIN__
 #define _GLIBCXX_EXPORT_TEMPLATE
 #endif
-
-#include <sstream>
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
