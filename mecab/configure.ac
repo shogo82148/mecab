@@ -331,10 +331,15 @@ fi
 AC_MSG_RESULT([yes])
 
 case "$host_os" in
- mingw* | os2*)
-  MECAB_DEFAULT_RC='c:\\\\Program Files\\\\mecab\\\\etc\\\\mecabrc'
+ cygwin* | mingw* | os2*)
   CFLAGS="$CFLAGS -municode -DUNICODE -D_UNICODE"
   CXXFLAGS="$CXXFLAGS -municode -DUNICODE -D_UNICODE"
+  ;;
+esac
+
+case "$host_os" in
+ mingw* | os2*)
+  MECAB_DEFAULT_RC='c:\\\\Program Files\\\\mecab\\\\etc\\\\mecabrc'
   ;;
  *)
   MECAB_DEFAULT_RC="$sysconfdir/mecabrc"
