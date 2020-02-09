@@ -1,0 +1,50 @@
+name: mecab on MinGW
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/test-mingw.yml'
+      - 'mecab/**'
+  push:
+    branches:
+      - master
+    paths:
+      - '.github/workflows/test-mingw.yml'
+      - 'mecab/**'
+
+jobs:
+  test:
+    name: Test
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v1
+        with:
+          path: C:\Users\runneradmin\AppData\Local\Temp\chocolatey
+          key: ${{ runner.os }}-mingw-chocolatey-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-mingw-chocolatey-
+      - name: install MSYS2
+        run: |
+          choco install --no-progress msys2
+      - name: Set ENV
+        run: |
+          echo '::set-env name=PATH::C:\tools\msys64\bin;C:\tools\msys64\usr\bin;C:\tools\msys64\mingw64\bin;'
+      - name: setup MSYS2
+        run: |
+          bash.exe -c "pacman-key --init"
+          bash.exe -c "pacman-key --populate msys2"
+          pacman.exe -Sy
+          pacman.exe -S --verbose --noconfirm --noprogressbar --needed autoconf bison make automake1.16 automake-wrapper mingw-w64-x86_64-gcc mingw-w64-x86_64-libtool
+      - name: configure
+        run: |
+          bash.exe -c ./autogen.sh
+          bash.exe -c ./configure --host=x86_64-w64-mingw32
+        shell: cmd
+        working-directory: mecab
+      - name: make
+        run: |
+          make all
+          make check
+        shell: cmd
+        working-directory: mecab
