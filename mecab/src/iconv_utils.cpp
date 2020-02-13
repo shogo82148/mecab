@@ -25,7 +25,7 @@
 namespace {
 
 #ifdef HAVE_ICONV
-const char * decode_charset_iconv(const char *str) {
+static const char * decode_charset_iconv(const char *str) {
   const int charset = MeCab::decode_charset(str);
   switch (charset) {
     case MeCab::UTF8:
@@ -47,10 +47,11 @@ const char * decode_charset_iconv(const char *str) {
   }
   return MECAB_DEFAULT_CHARSET;
 }
-#endif
+
+#else // HAVE_ICONV
 
 #if defined(_WIN32) && !defined(__CYGWIN__)
-DWORD decode_charset_win32(const char *str) {
+static DWORD decode_charset_win32(const char *str) {
   const int charset = MeCab::decode_charset(str);
   switch (charset) {
     case MeCab::UTF8:
@@ -73,7 +74,10 @@ DWORD decode_charset_win32(const char *str) {
   }
   return 0;
 }
-#endif
+#endif // defined(_WIN32) && !defined(__CYGWIN__)
+
+#endif // HAVE_ICONV
+
 }  // namespace
 
 namespace MeCab {
