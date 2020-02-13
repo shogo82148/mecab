@@ -20,7 +20,9 @@
 #endif
 
 #ifdef HAVE_WINDOWS_H
-#define NOMINMAX
+#ifndef NOMINMAX
+#define NOMINMAX 1
+#endif
 #include <windows.h>
 #include <stdlib.h>
 #endif
@@ -360,7 +362,7 @@ bool load_dictionary_resource(Param *param) {
       _wsplitpath(v.get(), drive.get(), dir.get(), NULL, NULL);
       const std::wstring path =
           std::wstring(drive.get()) + std::wstring(dir.get()) + L"mecabrc";
-      if (::GetFileAttributesW(path.c_str()) != -1) {
+      if (::GetFileAttributesW(path.c_str()) != INVALID_FILE_ATTRIBUTES) {
         rcfile = WideToUtf8(path);
       }
     }
