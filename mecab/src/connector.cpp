@@ -30,11 +30,10 @@ bool Connector::open(const char* filename,
   CHECK_FALSE(cmmap_->size() >= 2)
       << "file size is invalid: " << filename;
 
-  lsize_ = static_cast<unsigned short>((*cmmap_)[0]);
-  rsize_ = static_cast<unsigned short>((*cmmap_)[1]);
+  lsize_ = static_cast<size_t>(static_cast<unsigned short>((*cmmap_)[0]));
+  rsize_ = static_cast<size_t>(static_cast<unsigned short>((*cmmap_)[1]));
 
-  CHECK_FALSE(static_cast<size_t>(lsize_ * rsize_ + 2)
-                    == cmmap_->size())
+  CHECK_FALSE(lsize_ * rsize_ + 2 == cmmap_->size())
       << "file size is invalid: " << filename;
 
   matrix_ = cmmap_->begin() + 2;
@@ -56,8 +55,8 @@ bool Connector::openText(const char *filename) {
   ifs.getline(buf.get(), buf.size());
   CHECK_DIE(tokenize2(buf.get(), "\t ", column, 2) == 2)
       << "format error: " << buf.get();
-  lsize_ = std::atoi(column[0]);
-  rsize_ = std::atoi(column[1]);
+  lsize_ = static_cast<size_t>(std::atoi(column[0]));
+  rsize_ = static_cast<size_t>(std::atoi(column[1]));
   return true;
 }
 

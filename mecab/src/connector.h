@@ -17,10 +17,10 @@ class Param;
 class Connector {
  private:
   scoped_ptr<Mmap<short> >  cmmap_;
-  short          *matrix_;
-  unsigned short  lsize_;
-  unsigned short  rsize_;
-  whatlog         what_;
+  short   *matrix_;
+  size_t  lsize_;
+  size_t  rsize_;
+  whatlog what_;
 
  public:
 
@@ -30,19 +30,21 @@ class Connector {
 
   const char *what() { return what_.str(); }
 
-  size_t left_size()  const { return static_cast<size_t>(lsize_); }
-  size_t right_size() const { return static_cast<size_t>(rsize_); }
+  size_t left_size()  const { return lsize_; }
+  size_t right_size() const { return rsize_; }
 
   void set_left_size(size_t lsize)  { lsize_ = lsize; }
   void set_right_size(size_t rsize) { rsize_ = rsize; }
 
-  inline int transition_cost(unsigned short rcAttr,
-                             unsigned short lcAttr) const {
-    return matrix_[rcAttr + lsize_ * lcAttr];
+  int transition_cost(unsigned short rcAttr,
+                      unsigned short lcAttr) const {
+    size_t index = static_cast<size_t>(rcAttr) + lsize_ * static_cast<size_t>(lcAttr);
+    return matrix_[index];
   }
 
-  inline int cost(const Node *lNode, const Node *rNode) const {
-    return matrix_[lNode->rcAttr + lsize_ * rNode->lcAttr] + rNode->wcost;
+  int cost(const Node *lNode, const Node *rNode) const {
+    size_t index = static_cast<size_t>(lNode->rcAttr) + lsize_ * static_cast<size_t>(rNode->lcAttr);
+    return matrix_[index] + rNode->wcost;
   }
 
   // access to raw matrix
