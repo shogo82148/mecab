@@ -20,7 +20,9 @@
 #endif
 
 #if defined(_MSC_VER) || defined(__CYGWIN__)
-#define NOMINMAX
+#ifndef NOMINMAX
+#define NOMINMAX 1
+#endif
 #define snprintf _snprintf
 #include <iterator>
 #endif
