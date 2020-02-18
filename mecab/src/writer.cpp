@@ -138,6 +138,8 @@ bool Writer::writeWakati(Lattice *lattice, StringBuffer *os) const {
 }
 
 bool Writer::writeNone(Lattice *lattice, StringBuffer *os) const {
+  (void)lattice; // ignore unused parameter ‘lattice’ [-Wunused-parameter]
+  (void)os; // ignore unused parameter ‘os’ [-Wunused-parameter]
   return true;  // do nothing
 }
 
