@@ -142,10 +142,10 @@ bool Iconv::convert(std::string *str) {
 #else
 #if defined(_WIN32) && !defined(__CYGWIN__)
   // covert it to wide character first
-  const size_t wide_len = ::MultiByteToWideChar(from_cp_, 0,
-                                                str->c_str(),
-                                                -1, NULL, 0);
-  if (wide_len == 0) {
+  const int wide_len = ::MultiByteToWideChar( from_cp_, 0,
+                                              str->c_str(),
+                                              -1, NULL, 0);
+  if (wide_len <= 0) {
     return false;
   }
 
@@ -173,12 +173,12 @@ bool Iconv::convert(std::string *str) {
     return true;
   }
 
-  const size_t output_len = ::WideCharToMultiByte(to_cp_, 0,
-                                                  wide_str.get(),
-                                                  -1,
-                                                  NULL, 0, NULL, NULL);
+  const int output_len = ::WideCharToMultiByte( to_cp_, 0,
+                                                wide_str.get(),
+                                                -1,
+                                                NULL, 0, NULL, NULL);
 
-  if (output_len == 0) {
+  if (output_len <= 0) {
     return false;
   }
 

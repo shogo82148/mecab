@@ -391,7 +391,8 @@ bool Viterbi::viterbi(Lattice *lattice) const {
   eos_node->surface = lattice->sentence() + lattice->size();
   begin_node_list[lattice->size()] = eos_node;
 
-  for (long pos = len; static_cast<long>(pos) >= 0; --pos) {
+  for (size_t pos = len + 1; pos > 0;) {
+    --pos;
     if (end_node_list[pos]) {
       if (!connect<IsAllPath>(pos, eos_node,
                               begin_node_list,
