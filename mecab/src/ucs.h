@@ -54,6 +54,7 @@ inline unsigned short utf8_to_ucs2(const char *begin, const char *end,
 
 inline unsigned short ascii_to_ucs2(const char *begin, const char *end,
                                     size_t *mblen) {
+  (void)end; // ignore unused parameter ‘end’
   *mblen = 1;
   return static_cast<unsigned char>(begin[0]);
 }
