@@ -92,7 +92,7 @@ class Eval {
       { "output", 'o',  0,         "FILE",   "set the output file name" },
       { "version",  'v',  0,   0,    "show the version and exit"   },
       { "help",  'h',  0,   0,    "show this help and exit."   },
-      { 0, 0, 0, 0 }
+      { NULL, '\0', 0, 0, NULL }
     };
 
     MeCab::Param param;
@@ -208,7 +208,7 @@ class TestSentenceGenerator {
       { "output",   'o',  0,   "FILE", "set the output filename" },
       { "version",  'v',  0,   0,    "show the version and exit"   },
       { "help",  'h',  0,   0,    "show this help and exit."   },
-      { 0, 0, 0, 0 }
+      { NULL, '\0', 0, 0, NULL }
     };
 
     MeCab::Param param;
