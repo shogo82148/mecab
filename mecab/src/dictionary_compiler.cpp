@@ -50,7 +50,7 @@ class DictionaryComplier {
         "use STR as the user defined node format" },
       { "version",   'v',  0,   0,   "show the version and exit."  },
       { "help",      'h',  0,   0,   "show this help and exit."  },
-      { 0, 0, 0, 0 }
+      { NULL, '\0', 0, 0, NULL}
     };
 
     Param param;

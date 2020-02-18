@@ -23,7 +23,7 @@ class NBestGenerator {
 
   class QueueElementComp {
    public:
-    const bool operator()(QueueElement *q1, QueueElement *q2) {
+    bool operator()(QueueElement *q1, QueueElement *q2) const {
       return (q1->fx > q2->fx);
     }
   };

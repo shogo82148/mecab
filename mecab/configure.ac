@@ -103,8 +103,8 @@ dnl
 dnl check gcc
 dnl
 if test -n "$GCC"; then
-   CFLAGS="-O3 -Wall "
-   CXXFLAGS="-O3 -Wall "
+   CFLAGS="-O3 -Wall -Wextra"
+   CXXFLAGS="-O3 -Wall -Wextra"
 fi
 
 dnl

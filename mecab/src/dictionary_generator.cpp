@@ -185,7 +185,7 @@ class DictionaryGenerator {
       { "model",   'm',  0,     "FILE",   "use FILE as model file" },
       { "version", 'v',  0,   0,  "show the version and exit"  },
       { "help",    'h',  0,   0,  "show this help and exit."      },
-      { 0, 0, 0, 0 }
+      { NULL, '\0', NULL, NULL, NULL }
     };
 
     Param param;
