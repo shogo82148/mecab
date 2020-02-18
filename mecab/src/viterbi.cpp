@@ -317,6 +317,7 @@ template <bool IsAllPath> bool connect(size_t pos, Node *rnode,
                                        Node **end_node_list,
                                        const Connector *connector,
                                        Allocator<Node, Path> *allocator) {
+  (void)begin_node_list; // ignore unused parameter ‘begin_node_list’ [-Wunused-parameter]
   for (;rnode; rnode = rnode->bnext) {
     register long best_cost = 2147483647;
     Node* best_node = 0;
