@@ -55,7 +55,7 @@ class Connector {
   bool open(const char *filename, const char *mode = "r");
 
   bool is_valid(size_t lid, size_t rid) const {
-    return (lid >= 0 && lid < rsize_ && rid >= 0 && rid < lsize_);
+    return lid < rsize_ && rid < lsize_;
   }
 
   static bool compile(const char *, const char *);
