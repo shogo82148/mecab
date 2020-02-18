@@ -42,8 +42,7 @@ class ContextID {
   const std::map<std::string, int>& right_ids() const { return right_; }
 
   bool is_valid(size_t lid, size_t rid) {
-    return (lid >= 0 && lid < left_size() &&
-            rid >= 0 && rid < right_size());
+    return lid < left_size() && rid < right_size();
   }
 };
 }
