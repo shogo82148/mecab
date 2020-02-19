@@ -186,7 +186,7 @@ class DoubleArrayImpl {
         array_[begin + siblings[i].code].base =
             value_ ?
             static_cast<array_type_>(-value_[siblings[i].left]-1) :
-            static_cast<array_type_>(-siblings[i].left-1);
+            static_cast<array_type_>(~siblings[i].left);
 
         if (value_ && (array_type_)(-value_[siblings[i].left]-1) >= 0) {
           error_ = -2;
