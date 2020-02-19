@@ -99,7 +99,7 @@ class die {
   die() {}
   ~die() {
     std::cerr << std::endl;
-    exit(-1);
+    std::exit(EXIT_FAILURE);
   }
   int operator&(std::ostream&) { return 0; }
 };
