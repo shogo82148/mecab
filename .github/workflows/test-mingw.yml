@@ -35,7 +35,7 @@ jobs:
           bash.exe -c "pacman-key --init"
           bash.exe -c "pacman-key --populate msys2"
           pacman.exe -Sy
-          pacman.exe -S --verbose --noconfirm --noprogressbar --needed autoconf bison make automake1.16 automake-wrapper mingw-w64-x86_64-gcc mingw-w64-x86_64-libtool
+          pacman.exe -S --verbose --noconfirm --noprogressbar --needed autoconf bison make automake1.16 automake-wrapper mingw-w64-x86_64-gcc mingw-w64-x86_64-libtool msys2-runtime-devel
       - name: configure
         run: |
           bash.exe -c ./autogen.sh
