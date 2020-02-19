@@ -11,7 +11,10 @@
 #endif
 
 #if defined(_WIN32) && !defined(__CYGWIN__)
-#include "windows.h"
+#ifndef NOMINMAX
+#define NOMINMAX 1
+#endif
+#include <windows.h>
 #endif
 
 namespace MeCab {
