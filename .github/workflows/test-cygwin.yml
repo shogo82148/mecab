@@ -75,3 +75,5 @@ jobs:
           make
           make test
         working-directory: mecab/perl
+        env:
+          SHELL: bash.exe
