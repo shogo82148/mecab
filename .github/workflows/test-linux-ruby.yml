@@ -64,6 +64,7 @@ jobs:
           - '2.5'
           - '2.6'
 
+    steps:
       - uses: actions/download-artifact@v1
         with:
           name: mecab
