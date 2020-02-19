@@ -14,6 +14,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <limits>
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -135,5 +136,12 @@ class wlog {
 #define CHECK_DIE(condition) \
 (condition) ? 0 : die() & std::cerr << __FILE__ << \
 "(" << __LINE__ << ") [" << #condition << "] "
+
+// die when overflow
+#define CAST_OR_DIE(target, value) \
+  (value)<=std::numeric_limits<target>::max() ? \
+  static_cast<target>(value) : \
+  static_cast<target>(die() & std::cerr << __FILE__ << \
+  "(" << __LINE__ << ") [" << #value << "] overflow")
 
 #endif  // MECAB_COMMON_H_
