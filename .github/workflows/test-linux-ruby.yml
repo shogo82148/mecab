@@ -2,17 +2,38 @@ name: Ruby Bindings on Linux
 
 on:
   pull_request:
-    paths:
-      - '.github/workflows/test-linux-ruby.yml'
-      - 'mecab/**'
   push:
     branches:
       - master
-    paths:
-      - '.github/workflows/test-linux-ruby.yml'
-      - 'mecab/**'
 
 jobs:
+  build:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - run: sudo apt-get install gettext
+      - uses: actions/checkout@v2
+      - name: build mecab
+        run: |
+          ./autogen.sh
+          ./configure
+          make -j$(nproc)
+        working-directory: mecab
+      - name: build ipadic utf-8
+        run: |
+          ./autogen.sh
+          ./configure --with-charset=utf8
+          make
+        working-directory: mecab-ipadic
+      - uses: actions/upload-artifact@v1
+        with:
+          name: mecab
+          path: mecab
+      - uses: actions/upload-artifact@v1
+        with:
+          name: mecab-ipadic
+          path: mecab-ipadic
+
   test:
     name: Test
     runs-on: ubuntu-latest
@@ -23,24 +44,24 @@ jobs:
           - '2.4'
           - '2.5'
           - '2.6'
-    steps:
-      - run: sudo apt-get install gettext
-      - uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v1
+        with:
+          name: mecab
       - name: install mecab
         run: |
-          ./autogen.sh
-          ./configure
-          make -j$(nproc)
           sudo make install
           sudo ldconfig
         working-directory: mecab
-      - name: install ipadic utf-8
+
+      - uses: actions/download-artifact@v1
+        with:
+          name: mecab-ipadic
+      - name: install ipadic
         run: |
-          ./autogen.sh
-          ./configure --with-charset=utf8
-          make
           sudo make install
         working-directory: mecab-ipadic
+
       - name: setup ruby ${{ matrix.ruby }}
         uses: actions/setup-ruby@v1
         with:
