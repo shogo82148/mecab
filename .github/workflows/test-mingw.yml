@@ -53,6 +53,7 @@ jobs:
       - name: build ipadic
         run: |
           bash.exe -c ./autogen.sh
+          bash.exe -c ./configure
           make all
           make install
         shell: cmd
