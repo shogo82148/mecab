@@ -485,7 +485,7 @@ void EncoderFeatureIndex::shrink(size_t freq,
     if (freqv[i] >= freq) {
       const int maxid = CAST_OR_DIE(int, maxid_);
       maxid_++;
-      old2new.insert(std::pair<int, int>(i, maxid));
+      old2new.insert(std::pair<int, int>(CAST_OR_DIE(int, i), maxid));
     }
   }
 
@@ -663,7 +663,9 @@ bool EncoderFeatureIndex::reopen(const char *filename,
         << "format error: " << buf.get();
     std::string feature = column[1];
     CHECK_DIE(iconv.convert(&feature));
-    dic_.insert(std::make_pair(feature, maxid_++));
+    const int maxid = CAST_OR_DIE(int, maxid_);
+    dic_.insert(std::make_pair(feature, maxid));
+    maxid_++;
     alpha->push_back(atof(column[0]));
   }
 

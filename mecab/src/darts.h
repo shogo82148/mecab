@@ -198,7 +198,7 @@ class DoubleArrayImpl {
 
       } else {
         size_t h = insert(new_siblings);
-        array_[begin + siblings[i].code].base = h;
+        array_[begin + siblings[i].code].base = CAST_OR_DIE(array_type_, h);
       }
     }
 
