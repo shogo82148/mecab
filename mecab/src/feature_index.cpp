@@ -483,7 +483,9 @@ void EncoderFeatureIndex::shrink(size_t freq,
   std::map<int, int> old2new;
   for (size_t i = 0; i < freqv.size(); ++i) {
     if (freqv[i] >= freq) {
-      old2new.insert(std::pair<int, int>(i, maxid_++));
+      const int maxid = CAST_OR_DIE(int, maxid_);
+      maxid_++;
+      old2new.insert(std::pair<int, int>(i, maxid));
     }
   }
 
