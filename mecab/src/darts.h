@@ -177,7 +177,7 @@ class DoubleArrayImpl {
                  static_cast<size_t>(siblings[siblings.size() - 1].code + 1));
 
     for (size_t i = 0; i < siblings.size(); ++i)
-      array_[begin + siblings[i].code].check = begin;
+      array_[begin + siblings[i].code].check = static_cast<array_type_>(begin);
 
     for (size_t i = 0; i < siblings.size(); ++i) {
       std::vector <node_t> new_siblings;
