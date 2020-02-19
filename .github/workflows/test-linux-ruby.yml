@@ -11,14 +11,33 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
+
+      # setup the environment
       - run: sudo apt-get install gettext
       - uses: actions/checkout@v2
-      - name: build mecab
+
+      # build mecab
+      - name: configure
         run: |
           ./autogen.sh
-          ./configure
+          ./configure --enable-utf8-only
           make -j$(nproc)
         working-directory: mecab
+      - name: build
+        run: |
+          make -j$(nproc)
+        working-directory: mecab
+      - name: check
+        run: |
+          make check
+        working-directory: mecab
+      - name: install mecab
+        run: |
+          sudo make install
+          sudo ldconfig
+        working-directory: mecab
+
+      # build ipadic
       - name: build ipadic utf-8
         run: |
           ./autogen.sh
