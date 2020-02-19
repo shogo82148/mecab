@@ -74,5 +74,4 @@ jobs:
           perl Makefile.PL
           make
           make test
-        shell: cmd
         working-directory: mecab/perl
