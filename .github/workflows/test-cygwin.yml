@@ -62,10 +62,9 @@ jobs:
       - name: build ipadic
         run: |
           bash.exe -c ./autogen.sh
-          bash.exe -c ./configure --with-charset=utf8
+          bash.exe -c "./configure --with-charset=utf8"
           make all
           make install
-        shell: cmd
         working-directory: mecab-ipadic
 
       - run: perl -V
