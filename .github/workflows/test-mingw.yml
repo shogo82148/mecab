@@ -46,5 +46,14 @@ jobs:
         run: |
           make all
           make check
+          make install
         shell: cmd
         working-directory: mecab
+
+      - name: build ipadic
+        run: |
+          bash.exe -c ./autogen.sh
+          make all
+          make install
+        shell: cmd
+        working-directory: mecab-ipadic
