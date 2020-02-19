@@ -4,7 +4,7 @@ sub run {
     my $cmd = shift;
     my $ret = `$cmd`;
     if ($? != 0) {
-        die "failed to ececute $cmd: $ret";
+        die "failed to execute $cmd: $ret";
     }
     return $ret;
 }
