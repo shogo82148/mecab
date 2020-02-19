@@ -66,3 +66,5 @@ jobs:
           make
           make test
         working-directory: mecab/perl
+        env:
+          CFLAGS: -I/usr/include
