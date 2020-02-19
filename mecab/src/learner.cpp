@@ -24,8 +24,8 @@ namespace {
 #ifdef MECAB_USE_THREAD
 class learner_thread: public thread {
  public:
-  unsigned short start_i;
-  unsigned short thread_num;
+  size_t start_i;
+  size_t thread_num;
   size_t size;
   size_t micro_p;
   size_t micro_r;
