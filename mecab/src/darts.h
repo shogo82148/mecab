@@ -130,7 +130,7 @@ class DoubleArrayImpl {
     if (error_ < 0) return 0;
 
     size_t begin = 0;
-    size_t pos   = _max((size_t)siblings[0].code + 1, next_check_pos_) - 1;
+    size_t pos   = _max(static_cast<size_t>(siblings[0].code + 1), next_check_pos_) - 1;
     size_t nonzero_num = 0;
     int    first = 0;
 
