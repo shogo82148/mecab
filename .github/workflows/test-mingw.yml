@@ -63,8 +63,6 @@ jobs:
       - name: build and test perl binding
         run: |
           perl Makefile.PL
-          make
+          make INC=-I/usr/local/include
           make test
         working-directory: mecab/perl
-        env:
-          CFLAGS: -I/usr/include
