@@ -23,6 +23,7 @@ jobs:
           - '2.4'
           - '2.5'
           - '2.6'
+          - '2.7' 
     steps:
       - run: sudo apt-get install gettext
       - uses: actions/checkout@v2
@@ -42,7 +43,7 @@ jobs:
           sudo make install
         working-directory: mecab-ipadic
       - name: setup ruby ${{ matrix.ruby }}
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
       - run: ruby -v
