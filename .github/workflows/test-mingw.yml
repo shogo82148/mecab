@@ -62,7 +62,7 @@ jobs:
       - run: perl -V
       - name: build and test perl binding
         run: |
-          perl Makefile.PL INC=-I/usr/local/include
+          perl Makefile.PL INC=-I/usr/include
           make
           make test
         working-directory: mecab/perl
