@@ -1,8 +1,5 @@
 #!/usr/bin/perl
 
-use lib "../src/.libs";
-use lib $ENV{PWD} . "/blib/lib";
-use lib $ENV{PWD} . "/blib/arch";
 use MeCab;
 
 print $MeCab::VERSION, "\n";

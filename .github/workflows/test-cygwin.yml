@@ -40,11 +40,11 @@ jobs:
             ${{ runner.os }}-cygwin-package-
       - name: Install cygwin additional packages
         run: |
-          C:\tools\cygwin\cygwinsetup.exe -qgnNdO -R C:/tools/cygwin -s http://mirrors.kernel.org/sourceware/cygwin/ -P autoconf,bison,gcc-g++,make,libtool,m4,aclocal,automake,libiconv,gettext-devel
+          C:\tools\cygwin\cygwinsetup.exe -qgnNdO -R C:/tools/cygwin -s http://mirrors.kernel.org/sourceware/cygwin/ -P autoconf,bison,gcc-g++,make,libtool,m4,aclocal,automake,libiconv-devel,gettext-devel,libcrypt-devel
         shell: cmd
       - name: Set ENV
         run: |
-          echo '::set-env name=PATH::C:\tools\cygwin\bin;C:\tools\cygwin\usr\bin'
+          echo '::set-env name=PATH::C:\tools\cygwin\usr\local\bin;C:\tools\cygwin\bin;C:\tools\cygwin\usr\bin'
       - name: configure
         run: |
           bash.exe -c ./autogen.sh
@@ -55,5 +55,22 @@ jobs:
         run: |
           make all
           make check
+          make install
         shell: cmd
         working-directory: mecab
+
+      - name: build ipadic
+        run: |
+          bash.exe -c ./autogen.sh
+          bash.exe -c "./configure --with-charset=utf8"
+          make all
+          make install
+        working-directory: mecab-ipadic
+
+      - run: perl -V
+      - name: build and test perl binding
+        run: |
+          perl Makefile.PL
+          make
+          make test
+        working-directory: mecab/perl
