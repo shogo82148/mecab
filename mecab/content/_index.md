@@ -83,6 +83,9 @@ MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<re
 
 ## 新着情報 {#news}
 
+- **2020-02-21** MeCab 0.996.3
+  - [Ruby 2.7 のサポート](https://github.com/shogo82148/mecab/pull/42)
+  - コンパイル時の警告を修正
 - **2020-02-14** MeCab 0.996.2
   - [C++11が利用可能な環境ではatomicヘッダーを利用](https://github.com/shogo82148/mecab/pull/24)
   - [未使用の変数・関数を削除](https://github.com/shogo82148/mecab/pull/25)
