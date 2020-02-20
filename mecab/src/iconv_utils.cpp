@@ -169,7 +169,7 @@ bool Iconv::convert(std::string *str) {
                 reinterpret_cast<char *>(wide_str.get()), wide_len * 2);
     if (to_cp_ == 1201) {
       char *buf = const_cast<char *>(str->data());
-      for (size_t i = 0; i < 2 * wide_len; i += 2) {
+      for (size_t i = 0; i < static_cast<size_t>(2 * wide_len); i += 2) {
         std::swap(buf[i], buf[i+1]);
       }
     }

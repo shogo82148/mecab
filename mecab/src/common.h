@@ -139,7 +139,7 @@ class wlog {
 
 // die when overflow. the value shoule be size_t.
 #define CAST_OR_DIE(target, value) \
-  (value)<=static_cast<target>(std::numeric_limits<target>::max()) ? \
+  (value)<=static_cast<size_t>(std::numeric_limits<target>::max()) ? \
   static_cast<target>(value) : \
   static_cast<target>(die() & std::cerr << __FILE__ << \
   "(" << __LINE__ << ") [" << #value << "] overflow")
