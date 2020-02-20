@@ -336,6 +336,9 @@ extern "C" {
 #endif
 
 #ifdef _WIN32
+#ifndef NOMINMAX
+#define NOMINMAX 1
+#endif
 #include <windows.h>
 #  ifdef DLL_EXPORT
 #    define MECAB_DLL_EXTERN  __declspec(dllexport)

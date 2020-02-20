@@ -140,9 +140,9 @@ bool Tokenizer<N, P>::open(const Param &param) {
     d->next          = dictionary_info_;
     d->filename      = dic_[i]->filename();
     d->charset       = dic_[i]->charset();
-    d->size          = dic_[i]->size();
-    d->lsize         = dic_[i]->lsize();
-    d->rsize         = dic_[i]->rsize();
+    d->size          = CAST_OR_DIE(unsigned int, dic_[i]->size());
+    d->lsize         = CAST_OR_DIE(unsigned int, dic_[i]->lsize());
+    d->rsize         = CAST_OR_DIE(unsigned int, dic_[i]->rsize());
     d->type          = dic_[i]->type();
     d->version       = dic_[i]->version();
     dictionary_info_ = d;
@@ -283,7 +283,7 @@ N *Tokenizer<N, P>::lookup(const char *begin, const char *end,
       for (size_t j = 0; j < size; ++j) {
         N *new_node = allocator->newNode();
         read_node_info(**it, *(token + j), &new_node);
-        new_node->length = daresults[i].length;
+        new_node->length = CAST_OR_DIE(unsigned short, daresults[i].length);
         new_node->rlength = begin2 - begin + new_node->length;
         new_node->surface = begin2;
         new_node->stat = MECAB_NOR_NODE;

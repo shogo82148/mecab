@@ -4,6 +4,9 @@
 //  Copyright(C) 2001-2006 Taku Kudo <taku@chasen.org>
 //  Copyright(C) 2004-2006 Nippon Telegraph and Telephone Corporation
 #if defined(_WIN32) && !defined(__CYGWIN__)
+#ifndef NOMINMAX
+#define NOMINMAX 1
+#endif
 #include <windows.h>
 #endif
 

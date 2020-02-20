@@ -332,7 +332,7 @@ bool load_dictionary_resource(Param *param) {
   HKEY hKey;
   scoped_fixed_array<wchar_t, BUF_SIZE> v;
   DWORD vt;
-  DWORD size = v.size() * sizeof(v[0]);
+  DWORD size = CAST_OR_DIE(DWORD, v.size() * sizeof(v[0]));
   DWORD qvres;
 
   if (rcfile.empty()) {

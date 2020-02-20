@@ -4,6 +4,9 @@
 //  Copyright(C) 2004-2006 Nippon Telegraph and Telephone Corporation
 #if defined(_WIN32)
 
+#ifndef NOMINMAX
+#define NOMINMAX 1
+#endif
 #include <windows.h>
 #include <string>
 

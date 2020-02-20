@@ -130,7 +130,7 @@ class DoubleArrayImpl {
     if (error_ < 0) return 0;
 
     size_t begin = 0;
-    size_t pos   = _max((size_t)siblings[0].code + 1, next_check_pos_) - 1;
+    size_t pos   = _max(static_cast<size_t>(siblings[0].code + 1), next_check_pos_) - 1;
     size_t nonzero_num = 0;
     int    first = 0;
 
@@ -177,7 +177,7 @@ class DoubleArrayImpl {
                  static_cast<size_t>(siblings[siblings.size() - 1].code + 1));
 
     for (size_t i = 0; i < siblings.size(); ++i)
-      array_[begin + siblings[i].code].check = begin;
+      array_[begin + siblings[i].code].check = static_cast<array_type_>(begin);
 
     for (size_t i = 0; i < siblings.size(); ++i) {
       std::vector <node_t> new_siblings;
@@ -186,7 +186,7 @@ class DoubleArrayImpl {
         array_[begin + siblings[i].code].base =
             value_ ?
             static_cast<array_type_>(-value_[siblings[i].left]-1) :
-            static_cast<array_type_>(-siblings[i].left-1);
+            static_cast<array_type_>(~siblings[i].left);
 
         if (value_ && (array_type_)(-value_[siblings[i].left]-1) >= 0) {
           error_ = -2;
@@ -198,7 +198,7 @@ class DoubleArrayImpl {
 
       } else {
         size_t h = insert(new_siblings);
-        array_[begin + siblings[i].code].base = h;
+        array_[begin + siblings[i].code].base = static_cast<array_type_>(h);
       }
     }
 

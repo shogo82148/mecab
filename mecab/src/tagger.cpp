@@ -844,8 +844,8 @@ void LatticeImpl::set_result(const char *result) {
     node->prev = prev;
     prev->next = node;
     node->surface = sentence_ + offset;
-    node->length = surfaces[i].size();
-    node->rlength = surfaces[i].size();
+    node->length = CAST_OR_DIE(unsigned short, surfaces[i].size());
+    node->rlength = CAST_OR_DIE(unsigned short, surfaces[i].size());
     node->isbest = 1;
     node->stat = MECAB_NOR_NODE;
     node->wcost = 0;

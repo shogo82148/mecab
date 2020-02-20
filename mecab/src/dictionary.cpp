@@ -387,8 +387,8 @@ bool Dictionary::compile(const Param &param,
       if (!node_format.empty()) {
         node.surface = w.c_str();
         node.feature = feature.c_str();
-        node.length  = w.size();
-        node.rlength = w.size();
+        node.length  = CAST_OR_DIE(unsigned short, w.size());
+        node.rlength = CAST_OR_DIE(unsigned short, w.size());
         node.posid   = pid;
         node.stat    = MECAB_NOR_NODE;
         lattice->set_sentence(w.c_str());
@@ -413,7 +413,7 @@ bool Dictionary::compile(const Param &param,
       token->rcAttr = rid;
       token->posid  = pid;
       token->wcost = cost;
-      token->feature = offset;
+      token->feature = CAST_OR_DIE(unsigned int, offset);
       token->compound = 0;
       dic.push_back(std::pair<std::string, Token*>(w, token));
 
@@ -448,7 +448,8 @@ bool Dictionary::compile(const Param &param,
     if (i != 0 && prev != dic[i].first) {
       str.push_back(dic[idx].first.c_str());
       len.push_back(dic[idx].first.size());
-      val.push_back(bsize +(idx << 8));
+      const size_t v = bsize +(idx << 8);
+      val.push_back(CAST_OR_DIE(Darts::DoubleArray::result_type, v));
       bsize = 1;
       idx = i;
     } else {
@@ -458,7 +459,8 @@ bool Dictionary::compile(const Param &param,
   }
   str.push_back(dic[idx].first.c_str());
   len.push_back(dic[idx].first.size());
-  val.push_back(bsize +(idx << 8));
+  const size_t v = bsize +(idx << 8);
+  val.push_back(CAST_OR_DIE(Darts::DoubleArray::result_type, v));
 
   CHECK_DIE(str.size() == len.size());
   CHECK_DIE(str.size() == val.size());
@@ -484,11 +486,11 @@ bool Dictionary::compile(const Param &param,
   }
 
   unsigned int dummy = 0;
-  unsigned int lsize = matrix.left_size();
-  unsigned int rsize = matrix.right_size();
-  unsigned int dsize = da.unit_size() * da.size();
-  unsigned int tsize = tbuf.size();
-  unsigned int fsize = fbuf.size();
+  unsigned int lsize = CAST_OR_DIE(unsigned int, matrix.left_size());
+  unsigned int rsize = CAST_OR_DIE(unsigned int, matrix.right_size());
+  unsigned int dsize = CAST_OR_DIE(unsigned int, da.unit_size() * da.size());
+  unsigned int tsize = CAST_OR_DIE(unsigned int, tbuf.size());
+  unsigned int fsize = CAST_OR_DIE(unsigned int, fbuf.size());
 
   unsigned int version = DIC_VERSION;
   char charset[32];

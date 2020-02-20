@@ -12,6 +12,7 @@
 #include "char_property.h"
 #include "nbest_generator.h"
 #include "scoped_ptr.h"
+#include "common.h"
 
 namespace MeCab {
 
@@ -24,7 +25,8 @@ class Allocator {
   N *newNode() {
     N *node = node_freelist_->alloc();
     std::memset(node, 0, sizeof(N));
-    node->id = id_++;
+    node->id = CAST_OR_DIE(unsigned int, id_);
+    id_++;
     return node;
   }
 

@@ -451,8 +451,10 @@ int DecoderFeatureIndex::id(const char *key) {
 int EncoderFeatureIndex::id(const char *key) {
   std::map<std::string, int>::const_iterator it = dic_.find(key);
   if (it == dic_.end()) {
-    dic_.insert(std::pair<std::string, int>(std::string(key), maxid_));
-    return maxid_++;
+    int maxid = CAST_OR_DIE(int, maxid_);
+    maxid_++;
+    dic_.insert(std::pair<std::string, int>(std::string(key), maxid));
+    return maxid;
   } else {
     return it->second;
   }
@@ -481,7 +483,9 @@ void EncoderFeatureIndex::shrink(size_t freq,
   std::map<int, int> old2new;
   for (size_t i = 0; i < freqv.size(); ++i) {
     if (freqv[i] >= freq) {
-      old2new.insert(std::pair<int, int>(i, maxid_++));
+      const int maxid = CAST_OR_DIE(int, maxid_);
+      maxid_++;
+      old2new.insert(std::pair<int, int>(CAST_OR_DIE(int, i), maxid));
     }
   }
 
@@ -659,7 +663,9 @@ bool EncoderFeatureIndex::reopen(const char *filename,
         << "format error: " << buf.get();
     std::string feature = column[1];
     CHECK_DIE(iconv.convert(&feature));
-    dic_.insert(std::make_pair(feature, maxid_++));
+    const int maxid = CAST_OR_DIE(int, maxid_);
+    dic_.insert(std::make_pair(feature, maxid));
+    maxid_++;
     alpha->push_back(atof(column[0]));
   }
 
