@@ -58,15 +58,3 @@ jobs:
           make install
         shell: cmd
         working-directory: mecab-ipadic
-
-      - name: install additional package for building perl XS
-        run: |
-          pacman.exe -Sy
-          pacman.exe -S --verbose --noconfirm --noprogressbar --needed msys2-runtime-devel mingw-w64-x86_64-perl
-      - run: perl -V
-      - name: build and test perl binding
-        run: |
-          perl Makefile.PL "INC=-I/mingw64/lib/perl5/core_perl/CORE -I/usr/include"
-          make
-          make test
-        working-directory: mecab/perl
