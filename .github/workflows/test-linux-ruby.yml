@@ -43,7 +43,7 @@ jobs:
           sudo make install
         working-directory: mecab-ipadic
       - name: setup ruby ${{ matrix.ruby }}
-      - uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
       - run: ruby -v
