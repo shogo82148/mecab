@@ -35,7 +35,7 @@ jobs:
           bash.exe -c "pacman-key --init"
           bash.exe -c "pacman-key --populate msys2"
           pacman.exe -Sy
-          pacman.exe -S --verbose --noconfirm --noprogressbar --needed autoconf bison make automake1.16 automake-wrapper mingw-w64-x86_64-gcc mingw-w64-x86_64-libtool msys2-runtime-devel
+          pacman.exe -S --verbose --noconfirm --noprogressbar --needed autoconf bison make automake1.16 automake-wrapper mingw-w64-x86_64-gcc mingw-w64-x86_64-libtool
       - name: configure
         run: |
           bash.exe -c ./autogen.sh
@@ -59,6 +59,10 @@ jobs:
         shell: cmd
         working-directory: mecab-ipadic
 
+      - name: install additional package for building perl XS
+        run: |
+          pacman.exe -Sy
+          pacman.exe -S --verbose --noconfirm --noprogressbar --needed msys2-runtime-devel mingw-w64-x86_64-perl
       - run: perl -V
       - name: build and test perl binding
         run: |
