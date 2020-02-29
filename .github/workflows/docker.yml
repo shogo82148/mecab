@@ -1,4 +1,4 @@
-name: mecab on Linux
+name: docker build
 
 on:
   pull_request:
