@@ -12,6 +12,3 @@ CLEANFILES = @MECAB_GENDATA@
 
 rpm: dist
 	rpm -ta @PACKAGE@-@VERSION@.tar.gz
-
-export-package:
-	./upload.pl -p mecab -n @PACKAGE@ -r @VERSION@ -f @PACKAGE@-@VERSION@.tar.gz
