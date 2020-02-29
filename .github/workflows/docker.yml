@@ -1,10 +1,12 @@
 name: docker build
 
 on:
-  pull_request:
   push:
     branches:
       - master
+  # to follow upstream
+  schedule:
+    - cron: '32 5 * * 5'
 
 jobs:
   build:
@@ -12,10 +14,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: docker build -t mecab:ipadic-alpine3.11 -f docker/ipadic/alpine3.11/Dockerfile .
-      - run: docker build -t mecab:ipadic-buster -f docker/ipadic/buster/Dockerfile .
-      - run: docker build -t mecab:ipadic-sim-buster -f docker/ipadic/buster/slim/Dockerfile .
+      - run: docker build -t shogo82148/mecab:ipadic-alpine3.11 -f docker/ipadic/alpine3.11/Dockerfile .
+      - run: docker build -t shogo82148/mecab:ipadic-buster -f docker/ipadic/buster/Dockerfile .
+      - run: docker build -t shogo82148/mecab:ipadic-sim-buster -f docker/ipadic/buster/slim/Dockerfile .
 
-      - run: docker build -t mecab:jumandic-alpine3.11 -f docker/jumandic/alpine3.11/Dockerfile .
-      - run: docker build -t mecab:jumandic-buster -f docker/jumandic/buster/Dockerfile .
-      - run: docker build -t mecab:jumandic-sim-buster -f docker/jumandic/buster/slim/Dockerfile .
+      - run: docker build -t shogo82148/mecab:jumandic-alpine3.11 -f docker/jumandic/alpine3.11/Dockerfile .
+      - run: docker build -t shogo82148/mecab:jumandic-buster -f docker/jumandic/buster/Dockerfile .
+      - run: docker build -t shogo82148/mecab:jumandic-sim-buster -f docker/jumandic/buster/slim/Dockerfile .
+
+      - name: publish
+        run: |
+          printenv PASSWORD | docker login -u "$USERNAME" --password-stdin
+          set -uex
+          docker push shogo82148/mecab:ipadic-alpine3.11
+          docker push shogo82148/mecab:ipadic-buster
+          docker push shogo82148/mecab:ipadic-sim-buster
+          docker push shogo82148/mecab:jumandic-alpine3.11
+          docker push shogo82148/mecab:jumandic-buster
+          docker push shogo82148/mecab:jumandic-sim-buster
+          docker logout
+        env:
+          USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+        if: github.event
