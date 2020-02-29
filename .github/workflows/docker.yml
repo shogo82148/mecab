@@ -1,0 +1,21 @@
+name: docker build
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: docker build -t mecab:ipadic-alpine3.11 -f docker/ipadic/alpine3.11/Dockerfile .
+      - run: docker build -t mecab:ipadic-buster -f docker/ipadic/buster/Dockerfile .
+      - run: docker build -t mecab:ipadic-sim-buster -f docker/ipadic/buster/slim/Dockerfile .
+
+      - run: docker build -t mecab:jumandic-alpine3.11 -f docker/jumandic/alpine3.11/Dockerfile .
+      - run: docker build -t mecab:jumandic-buster -f docker/jumandic/buster/Dockerfile .
+      - run: docker build -t mecab:jumandic-sim-buster -f docker/jumandic/buster/slim/Dockerfile .

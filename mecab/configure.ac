@@ -21,7 +21,7 @@ DIC_VERSION="102"
 # - If binary compatibility has been broken (eg removed or changed interfaces)
 #   change to C+1:0:0
 # - If the interface is the same as the previous version, change to C:R+1:A
-LTVERSION="2:0:0"
+LTVERSION="2:1:0"
 AC_SUBST(LTVERSION)
 
 dnl Checks for programs.
@@ -351,7 +351,7 @@ AC_OUTPUT([
   Makefile
   src/Makefile
   src/Makefile.msvc
-  src/libmecab.pc
+  src/mecab.pc
   man/Makefile
   doc/Makefile
   tests/Makefile
