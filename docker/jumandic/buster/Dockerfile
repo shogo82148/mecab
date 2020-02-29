@@ -27,6 +27,6 @@ COPY --from=builder /usr/local/bin/mecab /usr/local/bin/
 COPY --from=builder /usr/local/include/mecab.h /usr/local/include/
 COPY --from=builder /usr/local/lib/pkgconfig/mecab.pc /usr/local/lib/pkgconfig/
 COPY --from=builder /usr/local/libexec/mecab /usr/local/libexec/
-COPY --from=builder /usr/local/lib/mecab/dic/ipadic /usr/local/lib/mecab/dic/ipadic
+COPY --from=builder /usr/local/lib/mecab/dic/jumandic /usr/local/lib/mecab/dic/jumandic
 RUN ldconfig && mkdir -p /usr/local/etc && echo dicdir = /usr/local/lib/mecab/dic/jumandic > /usr/local/etc/mecabrc
 ENTRYPOINT /usr/local/bin/mecab
