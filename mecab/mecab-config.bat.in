@@ -28,7 +28,7 @@
     ) else if "%~1" == "--libs-only-l" (
         echo libmecab
     ) else if "%~1" == "--libexecdir" (
-        rem TODO
+        echo %~dp0
     ) else if "%~1" == "--sysconfdir" (
         rem TODO
     ) else (

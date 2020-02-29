@@ -70,7 +70,7 @@ jobs:
       - run: perl -V
       - name: build and test perl binding
         run: |
-          perl Makefile.PL
+          bash.exe -c "perl Makefile.PL"
           make
           make test
         working-directory: mecab/perl
