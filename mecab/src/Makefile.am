@@ -43,4 +43,4 @@ mecab_LDADD = libmecab.la
 pkgincludedir = $(includedir)
 pkginclude_HEADERS = mecab.h
 pkgconfigdir = @MECAB_PKGCONFIG_DIR@
-pkgconfig_DATA = libmecab.pc
+pkgconfig_DATA = mecab.pc

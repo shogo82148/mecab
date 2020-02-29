@@ -351,7 +351,7 @@ AC_OUTPUT([
   Makefile
   src/Makefile
   src/Makefile.msvc
-  src/libmecab.pc
+  src/mecab.pc
   man/Makefile
   doc/Makefile
   tests/Makefile
