@@ -8,7 +8,7 @@ CLEANFILES = @MECAB_GENDATA@
 
 @MECAB_GENDATA@:
 	$(mecab_dict_index) -f utf-8 -t @CHARSET@
-	echo To enable dictionary, rewrite @MECAB_MECABRC@ as \"dicrc = @MECAB_DICDIR@\"
+	@echo To enable dictionary, rewrite @MECAB_MECABRC@ as \"dicdir = @MECAB_DICDIR@\"
 
 export-package:
 	python googlecode_upload.py -p mecab -s @PACKAGE@ -u taku@chasen.org -w `cat ~/.googlecode_upload_password` @PACKAGE@-@VERSION@.tar.gz

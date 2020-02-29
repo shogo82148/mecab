@@ -8,7 +8,7 @@ CLEANFILES = @MECAB_GENDATA@
 
 @MECAB_GENDATA@:
 	$(mecab_dict_index) -d . -o . -f EUC-JP -t @CHARSET@
-	echo To enable dictionary, rewrite @MECAB_MECABRC@ as \"dicrc = @MECAB_DICDIR@\"
+	@echo To enable dictionary, rewrite @MECAB_MECABRC@ as \"dicdir = @MECAB_DICDIR@\"
 
 rpm: dist
 	rpm -ta @PACKAGE@-@VERSION@.tar.gz
