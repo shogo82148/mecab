@@ -67,10 +67,10 @@ jobs:
           make install
         working-directory: mecab-ipadic
 
-      - run: perl -V
-      - name: build and test perl binding
-        run: |
-          bash.exe -c "perl Makefile.PL"
-          make
-          make test
-        working-directory: mecab/perl
+      # - run: perl -V
+      # - name: build and test perl binding
+      #   run: |
+      #     bash.exe -c "perl Makefile.PL"
+      #     make
+      #     make test
+      #   working-directory: mecab/perl
