@@ -20,12 +20,13 @@ jobs:
       fail-fast: false
       matrix:
         java:
-          - '8'
-          - '9'
-          - '10'
-          - '11'
-          - '12'
+          - '14'
           - '13'
+          - '12'
+          - '11'
+          - '10'
+          - '9'
+          - '8'
     steps:
       - run: sudo apt-get install gettext
       - uses: actions/checkout@v2
