@@ -7261,92 +7261,92 @@ XS(SWIG_init) {
   SWIG_TypeClientData(SWIGTYPE_p_mecab_dictionary_info_t, (void*) "MeCab::DictionaryInfo");
   SWIG_TypeClientData(SWIGTYPE_p_mecab_path_t, (void*) "MeCab::Path");
   SWIG_TypeClientData(SWIGTYPE_p_mecab_node_t, (void*) "MeCab::Node");
-  /*@SWIG:/usr/local/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+  /*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
     SV *sv = get_sv((char*) SWIG_prefix "MECAB_NOR_NODE", TRUE | 0x2 | GV_ADDMULTI);
     sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(MECAB_NOR_NODE)));
     SvREADONLY_on(sv);
   } while(0) /*@SWIG@*/;
-  /*@SWIG:/usr/local/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+  /*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
     SV *sv = get_sv((char*) SWIG_prefix "MECAB_UNK_NODE", TRUE | 0x2 | GV_ADDMULTI);
     sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(MECAB_UNK_NODE)));
     SvREADONLY_on(sv);
   } while(0) /*@SWIG@*/;
-  /*@SWIG:/usr/local/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+  /*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
     SV *sv = get_sv((char*) SWIG_prefix "MECAB_BOS_NODE", TRUE | 0x2 | GV_ADDMULTI);
     sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(MECAB_BOS_NODE)));
     SvREADONLY_on(sv);
   } while(0) /*@SWIG@*/;
-  /*@SWIG:/usr/local/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+  /*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
     SV *sv = get_sv((char*) SWIG_prefix "MECAB_EOS_NODE", TRUE | 0x2 | GV_ADDMULTI);
     sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(MECAB_EOS_NODE)));
     SvREADONLY_on(sv);
   } while(0) /*@SWIG@*/;
-  /*@SWIG:/usr/local/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+  /*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
     SV *sv = get_sv((char*) SWIG_prefix "MECAB_EON_NODE", TRUE | 0x2 | GV_ADDMULTI);
     sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(MECAB_EON_NODE)));
     SvREADONLY_on(sv);
   } while(0) /*@SWIG@*/;
-  /*@SWIG:/usr/local/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+  /*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
     SV *sv = get_sv((char*) SWIG_prefix "MECAB_SYS_DIC", TRUE | 0x2 | GV_ADDMULTI);
     sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(MECAB_SYS_DIC)));
     SvREADONLY_on(sv);
   } while(0) /*@SWIG@*/;
-  /*@SWIG:/usr/local/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+  /*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
     SV *sv = get_sv((char*) SWIG_prefix "MECAB_USR_DIC", TRUE | 0x2 | GV_ADDMULTI);
     sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(MECAB_USR_DIC)));
     SvREADONLY_on(sv);
   } while(0) /*@SWIG@*/;
-  /*@SWIG:/usr/local/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+  /*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
     SV *sv = get_sv((char*) SWIG_prefix "MECAB_UNK_DIC", TRUE | 0x2 | GV_ADDMULTI);
     sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(MECAB_UNK_DIC)));
     SvREADONLY_on(sv);
   } while(0) /*@SWIG@*/;
-  /*@SWIG:/usr/local/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+  /*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
     SV *sv = get_sv((char*) SWIG_prefix "MECAB_ONE_BEST", TRUE | 0x2 | GV_ADDMULTI);
     sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(MECAB_ONE_BEST)));
     SvREADONLY_on(sv);
   } while(0) /*@SWIG@*/;
-  /*@SWIG:/usr/local/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+  /*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
     SV *sv = get_sv((char*) SWIG_prefix "MECAB_NBEST", TRUE | 0x2 | GV_ADDMULTI);
     sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(MECAB_NBEST)));
     SvREADONLY_on(sv);
   } while(0) /*@SWIG@*/;
-  /*@SWIG:/usr/local/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+  /*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
     SV *sv = get_sv((char*) SWIG_prefix "MECAB_PARTIAL", TRUE | 0x2 | GV_ADDMULTI);
     sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(MECAB_PARTIAL)));
     SvREADONLY_on(sv);
   } while(0) /*@SWIG@*/;
-  /*@SWIG:/usr/local/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+  /*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
     SV *sv = get_sv((char*) SWIG_prefix "MECAB_MARGINAL_PROB", TRUE | 0x2 | GV_ADDMULTI);
     sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(MECAB_MARGINAL_PROB)));
     SvREADONLY_on(sv);
   } while(0) /*@SWIG@*/;
-  /*@SWIG:/usr/local/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+  /*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
     SV *sv = get_sv((char*) SWIG_prefix "MECAB_ALTERNATIVE", TRUE | 0x2 | GV_ADDMULTI);
     sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(MECAB_ALTERNATIVE)));
     SvREADONLY_on(sv);
   } while(0) /*@SWIG@*/;
-  /*@SWIG:/usr/local/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+  /*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
     SV *sv = get_sv((char*) SWIG_prefix "MECAB_ALL_MORPHS", TRUE | 0x2 | GV_ADDMULTI);
     sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(MECAB_ALL_MORPHS)));
     SvREADONLY_on(sv);
   } while(0) /*@SWIG@*/;
-  /*@SWIG:/usr/local/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+  /*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
     SV *sv = get_sv((char*) SWIG_prefix "MECAB_ALLOCATE_SENTENCE", TRUE | 0x2 | GV_ADDMULTI);
     sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(MECAB_ALLOCATE_SENTENCE)));
     SvREADONLY_on(sv);
   } while(0) /*@SWIG@*/;
-  /*@SWIG:/usr/local/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+  /*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
     SV *sv = get_sv((char*) SWIG_prefix "MECAB_ANY_BOUNDARY", TRUE | 0x2 | GV_ADDMULTI);
     sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(MECAB_ANY_BOUNDARY)));
     SvREADONLY_on(sv);
   } while(0) /*@SWIG@*/;
-  /*@SWIG:/usr/local/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+  /*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
     SV *sv = get_sv((char*) SWIG_prefix "MECAB_TOKEN_BOUNDARY", TRUE | 0x2 | GV_ADDMULTI);
     sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(MECAB_TOKEN_BOUNDARY)));
     SvREADONLY_on(sv);
   } while(0) /*@SWIG@*/;
-  /*@SWIG:/usr/local/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+  /*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
     SV *sv = get_sv((char*) SWIG_prefix "MECAB_INSIDE_TOKEN", TRUE | 0x2 | GV_ADDMULTI);
     sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(MECAB_INSIDE_TOKEN)));
     SvREADONLY_on(sv);
@@ -7354,9 +7354,9 @@ XS(SWIG_init) {
   SWIG_TypeClientData(SWIGTYPE_p_MeCab__Lattice, (void*) "MeCab::Lattice");
   SWIG_TypeClientData(SWIGTYPE_p_MeCab__Model, (void*) "MeCab::Model");
   SWIG_TypeClientData(SWIGTYPE_p_MeCab__Tagger, (void*) "MeCab::Tagger");
-  /*@SWIG:/usr/local/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+  /*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
     SV *sv = get_sv((char*) SWIG_prefix "VERSION", TRUE | 0x2 | GV_ADDMULTI);
-    sv_setsv(sv, SWIG_FromCharPtr("0.996.2"));
+    sv_setsv(sv, SWIG_FromCharPtr("0.996.3"));
     SvREADONLY_on(sv);
   } while(0) /*@SWIG@*/;
   ST(0) = &PL_sv_yes;

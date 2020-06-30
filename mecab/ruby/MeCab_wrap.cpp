@@ -1612,6 +1612,8 @@ SWIGRUNTIMEINLINE char *
 SWIG_Ruby_MangleStr(VALUE obj)
 {
   VALUE stype = rb_iv_get(obj, "@__swigtype__");
+  if (NIL_P(stype))
+    return NULL;
   return StringValuePtr(stype);
 }
 
@@ -2078,7 +2080,7 @@ SWIG_ruby_failed(VALUE SWIGUNUSEDPARM(arg1), VALUE SWIGUNUSEDPARM(arg2))
 } 
 
 
-/*@SWIG:/usr/local/share/swig/4.0.2/ruby/rubyprimtypes.swg,19,%ruby_aux_method@*/
+/*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/ruby/rubyprimtypes.swg,19,%ruby_aux_method@*/
 SWIGINTERN VALUE SWIG_AUX_NUM2DBL(VALUE arg)
 {
   VALUE *args = (VALUE *)arg;
@@ -2155,7 +2157,7 @@ SWIG_From_bool  (bool value)
 }
 
 
-/*@SWIG:/usr/local/share/swig/4.0.2/ruby/rubyprimtypes.swg,19,%ruby_aux_method@*/
+/*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/ruby/rubyprimtypes.swg,19,%ruby_aux_method@*/
 SWIGINTERN VALUE SWIG_AUX_NUM2ULONG(VALUE arg)
 {
   VALUE *args = (VALUE *)arg;
@@ -2191,7 +2193,7 @@ SWIG_AsVal_unsigned_SS_long (VALUE obj, unsigned long *val)
 
 
 #ifdef SWIG_LONG_LONG_AVAILABLE
-/*@SWIG:/usr/local/share/swig/4.0.2/ruby/rubyprimtypes.swg,19,%ruby_aux_method@*/
+/*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/ruby/rubyprimtypes.swg,19,%ruby_aux_method@*/
 SWIGINTERN VALUE SWIG_AUX_NUM2ULL(VALUE arg)
 {
   VALUE *args = (VALUE *)arg;
@@ -2268,7 +2270,7 @@ SWIG_From_size_t  (size_t value)
 }
 
 
-/*@SWIG:/usr/local/share/swig/4.0.2/ruby/rubyprimtypes.swg,19,%ruby_aux_method@*/
+/*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/ruby/rubyprimtypes.swg,19,%ruby_aux_method@*/
 SWIGINTERN VALUE SWIG_AUX_NUM2LONG(VALUE arg)
 {
   VALUE *args = (VALUE *)arg;
@@ -6704,6 +6706,6 @@ SWIGEXPORT void Init_MeCab(void) {
   SwigClassTagger.mark = 0;
   SwigClassTagger.destroy = (void (*)(void *)) free_MeCab_Tagger;
   SwigClassTagger.trackObjects = 0;
-  rb_define_const(mMeCab, "VERSION", SWIG_FromCharPtr("0.996.2"));
+  rb_define_const(mMeCab, "VERSION", SWIG_FromCharPtr("0.996.3"));
 }
 
