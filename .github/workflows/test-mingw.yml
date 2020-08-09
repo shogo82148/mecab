@@ -20,6 +20,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: Set ENV
         run: |
+          # MSYS2 is pre-installed from https://github.com/actions/virtual-environments/releases/tag/win19%2F20200608.1
+          # but not added to PATH.
+          # so, we need to add it to PATH here.
           echo '::set-env name=PATH::C:\tools\msys64\bin;C:\tools\msys64\usr\bin;C:\tools\msys64\mingw64\bin;'
       - name: setup MSYS2
         run: |
