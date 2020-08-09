@@ -30,19 +30,19 @@ jobs:
           pacman-key --populate msys2
           pacman.exe -Sy
           pacman.exe -S --verbose --noconfirm --noprogressbar --needed autoconf bison make automake1.16 automake-wrapper mingw-w64-x86_64-gcc mingw-w64-x86_64-libtool
-        shell: bash
+        shell: bash.exe --noprofile --norc -e -o pipefail {0}
       - name: configure
         run: |
           ./autogen.sh
           ./configure --host=x86_64-w64-mingw32
-        shell: bash
+        shell: bash.exe --noprofile --norc -e -o pipefail {0}
         working-directory: mecab
       - name: make
         run: |
           make all
           make check
           make install
-        shell: bash
+        shell: bash.exe --noprofile --norc -e -o pipefail {0}
         working-directory: mecab
 
       - name: build ipadic
@@ -51,5 +51,5 @@ jobs:
           ./configure --with-charset=utf8
           make all
           make install
-        shell: bash
+        shell: bash.exe --noprofile --norc -e -o pipefail {0}
         working-directory: mecab-ipadic
