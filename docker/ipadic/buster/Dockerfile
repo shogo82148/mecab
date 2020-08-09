@@ -19,7 +19,7 @@ RUN ./configure --with-charset=utf8
 RUN make
 RUN make install
 
-FROM buildpack-deps:buster
+FROM debian:buster
 COPY --from=builder /usr/local/lib/libmecab.so.2.0.1 /usr/local/lib/
 RUN cd /usr/local/lib && ln -s -f libmecab.so.2.0.1 libmecab.so.2 && ln -s -f libmecab.so.2.0.1 libmecab.so
 COPY --from=builder /usr/local/lib/libmecab.a /usr/local/lib/
