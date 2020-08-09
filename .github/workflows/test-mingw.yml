@@ -3,14 +3,14 @@ name: mecab on MinGW
 on:
   pull_request:
     paths:
-      - '.github/workflows/test-mingw.yml'
-      - 'mecab/**'
+      - ".github/workflows/test-mingw.yml"
+      - "mecab/**"
   push:
     branches:
       - master
     paths:
-      - '.github/workflows/test-mingw.yml'
-      - 'mecab/**'
+      - ".github/workflows/test-mingw.yml"
+      - "mecab/**"
 
 jobs:
   test:
@@ -18,15 +18,6 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/cache@v1
-        with:
-          path: C:\Users\runneradmin\AppData\Local\Temp\chocolatey
-          key: ${{ runner.os }}-mingw-chocolatey-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-mingw-chocolatey-
-      - name: install MSYS2
-        run: |
-          choco install --no-progress msys2
       - name: Set ENV
         run: |
           echo '::set-env name=PATH::C:\tools\msys64\bin;C:\tools\msys64\usr\bin;C:\tools\msys64\mingw64\bin;'
