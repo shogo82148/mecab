@@ -23,29 +23,29 @@ jobs:
           # MSYS2 is pre-installed from https://github.com/actions/virtual-environments/releases/tag/win19%2F20200608.1
           # but not added to PATH.
           # so, we need to add it to PATH here.
-          echo '::set-env name=PATH::C:\msys64\bin;C:\msys64\usr\bin;C:\msys64\mingw64\bin;'
+          echo '::set-env name=PATH::C:\msys64;C:\msys64\bin;C:\msys64\usr\bin;C:\msys64\mingw64\bin;'
       - name: setup MSYS2
         run: |
-          bash.exe -c "pacman-key --init"
-          bash.exe -c "pacman-key --populate msys2"
-          bash.exe -c "pacman.exe -Sy"
-          bash.exe -c "pacman.exe -S --verbose --noconfirm --noprogressbar --needed autoconf bison make automake1.16 automake-wrapper mingw-w64-x86_64-gcc mingw-w64-x86_64-libtool"
+          msys2_shell.cmd -c "pacman-key --init"
+          msys2_shell.cmd -c "pacman-key --populate msys2"
+          msys2_shell.cmd -c "pacman.exe -Sy"
+          msys2_shell.cmd -c "pacman.exe -S --verbose --noconfirm --noprogressbar --needed autoconf bison make automake1.16 automake-wrapper mingw-w64-x86_64-gcc mingw-w64-x86_64-libtool"
       - name: configure
         run: |
-          bash.exe -c "./autogen.sh"
-          bash.exe -c "./configure --host=x86_64-w64-mingw32"
+          msys2_shell.cmd -c "./autogen.sh"
+          msys2_shell.cmd -c "./configure --host=x86_64-w64-mingw32"
         working-directory: mecab
       - name: make
         run: |
-          bash.exe -c "make all"
-          bash.exe -c "make check"
-          bash.exe -c "make install"
+          msys2_shell.cmd -c "make all"
+          msys2_shell.cmd -c "make check"
+          msys2_shell.cmd -c "make install"
         working-directory: mecab
 
       - name: build ipadic
         run: |
-          bash.exe -c "./autogen.sh"
-          bash.exe -c "./configure --with-charset=utf8"
-          bash.exe -c "make all"
-          bash.exe -c "make install"
+          msys2_shell.cmd -c "./autogen.sh"
+          msys2_shell.cmd -c "./configure --with-charset=utf8"
+          msys2_shell.cmd -c "make all"
+          msys2_shell.cmd -c "make install"
         working-directory: mecab-ipadic
