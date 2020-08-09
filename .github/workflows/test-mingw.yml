@@ -26,29 +26,30 @@ jobs:
           echo '::set-env name=PATH::C:\msys64\bin;C:\msys64\usr\bin;C:\msys64\mingw64\bin;'
       - name: setup MSYS2
         run: |
-          bash.exe -c "pacman-key --init"
-          bash.exe -c "pacman-key --populate msys2"
+          pacman-key --init
+          pacman-key --populate msys2
           pacman.exe -Sy
           pacman.exe -S --verbose --noconfirm --noprogressbar --needed autoconf bison make automake1.16 automake-wrapper mingw-w64-x86_64-gcc mingw-w64-x86_64-libtool
+        shell: bash
       - name: configure
         run: |
-          bash.exe -c ./autogen.sh
-          bash.exe -c ./configure --host=x86_64-w64-mingw32
-        shell: cmd
+          ./autogen.sh
+          ./configure --host=x86_64-w64-mingw32
+        shell: bash
         working-directory: mecab
       - name: make
         run: |
           make all
           make check
           make install
-        shell: cmd
+        shell: bash
         working-directory: mecab
 
       - name: build ipadic
         run: |
-          bash.exe -c ./autogen.sh
-          bash.exe -c ./configure --with-charset=utf8
+          ./autogen.sh
+          ./configure --with-charset=utf8
           make all
           make install
-        shell: cmd
+        shell: bash
         working-directory: mecab-ipadic
