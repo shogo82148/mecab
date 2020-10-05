@@ -49,7 +49,7 @@ jobs:
           make all
           make check
           make install
-        shell: C:\tools\cygwin\bin.exe --noprofile --norc -e -o pipefail {0}
+        shell: C:\tools\cygwin\cygwin-shell.bat {0}
         working-directory: mecab
 
       - name: build ipadic
@@ -58,7 +58,7 @@ jobs:
           ./configure --with-charset=utf8
           make all
           make install
-        shell: { 0 }
+        shell: C:\tools\cygwin\cygwin-shell.bat {0}
         working-directory: mecab-ipadic
       # - run: perl -V
       # - name: build and test perl binding
