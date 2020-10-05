@@ -23,7 +23,11 @@ jobs:
           # MSYS2 is pre-installed from https://github.com/actions/virtual-environments/releases/tag/win19%2F20200608.1
           # but not added to PATH.
           # so, we need to add it to PATH here.
-          echo '::set-env name=PATH::C:\msys64;C:\msys64\bin;C:\msys64\usr\bin;C:\msys64\mingw64\bin;'
+          echo 'C:\msys64;' >> "$GITHUB_PATH"
+          echo 'C:\msys64\bin' >> "$GITHUB_PATH"
+          echo 'C:\msys64\usr\bin' >> "$GITHUB_PATH"
+          echo 'C:\msys64\mingw64\bin' >> "$GITHUB_PATH"
+        shell: bash
       - name: setup MSYS2
         run: |
           msys2_shell.cmd -c "pacman-key --init"

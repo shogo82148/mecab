@@ -20,51 +20,42 @@ jobs:
       - run: git config --global core.autoCRLF false
       - uses: actions/checkout@v2
 
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
+        id: cache
         with:
-          path: C:\Users\runneradmin\AppData\Local\Temp\chocolatey
-          key: ${{ runner.os }}-cygwin-chocolatey-${{ matrix.os }}-${{ github.sha }}
+          path: |
+            C:\tools\cygwin
+          key: ${{ runner.os }}-cygwin-chocolatey-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-cygwin-chocolatey-${{ matrix.os }}-
             ${{ runner.os }}-cygwin-chocolatey-
-      - name: Install cygwin base packages with chocolatey
+      - name: Install cygwin packages
         run: |
-          choco config get cacheLocation
           choco install --no-progress cygwin
-      - uses: actions/cache@v1
-        with:
-          path: C:\tools\cygwin\package
-          key: ${{ runner.os }}-cygwin-package-${{ matrix.os }}-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-cygwin-package-${{ matrix.os }}-
-            ${{ runner.os }}-cygwin-package-
-      - name: Install cygwin additional packages
-        run: |
           C:\tools\cygwin\cygwinsetup.exe -qgnNdO -R C:/tools/cygwin -s http://mirrors.kernel.org/sourceware/cygwin/ -P autoconf,bison,gcc-g++,make,libtool,m4,aclocal,automake,libiconv-devel,gettext-devel,libcrypt-devel
         shell: cmd
-      - name: Set ENV
+        if: steps.cache.outputs.cache-hit != 'true'
+      - name: set PATH
         run: |
-          echo '::set-env name=PATH::C:\tools\cygwin\usr\local\bin;C:\tools\cygwin\bin;C:\tools\cygwin\usr\bin'
+          echo "C:\tools\cygwin\usr\local\bin" >> "$GITHUB_PATH"
+          echo "C:\tools\cygwin\bin" >> "$GITHUB_PATH"
+          echo "C:\tools\cygwin\usr\bin" >> "$GITHUB_PATH"
+        shell: bash
+
       - name: configure
         run: |
-          bash.exe -c ./autogen.sh
-          bash.exe -c ./configure
+          bash.exe -c "./autogen.sh; ./configure"
         shell: cmd
         working-directory: mecab
       - name: make
         run: |
-          make all
-          make check
-          make install
+          bash -c "make all; make check; make install"
         shell: cmd
         working-directory: mecab
 
       - name: build ipadic
         run: |
-          bash.exe -c ./autogen.sh
-          bash.exe -c "./configure --with-charset=utf8"
-          make all
-          make install
+          bash -c "autogen.sh; ./configure --with-charset=utf8; make all; make install"
+        shell: cmd
         working-directory: mecab-ipadic
       # - run: perl -V
       # - name: build and test perl binding
