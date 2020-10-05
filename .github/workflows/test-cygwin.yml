@@ -41,7 +41,7 @@ jobs:
         run: |
           ./autogen.sh
           ./configure
-        shell: C:\tools\cygwin\bin.exe --noprofile --norc -e -o pipefail {0}
+        shell: ${{ github.workspace }}\.github\cygwin-shell.bat {0}
         working-directory: mecab
       - name: make
         run: |
@@ -57,7 +57,7 @@ jobs:
           ./configure --with-charset=utf8
           make all
           make install
-        shell: C:\tools\cygwin\bin.exe --noprofile --norc -e -o pipefail {0}
+        shell: { 0 }
         working-directory: mecab-ipadic
       # - run: perl -V
       # - name: build and test perl binding
