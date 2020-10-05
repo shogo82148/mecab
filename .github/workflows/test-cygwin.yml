@@ -20,9 +20,11 @@ jobs:
       - run: git config --global core.autoCRLF false
       - uses: actions/checkout@v2
 
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
-          path: C:\Users\runneradmin\AppData\Local\Temp\chocolatey
+          path: |
+            C:\Users\runneradmin\AppData\Local\Temp\chocolatey
+            C:\tools\cygwin\package
           key: ${{ runner.os }}-cygwin-chocolatey-${{ matrix.os }}-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-cygwin-chocolatey-${{ matrix.os }}-
@@ -31,40 +33,31 @@ jobs:
         run: |
           choco config get cacheLocation
           choco install --no-progress cygwin
-      - uses: actions/cache@v1
-        with:
-          path: C:\tools\cygwin\package
-          key: ${{ runner.os }}-cygwin-package-${{ matrix.os }}-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-cygwin-package-${{ matrix.os }}-
-            ${{ runner.os }}-cygwin-package-
       - name: Install cygwin additional packages
         run: |
           C:\tools\cygwin\cygwinsetup.exe -qgnNdO -R C:/tools/cygwin -s http://mirrors.kernel.org/sourceware/cygwin/ -P autoconf,bison,gcc-g++,make,libtool,m4,aclocal,automake,libiconv-devel,gettext-devel,libcrypt-devel
         shell: cmd
-      - name: Set ENV
-        run: |
-          echo '::set-env name=PATH::C:\tools\cygwin\usr\local\bin;C:\tools\cygwin\bin;C:\tools\cygwin\usr\bin'
       - name: configure
         run: |
-          bash.exe -c ./autogen.sh
-          bash.exe -c ./configure
-        shell: cmd
+          ./autogen.sh
+          ./configure
+        shell: C:\tools\cygwin\bin.exe --noprofile --norc -e -o pipefail {0}
         working-directory: mecab
       - name: make
         run: |
           make all
           make check
           make install
-        shell: cmd
+        shell: C:\tools\cygwin\bin.exe --noprofile --norc -e -o pipefail {0}
         working-directory: mecab
 
       - name: build ipadic
         run: |
-          bash.exe -c ./autogen.sh
-          bash.exe -c "./configure --with-charset=utf8"
+          autogen.sh
+          ./configure --with-charset=utf8
           make all
           make install
+        shell: C:\tools\cygwin\bin.exe --noprofile --norc -e -o pipefail {0}
         working-directory: mecab-ipadic
       # - run: perl -V
       # - name: build and test perl binding
