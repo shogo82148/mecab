@@ -83,13 +83,13 @@
 
 #ifdef _WIN32
 #define WPATH_FORCE(path) (MeCab::Utf8ToWide(path).c_str())
-#ifdef __GNUC__
-#define WPATH(path) (path)
-#else
-#define WPATH(path) WPATH_FORCE(path)
-#endif
 #else
 #define WPATH_FORCE(path) (path)
+#endif
+
+#if !defined(__CYGWIN__) && !defined(__GNUC__)
+#define WPATH(path) WPATH_FORCE(path)
+#else
 #define WPATH(path) (path)
 #endif
 

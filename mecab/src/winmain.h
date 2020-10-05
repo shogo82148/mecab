@@ -2,7 +2,7 @@
 //
 //  Copyright(C) 2001-2011 Taku Kudo <taku@chasen.org>
 //  Copyright(C) 2004-2006 Nippon Telegraph and Telephone Corporation
-#if defined(_WIN32)
+#if (defined(_WIN32) || defined(__CYGWIN__)) && !defined(__GNUC__)
 
 #ifndef NOMINMAX
 #define NOMINMAX 1
