@@ -30,7 +30,6 @@ jobs:
             ${{ runner.os }}-cygwin-chocolatey-
       - name: Install cygwin packages
         run: |
-          choco config get cacheLocation
           choco install --no-progress cygwin
           C:\tools\cygwin\cygwinsetup.exe -qgnNdO -R C:/tools/cygwin -s http://mirrors.kernel.org/sourceware/cygwin/ -P autoconf,bison,gcc-g++,make,libtool,m4,aclocal,automake,libiconv-devel,gettext-devel,libcrypt-devel
         shell: cmd
