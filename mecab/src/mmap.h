@@ -107,7 +107,7 @@ template <class T> class Mmap {
       CHECK_FALSE(false) << "unknown open mode:" << filename;
     }
 
-    hFile = ::CreateFileA(WPATH_FORCE(filename), mode1, FILE_SHARE_READ, 0,
+    hFile = CreateFile(WPATH(filename), mode1, FILE_SHARE_READ, 0,
                           OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
     CHECK_FALSE(hFile != INVALID_HANDLE_VALUE)
         << "CreateFile() failed: " << filename;

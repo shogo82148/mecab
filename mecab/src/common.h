@@ -81,16 +81,14 @@
 #define EXIT_SUCCESS 0
 #endif
 
-#ifdef _WIN32
-#define WPATH_FORCE(path) (MeCab::Utf8ToWide(path).c_str())
-#else
-#define WPATH_FORCE(path) (path)
-#endif
-
-#if !defined(__CYGWIN__) && !defined(__GNUC__)
-#define WPATH(path) WPATH_FORCE(path)
+#ifdef UNICODE
+#define WPATH(path) (MeCab::Utf8ToWide(path).c_str())
+#define CreateFile(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile) \
+  ::CreateFileW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile)
 #else
 #define WPATH(path) (path)
+#define CreateFile(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile) \
+  ::CreateFileA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile)
 #endif
 
 namespace MeCab {
