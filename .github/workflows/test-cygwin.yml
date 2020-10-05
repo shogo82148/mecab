@@ -36,12 +36,13 @@ jobs:
       - name: Install cygwin additional packages
         run: |
           C:\tools\cygwin\cygwinsetup.exe -qgnNdO -R C:/tools/cygwin -s http://mirrors.kernel.org/sourceware/cygwin/ -P autoconf,bison,gcc-g++,make,libtool,m4,aclocal,automake,libiconv-devel,gettext-devel,libcrypt-devel
+          copy .github\cygwin-shell.bat C:\tools\cygwin\cygwin-shell.bat
         shell: cmd
       - name: configure
         run: |
           ./autogen.sh
           ./configure
-        shell: ${{ github.workspace }}\.github\cygwin-shell.bat {0}
+        shell: C:\tools\cygwin\cygwin-shell.bat {0}
         working-directory: mecab
       - name: make
         run: |
