@@ -36,29 +36,29 @@ jobs:
       - name: Install cygwin additional packages
         run: |
           C:\tools\cygwin\cygwinsetup.exe -qgnNdO -R C:/tools/cygwin -s http://mirrors.kernel.org/sourceware/cygwin/ -P autoconf,bison,gcc-g++,make,libtool,m4,aclocal,automake,libiconv-devel,gettext-devel,libcrypt-devel
-          copy .github\cygwin-shell.bat C:\tools\cygwin\cygwin-shell.bat
         shell: cmd
+      - name: set PATH
+        run: |
+          echo "C:\tools\cygwin\usr\local\bin" >> "$GITHUB_PATH"
+          echo "C:\tools\cygwin\bin" >> "$GITHUB_PATH"
+          echo "C:\tools\cygwin\usr\bin" >> "$GITHUB_PATH"
+        shell: bash
+
       - name: configure
         run: |
-          ./autogen.sh
-          ./configure
-        shell: C:\tools\cygwin\cygwin-shell.bat {0}
+          bash.exe -c "./autogen.sh; ./configure"
+        shell: cmd
         working-directory: mecab
       - name: make
         run: |
-          make all
-          make check
-          make install
-        shell: C:\tools\cygwin\cygwin-shell.bat {0}
+          bash -c "make all; make check; make install"
+        shell: cmd
         working-directory: mecab
 
       - name: build ipadic
         run: |
-          autogen.sh
-          ./configure --with-charset=utf8
-          make all
-          make install
-        shell: C:\tools\cygwin\cygwin-shell.bat {0}
+          bash -c "autogen.sh; ./configure --with-charset=utf8; make all; make install"
+        shell: cmd
         working-directory: mecab-ipadic
       # - run: perl -V
       # - name: build and test perl binding
