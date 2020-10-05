@@ -3,14 +3,14 @@ name: Java Binding on Linux
 on:
   pull_request:
     paths:
-      - '.github/workflows/test-linux-java.yml'
-      - 'mecab/**'
+      - ".github/workflows/test-linux-java.yml"
+      - "mecab/**"
   push:
     branches:
-      - master
+      - main
     paths:
-      - '.github/workflows/test-linux-java.yml'
-      - 'mecab/**'
+      - ".github/workflows/test-linux-java.yml"
+      - "mecab/**"
 
 jobs:
   tets:
@@ -20,13 +20,13 @@ jobs:
       fail-fast: false
       matrix:
         java:
-          - '14'
-          - '13'
-          - '12'
-          - '11'
-          - '10'
-          - '9'
-          - '8'
+          - "14"
+          - "13"
+          - "12"
+          - "11"
+          - "10"
+          - "9"
+          - "8"
     steps:
       - run: sudo apt-get install gettext
       - uses: actions/checkout@v2

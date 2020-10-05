@@ -3,16 +3,16 @@ name: ipadic on macOS
 on:
   pull_request:
     paths:
-      - '.github/workflows/test-darwin-ipadic.yml'
-      - 'mecab/**'
-      - 'mecab-ipadic/**'
+      - ".github/workflows/test-darwin-ipadic.yml"
+      - "mecab/**"
+      - "mecab-ipadic/**"
   push:
     branches:
-      - master
+      - main
     paths:
-      - '.github/workflows/test-darwin-ipadic.yml'
-      - 'mecab/**'
-      - 'mecab-ipadic/**'
+      - ".github/workflows/test-darwin-ipadic.yml"
+      - "mecab/**"
+      - "mecab-ipadic/**"
 
 jobs:
   test:

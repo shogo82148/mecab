@@ -3,14 +3,14 @@ name: mecab on macOS
 on:
   pull_request:
     paths:
-      - '.github/workflows/test-darwin.yml'
-      - 'mecab/**'
+      - ".github/workflows/test-darwin.yml"
+      - "mecab/**"
   push:
     branches:
-      - master
+      - main
     paths:
-      - '.github/workflows/test-darwin.yml'
-      - 'mecab/**'
+      - ".github/workflows/test-darwin.yml"
+      - "mecab/**"
 
 jobs:
   test:

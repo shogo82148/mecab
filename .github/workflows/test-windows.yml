@@ -3,14 +3,14 @@ name: mecab on Windows
 on:
   pull_request:
     paths:
-      - '.github/workflows/test-windows.yml'
-      - 'mecab/**'
+      - ".github/workflows/test-windows.yml"
+      - "mecab/**"
   push:
     branches:
-      - master
+      - main
     paths:
-      - '.github/workflows/test-windows.yml'
-      - 'mecab/**'
+      - ".github/workflows/test-windows.yml"
+      - "mecab/**"
 
 jobs:
   test:

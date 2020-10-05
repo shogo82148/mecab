@@ -7,7 +7,7 @@ on:
       - "mecab/**"
   push:
     branches:
-      - master
+      - main
     paths:
       - ".github/workflows/test-mingw.yml"
       - "mecab/**"

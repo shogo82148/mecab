@@ -3,16 +3,16 @@ name: jumandic on macOS
 on:
   pull_request:
     paths:
-      - '.github/workflows/test-darwin-jumandic.yml'
-      - 'mecab/**'
-      - 'mecab-jumandic/**'
+      - ".github/workflows/test-darwin-jumandic.yml"
+      - "mecab/**"
+      - "mecab-jumandic/**"
   push:
     branches:
-      - master
+      - main
     paths:
-      - '.github/workflows/test-darwin-jumandic.yml'
-      - 'mecab/**'
-      - 'mecab-jumandic/**'
+      - ".github/workflows/test-darwin-jumandic.yml"
+      - "mecab/**"
+      - "mecab-jumandic/**"
 
 jobs:
   test:

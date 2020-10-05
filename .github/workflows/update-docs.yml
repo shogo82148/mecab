@@ -4,7 +4,7 @@ on:
   pull_request: {}
   push:
     branches:
-      - master
+      - main
 
 jobs:
   update:
@@ -29,6 +29,6 @@ jobs:
             exit 0
           fi
           git commit -m "auto generate documents $(date +"%Y-%m-%d %H:%M:%S")" || ( echo "no updates" && exit 0 )
-          if [[ "$GITHUB_EVENT_NAME" = "push" ]] && [[ "$GITHUB_REF" = "refs/heads/master" ]]; then
-            git push origin master
+          if [[ "$GITHUB_EVENT_NAME" = "push" ]] && [[ "$GITHUB_REF" = "refs/heads/main" ]]; then
+            git push origin main
           fi

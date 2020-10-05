@@ -3,14 +3,14 @@ name: Python Binding on macOS
 on:
   pull_request:
     paths:
-      - '.github/workflows/test-darwin-python.yml'
-      - 'mecab/**'
+      - ".github/workflows/test-darwin-python.yml"
+      - "mecab/**"
   push:
     branches:
-      - master
+      - main
     paths:
-      - '.github/workflows/test-darwin-python.yml'
-      - 'mecab/**'
+      - ".github/workflows/test-darwin-python.yml"
+      - "mecab/**"
 
 jobs:
   test:
@@ -20,10 +20,10 @@ jobs:
       fail-fast: false
       matrix:
         python:
-          - '3.8'
-          - '3.7'
-          - '3.6'
-          - '3.5'
+          - "3.8"
+          - "3.7"
+          - "3.6"
+          - "3.5"
     steps:
       - uses: actions/checkout@v2
       - name: setup

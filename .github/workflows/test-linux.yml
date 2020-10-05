@@ -3,14 +3,14 @@ name: mecab on Linux
 on:
   pull_request:
     paths:
-      - '.github/workflows/test-linux.yml'
-      - 'mecab/**'
+      - ".github/workflows/test-linux.yml"
+      - "mecab/**"
   push:
     branches:
-      - master
+      - main
     paths:
-      - '.github/workflows/test-linux.yml'
-      - 'mecab/**'
+      - ".github/workflows/test-linux.yml"
+      - "mecab/**"
 
 jobs:
   test:

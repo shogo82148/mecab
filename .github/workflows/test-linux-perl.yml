@@ -3,14 +3,14 @@ name: Perl Bindings on Linux
 on:
   pull_request:
     paths:
-      - '.github/workflows/test-linux-perl.yml'
-      - 'mecab/**'
+      - ".github/workflows/test-linux-perl.yml"
+      - "mecab/**"
   push:
     branches:
-      - master
+      - main
     paths:
-      - '.github/workflows/test-linux-perl.yml'
-      - 'mecab/**'
+      - ".github/workflows/test-linux-perl.yml"
+      - "mecab/**"
 
 jobs:
   test:
@@ -20,13 +20,13 @@ jobs:
       fail-fast: false
       matrix:
         perl:
-          - '5.32'
-          - '5.30'
-          - '5.28'
-          - '5.26'
-          - '5.24'
-          - '5.22'
-          - '5.20'
+          - "5.32"
+          - "5.30"
+          - "5.28"
+          - "5.26"
+          - "5.24"
+          - "5.22"
+          - "5.20"
     steps:
       - run: sudo apt-get install gettext
       - uses: actions/checkout@v2
