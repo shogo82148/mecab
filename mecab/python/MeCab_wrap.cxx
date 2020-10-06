@@ -8190,7 +8190,7 @@ SWIG_init(void) {
   SWIG_Python_SetConstant(d, "MECAB_ANY_BOUNDARY",SWIG_From_int(static_cast< int >(MECAB_ANY_BOUNDARY)));
   SWIG_Python_SetConstant(d, "MECAB_TOKEN_BOUNDARY",SWIG_From_int(static_cast< int >(MECAB_TOKEN_BOUNDARY)));
   SWIG_Python_SetConstant(d, "MECAB_INSIDE_TOKEN",SWIG_From_int(static_cast< int >(MECAB_INSIDE_TOKEN)));
-  SWIG_Python_SetConstant(d, "VERSION",SWIG_FromCharPtr("0.996.3"));
+  SWIG_Python_SetConstant(d, "VERSION",SWIG_FromCharPtr("0.996.4"));
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else
