@@ -79,7 +79,6 @@ AC_MSG_NOTICE([pkgconfig directory is ${pkgconfigdir}])
 MECAB_PKGCONFIG_DIR=${pkgconfigdir}
 AC_SUBST(MECAB_PKGCONFIG_DIR)
 
-LIBS="$LIBS $MECAB_LIBS $LIBICONV"
 AC_SUBST(MECAB_LIBS)
 AC_SUBST(MECAB_USE_UTF8_ONLY)
 
@@ -333,9 +332,6 @@ AC_MSG_RESULT([yes])
 case "$host_os" in
  mingw32* | msys* | os2*)
   MECAB_DEFAULT_RC='c:\\\\Program Files\\\\mecab\\\\etc\\\\mecabrc'
-  CFLAGS="$CFLAGS -municode -DUNICODE -D_UNICODE -DDLL_EXPORT"
-  CXXFLAGS="$CXXFLAGS -municode -DUNICODE -D_UNICODE -DDLL_EXPORT"
-  LDFLAGS="$LDFLAGS -municode"
   ;;
  *)
   MECAB_DEFAULT_RC="$sysconfdir/mecabrc"
