@@ -17,29 +17,28 @@ libmecab_la_SOURCES = viterbi.cpp tagger.cpp  utils.cpp utils.h eval.cpp iconv_u
                         feature_index.cpp  feature_index.h  lbfgs.cpp \
                         lbfgs.h  learner_tagger.cpp  learner_tagger.h  learner.cpp  \
                         learner_node.h libmecab.cpp
-libmecab_la_LIBADD = $(MECAB_LIBS) $(LTLIBICONV)
 
 include_HEADERS = mecab.h
 bin_PROGRAMS    = mecab
 pkglibexec_PROGRAMS = mecab-dict-index mecab-dict-gen mecab-cost-train mecab-system-eval mecab-test-gen
 
 mecab_dict_index_SOURCES = mecab-dict-index.cpp
-mecab_dict_index_LDADD = libmecab.la $(MECAB_LIBS) $(LTLIBICONV)
+mecab_dict_index_LDADD = libmecab.la
 
 mecab_dict_gen_SOURCES = mecab-dict-gen.cpp
-mecab_dict_gen_LDADD = libmecab.la $(MECAB_LIBS) $(LTLIBICONV)
+mecab_dict_gen_LDADD = libmecab.la
 
 mecab_system_eval_SOURCES = mecab-system-eval.cpp
-mecab_system_eval_LDADD = libmecab.la $(MECAB_LIBS) $(LTLIBICONV)
+mecab_system_eval_LDADD = libmecab.la
 
 mecab_cost_train_SOURCES = mecab-cost-train.cpp
-mecab_cost_train_LDADD = libmecab.la $(MECAB_LIBS) $(LTLIBICONV)
+mecab_cost_train_LDADD = libmecab.la
 
 mecab_test_gen_SOURCES = mecab-test-gen.cpp
-mecab_test_gen_LDADD = libmecab.la $(MECAB_LIBS) $(LTLIBICONV)
+mecab_test_gen_LDADD = libmecab.la
 
 mecab_SOURCES = mecab.cpp
-mecab_LDADD = libmecab.la $(MECAB_LIBS) $(LTLIBICONV)
+mecab_LDADD = libmecab.la
 
 pkgincludedir = $(includedir)
 pkginclude_HEADERS = mecab.h
