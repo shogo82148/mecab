@@ -39,13 +39,13 @@ $m = <span style="color:#00f">new</span> MeCab::Tagger (<span style="color:#a315
 <span style="color:#00f">print</span> $m-&gt;parse (<span style="color:#a31515">&#34;今日もしないとね&#34;</span>);
 </code></pre></div><h3 id="ruby">ruby</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">require <span style="color:#a31515">&#39;MeCab&#39;</span>
-m = MeCab::Tagger.new (<span style="color:#a31515">&#34;</span><span style="color:#a31515">-Ochasen</span><span style="color:#a31515">&#34;</span>)
-print m.parse (<span style="color:#a31515">&#34;</span><span style="color:#a31515">今日もしないとね</span><span style="color:#a31515">&#34;</span>)
+m = MeCab::Tagger.new (<span style="color:#a31515">&#34;-Ochasen&#34;</span>)
+print m.parse (<span style="color:#a31515">&#34;今日もしないとね&#34;</span>)
 </code></pre></div><h3 id="python">python</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#00f">import</span> sys
 <span style="color:#00f">import</span> MeCab
-m = MeCab.Tagger (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">-Ochasen</span><span style="color:#a31515">&#34;</span>)
-<span style="color:#00f">print</span> (m.parse (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">今日もしないとね</span><span style="color:#a31515">&#34;</span>))
+m = MeCab.Tagger (<span style="color:#a31515">&#34;-Ochasen&#34;</span>)
+<span style="color:#00f">print</span> (m.parse (<span style="color:#a31515">&#34;今日もしないとね&#34;</span>))
 </code></pre></div><h3 id="java">Java</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#00f">import</span> org.chasen.mecab.Tagger;
 <span style="color:#00f">import</span> org.chasen.mecab.Node;
@@ -81,10 +81,10 @@ RuntimeError 例外が発生します.
 例外のハンドリングの方法は, 各言語のリファレンスマニュアルを
 ごらんください. 以下は, <a href="http://www.python.org" title="python">python</a> の例です</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#00f">try</span>:
-    m = MeCab.Tagger (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">-d .</span><span style="color:#a31515">&#34;</span>)
-    <span style="color:#00f">print</span> (m.parse (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">今日もしないとね</span><span style="color:#a31515">&#34;</span>))
+    m = MeCab.Tagger (<span style="color:#a31515">&#34;-d .&#34;</span>)
+    <span style="color:#00f">print</span> (m.parse (<span style="color:#a31515">&#34;今日もしないとね&#34;</span>))
 <span style="color:#00f">except</span> RuntimeError <span style="color:#00f">as</span> e:
-    <span style="color:#00f">print</span> (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">RuntimeError:</span><span style="color:#a31515">&#34;</span>, e)
+    <span style="color:#00f">print</span> (<span style="color:#a31515">&#34;RuntimeError:&#34;</span>, e)
 </code></pre></div><h2 id="注意事項">注意事項</h2>
 <h3 id="文頭文末形態素">文頭,文末形態素</h3>
 <p><code>parseToNode</code> の返り値は, 「文頭」という特別な形態素を示す <code>MeCab::Node</code>
@@ -103,9 +103,9 @@ $n = $n-&gt;{<span style="color:#00f">next</span>}; <span style="color:#008000">
 <code>MeCab::Tagger</code> インスタンスが管理しています. <code>MeCab::Node</code> は,
 Node の実体を指している <strong>参照</strong> にすぎせん. そのために, <code>parseToNode</code> が
 呼ばれる度に, 実体そのものが, 上書きされていきます. 以下のような例はソースの意図する通りには動きません.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">m = MeCab.Tagger (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">&#34;</span>)
-n1 = m.parseToNode (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">今日もしないとね</span><span style="color:#a31515">&#34;</span>) 
-n2 = m.parseToNode (<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">さくさくさくら</span><span style="color:#a31515">&#34;</span>)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">m = MeCab.Tagger (<span style="color:#a31515">&#34;&#34;</span>)
+n1 = m.parseToNode (<span style="color:#a31515">&#34;今日もしないとね&#34;</span>) 
+n2 = m.parseToNode (<span style="color:#a31515">&#34;さくさくさくら&#34;</span>)
 
 <span style="color:#008000"># n1 の内容は無効になっている</span>
 <span style="color:#00f">while</span> (n1.hasNode () != 0):
@@ -147,10 +147,10 @@ n2 = m.parseToNode (<span style="color:#a31515"></span><span style="color:#a3151
 </span><span style="color:#008000"></span>     Node  nextNode();
   };
   
-  <span style="color:#00f">#</span><span style="color:#00f">define MECAB_NOR_NODE  0</span><span style="color:#00f">
-</span><span style="color:#00f"></span>  <span style="color:#00f">#</span><span style="color:#00f">define MECAB_UNK_NODE  1</span><span style="color:#00f">
-</span><span style="color:#00f"></span>  <span style="color:#00f">#</span><span style="color:#00f">define MECAB_BOS_NODE  2</span><span style="color:#00f">
-</span><span style="color:#00f"></span>  <span style="color:#00f">#</span><span style="color:#00f">define MECAB_EOS_NODE  3</span><span style="color:#00f">
+  <span style="color:#00f">#define MECAB_NOR_NODE  0
+</span><span style="color:#00f"></span>  <span style="color:#00f">#define MECAB_UNK_NODE  1
+</span><span style="color:#00f"></span>  <span style="color:#00f">#define MECAB_BOS_NODE  2
+</span><span style="color:#00f"></span>  <span style="color:#00f">#define MECAB_EOS_NODE  3
 </span><span style="color:#00f"></span>  
   <span style="color:#00f">struct</span> <span style="color:#2b91af">Node</span> {
 

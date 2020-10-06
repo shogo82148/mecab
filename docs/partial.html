@@ -86,7 +86,7 @@ EOS
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">MeCab::Lattice *lattice = MeCab::createLattice();
 
 <span style="color:#008000">// boundary の指定 (byte単位で指定)
-</span><span style="color:#008000"></span>lattice-&gt;set_sentence(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">thisis</span><span style="color:#a31515">&#34;</span>);
+</span><span style="color:#008000"></span>lattice-&gt;set_sentence(<span style="color:#a31515">&#34;thisis&#34;</span>);
 
 <span style="color:#008000">// |this|is| で分割されるように強制
 </span><span style="color:#008000"></span>lattice-&gt;set_boundary_constraint(0, MECAB_TOKEN_BOUNDARY);
@@ -99,13 +99,13 @@ lattice-&gt;set_boundary_constraint(6, MECAB_TOKEN_BOUNDARY);
 tagger-&gt;parse(lattice);
 
 <span style="color:#008000">// feature の指定 (byte単位で指定)
-</span><span style="color:#008000"></span>lattice-&gt;set_sentence(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">thisisatest</span><span style="color:#a31515">&#34;</span>);
+</span><span style="color:#008000"></span>lattice-&gt;set_sentence(<span style="color:#a31515">&#34;thisisatest&#34;</span>);
 
 <span style="color:#008000">// |this|is|a|test| で分割され、かつ品詞大分類をすべて名詞にするように強制
-</span><span style="color:#008000"></span>lattice-&gt;set_feature_constraint(0,4,<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">名詞</span><span style="color:#a31515">&#34;</span>);
-lattice-&gt;set_feature_constraint(4,6,<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">名詞</span><span style="color:#a31515">&#34;</span>);
-lattice-&gt;set_feature_constraint(6,7,<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">名詞</span><span style="color:#a31515">&#34;</span>);
-lattice-&gt;set_feature_constraint(7,11,<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">名詞</span><span style="color:#a31515">&#34;</span>);
+</span><span style="color:#008000"></span>lattice-&gt;set_feature_constraint(0,4,<span style="color:#a31515">&#34;名詞&#34;</span>);
+lattice-&gt;set_feature_constraint(4,6,<span style="color:#a31515">&#34;名詞&#34;</span>);
+lattice-&gt;set_feature_constraint(6,7,<span style="color:#a31515">&#34;名詞&#34;</span>);
+lattice-&gt;set_feature_constraint(7,11,<span style="color:#a31515">&#34;名詞&#34;</span>);
 
 tagger-&gt;parse(lattice);
 </code></pre></div>

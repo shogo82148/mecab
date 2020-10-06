@@ -52,11 +52,11 @@ EOS
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">mecab_t *mecab;
 mecab_node_t *node;
 
-mecab = mecab_new2(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">&#34;</span>);
-node = mecab_sparse_tonode(mecab, <span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">今日もしないとね</span><span style="color:#a31515">&#34;</span>);
+mecab = mecab_new2(<span style="color:#a31515">&#34;&#34;</span>);
+node = mecab_sparse_tonode(mecab, <span style="color:#a31515">&#34;今日もしないとね&#34;</span>);
 <span style="color:#00f">for</span> (; node; node = node-&gt;next) {
   fwrite (node-&gt;surface, <span style="color:#00f">sizeof</span>(<span style="color:#2b91af">char</span>), node-&gt;length, stdout);
-  printf(<span style="color:#a31515"></span><span style="color:#a31515">&#34;</span><span style="color:#a31515">%d</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, node-&gt;posid)
+  printf(<span style="color:#a31515">&#34;%d</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, node-&gt;posid)
 }
 </code></pre></div><h2 id="pos-iddef-の例">pos-id.def の例</h2>
 <p>単純な例</p>
