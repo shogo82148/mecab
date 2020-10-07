@@ -329,15 +329,7 @@ if test "x$config_error" = xyes ; then
 fi
 AC_MSG_RESULT([yes])
 
-case "$host_os" in
- mingw32* | msys* | os2*)
-  MECAB_DEFAULT_RC='c:\\\\Program Files\\\\mecab\\\\etc\\\\mecabrc'
-  ;;
- *)
-  MECAB_DEFAULT_RC="$sysconfdir/mecabrc"
-  ;;
-esac
-
+MECAB_DEFAULT_RC="$sysconfdir/mecabrc"
 AC_SUBST(MECAB_DEFAULT_RC)
 AC_SUBST(datarootdir)
 AC_SUBST(DIC_VERSION)
