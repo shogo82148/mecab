@@ -1076,8 +1076,8 @@ public:
   virtual const DictionaryInfo *dictionary_info() const = 0;
 
   /**
-   * Return transtion cost from rcAttr to lcAttr.
-   * @return transtion cost
+   * Return transition cost from rcAttr to lcAttr.
+   * @return transition cost
    */
   virtual int transition_cost(unsigned short rcAttr,
                               unsigned short lcAttr) const = 0;
