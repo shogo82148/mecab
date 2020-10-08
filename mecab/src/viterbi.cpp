@@ -319,11 +319,11 @@ template <bool IsAllPath> bool connect(size_t pos, Node *rnode,
                                        Allocator<Node, Path> *allocator) {
   (void)begin_node_list; // ignore unused parameter ‘begin_node_list’ [-Wunused-parameter]
   for (;rnode; rnode = rnode->bnext) {
-    register long best_cost = 2147483647;
+    long best_cost = 2147483647;
     Node* best_node = 0;
     for (Node *lnode = end_node_list[pos]; lnode; lnode = lnode->enext) {
-      register int lcost = connector->cost(lnode, rnode);  // local cost
-      register long cost = lnode->cost + lcost;
+      int lcost = connector->cost(lnode, rnode); // local cost
+      long cost = lnode->cost + lcost;
 
       if (cost < best_cost) {
         best_node  = lnode;
