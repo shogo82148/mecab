@@ -83,7 +83,7 @@ MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<re
 
 ## 新着情報 {#news}
 
-- **2020-02-21** MeCab 0.996.4
+- **2020-10-07** MeCab 0.996.4
   - [mingw-w64 でコンパイルできない問題を修正](https://github.com/shogo82148/mecab/pull/50)
 - **2020-02-21** MeCab 0.996.3
   - [Ruby 2.7 のサポート](https://github.com/shogo82148/mecab/pull/42)
