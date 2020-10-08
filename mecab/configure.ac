@@ -6,6 +6,7 @@ AH_TEMPLATE([HAVE_CXX11_ATOMIC_OPS], [])
 AH_TEMPLATE([HAVE_GCC_ATOMIC_OPS], [])
 AH_TEMPLATE([HAVE_OSX_ATOMIC_OPS], [])
 AH_TEMPLATE([HAVE_TLS_KEYWORD], [])
+AH_TEMPLATE([HAVE_CXX11_TLS_KEYWORD], [])
 AC_CONFIG_MACRO_DIR([m4])
 
 MECAB_DESCRIPTION='MeCab @shogo82148 flavored: Yet Another Part-of-Speech and Morphological Analyzer'
@@ -60,7 +61,23 @@ AC_CHECK_LIB(pthread,pthread_create)
 AC_CHECK_LIB(pthread,pthread_join)
 AC_CHECK_FUNCS(getenv)
 AC_CHECK_FUNCS(opendir)
+
+dnl Checks for highest supported C++ standard
+dnl https://github.com/wikimedia/operations-debs-contenttranslation-apertium-lex-tools/blob/468f283d356c412d15e4c0d8bd42440e603b3d71/configure.ac#L71-L85
 AC_LANG(C++)
+AX_CHECK_COMPILE_FLAG([-std=c++20], [CXXFLAGS="$CXXFLAGS -std=c++20"], [
+ AX_CHECK_COMPILE_FLAG([-std=c++2a], [CXXFLAGS="$CXXFLAGS -std=c++2a"], [
+  AX_CHECK_COMPILE_FLAG([-std=c++17], [CXXFLAGS="$CXXFLAGS -std=c++17"], [
+   AX_CHECK_COMPILE_FLAG([-std=c++1z], [CXXFLAGS="$CXXFLAGS -std=c++1z"], [
+    AX_CHECK_COMPILE_FLAG([-std=c++14], [CXXFLAGS="$CXXFLAGS -std=c++14"], [
+     AX_CHECK_COMPILE_FLAG([-std=c++1y], [CXXFLAGS="$CXXFLAGS -std=c++1y"], [
+      AX_CHECK_COMPILE_FLAG([-std=c++11], [CXXFLAGS="$CXXFLAGS -std=c++11"], [])
+     ])
+    ])
+   ])
+  ])
+ ])
+])
 
 AC_ARG_ENABLE(utf8-only,
 [  --enable-utf8-only            use utf8 only [default no]])
@@ -99,12 +116,20 @@ else
 fi
 
 dnl
-dnl check gcc
+dnl check warning options
 dnl
-if test -n "$GCC"; then
-   CFLAGS="-O3 -Wall -Wextra"
-   CXXFLAGS="-O3 -Wall -Wextra"
-fi
+AX_CHECK_COMPILE_FLAG([-O3], [
+   CFLAGS="$CFLAGS -O3"
+  CXXFLAGS="$CXXFLAGS -O3"
+], [])
+AX_CHECK_COMPILE_FLAG([-Wall], [
+   CFLAGS="$CFLAGS -Wall"
+  CXXFLAGS="$CXXFLAGS -Wall"
+], [])
+AX_CHECK_COMPILE_FLAG([-Wextra], [
+   CFLAGS="$CFLAGS -Wextra"
+  CXXFLAGS="$CXXFLAGS -Wextra"
+], [])
 
 dnl
 dnl check Char Code
@@ -243,11 +268,32 @@ __thread int a = 0;
 ])
 AC_MSG_RESULT([$enable_tls])
 
-if test "$enable_tls" = "no"; then
-AC_MSG_WARN([__thread keyword is not supported on this environment. \
-Error handling of MeCab, e.g., MeCab::getLastError(), is not thread safe.])
-else
+if test "$enable_tls" = "yes"; then
 AC_DEFINE([HAVE_TLS_KEYWORD])
+fi
+
+dnl C++11 thread_local keyword
+AC_MSG_CHECKING([if ${CXX-c++} supports C++11 thread_local (optional)])
+AC_COMPILE_IFELSE(
+[AC_LANG_PROGRAM([[
+thread_local int a = 0;
+]],[[
+  a = 10;
+]])
+],[
+ enable_cxx11_tls=yes
+],[
+ enable_cxx11_tls=no
+])
+AC_MSG_RESULT([$enable_cxx11_tls])
+
+if test "$enable_cxx11_tls" = "yes"; then
+AC_DEFINE([HAVE_CXX11_TLS_KEYWORD])
+fi
+
+if test "$enable_tls$enable_cxx11_tls" = "nono"; then
+AC_MSG_WARN([thread_local and __thread keywords are not supported on this environment. \
+Error handling of MeCab, e.g., MeCab::getLastError(), is not thread safe.])
 fi
 
 AC_MSG_CHECKING([if ${CXX-c++} supports template <class T> (required)])

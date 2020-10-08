@@ -22,6 +22,23 @@ namespace {
 const size_t kErrorBufferSize = 256;
 }
 
+#if defined(HAVE_CXX11_TLS_KEYWORD)
+// C++11 thread_local keyword
+thread_local char kErrorBuffer[kErrorBufferSize];
+
+const char *getGlobalError()
+{
+  return kErrorBuffer;
+}
+
+void setGlobalError(const char *str)
+{
+  strncpy(kErrorBuffer, str, kErrorBufferSize - 1);
+  kErrorBuffer[kErrorBufferSize - 1] = '\0';
+}
+
+#else
+
 #if defined(_WIN32) && !defined(__CYGWIN__)
 namespace {
 const char kUnknownError[] = "Unknown Error";
@@ -89,6 +106,8 @@ __thread char kErrorBuffer[kErrorBufferSize];
 #else
 char kErrorBuffer[kErrorBufferSize];
 #endif
+
+#endif // HAVE_CXX11_TLS_KEYWORD
 }
 
 const char *getGlobalError() {
