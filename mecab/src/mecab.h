@@ -1076,8 +1076,8 @@ public:
   virtual const DictionaryInfo *dictionary_info() const = 0;
 
   /**
-   * Return transtion cost from rcAttr to lcAttr.
-   * @return transtion cost
+   * Return transition cost from rcAttr to lcAttr.
+   * @return transition cost
    */
   virtual int transition_cost(unsigned short rcAttr,
                               unsigned short lcAttr) const = 0;
@@ -1111,7 +1111,7 @@ public:
    * return true if new model is swapped successfully.
    * This method is thread safe. All taggers created by
    * Model::createTagger() method will also be updated asynchronously.
-   * No need to stop the parsing thread excplicitly before swapping model object.
+   * No need to stop the parsing thread explicitly before swapping model object.
    * @return boolean
    * @param model new model which is going to be swapped with the current model.
    */
@@ -1159,7 +1159,7 @@ public:
    * This function is equivalent to
    * {
    *   Tagger *tagger = model.createModel();
-   *   cosnt bool result = tagger->parse(lattice);
+   *   const bool result = tagger->parse(lattice);
    *   delete tagger;
    *   return result;
    * }
