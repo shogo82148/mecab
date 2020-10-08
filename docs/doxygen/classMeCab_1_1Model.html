@@ -61,7 +61,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a04a93b36403d155f4cedfb138a7b2b51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return DictionaryInfo linked list.  <a href="#a04a93b36403d155f4cedfb138a7b2b51">More...</a><br /></td></tr>
 <tr class="separator:a04a93b36403d155f4cedfb138a7b2b51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad89d4de4fa9da5e9ac7045e72f2fbb1e"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMeCab_1_1Model.html#ad89d4de4fa9da5e9ac7045e72f2fbb1e">transition_cost</a> (unsigned short rcAttr, unsigned short lcAttr) const =0</td></tr>
-<tr class="memdesc:ad89d4de4fa9da5e9ac7045e72f2fbb1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return transtion cost from rcAttr to lcAttr.  <a href="#ad89d4de4fa9da5e9ac7045e72f2fbb1e">More...</a><br /></td></tr>
+<tr class="memdesc:ad89d4de4fa9da5e9ac7045e72f2fbb1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return transition cost from rcAttr to lcAttr.  <a href="#ad89d4de4fa9da5e9ac7045e72f2fbb1e">More...</a><br /></td></tr>
 <tr class="separator:ad89d4de4fa9da5e9ac7045e72f2fbb1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aceb584e540634045adf0172e5fbc59a7"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceMeCab.html#a3679371b5a373ad35e86a545b5f0d127">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMeCab_1_1Model.html#aceb584e540634045adf0172e5fbc59a7">lookup</a> (const char *begin, const char *end, <a class="el" href="classMeCab_1_1Lattice.html">Lattice</a> *lattice) const =0</td></tr>
 <tr class="memdesc:aceb584e540634045adf0172e5fbc59a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">perform common prefix search from the range [begin, end).  <a href="#aceb584e540634045adf0172e5fbc59a7">More...</a><br /></td></tr>
@@ -354,7 +354,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Swap the instance with |model|. </p>
-<p>The ownership of |model| always moves to this instance, meaning that passed |model| will no longer be accessible after calling this method. return true if new model is swapped successfully. This method is thread safe. All taggers created by <a class="el" href="classMeCab_1_1Model.html#a9d9135a4431adb3a985153cb4ab8f3a1" title="Create a new Tagger object. ">Model::createTagger()</a> method will also be updated asynchronously. No need to stop the parsing thread excplicitly before swapping model object. </p><dl class="section return"><dt>Returns</dt><dd>boolean </dd></dl>
+<p>The ownership of |model| always moves to this instance, meaning that passed |model| will no longer be accessible after calling this method. return true if new model is swapped successfully. This method is thread safe. All taggers created by <a class="el" href="classMeCab_1_1Model.html#a9d9135a4431adb3a985153cb4ab8f3a1" title="Create a new Tagger object. ">Model::createTagger()</a> method will also be updated asynchronously. No need to stop the parsing thread explicitly before swapping model object. </p><dl class="section return"><dt>Returns</dt><dd>boolean </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">model</td><td>new model which is going to be swapped with the current model. </td></tr>
@@ -398,8 +398,8 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Return transtion cost from rcAttr to lcAttr. </p>
-<dl class="section return"><dt>Returns</dt><dd>transtion cost </dd></dl>
+<p>Return transition cost from rcAttr to lcAttr. </p>
+<dl class="section return"><dt>Returns</dt><dd>transition cost </dd></dl>
 
 </div>
 </div>
