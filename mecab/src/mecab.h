@@ -1111,7 +1111,7 @@ public:
    * return true if new model is swapped successfully.
    * This method is thread safe. All taggers created by
    * Model::createTagger() method will also be updated asynchronously.
-   * No need to stop the parsing thread excplicitly before swapping model object.
+   * No need to stop the parsing thread explicitly before swapping model object.
    * @return boolean
    * @param model new model which is going to be swapped with the current model.
    */
