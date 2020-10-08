@@ -372,7 +372,6 @@ bool ModelImpl::open(const Param &param) {
       error.append(" ");
     }
     error.append(writer_->what());
-    set_what(error.c_str());
     setGlobalError(error.c_str());
     return false;
   }
