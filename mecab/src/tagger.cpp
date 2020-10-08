@@ -456,7 +456,7 @@ const char *TaggerImpl::what() const {
 bool TaggerImpl::open(int argc, char **argv) {
   model_.reset(new ModelImpl);
   if (!model_->open(argc, argv)) {
-
+    set_what(getGlobalError());
     model_.reset(0);
     return false;
   }
@@ -469,6 +469,7 @@ bool TaggerImpl::open(int argc, char **argv) {
 bool TaggerImpl::open(const char *arg) {
   model_.reset(new ModelImpl);
   if (!model_->open(arg)) {
+    set_what(getGlobalError());
     model_.reset(0);
     return false;
   }
