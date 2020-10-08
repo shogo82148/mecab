@@ -1159,7 +1159,7 @@ public:
    * This function is equivalent to
    * {
    *   Tagger *tagger = model.createModel();
-   *   cosnt bool result = tagger->parse(lattice);
+   *   const bool result = tagger->parse(lattice);
    *   delete tagger;
    *   return result;
    * }
