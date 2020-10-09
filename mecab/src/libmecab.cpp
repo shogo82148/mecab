@@ -94,8 +94,6 @@ namespace {
 #endif // HAVE_CXX11_TLS_KEYWORD
 }
 
-#endif
-
 const char *getGlobalError() {
   return kErrorBuffer;
 }
