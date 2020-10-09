@@ -82,13 +82,16 @@ extern "C" {
     return TRUE;
   }
 }
-#else  // _WIN32
+#else // _WIN32
 namespace {
-#ifdef HAVE_TLS_KEYWORD
-__thread char kErrorBuffer[kErrorBufferSize];
+#if defined(HAVE_CXX11_TLS_KEYWORD)
+  // C++11 thread_local keyword
+  thread_local char kErrorBuffer[kErrorBufferSize];
+#elif defined(HAVE_TLS_KEYWORD)
+  __thread char kErrorBuffer[kErrorBufferSize];
 #else
-char kErrorBuffer[kErrorBufferSize];
-#endif
+  char kErrorBuffer[kErrorBufferSize];
+#endif // HAVE_CXX11_TLS_KEYWORD
 }
 
 const char *getGlobalError() {
