@@ -83,6 +83,10 @@ MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<re
 
 ## 新着情報 {#news}
 
+- **2020-10-09** MeCab 0.996.5
+  - [C++11が利用可能な環境では `thread_local` キーワードを利用](https://github.com/shogo82148/mecab/pull/54)
+  - [C++11で非推奨,C++17で削除された `register` キーワードを削除](https://github.com/shogo82148/mecab/pull/54)
+  - [`mecab_new` が正しくエラーを返さない問題を修正](https://github.com/shogo82148/mecab/pull/53)
 - **2020-10-07** MeCab 0.996.4
   - [mingw-w64 でコンパイルできない問題を修正](https://github.com/shogo82148/mecab/pull/50)
 - **2020-02-21** MeCab 0.996.3
