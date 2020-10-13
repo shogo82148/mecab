@@ -62,7 +62,7 @@ jobs:
           python-version: ${{ matrix.python }}
       - name: configure C/C++
         run: |
-          echo "DYLD_LIBRARY_PATH=$HOME/local/lib" >> "$GITHUB_ENV"
+          echo "LD_LIBRARY_PATH=$HOME/local/lib" >> "$GITHUB_ENV"
           echo "LIBRARY_PATH=$HOME/local/lib" >> "$GITHUB_ENV"
           echo "CPATH=$HOME/local/include" >> "$GITHUB_ENV"
       - run: python -V
