@@ -30,25 +30,45 @@ jobs:
     steps:
       - run: sudo apt-get install gettext
       - uses: actions/checkout@v2
+
+      - name: restore cache
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/local
+          key: v1-mecab-${{ runner.os }}-${{ hashFiles('mecab/src/*.cpp', 'mecab/src/*.h') }}
+
+      - name: configure PATH
+        run: |
+          echo "$HOME/local/bin" >> "$GITHUB_PATH"
       - name: install mecab
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
           ./autogen.sh
-          ./configure
+          ./configure  --enable-utf8-only --prefix "$HOME/local"
           make -j$(nproc)
-          sudo make install
+          make install
           sudo ldconfig
         working-directory: mecab
       - name: install ipadic utf-8
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          ./autogen.sh
+          ./autogen.sh --prefix "$HOME/local"
           ./configure --with-charset=utf8
           make
-          sudo make install
+          make install
         working-directory: mecab-ipadic
+
       - name: setup perl ${{ matrix.perl }}
         uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: ${{ matrix.perl }}
+      - name: configure C/C++
+        run: |
+          echo "LD_LIBRARY_PATH=$HOME/local/lib" >> "$GITHUB_ENV"
+          echo "LIBRARY_PATH=$HOME/local/lib" >> "$GITHUB_ENV"
+          echo "CPATH=$HOME/local/include" >> "$GITHUB_ENV"
       - run: perl -V
       - name: build and test
         run: |
