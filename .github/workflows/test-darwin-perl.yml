@@ -38,7 +38,7 @@ jobs:
         with:
           path: |
             ~/local
-          key: ${{ runner.os }}-${{ hashFiles('mecab/src/*.cpp', 'mecab/src/*.h') }}
+          key: v1-mecab-${{ runner.os }}-${{ hashFiles('mecab/src/*.cpp', 'mecab/src/*.h') }}
 
       - name: install mecab
         if: steps.cache.outputs.cache-hit != 'true'
