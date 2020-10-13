@@ -39,9 +39,6 @@ jobs:
       - name: configure PATH
         run: |
           echo "$HOME/local/bin" >> "$GITHUB_PATH"
-          echo "LD_LIBRARY_PATH=$HOME/local/lib" >> "$GITHUB_ENV"
-          echo "LIBRARY_PATH=$HOME/local/lib" >> "$GITHUB_ENV"
-          echo "CPATH=$HOME/local/include" >> "$GITHUB_ENV"
       - name: install mecab
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
@@ -64,6 +61,11 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
+      - name: configure C/C++
+        run: |
+          echo "LD_LIBRARY_PATH=$HOME/local/lib" >> "$GITHUB_ENV"
+          echo "LIBRARY_PATH=$HOME/local/lib" >> "$GITHUB_ENV"
+          echo "CPATH=$HOME/local/include" >> "$GITHUB_ENV"
       - run: ruby -v
       - name: build and test
         run: |
