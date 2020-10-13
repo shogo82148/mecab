@@ -40,6 +40,7 @@ jobs:
         with:
           languages: ${{ matrix.language }}
 
+      - run: sudo apt-get install gettext
       - name: build mecab
         run: |
           ./autogen.sh
