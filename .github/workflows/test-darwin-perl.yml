@@ -40,12 +40,13 @@ jobs:
             ~/local
           key: v1-mecab-${{ runner.os }}-${{ hashFiles('mecab/src/*.cpp', 'mecab/src/*.h') }}
 
+      - name: configure PATH
+        run: echo "$HOME/local/bin" >> "$GITHUB_PATH"
       - name: install mecab
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          echo "$HOME/local/bin" >> "$GITHUB_PATH"
           ./autogen.sh
-          ./configure --prefix "$HOME/local"
+          ./configure  --enable-utf8-only --prefix "$HOME/local"
           make -j2
           make install
         working-directory: mecab
