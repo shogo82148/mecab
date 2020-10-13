@@ -43,6 +43,7 @@ jobs:
       - name: install mecab
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
+          echo "$HOME/local/bin" >> "$GITHUB_PATH"
           ./autogen.sh
           ./configure --prefix "$HOME/local"
           make -j2
@@ -64,7 +65,6 @@ jobs:
       - run: perl -V
       - name: build and test
         run: |
-          export PATH=$HOME/local/bin;$PATH
           perl Makefile.PL
           make
           make test
