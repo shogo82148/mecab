@@ -14,7 +14,7 @@ on:
 
 jobs:
   test:
-    name: Test
+    name: Test with GCC
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get install gettext
@@ -44,7 +44,7 @@ jobs:
         working-directory: mecab
 
   test-clang:
-    name: Test
+    name: Test with clang
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get install gettext
