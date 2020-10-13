@@ -14,7 +14,7 @@ on:
 
 jobs:
   test:
-    name: Test
+    name: Test with GCC
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get install gettext
@@ -42,3 +42,21 @@ jobs:
           make check
           sudo make install
         working-directory: mecab
+
+  test-clang:
+    name: Test with clang
+    runs-on: ubuntu-latest
+    steps:
+      - run: sudo apt-get install gettext
+      - uses: actions/checkout@v2
+      - name: test mecab
+        run: |
+          ./autogen.sh
+          ./configure
+          make -j$(nproc)
+          make check
+          sudo make install
+        working-directory: mecab
+        env:
+          CC: clang
+          CXX: clang++
