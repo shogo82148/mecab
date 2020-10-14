@@ -219,7 +219,7 @@ void FeatureIndex::calcCost(LearnerPath *path) {
 const char *FeatureIndex::strdup(const char *p) {
   size_t len = std::strlen(p);
   char *q = char_freelist_.alloc(len + 1);
-  std::strncpy(q, p, len);
+  std::strncpy(q, p, len + 1);
   q[len] = '\0';
   return q;
 }
