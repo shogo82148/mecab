@@ -494,8 +494,8 @@ bool Dictionary::compile(const Param &param,
 
   unsigned int version = DIC_VERSION;
   char charset[32];
-  std::fill(charset, charset + sizeof(charset), '\0');
-  std::strncpy(charset, to.c_str(), 31);
+  std::strncpy(charset, to.c_str(), sizeof(charset) - 1);
+  charset[sizeof(charset) - 1] = '\0';
 
   std::ofstream bofs(WPATH(output), std::ios::binary|std::ios::out);
   CHECK_DIE(bofs) << "permission denied: " << output;

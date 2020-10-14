@@ -1254,7 +1254,8 @@ int mecab_do(int argc, char **argv) {
             break;
           }
         }
-        std::strncpy(ibuf, sentence.c_str(), ibufsize);
+        std::strncpy(ibuf, sentence.c_str(), ibufsize - 1);
+        ibuf[ibufsize - 1] = '\0';
       }
       if (ifs->eof() && !ibuf[0]) {
         return false;

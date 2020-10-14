@@ -258,7 +258,8 @@ bool Viterbi::initPartial(Lattice *lattice) {
 
   Allocator<Node, Path> *allocator = lattice->allocator();
   char *str = allocator->partial_buffer(lattice->size() + 1);
-  strncpy(str, lattice->sentence(), lattice->size() + 1);
+  strncpy(str, lattice->sentence(), lattice->size());
+  str[lattice->size()] = '\0';
 
   std::vector<char *> lines;
   const size_t lsize = tokenize(str, "\n",

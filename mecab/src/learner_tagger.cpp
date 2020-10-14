@@ -18,7 +18,8 @@ namespace MeCab {
 static char *mystrdup(const char *str) {
   const size_t l = std::strlen(str);
   char *r = new char[l + 1];
-  std::strncpy(r, str, l+1);
+  std::strncpy(r, str, l);
+  r[l] = '\0';
   return r;
 }
 

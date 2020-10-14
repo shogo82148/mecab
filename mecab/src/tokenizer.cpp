@@ -120,7 +120,8 @@ bool Tokenizer<N, P>::open(const Param &param) {
   if (!userdic.empty()) {
     scoped_fixed_array<char, BUF_SIZE> buf;
     scoped_fixed_array<char *, BUF_SIZE> dicfile;
-    std::strncpy(buf.get(), userdic.c_str(), buf.size());
+    std::strncpy(buf.get(), userdic.c_str(), buf.size() - 1);
+    buf[buf.size() - 1] = '\0';
     const size_t n = tokenizeCSV(buf.get(), dicfile.get(), dicfile.size());
     for (size_t i = 0; i < n; ++i) {
       Dictionary *d = new Dictionary;
@@ -190,8 +191,10 @@ inline bool partial_match(const char *f1, const char *f2) {
   scoped_fixed_array<char *, 64> c1;
   scoped_fixed_array<char *, 64> c2;
 
-  std::strncpy(buf1.get(), f1, buf1.size());
-  std::strncpy(buf2.get(), f2, buf2.size());
+  std::strncpy(buf1.get(), f1, buf1.size() - 1);
+  buf1[buf1.size() - 1] = '\0';
+  std::strncpy(buf2.get(), f2, buf2.size() - 1);
+  buf2[buf2.size() - 1] = '\0';
 
   const size_t n1 = tokenizeCSV(buf1.get(), c1.get(), c1.size());
   const size_t n2 = tokenizeCSV(buf2.get(), c2.get(), c2.size());
