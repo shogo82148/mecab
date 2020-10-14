@@ -332,6 +332,7 @@ class DoubleArrayImpl {
     if (!size_) return -1;
     std::FILE *fp = std::fopen(file, mode);
     if (!fp) return -1;
+    if (std::fseek(fp, offset, SEEK_SET) != 0) return -1;
     if (size_ != std::fwrite(reinterpret_cast<unit_t *>(array_),
                              sizeof(unit_t), size_, fp))
       return -1;
