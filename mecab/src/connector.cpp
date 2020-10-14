@@ -82,7 +82,8 @@ bool Connector::compile(const char *ifile, const char *ofile) {
 
   const unsigned short lsize = std::atoi(column[0]);
   const unsigned short rsize = std::atoi(column[1]);
-  std::vector<short> matrix(lsize * rsize);
+  const unsigned long matrix_size = (unsigned long)lsize * (unsigned long)rsize;
+  std::vector<short> matrix(matrix_size);
   std::fill(matrix.begin(), matrix.end(), 0);
 
   std::cout << "reading " << ifile << " ... "
@@ -103,8 +104,7 @@ bool Connector::compile(const char *ifile, const char *ofile) {
   CHECK_DIE(ofs) << "permission denied: " << ofile;
   ofs.write(reinterpret_cast<const char*>(&lsize), sizeof(unsigned short));
   ofs.write(reinterpret_cast<const char*>(&rsize), sizeof(unsigned short));
-  ofs.write(reinterpret_cast<const char*>(&matrix[0]),
-            lsize * rsize * sizeof(short));
+  ofs.write(reinterpret_cast<const char*>(&matrix[0]), matrix_size * sizeof(short));
   ofs.close();
 
   return true;
