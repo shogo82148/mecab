@@ -219,7 +219,8 @@ void FeatureIndex::calcCost(LearnerPath *path) {
 const char *FeatureIndex::strdup(const char *p) {
   size_t len = std::strlen(p);
   char *q = char_freelist_.alloc(len + 1);
-  std::strncpy(q, p, len + 1);
+  std::strncpy(q, p, len);
+  q[len] = '\n';
   return q;
 }
 
@@ -334,7 +335,8 @@ bool FeatureIndex::buildUnigramFeature(LearnerPath *path,
   scoped_fixed_array<char *, POSSIZE> F;
 
   feature_.clear();
-  std::strncpy(ubuf.get(), ufeature, ubuf.size());
+  std::strncpy(ubuf.get(), ufeature, ubuf.size() - 1);
+  ubuf[ubuf.size() - 1] = '\0';
   const size_t usize = tokenizeCSV(ubuf.get(), F.get(), F.size());
 
   for (std::vector<const char*>::const_iterator it = unigram_templs_.begin();
@@ -387,8 +389,10 @@ bool FeatureIndex::buildBigramFeature(LearnerPath *path,
   scoped_fixed_array<char *, POSSIZE> L;
 
   feature_.clear();
-  std::strncpy(lbuf.get(),  rfeature, lbuf.size());
-  std::strncpy(rbuf.get(),  lfeature, rbuf.size());
+  std::strncpy(lbuf.get(),  rfeature, lbuf.size() - 1);
+  lbuf[lbuf.size() - 1] = '\0';
+  std::strncpy(rbuf.get(),  lfeature, rbuf.size() - 1);
+  rbuf[rbuf.size() - 1] = '\0';
 
   const size_t lsize = tokenizeCSV(lbuf.get(), L.get(), L.size());
   const size_t rsize = tokenizeCSV(rbuf.get(), R.get(), R.size());
@@ -597,8 +601,8 @@ bool FeatureIndex::convert(const Param &param,
   output->append(reinterpret_cast<const char*>(&size), sizeof(size));
 
   char charset_buf[32];
-  std::fill(charset_buf, charset_buf + sizeof(charset_buf), '\0');
-  std::strncpy(charset_buf, to.c_str(), 31);
+  std::strncpy(charset_buf, to.c_str(), sizeof(charset_buf) - 1);
+  charset_buf[sizeof(charset_buf) - 1] = '\0';
   output->append(reinterpret_cast<const char *>(charset_buf),
                  sizeof(charset_buf));
 

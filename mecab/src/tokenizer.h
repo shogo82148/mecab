@@ -50,7 +50,8 @@ class Allocator {
 
   char *strdup(const char *str, size_t size) {
     char *n = alloc(size + 1);
-    std::strncpy(n, str, size + 1);
+    std::strncpy(n, str, size);
+    n[size] = '\n';
     return n;
   }
 

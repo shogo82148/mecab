@@ -266,6 +266,7 @@ bool CharProperty::compile(const char *cfile,
       char buf[32];
       std::fill(buf, buf + sizeof(buf), '\0');
       std::strncpy(buf, it->c_str(), sizeof(buf) - 1);
+      buf[sizeof(buf)-1] = '\0';
       ofs.write(reinterpret_cast<const char*>(buf), sizeof(buf));
     }
     ofs.write(reinterpret_cast<const char*>(&table[0]),
