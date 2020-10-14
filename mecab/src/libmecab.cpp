@@ -55,7 +55,8 @@ extern "C" {
         if ((g_tls_index = ::TlsAlloc()) == TLS_OUT_OF_INDEXES) {
           return FALSE;
         }
-        // Not break in order to initialize the TLS.
+        /* falls through in order to initialize the TLS. */
+        MECAB_FALLTHROUGH;
       case DLL_THREAD_ATTACH:
         data = (LPVOID)::LocalAlloc(LPTR, kErrorBufferSize);
         if (data) {

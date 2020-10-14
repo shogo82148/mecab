@@ -87,6 +87,20 @@
 #define WPATH(path) (path)
 #endif
 
+#ifndef MECAB_FALLTHROUGH
+#  if defined(HAVE_CXX17_FALLTHROUGH_ATTRIBUTE)
+#    define MECAB_FALLTHROUGH [[fallthrough]]
+#  elif defined(HAVE_GNU_FALLTHROUGH_ATTRIBUTE)
+#    define MECAB_FALLTHROUGH [[gnu::fallthrough]]
+#  elif defined(HAVE_CLANG_FALLTHROUGH_ATTRIBUTE)
+#    define MECAB_FALLTHROUGH [[clang::fallthrough]]
+#  elif defined(HAVE_GCC_FALLTHROUGH_ATTRIBUTE)
+#    define MECAB_FALLTHROUGH __attribute__((fallthrough))
+#  else
+#    define MECAB_FALLTHROUGH ((void)0)
+#  endif
+#endif
+
 namespace MeCab {
 class die {
  public:

@@ -7,6 +7,10 @@ AH_TEMPLATE([HAVE_GCC_ATOMIC_OPS], [])
 AH_TEMPLATE([HAVE_OSX_ATOMIC_OPS], [])
 AH_TEMPLATE([HAVE_TLS_KEYWORD], [])
 AH_TEMPLATE([HAVE_CXX11_TLS_KEYWORD], [])
+AH_TEMPLATE([HAVE_GCC_FALLTHROUGH_ATTRIBUTE], [])
+AH_TEMPLATE([HAVE_GNU_FALLTHROUGH_ATTRIBUTE], [])
+AH_TEMPLATE([HAVE_CLANG_FALLTHROUGH_ATTRIBUTE], [])
+AH_TEMPLATE([HAVE_CXX17_FALLTHROUGH_ATTRIBUTE], [])
 AC_CONFIG_MACRO_DIR([m4])
 
 MECAB_DESCRIPTION='MeCab @shogo82148 flavored: Yet Another Part-of-Speech and Morphological Analyzer'
@@ -365,6 +369,86 @@ AC_TRY_COMPILE(
 AC_MSG_RESULT([$enable_osx_atomic_ops])
 if test "$enable_osx_atomic_ops" = "yes"; then
 AC_DEFINE([HAVE_OSX_ATOMIC_OPS])
+fi
+
+AC_MSG_CHECKING([if ${CXX-c++} supports GCC fallthrough attribute (optional)])
+AC_TRY_COMPILE(
+[],[
+  int a = 10;
+  switch(a) {
+  case 10:
+    __attribute__((fallthrough));
+  default:
+    break;
+  }
+],[
+  enable_gcc_fallthrough_attribute=yes
+],[
+  enable_gcc_fallthrough_attribute=no
+])
+AC_MSG_RESULT([$enable_gcc_fallthrough_attribute])
+if test "x$enable_gcc_fallthrough_attribute" = "xyes"; then
+AC_DEFINE([HAVE_GCC_FALLTHROUGH_ATTRIBUTE])
+fi
+
+AC_MSG_CHECKING([if ${CXX-c++} supports GNU fallthrough attribute (optional)])
+AC_TRY_COMPILE(
+[],[
+  int a = 10;
+  switch(a) {
+  case 10:
+    [[gnu::fallthrough]];
+  default:
+    break;
+  }
+],[
+  enable_gnu_fallthrough_attribute=yes
+],[
+  enable_gnu_fallthrough_attribute=no
+])
+AC_MSG_RESULT([$enable_gnu_fallthrough_attribute])
+if test "x$enable_gnu_fallthrough_attribute" = "xyes"; then
+AC_DEFINE([HAVE_GNU_FALLTHROUGH_ATTRIBUTE])
+fi
+
+AC_MSG_CHECKING([if ${CXX-c++} supports clang fallthrough attribute (optional)])
+AC_TRY_COMPILE(
+[],[
+  int a = 10;
+  switch(a) {
+  case 10:
+    [[clang::fallthrough]];
+  default:
+    break;
+  }
+],[
+  enable_clang_fallthrough_attribute=yes
+],[
+  enable_clang_fallthrough_attribute=no
+])
+AC_MSG_RESULT([$enable_clang_fallthrough_attribute])
+if test "x$enable_clang_fallthrough_attribute" = "xyes"; then
+AC_DEFINE([HAVE_CLANG_FALLTHROUGH_ATTRIBUTE])
+fi
+
+AC_MSG_CHECKING([if ${CXX-c++} supports C++17 fallthrough attribute (optional)])
+AC_TRY_COMPILE(
+[],[
+  int a = 10;
+  switch(a) {
+  case 10:
+    [[fallthrough]];
+  default:
+    break;
+  }
+],[
+  enable_cxx17_fallthrough_attribute=yes
+],[
+  enable_cxx17_fallthrough_attribute=no
+])
+AC_MSG_RESULT([$enable_cxx17_fallthrough_attribute])
+if test "x$enable_cxx17_fallthrough_attribute" = "xyes"; then
+AC_DEFINE([HAVE_CXX17_FALLTHROUGH_ATTRIBUTE])
 fi
 
 AC_MSG_CHECKING(if ${CXX-c++} environment provides all required features)

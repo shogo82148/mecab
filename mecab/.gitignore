@@ -1,0 +1,17 @@
+# auto generated files
+/config.h
+/mecab-config
+/mecab-config.bat
+/mecab.iss
+/mecabrc
+/src/Makefile.msvc
+/swig/version.h
+
+# built binary
+/src/mecab
+/src/mecab-cost-train
+/src/mecab-dict-gen
+/src/mecab-dict-index
+/src/mecab-system-eval
+/src/mecab-test-gen
+/src/mecab.pc
