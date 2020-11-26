@@ -78,8 +78,12 @@ MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<re
 
 ## メーリングリスト
 
-- [一般ユーザ向けメーリングリスト](http://lists.sourceforge.jp/mailman/listinfo/mecab-users)
-- [開発者向けメーリングリスト](http://lists.sourceforge.jp/mailman/listinfo/mecab-devel)
+メーリングリストは用意していません。
+不具合等の報告は [GitHubレポジトリ](https://github.com/shogo82148/mecab) の Isuue にお願いします。
+
+本プロジェクトはMeCabのフォークではありますが、あくまでも非公式なものです。
+プロジェクト本家のメーリングリストは利用しないようお願いします。
+
 
 ## 新着情報 {#news}
 
