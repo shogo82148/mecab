@@ -13,7 +13,7 @@ OSやコンパイラのアップデートへの追従、バグフィックス等
 
 このままではマズいということで
 [@shogo82148](https://github.com/shogo82148/)がオリジナルのMeCabをフォークしてパッチを当てたものが
-MeCab @shogo82148 flavored です。
+[MeCab @shogo82148 flavored](https://github.com/shogo82148/mecab) です。
 機能の追加等は行わず、バグフィックスのみ行う予定です。
 
 ## MeCab (和布蕪)とは {#about-mecab}
