@@ -62,7 +62,7 @@ userdic = /home/foo/bar/foo.dic
 
 - `/usr/local/etc/mecabrc` を編集する権限が無い場合は
 `/usr/local/etc/mecabrc` を `~/.mecabrc` にコピーし, 上記のエントリを追加
-- userdic はCSVフォーマットデ複数指定可能
+- userdic はCSVフォーマットで複数指定可能
 
 ```
 userdic = /home/foo/bar/foo.dic,/home/foo/bar2/usr.dic,/home/foo/bar3/bar.dic
