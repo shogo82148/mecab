@@ -87,6 +87,9 @@ MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<re
 
 ## 新着情報 {#news}
 
+- **2021-07-01** MeCab 0.996.6
+  - [バッファーオーバーランの可能性がある strncpy 呼び出しを修正](https://github.com/shogo82148/mecab/pull/62)
+  - [Double-Array 保存時に offset パラメーターが正しく扱われていない問題を修正](https://github.com/shogo82148/mecab/pull/61)
 - **2020-10-09** MeCab 0.996.5
   - [C++11が利用可能な環境では `thread_local` キーワードを利用](https://github.com/shogo82148/mecab/pull/54)
   - [C++11で非推奨,C++17で削除された `register` キーワードを削除](https://github.com/shogo82148/mecab/pull/54)
@@ -200,34 +203,34 @@ MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<re
 
 - **MeCab** はフリーソフトウェアです．[GPL v2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt)(the GNU General Public License Version 2.0), [LGPL](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt)(Lesser GNU General Public License Version 2.1), または [三条項BSD](https://spdx.org/licenses/BSD-3-Clause.html) ライセンスに従って本ソフトウェアを使用,再配布することができます。 詳細は COPYING, GPL, LGPL, BSD各ファイルを参照して下さい．
 
-- [v0.996.5](https://github.com/shogo82148/mecab/releases/tag/v0.996.5)
+- [v0.996.6](https://github.com/shogo82148/mecab/releases/tag/v0.996.6)
 
 ### MeCab 本体
 
 - Source
-  - mecab-0.996.5.tar.gz: [ダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.5/mecab-0.996.5.tar.gz)
+  - mecab-0.996.6.tar.gz: [ダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.6/mecab-0.996.6.tar.gz)
   - 辞書は含まれていません. 動作には別途辞書が必要です。
 - Binary package for MS-Windows
-  - mecab-msvc-x64-0.996.5.zip: [64bit版ダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.5/mecab-msvc-x64-0.996.5.zip)
-  - mecab-msvc-x86-0.996.5.zip: [32bit版ダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.5/mecab-msvc-x86-0.996.5.zip)
+  - mecab-msvc-x64-0.996.6.zip: [64bit版ダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.6/mecab-msvc-x64-0.996.6.zip)
+  - mecab-msvc-x86-0.996.6.zip: [32bit版ダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.6/mecab-msvc-x86-0.996.6.zip)
   - Windows 版には コンパイル済みの IPA 辞書が含まれています
 
 ### MeCab 用の辞書
 
 - IPA 辞書
-  - IPA 辞書, IPAコーパス に基づき [CRF][CRF] でパラメータ推定した辞書です。 **(推奨)** [ダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.5/mecab-ipadic-2.7.0-20070801.tar.gz)
+  - IPA 辞書, IPAコーパス に基づき [CRF][CRF] でパラメータ推定した辞書です。 **(推奨)** [ダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.6/mecab-ipadic-2.7.0-20070801.tar.gz)
 - JUMAN 辞書
-  - JUMAN 辞書, 京都コーパスに基づき [CRF][CRF] でパラメータ推定した辞書です。 [ダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.5/mecab-jumandic-7.0-20130310.tar.gz)
+  - JUMAN 辞書, 京都コーパスに基づき [CRF][CRF] でパラメータ推定した辞書です。 [ダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.6/mecab-jumandic-7.0-20130310.tar.gz)
 - Unidic 辞書
   - Unidic 辞書, BCCWJコーパスに基づき CRF でパラーメータ推定した辞書です。ダウンロード
 
 ### perl/ruby/python/java バインディング
 
-- [Perlダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.5/mecab-perl-0.996.5.tar.gz)
-- [Rubyダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.5/mecab-ruby-0.996.5.tar.gz)
-- [Pythonダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.5/mecab-python-0.996.5.tar.gz)
+- [Perlダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.6/mecab-perl-0.996.6.tar.gz)
+- [Rubyダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.6/mecab-ruby-0.996.6.tar.gz)
+- [Pythonダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.6/mecab-python-0.996.6.tar.gz)
   - Windowsに関してはコンパイル済みのwheelもあります。
-- [Javaダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.5/mecab-java-0.996.5.tar.gz)
+- [Javaダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.6/mecab-java-0.996.6.tar.gz)
 
 ## インストール {#install}
 
