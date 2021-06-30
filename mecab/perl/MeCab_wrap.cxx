@@ -7356,7 +7356,7 @@ XS(SWIG_init) {
   SWIG_TypeClientData(SWIGTYPE_p_MeCab__Tagger, (void*) "MeCab::Tagger");
   /*@SWIG:/usr/local/Cellar/swig/4.0.2/share/swig/4.0.2/perl5/perltypemaps.swg,65,%set_constant@*/ do {
     SV *sv = get_sv((char*) SWIG_prefix "VERSION", TRUE | 0x2 | GV_ADDMULTI);
-    sv_setsv(sv, SWIG_FromCharPtr("0.996.5"));
+    sv_setsv(sv, SWIG_FromCharPtr("0.996.6"));
     SvREADONLY_on(sv);
   } while(0) /*@SWIG@*/;
   ST(0) = &PL_sv_yes;
