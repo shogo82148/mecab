@@ -19,14 +19,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        distribution:
+          - temurin
+          - zulu
         java:
-          - "14"
-          - "13"
-          - "12"
-          - "11"
-          - "10"
-          - "9"
           - "8"
+          - "11"
+          - "17"
     steps:
       - run: sudo apt-get install gettext
       - uses: actions/checkout@v2
@@ -61,8 +60,9 @@ jobs:
         working-directory: mecab-ipadic
 
       - name: setup java ${{ matrix.java }}
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
+          distribution: ${{ matrix.distribution }}
           java-version: ${{ matrix.java }}
       - name: configure C/C++
         run: |
