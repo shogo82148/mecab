@@ -60,7 +60,7 @@ jobs:
         working-directory: mecab-ipadic
 
       - name: setup python ${{ matrix.python }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python }}
       - name: configure C/C++
