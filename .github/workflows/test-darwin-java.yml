@@ -45,7 +45,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
           ./autogen.sh
-          ./configure  --enable-utf8-only --prefix "$HOME/local"
+          ./configure --enable-utf8-only --prefix "$HOME/local"
           make -j2
           make install
         working-directory: mecab
@@ -59,20 +59,20 @@ jobs:
         working-directory: mecab-ipadic
 
       - name: setup java ${{ matrix.java }}
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           distribution: ${{ matrix.distribution }}
           java-version: ${{ matrix.java }}
       - name: configure C/C++
         run: |
-          echo "LD_LIBRARY_PATH=$HOME/local/lib" >> "$GITHUB_ENV"
-          echo "LIBRARY_PATH=$HOME/local/lib" >> "$GITHUB_ENV"
-          echo "CPATH=$HOME/local/include" >> "$GITHUB_ENV"
+          echo "LD_LIBRARY_PATH=$HOME/local/lib:$JAVA_HOME/lib:$PWD/mecab/java" >> "$GITHUB_ENV"
+          echo "LIBRARY_PATH=$HOME/local/lib:$JAVA_HOME/lib" >> "$GITHUB_ENV"
+          echo "CPATH=$HOME/local/include:$JAVA_HOME/include:$JAVA_HOME/include/darwin" >> "$GITHUB_ENV"
       - run: java -version
       - name: build and test
         run: |
           ./autogen.sh
           ./configure
           make
-        # DYLD_LIBRARY_PATH=. java test # FIX ME
+          # java -classpath .:MeCab.jar test # TODO: FIX ME
         working-directory: mecab/java
