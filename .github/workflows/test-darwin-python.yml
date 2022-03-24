@@ -32,7 +32,7 @@ jobs:
         run: .github/setup-darwin.sh
       - name: restore cache
         id: cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ~/local
