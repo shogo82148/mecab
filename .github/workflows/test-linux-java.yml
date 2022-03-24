@@ -66,14 +66,14 @@ jobs:
           java-version: ${{ matrix.java }}
       - name: configure C/C++
         run: |
-          echo "LD_LIBRARY_PATH=$HOME/local/lib" >> "$GITHUB_ENV"
-          echo "LIBRARY_PATH=$HOME/local/lib" >> "$GITHUB_ENV"
-          echo "CPATH=$HOME/local/include" >> "$GITHUB_ENV"
+          echo "LD_LIBRARY_PATH=$HOME/local/lib:$JAVA_HOME/lib" >> "$GITHUB_ENV"
+          echo "LIBRARY_PATH=$HOME/local/lib:$JAVA_HOME/lib" >> "$GITHUB_ENV"
+          echo "CPATH=$HOME/local/include:$JAVA_HOME/include:$JAVA_HOME/include/linux" >> "$GITHUB_ENV"
       - run: java -version
       - name: build and test
         run: |
           ./autogen.sh
           ./configure
           make
-        # LD_LIBRARY_PATH=. java test # FIX ME
+          java test
         working-directory: mecab/java
