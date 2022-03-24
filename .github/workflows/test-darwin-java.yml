@@ -67,7 +67,7 @@ jobs:
         run: |
           echo "LD_LIBRARY_PATH=$HOME/local/lib" >> "$GITHUB_ENV"
           echo "LIBRARY_PATH=$HOME/local/lib" >> "$GITHUB_ENV"
-          echo "CPATH=$HOME/local/include" >> "$GITHUB_ENV"
+          echo "CPATH=$HOME/local/include:$JAVA_HOME/include" >> "$GITHUB_ENV"
       - run: java -version
       - name: build and test
         run: |
