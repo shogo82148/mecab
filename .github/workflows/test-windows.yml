@@ -14,7 +14,7 @@ on:
 
 jobs:
   test-windows-2019:
-    name: Test
+    name: Test on Windows 2019
     runs-on: windows-2019
     strategy:
       fail-fast: false
@@ -46,7 +46,7 @@ jobs:
         working-directory: mecab/tests
 
   test-windows-2022:
-    name: Test
+    name: Test on Windows 2022
     runs-on: windows-2022
     strategy:
       fail-fast: false
