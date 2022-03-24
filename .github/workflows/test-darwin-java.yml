@@ -74,5 +74,5 @@ jobs:
           ./autogen.sh
           ./configure
           make
-          java -classpath MeCab.jar test
+          java -classpath .:MeCab.jar test
         working-directory: mecab/java
