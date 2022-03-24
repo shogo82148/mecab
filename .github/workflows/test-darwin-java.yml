@@ -74,5 +74,5 @@ jobs:
           ./autogen.sh
           ./configure
           make
-          java test
+          java "-Djava.library.path=$PWD" test
         working-directory: mecab/java
