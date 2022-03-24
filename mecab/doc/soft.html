@@ -24,7 +24,7 @@
 <h2 id="全形態素の出力">全形態素の出力</h2>
 <p>MeCab はデフォルトで最適解のみを出力します. <code>-a</code> オプションを指定すると
 最適解ではなく, ラティス中の全形態素を出力します.</p>
-<pre><code>% mecab -a
+<pre tabindex="0"><code>% mecab -a
 東京都庁
 東京    名詞,固有名詞,地域,一般,*,*,東京,トウキョウ,トーキョー
 東      名詞,固有名詞,一般,*,*,*,東,ヒガシ,ヒガシ
@@ -58,7 +58,7 @@ EOS
 <li><code>%pP</code>: 周辺確率</li>
 <li><code>%pb</code>: 最適解のとき <code>*</code> それ以外は空白文字</li>
 </ul>
-<pre><code>% mecab -m -a -F&quot;%m %H %pP %pb\n&quot; -E&quot;EOS\n&quot;
+<pre tabindex="0"><code>% mecab -m -a -F&#34;%m %H %pP %pb\n&#34; -E&#34;EOS\n&#34;
 京都大学
 京都大学 名詞,固有名詞,組織,*,*,*,京都大学,キョウトダイガク,キョートダイガク 0.559944 *
 京都大 名詞,固有名詞,組織,*,*,*,京都大,キョウトダイ,キョートダイ 0.073824  
@@ -89,7 +89,7 @@ EOS
 </code></pre><p><code>-t 数値</code> オプションを使って確率値の「なめらかさ」を変更することができます.
 数値を小さくると, 確率値がなめらかになり, 短かい形態素が大きな確率値を
 持つようになります. 数値を大きくすると最適解の確率が大きくなります.デフォルトは 0.75 です.</p>
-<pre><code>% mecab -m -a -F&quot;%m %H %pP %pb\n&quot; -t0.1 -E&quot;EOS\n&quot;
+<pre tabindex="0"><code>% mecab -m -a -F&#34;%m %H %pP %pb\n&#34; -t0.1 -E&#34;EOS\n&#34;
 京都大学
 京都大学 名詞,固有名詞,組織,*,*,*,京都大学,キョウトダイガク,キョートダイガク 0.023617 *
 京都大 名詞,固有名詞,組織,*,*,*,京都大,キョウトダイ,キョートダイ 0.052790  
@@ -121,20 +121,20 @@ EOS
 <p><code>-a</code> オプションを指定した場合, <code>mecab_sparse_tonode</code> が返す node は
 全形態素を辿ることができる双方向リストとなります.
 <code>-m</code> を指定すると <code>mecab_node_t::prob</code> に周辺確率が代入されます.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">mecab_t *mecab;
-mecab_node_t *node;
-
-mecab = mecab_new2(<span style="color:#a31515">&#34;-m -a&#34;</span>);
-
-node = mecab_sparse_tonode(mecab, input);
-<span style="color:#00f">for</span> (; node; node = node-&gt;next) {
-  <span style="color:#008000">/* 最適解もしくは確率が 0.05 以上のとき出力 */</span>
-  <span style="color:#00f">if</span> (node-&gt;isbest || node-&gt;prob &gt;= 0.05)  {
-    fwrite (node-&gt;surface, <span style="color:#00f">sizeof</span>(<span style="color:#2b91af">char</span>), node-&gt;length, stdout);
-    printf(<span style="color:#a31515">&#34;</span><span style="color:#a31515">\t</span><span style="color:#a31515">%s</span><span style="color:#a31515">\t</span><span style="color:#a31515">%f</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, node-&gt;feature, node-&gt;prob);
-  }
-}
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>mecab_t *mecab;
+</span></span><span style="display:flex;"><span>mecab_node_t *node;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mecab = mecab_new2(<span style="color:#a31515">&#34;-m -a&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>node = mecab_sparse_tonode(mecab, input);
+</span></span><span style="display:flex;"><span><span style="color:#00f">for</span> (; node; node = node-&gt;next) {
+</span></span><span style="display:flex;"><span>  <span style="color:#008000">/* 最適解もしくは確率が 0.05 以上のとき出力 */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#00f">if</span> (node-&gt;isbest || node-&gt;prob &gt;= 0.05)  {
+</span></span><span style="display:flex;"><span>    fwrite (node-&gt;surface, <span style="color:#00f">sizeof</span>(<span style="color:#2b91af">char</span>), node-&gt;length, stdout);
+</span></span><span style="display:flex;"><span>    printf(<span style="color:#a31515">&#34;</span><span style="color:#a31515">\t</span><span style="color:#a31515">%s</span><span style="color:#a31515">\t</span><span style="color:#a31515">%f</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, node-&gt;feature, node-&gt;prob);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
         </article>
   </div>
 </section>

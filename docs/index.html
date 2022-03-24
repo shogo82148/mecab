@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-	<meta name="generator" content="Hugo 0.75.1" />
+	<meta name="generator" content="Hugo 0.95.0" />
     <meta charset="utf-8">
     <title>
       MeCab: Yet Another Part-of-Speech and Morphological Analyzer
@@ -404,7 +404,7 @@ OSやコンパイラのアップデートへの追従、バグフィックス等
 </ul>
 <h4 id="インストール手順">インストール手順</h4>
 <p>一般的なフリーソフトウェアと同じ手順でインストールできます。</p>
-<pre><code>% tar zxfv mecab-X.X.tar.gz
+<pre tabindex="0"><code>% tar zxfv mecab-X.X.tar.gz
 % cd mecab-X.X
 % ./configure 
 % make
@@ -412,7 +412,7 @@ OSやコンパイラのアップデートへの追従、バグフィックス等
 % su
 # make install
 </code></pre><p>辞書のインストール</p>
-<pre><code>% tar zxfv mecab-ipadic-2.7.0-XXXX.tar.gz
+<pre tabindex="0"><code>% tar zxfv mecab-ipadic-2.7.0-XXXX.tar.gz
 % mecab-ipadic-2.7.0-XXXX
 % ./configure
 % make
@@ -425,7 +425,7 @@ OSやコンパイラのアップデートへの追従、バグフィックス等
 <h2 id="usage-tools">使い方</h2>
 <h3 id="parse">とりあえず解析してみる</h3>
 <p>mecab を起動して,生文を標準入力から入力してみてください.MeCab では, 一行一文を前提として解析を行ないます。</p>
-<pre><code>% mecab
+<pre tabindex="0"><code>% mecab
 すもももももももものうち
 すもも  名詞,一般,*,*,*,*,すもも,スモモ,スモモ
 も      助詞,係助詞,*,*,*,*,も,モ,モ
@@ -436,21 +436,21 @@ OSやコンパイラのアップデートへの追従、バグフィックス等
 うち    名詞,非自立,副詞可能,*,*,*,うち,ウチ,ウチ
 EOS
 </code></pre><p>出力フォーマットは, ChaSen のそれと大きく異なります。左から,</p>
-<pre><code>表層形\t品詞,品詞細分類1,品詞細分類2,品詞細分類3,活用形,活用型,原形,読み,発音
+<pre tabindex="0"><code>表層形\t品詞,品詞細分類1,品詞細分類2,品詞細分類3,活用形,活用型,原形,読み,発音
 </code></pre><p>となっています。</p>
 <p>引数にファイルを与えると,
 そのファイルが解析対象となります。
 また, <code>-o</code> オプションにて,
 別のファイルに結果を出力することも可能です。</p>
-<pre><code>% mecab INPUT -o OUTPUT
+<pre tabindex="0"><code>% mecab INPUT -o OUTPUT
 </code></pre><h3 id="wakati">わかち書きをする</h3>
 <p>以下のように <code>-O</code> オプションを使います。</p>
-<pre><code>% mecab -O wakati
+<pre tabindex="0"><code>% mecab -O wakati
 太郎はこの本を二郎を見た女性に渡した。
 太郎 は この 本 を 二郎 を 見 た 女性 に 渡し た 。
 </code></pre><h3 id="format">出力フォーマットの変更</h3>
 <p>以下のように <code>-O</code> オプションを使います。</p>
-<pre><code>% mecab -Oyomi (ヨミ付与)
+<pre tabindex="0"><code>% mecab -Oyomi (ヨミ付与)
 % mecab -Ochasen (ChaSen互換)
 % mecab -Odump (全情報を出力)
 </code></pre><p>これらの出力フォーマットは, <code>/usr/local/lib/mecab/ipadic/dicrc</code> に定義されています。
@@ -462,7 +462,7 @@ EOS
 もし, shift-jis や utf8 を 使いたい場合は, 辞書の configure オプションにて charset を変更し,
 辞書を再構築してください.
 これで, shift-jis や, utf8 の辞書が作成されます。</p>
-<pre><code>% tar zxfv mecab-ipadic-2.7.0-xxxx
+<pre tabindex="0"><code>% tar zxfv mecab-ipadic-2.7.0-xxxx
 % cd mecab-ipadic-2.7.0-xxxx
 % ./configure --with-charset=sjis
 % make
@@ -472,7 +472,7 @@ EOS
 % make
 </code></pre><p>また, <code>mecab-dict-index</code> の <code>-t</code> オプションを使って直接文字コードの異なる
 辞書を再構築できます。 <code>-f</code> オプションはオリジナルのテキスト辞書の文字コードです。</p>
-<pre><code>% cd mecab-ipadic-2.7.0-xxxx
+<pre tabindex="0"><code>% cd mecab-ipadic-2.7.0-xxxx
 % /usr/local/libexec/mecab/mecab-dict-index -f euc-jp -t utf-8
 # make install
 </code></pre><h3 id="utf-8">UTF-8 only mode</h3>
@@ -483,7 +483,7 @@ MeCab 内部に変換用のテーブルを埋めこみます。 <code>--enable-u
 小さくすることができます。</p>
 <h3 id="unk">未知語推定</h3>
 <p>MeCab は, 辞書に単語が未登録の場合でも適当にその品詞を推定します。</p>
-<pre><code>ホリエモン市
+<pre tabindex="0"><code>ホリエモン市
 ホリエモン      名詞,固有名詞,地域,一般,*,*,*
 市      名詞,接尾,地域,*,*,*,市,シ,シ
 EOS
@@ -493,7 +493,7 @@ EOS
 </code></pre><p>ただし, その精度は正確ではありません. 品詞推定をやめ, 未知語は常に
 &ldquo;未知語&rdquo; 品詞を出力したい場合は <code>-x</code> (<code>--unk-feature</code>) オプションを使います。
 オプションで指定された文字列が品詞として使われます。</p>
-<pre><code>%mecab --unk-feature &quot;未知語&quot; 
+<pre tabindex="0"><code>%mecab --unk-feature &#34;未知語&#34; 
 ホリエモンさん
 ホリエモン      未知語
 さん    名詞,接尾,人名,*,*,*,さん,サン,サン
@@ -501,7 +501,7 @@ EOS
 <p><code>-N #NUM</code> オプションを使うことで, 確からしいものから#NUM 個解析結果を出力
 します。 理論的にはすべての可能な解析解を出力することが
 可能ですが, 出力バッファのかねあいから, -N の最大値を 512 に制限しています。</p>
-<pre><code>% mecab -N2
+<pre tabindex="0"><code>% mecab -N2
 今日もしないとね。
 今日    名詞,副詞可能,*,*,*,*,今日,キョウ,キョー
 も      助詞,係助詞,*,*,*,*,も,モ,モ

@@ -30,8 +30,8 @@
 <h3 id="csv-ファイル">*.csv ファイル</h3>
 <p>単語辞書です</p>
 <p>エントリは, 以下のような CSV で追加します.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">test,1223,1223,6058,foo,bar,baz
-</code></pre></div><p>最初の4つは必須エントリで, それぞれ</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>test,1223,1223,6058,foo,bar,baz
+</span></span></code></pre></div><p>最初の4つは必須エントリで, それぞれ</p>
 <ul>
 <li>表層形</li>
 <li>左文脈ID (単語を左から見たときの文脈 ID)</li>
@@ -40,7 +40,7 @@
 </ul>
 <p>となっています. コスト値は <code>short int</code> (16bit 整数)
 の範囲におさめる必要があります.</p>
-<pre><code>5カラム目以降は, ユーザ定義の CSV フィールドです. 基本的に
+<pre tabindex="0"><code>5カラム目以降は, ユーザ定義の CSV フィールドです. 基本的に
 どんな内容でも CSV の許す限り追加することができます. 
 </code></pre><h3 id="matrixdef">matrix.def</h3>
 <p>最初の行に連接表のサイズ(前件サイズ, 後件サイズ)を書きます. その後は,
@@ -53,7 +53,7 @@
 <p>となります. つまり, 単語辞書に登録した ID が連接表を参照する際の
 キーとなります. コスト値は short int (16bit 整数)
 の範囲におさめる必要があります.</p>
-<pre><code>100 120
+<pre tabindex="0"><code>100 120
 0 0 1
 0 1 10
 0 2 5
@@ -62,18 +62,18 @@
 <h3 id="chardef">char.def</h3>
 <p>未知語処理のルールです. <a href="/mecab/learn.html">こちら</a>を御覧ください.</p>
 <p>以下が最低限の設定 (DEFAULT と SPACE) です</p>
-<pre><code>DEFAULT 1 0 0
+<pre tabindex="0"><code>DEFAULT 1 0 0
 SPACE   0 1 0
 0x0020 SPACE
 </code></pre><h3 id="unkdef">unk.def</h3>
 <p>未知語に対する品詞列のテーブルです. <a href="/mecab/learn.html">こちら</a>を
 御覧ください.</p>
 <p>以下が最低限の設定 (DEFAULT と SPACE) です</p>
-<pre><code>DEFAULT,0,0,0,*
+<pre tabindex="0"><code>DEFAULT,0,0,0,*
 SPACE,0,0,0,*
 </code></pre><h2 id="辞書のコンパイル">辞書のコンパイル</h2>
 <p>次のコマンドを実行することで, 解析用のバイナリ辞書を作成します.</p>
-<pre><code>% /usr/local/libexec/mecab/mecab-dict-index 
+<pre tabindex="0"><code>% /usr/local/libexec/mecab/mecab-dict-index 
 </code></pre><h2 id="ケーススタディ">ケーススタディ</h2>
 <p>example ディレクトリにいくつかの応用例があります.</p>
 <h3 id="auto-link">Auto Link</h3>
@@ -82,8 +82,8 @@ SPACE,0,0,0,*
 <p>単語としてキーワード, 品詞としてキーワードに対応する URL を書きます.
 連接の状態は1状態で十分なので, 左文脈/右文脈IDともに 0 とします.
 コスト値は長いキーワードが優先されるよう設定します. 例えば以下のような関数を使うとよいでしょう.</p>
-<pre><code>cost = (int)max(-36000, -400 * (length^1.5))
-</code></pre><pre><code>Google,0,0,-5878,http://www.google.com/
+<pre tabindex="0"><code>cost = (int)max(-36000, -400 * (length^1.5))
+</code></pre><pre tabindex="0"><code>Google,0,0,-5878,http://www.google.com/
 Yahoo,0,0,-4472,http://www.yahoo.com/
 ChaSen,0,0,-5878,http://chasen.org/
 京都,0,0,-3200,http://www.city.kyoto.jp/
@@ -91,28 +91,28 @@ ChaSen,0,0,-5878,http://chasen.org/
 </code></pre><h4 id="matrixdef-1">matrix.def</h4>
 <p>1 状態なので, 連接表のサイズは 1 x 1 となります.
 後件 0 から前件 0 の連接コストは 0 とします.</p>
-<pre><code>1 1
+<pre tabindex="0"><code>1 1
 0 0 0
 </code></pre><h4 id="chardef-1">char.def</h4>
 <p>最低限の設定 (DEFAULT と SPACE) です</p>
-<pre><code>DEFAULT 1 0 0
+<pre tabindex="0"><code>DEFAULT 1 0 0
 SPACE   0 1 0
 0x0020 SPACE
 </code></pre><h4 id="unkdef-1">unk.def</h4>
 <p>最低限の設定 (DEFAULT と SPACE) です</p>
-<pre><code>DEFAULT,0,0,0,*
+<pre tabindex="0"><code>DEFAULT,0,0,0,*
 SPACE,0,0,0,*
 </code></pre><h4 id="dicrc">dicrc</h4>
 <p>autolink というフォーマットを作成し, それがデフォルトの出力になるようにします</p>
-<pre><code>cost-factor = 800
+<pre tabindex="0"><code>cost-factor = 800
 bos-feature = BOS/EOS
 output-format-type=autolink
 
-node-format-autolink = &lt;a href=&quot;%H&quot;&gt;%M&lt;/a&gt;
+node-format-autolink = &lt;a href=&#34;%H&#34;&gt;%M&lt;/a&gt;
 unk-format-autolink = %M
 eos-format-autolink = \n
 </code></pre><h4 id="コンパイル--テスト">コンパイル + テスト</h4>
-<pre><code>% /usr/local/libexec/mecab/mecab-dict-index -f euc-jp -c euc-jp
+<pre tabindex="0"><code>% /usr/local/libexec/mecab/mecab-dict-index -f euc-jp -c euc-jp
 reading ./unk.def ..  2
 emitting double-array: 100% |###########################################| 
 reading ./dic.csv ..  4
@@ -122,15 +122,15 @@ done!
 
 % mecab -d .
 京都に行った. 
-&lt;a href=&quot;http://www.city.kyoto.jp/&quot;&gt;京都&lt;/a&gt;に行った。
+&lt;a href=&#34;http://www.city.kyoto.jp/&#34;&gt;京都&lt;/a&gt;に行った。
 YahooとGoogle
-&lt;a href=&quot;http://www.yahoo.com/&quot;&gt;Yahoo&lt;/a&gt;と&lt;a href=&quot;http://www.google.com/&quot;&gt;Google&lt;/a&gt;
+&lt;a href=&#34;http://www.yahoo.com/&#34;&gt;Yahoo&lt;/a&gt;と&lt;a href=&#34;http://www.google.com/&#34;&gt;Google&lt;/a&gt;
 </code></pre><h3 id="ひらがな-to-カタカナ変換ツール">ひらがな to カタカナ変換ツール</h3>
 <h4 id="diccsv">dic.csv</h4>
 <p>単語としてひらがな1文字, 品詞として各ひらがな対応するカタカナ1文字を書きます.
 連接の状態は1状態で十分なので, 左文脈/右文脈IDともに 0 とします.
 曖昧性がないため コスト値は 0 とします</p>
-<pre><code>う゛,0,0,0,ヴ
+<pre tabindex="0"><code>う゛,0,0,0,ヴ
 あ,0,0,0,ア
 い,0,0,0,イ
 う,0,0,0,ウ
@@ -217,20 +217,20 @@ YahooとGoogle
 </code></pre><h4 id="matrixdef-2">matrix.def</h4>
 <p>1 状態なので, 連接表のサイズは 1 x 1 となります.
 後件 0 から前件 0 の連接コストは 0 とします.</p>
-<pre><code>1 1
+<pre tabindex="0"><code>1 1
 0 0 0
 </code></pre><h4 id="chardef-2">char.def</h4>
 <p>最低限の設定 (DEFAULT と SPACE) です</p>
-<pre><code>DEFAULT 1 0 0
+<pre tabindex="0"><code>DEFAULT 1 0 0
 SPACE   0 1 0
 0x0020 SPACE
 </code></pre><h4 id="unkdef-2">unk.def</h4>
 <p>最低限の設定 (DEFAULT と SPACE) です</p>
-<pre><code>DEFAULT,0,0,0,*
+<pre tabindex="0"><code>DEFAULT,0,0,0,*
 SPACE,0,0,0,*
 </code></pre><h4 id="dicrc-1">dicrc</h4>
 <p>katakana というフォーマットを作成し, それがデフォルトの出力になるようにします</p>
-<pre><code>dictionary-charset = euc-jp
+<pre tabindex="0"><code>dictionary-charset = euc-jp
 cost-factor = 800
 bos-feature = BOS/EOS
 output-format-type=katakana
@@ -239,7 +239,7 @@ node-format-katakana = %H
 unk-format-katakana = %M
 eos-format-katakana  = \n
 </code></pre><h4 id="コンパイル--テスト-1">コンパイル + テスト</h4>
-<pre><code>% /usr/local/libexec/mecab/mecab-dict-index -f euc-jp -c euc-jp
+<pre tabindex="0"><code>% /usr/local/libexec/mecab/mecab-dict-index -f euc-jp -c euc-jp
 reading ./unk.def ..  2
 emitting double-array: 100% |###########################################| 
 reading ./dic.csv ..  4

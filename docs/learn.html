@@ -47,7 +47,7 @@ MeCab 自身は品詞体系に非依存な設計になっているため,
 <h2 id="seed">Seed辞書の準備</h2>
 <p>MeCabの辞書は CSV で記述されます. Seed 辞書と配布辞書のフォーマットは基本的に同一です.</p>
 <p>以下が辞書のエントリの例です.</p>
-<pre><code>進学校,0,0,0,名詞,一般,*,*,*,*,進学校,シンガクコウ,シンガクコー
+<pre tabindex="0"><code>進学校,0,0,0,名詞,一般,*,*,*,*,進学校,シンガクコウ,シンガクコー
 梅暦,0,0,0,名詞,一般,*,*,*,*,梅暦,ウメゴヨミ,ウメゴヨミ
 気圧,0,0,0,名詞,一般,*,*,*,*,気圧,キアツ,キアツ
 水中翼船,0,0,0,名詞,一般,*,*,*,*,水中翼船,スイチュウヨクセン,スイチューヨクセン
@@ -85,7 +85,7 @@ MeCab 自身は品詞体系に非依存な設計になっているため,
 <p>が定義されています.</p>
 <p>MeCab は活用処理を行いません. 活用する語の場合は, ユーザが事前に活用
 を展開する必要があります.</p>
-<pre><code>連れ出す,0,0,0,動詞,自立,*,*,五段・サ行,基本形,連れ出す,ツレダス,ツレダス
+<pre tabindex="0"><code>連れ出す,0,0,0,動詞,自立,*,*,五段・サ行,基本形,連れ出す,ツレダス,ツレダス
 連れ出さ,0,0,0,動詞,自立,*,*,五段・サ行,未然形,連れ出す,ツレダサ,ツレダサ
 連れ出そ,0,0,0,動詞,自立,*,*,五段・サ行,未然ウ接続,連れ出す,ツレダソ,ツレダソ
 連れ出し,0,0,0,動詞,自立,*,*,五段・サ行,連用形,連れ出す,ツレダシ,ツレダシ
@@ -95,7 +95,7 @@ MeCab 自身は品詞体系に非依存な設計になっているため,
 </code></pre><h2 id="config">設定ファイルの準備</h2>
 <h3 id="dicrc">dicrc</h3>
 <p>辞書のさまざまな動作を指定するファイルです. 以下が最低限の設定です.</p>
-<pre><code>cost-factor = 800
+<pre tabindex="0"><code>cost-factor = 800
 bos-feature = BOS/EOS,*,*,*,*,*,*,*,*
 eval-size = 6
 unk-eval-size = 4
@@ -103,8 +103,8 @@ config-charset = EUC-JP
 </code></pre><ul>
 <li><code>cost-factor</code>: コスト値に変換するときのスケーリングファクターです. 700 から 800 で問題ありません.</li>
 <li><code>bos-feature</code>: 文頭,  文末の素性です. CSV で表現します.</li>
-<li><code>eval-size</code>: 既知語の時, 素性の先頭から何個合致すれば正解と認定するかを指定します.<br>
-通常, 既知語は品詞, 活用といった情報のみが正解すればよいので,  「読み」「発音」といった素性は無視するようにします.<br>
+<li><code>eval-size</code>: 既知語の時, 素性の先頭から何個合致すれば正解と認定するかを指定します. <br>
+通常, 既知語は品詞, 活用といった情報のみが正解すればよいので,  「読み」「発音」といった素性は無視するようにします. <br>
 上記の例では 6 となっているので, IPA品詞体系の品詞, 品詞細分類1, 2, 3, 活用型, 活用形 の 6つが評価されます.</li>
 <li><code>unk-eval-size</code>: 未知語の時, 素性の先頭から何個合致すれば正解と認定するかを指定します.</li>
 <li><code>config-charset</code>: dicrc, char.def, unk.def, pos-id.defファイルの文字コードです.</li>
@@ -116,7 +116,7 @@ config-charset = EUC-JP
 処理を行うか細かく指定することができます.</p>
 <p>ファイルの最初には, カテゴリ名の定義と, 各カテゴリの未知語処理の動作
 を定義します.</p>
-<pre><code>カテゴリ名      動作タイミング(0/1)  グルーピング(0/1)  長さ(0,1, 2... n)
+<pre tabindex="0"><code>カテゴリ名      動作タイミング(0/1)  グルーピング(0/1)  長さ(0,1, 2... n)
 </code></pre><ul>
 <li>カテゴリ名: カテゴリの名前です.<br>
 HIRANA, KATAKANA.. といったカテゴリを定義します.DEFAULT と SPACE は必須のカテゴリです.</li>
@@ -144,17 +144,17 @@ HIRANA, KATAKANA.. といったカテゴリを定義します.DEFAULT と SPACE 
 </ul>
 <p>グルーピングと長さは同時に指定することができます.</p>
 <p>例</p>
-<pre><code>KANJI          0 0 2
+<pre tabindex="0"><code>KANJI          0 0 2
 SYMBOL         1 1 0
 NUMERIC        1 1 0
 ALPHA          1 1 0
 HIRAGANA       0 1 2
 </code></pre><p>次に, 各カテゴリがUCS2のコードポイントのどこに該当するか定義します.</p>
-<pre><code>codepoint デフォルトカテゴリ名 互換カテゴリ名1  互換カテゴリ名2 .. 
+<pre tabindex="0"><code>codepoint デフォルトカテゴリ名 互換カテゴリ名1  互換カテゴリ名2 .. 
 </code></pre><p>もしくは,</p>
-<pre><code>low_codepoint..high_codepoint デフォルトカテゴリ名 互換カテゴリ名1  互換カテゴリ名2 .. 
+<pre tabindex="0"><code>low_codepoint..high_codepoint デフォルトカテゴリ名 互換カテゴリ名1  互換カテゴリ名2 .. 
 </code></pre><p>例</p>
-<pre><code>0x0009 SPACE
+<pre tabindex="0"><code>0x0009 SPACE
 0x30A1..0x30FF  KATAKANA
 0x30FC          KATAKANA HIRAGANA  # ー
 </code></pre><p>コードポイントは UCS2(Unicode)を 0x から始まる16進数で記述します.</p>
@@ -163,7 +163,7 @@ HIRAGANA       0 1 2
 は, デフォルトではカタカナですが, 平仮名を互換カテゴリとして持ちます.
 グルーピング動作の時に互換カテゴリは同じグループとしてみなされます.</p>
 <p>以下が char.def の具体例です.</p>
-<pre><code>DEFAULT        0 1 0  # DEFAULT is a mandatory category!
+<pre tabindex="0"><code>DEFAULT        0 1 0  # DEFAULT is a mandatory category!
 SPACE          0 1 0  
 KANJI          0 0 2
 SYMBOL         1 1 0
@@ -194,7 +194,7 @@ CYRILLIC       1 1 0
 0x30FC          KATAKANA HIRAGANA  # ー
 </code></pre><h3 id="unkdef">unk.def</h3>
 <p>未知語用の辞書です.</p>
-<pre><code>DEFAULT,0,0,0,記号,一般,*,*,*,*,*
+<pre tabindex="0"><code>DEFAULT,0,0,0,記号,一般,*,*,*,*,*
 SPACE,0,0,0,記号,空白,*,*,*,*,*
 KANJI,0,0,0,名詞,一般,*,*,*,*,*
 KANJI,0,0,0,名詞,サ変接続,*,*,*,*,*
@@ -227,7 +227,7 @@ rewrite.def は, 辞書の素性からそれぞれの内部素性へのマッピ
 </ul>
 <p>それぞれのセクションの後に, 1行に1つのマッピングルールが続きます.
 マッピングルールは</p>
-<pre><code>マッチパターン  変換先
+<pre tabindex="0"><code>マッチパターン  変換先
 </code></pre><p>という形式で記述します. マッピングルールは先頭から順に走査されて最初に
 マッチしたものが使われます.</p>
 <p>マッチパターンでは簡単な正規表現がを使うことができます.</p>
@@ -239,7 +239,7 @@ rewrite.def は, 辞書の素性からそれぞれの内部素性へのマッピ
 <p>変換先は <code>$1</code> <code>$2</code>, <code>$3</code>.. というマクロを使い 素性の各要素 (CSVで記された要素)
 の内容を参照することができます.</p>
 <p>例</p>
-<pre><code>[unigram rewrite]
+<pre tabindex="0"><code>[unigram rewrite]
 # 読み,発音をとりのぞいて, 品詞1,2,3,4,活用形,活用型,原形,よみ を使う
 *,*,*,*,*,*,*,*  $1,$2,$3,$4,$5,$6,$7,$8
 # 読みがない場合は無視
@@ -268,7 +268,7 @@ rewrite.def は, 辞書の素性からそれぞれの内部素性へのマッピ
 <li><code>%R?[n]</code>: 左文脈の n番目の素性に展開されます. ただし, 未定義の場合そのテンプレートそのものは使われません.</li>
 </ul>
 <p>例</p>
-<pre><code>UNIGRAM W0:%F[6]
+<pre tabindex="0"><code>UNIGRAM W0:%F[6]
 UNIGRAM W1:%F[0]/%F[6]
 UNIGRAM W2:%F[0],%F?[1]/%F[6]
 UNIGRAM W3:%F[0],%F[1],%F?[2]/%F[6]
@@ -290,7 +290,7 @@ BIGRAM B06:%L[0],%L?[1]/%R[0],%R[1],%R[2],%R?[3]
 ... 
 </code></pre><h2 id="corpus">学習用コーパスの準備</h2>
 <p>学習データは, MeCab のデフォルト出力と同一フォーマットで記述します.</p>
-<pre><code>太郎    名詞,固有名詞,人名,名,*,*,太郎,タロウ,タロー
+<pre tabindex="0"><code>太郎    名詞,固有名詞,人名,名,*,*,太郎,タロウ,タロー
 は      助詞,係助詞,*,*,*,*,は,ハ,ワ
 花子    名詞,固有名詞,人名,名,*,*,花子,ハナコ,ハナコ
 が      助詞,格助詞,一般,*,*,*, が,ガ,ガ
@@ -310,7 +310,7 @@ EOS
 <h2 id="binary">学習用バイナリ辞書の作成</h2>
 <p>現在の作業ディレクトリを WORK とします. WORK 以下に seed と final と
 いう二つのディレクトリを作ってください.</p>
-<pre><code>cd $WORK
+<pre tabindex="0"><code>cd $WORK
 mkdir seed final
 </code></pre><p>seed ディレクトリにさきほど説明した以下のファイルをコピーします.</p>
 <ul>
@@ -319,7 +319,7 @@ mkdir seed final
 <li>学習用データ (ファイル名: corpus)</li>
 </ul>
 <p>例</p>
-<pre><code>% cd $WORK/seed
+<pre tabindex="0"><code>% cd $WORK/seed
 % ls 
 Adj.csv          Interjection.csv   Noun.name.csv    Noun.verbal.csv  Symbol.csv        rewrite.def
 Adnominal.csv    Noun.adjv.csv      Noun.number.csv  Others.csv       Verb.csv          unk.def
@@ -328,7 +328,7 @@ Auxil.csv        Noun.csv           Noun.others.csv  Postp.csv        corpus
 Conjunction.csv  Noun.demonst.csv   Noun.place.csv   Prefix.csv       dicrc
 Filler.csv       Noun.nai.csv       Noun.proper.csv  Suffix.csv       feature.def
 </code></pre><p>以下のコマンドを実行して, 学習用バイナリ辞書を作成します.</p>
-<pre><code>% cd $WORK/seed
+<pre tabindex="0"><code>% cd $WORK/seed
 % /usr/local/libexec/mecab/mecab-dict-index
 
 以下のように -d,  -o を使うこともできます. 
@@ -338,7 +338,7 @@ Filler.csv       Noun.nai.csv       Noun.proper.csv  Suffix.csv       feature.de
 <li><code>-o</code>: 学習用バイナリ辞書が出力されるディレクトリ (デフォルトはカレント)</li>
 </ul>
 <h2 id="crf">CRFパラメータの学習</h2>
-<pre><code>% cd $WORK/seed
+<pre tabindex="0"><code>% cd $WORK/seed
 % /usr/local/libexec/mecab/mecab-cost-train -c 1.0 corpus model
 
 以下のように -d を使って辞書を指定することもできます&lt;
@@ -360,7 +360,7 @@ C を大きくすると, 学習データにできるだけフィットしよう�
 3 とすると, 学習データ中に3回以上出現した素性のみを使います. 適切な
 素性閾値は, 交差検定等のモデル選択手法で発見的に見つけるしかありません.</p>
 <p>学習中, 以下のような情報が出力されます.</p>
-<pre><code>reading corpus ... adding virtual node: 名詞,固有名詞,地域,一般,*,*,東日,トウニチ,トウニチ
+<pre tabindex="0"><code>reading corpus ... adding virtual node: 名詞,固有名詞,地域,一般,*,*,東日,トウニチ,トウニチ
 adding virtual node: 副詞,助詞類接続,*,*,*,*,かなり,カナリ,カナリ
 
 Number of sentences: 32
@@ -384,10 +384,10 @@ iter=4 err=0.68750 F=0.93685 target=233.72722 diff=0.39248
 <li>diff: 目的関数の相対的な差分. この値が 0. 0001 になると学習が終了します.</li>
 </ul>
 <h2 id="dist">配布用辞書の作成</h2>
-<pre><code>% cd $WORK/seed
+<pre tabindex="0"><code>% cd $WORK/seed
 % /usr/local/libexec/mecab/mecab-dict-gen -o ../final -m model
 </code></pre><p>以下のように -d,  -o を使って辞書を指定することもできます</p>
-<pre><code>% /usr/local/libexec/mecab/mecab-dict-gen -o $WORK/final -d $WORK/seed -m $WORK/seed/model
+<pre tabindex="0"><code>% /usr/local/libexec/mecab/mecab-dict-gen -o $WORK/final -d $WORK/seed -m $WORK/seed/model
 </code></pre><ul>
 <li><code>-d</code>: seed 辞書があるディレクトリ (デフォルトはカレント)</li>
 <li><code>-o</code>: 配布用辞書の出力先ディレクトリ</li>
@@ -396,7 +396,7 @@ iter=4 err=0.68750 F=0.93685 target=233.72722 diff=0.39248
 <p>配布用辞書は, seed 辞書と別のディレクトリに出力しなければなりません.
 通常, 配布辞書ディレクトリ final をアーカイブしてユーザに配布します.</p>
 <h2 id="test">解析用バイナリ辞書の作成</h2>
-<pre><code>% cd $WORK/final
+<pre tabindex="0"><code>% cd $WORK/final
 % /usr/local/libexec/mecab/mecab-dict-index 
 
 以下のように -d,  -o を使うこともできます. 
@@ -406,7 +406,7 @@ iter=4 err=0.68750 F=0.93685 target=233.72722 diff=0.39248
 <li><code>-o</code>: 学習用バイナリ辞書が出力されるディレクトリ (デフォルトはカレント)</li>
 </ul>
 <p>今作った辞書を使って実際に解析してみます.</p>
-<pre><code>% mecab -d $WORK/final
+<pre tabindex="0"><code>% mecab -d $WORK/final
 焼酎好きの親父. 
 焼酎    名詞,一般,*,*,*,*,焼酎,ショウチュウ,ショーチュー
 好き    名詞,形容動詞語幹,*,*,*,*,好き, スキ, スキ
@@ -418,12 +418,12 @@ EOS
 <p>テストデータを用意します. テストデータは MeCab の
 デフォルト出力と同一フォーマットで記述します.</p>
 <p>まず, mecab-test-gen を使ってテストコーパス(test)から, 文のみ(test.sen)を抽出します.</p>
-<pre><code>% /usr/local/libexec/mecab/mecab-test-gen &lt; test &gt; test.sen
+<pre tabindex="0"><code>% /usr/local/libexec/mecab/mecab-test-gen &lt; test &gt; test.sen
 </code></pre><p>test.sen をさきほど作った辞書で解析します.</p>
-<pre><code>% mecab -d $WORK/final test.sen &gt; test.result
+<pre tabindex="0"><code>% mecab -d $WORK/final test.sen &gt; test.result
 </code></pre><p>評価スクリプト mecab-system-eval を実行します.
 第一引数がシステムの結果, 第二引数が正解のファイルです.</p>
-<pre><code>% /usr/local/libexec/mecab/mecab-system-eval test.result test
+<pre tabindex="0"><code>% /usr/local/libexec/mecab/mecab-system-eval test.result test
                     precision          recall              F
 LEVEL 0:    98.6887(647112/655710) 98.9793(647112/653785) 98.8338
 LEVEL 1:    98.2163(644014/655710) 98.5055(644014/653785) 98.3607
@@ -443,7 +443,7 @@ LEVEL 4:    96.8367(634968/655710) 97.1218(634968/653785) 96.9791
 同モデルファイルと, お手元の少量の学習データや追加辞書を用いることで, 簡単なドメイン適応が可能となります.</p>
 <p>再学習は, 以下のように -M オプションを用いて以前のモデルファイルを指定します.
 初期学習時に用いた seed 辞書に新規語彙を追加しても構いません. corpus は再学習用の新規コーパスです.</p>
-<pre><code>% cd $WORK/seed
+<pre tabindex="0"><code>% cd $WORK/seed
 % /usr/local/libexec/mecab/mecab-cost-train -c 1.0 -M old_model corpus model
 
 以下のように -d を使って辞書を指定することもできます&lt;

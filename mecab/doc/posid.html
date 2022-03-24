@@ -24,7 +24,7 @@
 <p>配布辞書のディレクトリにある pos-id.def を変更します.</p>
 <p>1行が1つのマッピングルールに対応します. 各パターンは以下のフォーマットで
 記述します.</p>
-<pre><code>マッチパターン  ID
+<pre tabindex="0"><code>マッチパターン  ID
 </code></pre><p>という形式で記述します. マッピングルールは先頭から順に走査されて
 最初にマッチしたものが使われます.
 マッチパターンでは簡単な正規表現がを使うことができます.</p>
@@ -34,11 +34,11 @@
 <li><code>AB</code>: 文字列 AB のみに完全マッチ</li>
 </ul>
 <p><code>pos-id</code> を変更したら, 辞書をリコンパイルする必要があります.</p>
-<pre><code>/usr/local/libexec/mecab/mecab-dict-index
+<pre tabindex="0"><code>/usr/local/libexec/mecab/mecab-dict-index
 </code></pre><h2 id="品詞-id-の参照">品詞 ID の参照</h2>
 <p><a href="format.html">出力フォーマット</a>のマクロ <code>%h</code> を使うことで
 品詞 ID を参照することができます.</p>
-<pre><code>% mecab -F&quot;%m\t%h\n&quot; -E&quot;EOS\n&quot; 
+<pre tabindex="0"><code>% mecab -F&#34;%m\t%h\n&#34; -E&#34;EOS\n&#34; 
 今日もしないとね。
 今日    67
 も      16
@@ -49,18 +49,18 @@
 。
 EOS
 </code></pre><p>また, ライブラリからは <code>mecab_node_t::posid</code> で参照できます.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">mecab_t *mecab;
-mecab_node_t *node;
-
-mecab = mecab_new2(<span style="color:#a31515">&#34;&#34;</span>);
-node = mecab_sparse_tonode(mecab, <span style="color:#a31515">&#34;今日もしないとね&#34;</span>);
-<span style="color:#00f">for</span> (; node; node = node-&gt;next) {
-  fwrite (node-&gt;surface, <span style="color:#00f">sizeof</span>(<span style="color:#2b91af">char</span>), node-&gt;length, stdout);
-  printf(<span style="color:#a31515">&#34;%d</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, node-&gt;posid)
-}
-</code></pre></div><h2 id="pos-iddef-の例">pos-id.def の例</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>mecab_t *mecab;
+</span></span><span style="display:flex;"><span>mecab_node_t *node;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mecab = mecab_new2(<span style="color:#a31515">&#34;&#34;</span>);
+</span></span><span style="display:flex;"><span>node = mecab_sparse_tonode(mecab, <span style="color:#a31515">&#34;今日もしないとね&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#00f">for</span> (; node; node = node-&gt;next) {
+</span></span><span style="display:flex;"><span>  fwrite (node-&gt;surface, <span style="color:#00f">sizeof</span>(<span style="color:#2b91af">char</span>), node-&gt;length, stdout);
+</span></span><span style="display:flex;"><span>  printf(<span style="color:#a31515">&#34;%d</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, node-&gt;posid)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="pos-iddef-の例">pos-id.def の例</h2>
 <p>単純な例</p>
-<pre><code>名詞 1
+<pre tabindex="0"><code>名詞 1
 動詞 2
 形容詞 3
 副詞 4
@@ -71,12 +71,12 @@ node = mecab_sparse_tonode(mecab, <span style="color:#a31515">&#34;今日もし�
 感動詞 9
 * 10
 </code></pre><p>ちょっと複雑な例</p>
-<pre><code>名詞 1
+<pre tabindex="0"><code>名詞 1
 (助詞|助動詞) 2
 (副詞|形容詞|連体詞) 3
 * 4
 </code></pre><p>もっと複雑な例</p>
-<pre><code>その他,間投,*,* 0
+<pre tabindex="0"><code>その他,間投,*,* 0
 フィラー,*,*,* 1
 感動詞,*,*,* 2
 記号,アルファベット,*,* 3

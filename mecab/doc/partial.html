@@ -48,7 +48,7 @@ MeCabは -p (&ndash;partial) オプション付きで起動する必要があり
 </ul>
 <h2 id="例">例</h2>
 <p>品詞の部分に * が指定されると、その単語で切り出し、品詞は適当に最適なものを付与します。</p>
-<pre><code>にわ    *
+<pre tabindex="0"><code>にわ    *
 に      *
 はにわ  *
 にわとり        *
@@ -56,14 +56,14 @@ MeCabは -p (&ndash;partial) オプション付きで起動する必要があり
 いる    *
 EOS
 </code></pre><p>品詞そのものを指定することができます。( &ldquo;*&rdquo; はワイルドカード)</p>
-<pre><code class="language-にわ" data-lang="にわ">に      助詞
+<pre tabindex="0"><code class="language-にわ" data-lang="にわ">に      助詞
 はにわ  *
 にわとり        *
 が      接続詞
 いる    *,非自立
 EOS
 </code></pre><p>品詞のカラムを指定しないと、そのトークンは文断片となり、制約がないときと同じように解析されます。ただし、文断片をまたぐような形態素は出力されません。</p>
-<pre><code>にわ
+<pre tabindex="0"><code>にわ
 には
 にわ
 にわとり
@@ -75,7 +75,7 @@ EOS
 もし制約を満たすものが一つもない場合、ダミーの形態素を作成します。ただしダミーの形態素の品詞情報(素性)は
 制約の情報がそのまま使われます。以下の例では「こんな長い入力を一形態素にしてみる」を
 動詞の一形態素と指定していますが、動詞を生成するような未知語処理ルールが存在しないため、制約の品詞をそのまま出力しています。</p>
-<pre><code>% mecab -p
+<pre tabindex="0"><code>% mecab -p
 こんな長い入力を一形態素にしてみる      動詞
 EOS
 こんな長い入力を一形態素にしてみる      動詞
@@ -83,32 +83,32 @@ EOS
 </code></pre><h3 id="apiによる制約の指定">APIによる制約の指定</h3>
 <p>-pオプションを用いた場合、任意の場所に単語境界が存在しない・必ず存在するといったような
 細かな制限は行えません。より細かい制御を行いたい場合は、Lattice::set_boundary_constraint, Lattice::set_feature_constraint APIを用います。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">MeCab::Lattice *lattice = MeCab::createLattice();
-
-<span style="color:#008000">// boundary の指定 (byte単位で指定)
-</span><span style="color:#008000"></span>lattice-&gt;set_sentence(<span style="color:#a31515">&#34;thisis&#34;</span>);
-
-<span style="color:#008000">// |this|is| で分割されるように強制
-</span><span style="color:#008000"></span>lattice-&gt;set_boundary_constraint(0, MECAB_TOKEN_BOUNDARY);
-lattice-&gt;set_boundary_constraint(1, MECAB_INSIDE_TOKEN);
-lattice-&gt;set_boundary_constraint(2, MECAB_INSIDE_TOKEN);
-lattice-&gt;set_boundary_constraint(3, MECAB_INSIDE_TOKEN);
-lattice-&gt;set_boundary_constraint(4, MECAB_TOKEN_BOUNDARY);
-lattice-&gt;set_boundary_constraint(5, MECAB_INSIDE_TOKEN);
-lattice-&gt;set_boundary_constraint(6, MECAB_TOKEN_BOUNDARY);
-tagger-&gt;parse(lattice);
-
-<span style="color:#008000">// feature の指定 (byte単位で指定)
-</span><span style="color:#008000"></span>lattice-&gt;set_sentence(<span style="color:#a31515">&#34;thisisatest&#34;</span>);
-
-<span style="color:#008000">// |this|is|a|test| で分割され、かつ品詞大分類をすべて名詞にするように強制
-</span><span style="color:#008000"></span>lattice-&gt;set_feature_constraint(0,4,<span style="color:#a31515">&#34;名詞&#34;</span>);
-lattice-&gt;set_feature_constraint(4,6,<span style="color:#a31515">&#34;名詞&#34;</span>);
-lattice-&gt;set_feature_constraint(6,7,<span style="color:#a31515">&#34;名詞&#34;</span>);
-lattice-&gt;set_feature_constraint(7,11,<span style="color:#a31515">&#34;名詞&#34;</span>);
-
-tagger-&gt;parse(lattice);
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>MeCab::Lattice *lattice = MeCab::createLattice();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#008000">// boundary の指定 (byte単位で指定)
+</span></span></span><span style="display:flex;"><span><span style="color:#008000"></span>lattice-&gt;set_sentence(<span style="color:#a31515">&#34;thisis&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#008000">// |this|is| で分割されるように強制
+</span></span></span><span style="display:flex;"><span><span style="color:#008000"></span>lattice-&gt;set_boundary_constraint(0, MECAB_TOKEN_BOUNDARY);
+</span></span><span style="display:flex;"><span>lattice-&gt;set_boundary_constraint(1, MECAB_INSIDE_TOKEN);
+</span></span><span style="display:flex;"><span>lattice-&gt;set_boundary_constraint(2, MECAB_INSIDE_TOKEN);
+</span></span><span style="display:flex;"><span>lattice-&gt;set_boundary_constraint(3, MECAB_INSIDE_TOKEN);
+</span></span><span style="display:flex;"><span>lattice-&gt;set_boundary_constraint(4, MECAB_TOKEN_BOUNDARY);
+</span></span><span style="display:flex;"><span>lattice-&gt;set_boundary_constraint(5, MECAB_INSIDE_TOKEN);
+</span></span><span style="display:flex;"><span>lattice-&gt;set_boundary_constraint(6, MECAB_TOKEN_BOUNDARY);
+</span></span><span style="display:flex;"><span>tagger-&gt;parse(lattice);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#008000">// feature の指定 (byte単位で指定)
+</span></span></span><span style="display:flex;"><span><span style="color:#008000"></span>lattice-&gt;set_sentence(<span style="color:#a31515">&#34;thisisatest&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#008000">// |this|is|a|test| で分割され、かつ品詞大分類をすべて名詞にするように強制
+</span></span></span><span style="display:flex;"><span><span style="color:#008000"></span>lattice-&gt;set_feature_constraint(0,4,<span style="color:#a31515">&#34;名詞&#34;</span>);
+</span></span><span style="display:flex;"><span>lattice-&gt;set_feature_constraint(4,6,<span style="color:#a31515">&#34;名詞&#34;</span>);
+</span></span><span style="display:flex;"><span>lattice-&gt;set_feature_constraint(6,7,<span style="color:#a31515">&#34;名詞&#34;</span>);
+</span></span><span style="display:flex;"><span>lattice-&gt;set_feature_constraint(7,11,<span style="color:#a31515">&#34;名詞&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tagger-&gt;parse(lattice);
+</span></span></code></pre></div>
         </article>
   </div>
 </section>

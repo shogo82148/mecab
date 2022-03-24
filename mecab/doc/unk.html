@@ -32,18 +32,18 @@
 ipadic の場合は、Noun.number.csv の中から、アラビア数字のエントリを消去します。</li>
 <li>char.def を修正し、数字の連続が未知語になるようにします。</li>
 </ul>
-<pre><code>..
+<pre tabindex="0"><code>..
 NUMERIC        1 1 0
 ..
 </code></pre><ul>
 <li>unk.def を修正し、数字のコストを小さくします。</li>
 </ul>
 <p>4カラム目のコスト値を 0以下の小さい値に設定します。</p>
-<pre><code>NUMERIC,1204,1204,0,名詞,数,*,*,*,*,*
+<pre tabindex="0"><code>NUMERIC,1204,1204,0,名詞,数,*,*,*,*,*
 </code></pre><ul>
 <li>辞書をコンパイルします。</li>
 </ul>
-<pre><code>% /usr/local/libexec/mecab/mecab-dict-index 
+<pre tabindex="0"><code>% /usr/local/libexec/mecab/mecab-dict-index 
 </code></pre><h3 id="ascii-文字列はスペースタブのみで分割する-kakasiと同一動作">ASCII 文字列は、スペース/タブのみで分割する (kakasiと同一動作)</h3>
 <ul>
 - 辞書 (*.csv ファイル)からアスキー文字列を含むのエントリを削除します。
@@ -53,14 +53,14 @@ NUMERIC        1 1 0
 ```
 ASCII       1 1 0
 <p>0x0021..0x007E ASCII</p>
-<pre><code>
+<pre tabindex="0"><code>
 - unk.def を修正し、ASCIIのコストを小さくします。
 4カラム目のコスト値を 0以下の小さい値に設定します。
 </code></pre><p>ASCII,1192,1192,0,名詞,サ変接続,<em>,</em>,<em>,</em>,*</p>
-<pre><code>
+<pre tabindex="0"><code>
 - 辞書をコンパイルします。
 </code></pre><p>% /usr/local/libexec/mecab/mecab-dict-index</p>
-<pre><code></code></pre>
+<pre tabindex="0"><code></code></pre>
         </article>
   </div>
 </section>

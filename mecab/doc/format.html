@@ -35,17 +35,17 @@
 それぞれのデフォルト文字列が使用されます.</p>
 <p>これらは, 以下の 2つの方法で指定します.</p>
 <h3 id="コマンドラインから">コマンドラインから</h3>
-<pre><code>% mecab --node-format=STR --bos-format=STR --eos-format=STR --unk-format=STR --eon-format=STR
+<pre tabindex="0"><code>% mecab --node-format=STR --bos-format=STR --eos-format=STR --unk-format=STR --eon-format=STR
 </code></pre><h3 id="mecabrc-に記述する場合">mecabrc に記述する場合</h3>
 <p>任意の文字列 KEY を使い, mecabrc
 に以下のように定義.</p>
-<pre><code>node-format-KEY = STR
+<pre tabindex="0"><code>node-format-KEY = STR
 unk-format-KEY = STR
 eos-format-KEY = STR
 bos-format-KEY = STR
 eon-format-KEY = STR
 </code></pre><p>この KEY をコマンドラインから呼び出す.</p>
-<pre><code>% mecab -Okey 
+<pre tabindex="0"><code>% mecab -Okey 
 </code></pre><h2 id="出力フォーマット">出力フォーマット</h2>
 <table>
 <thead>
@@ -181,13 +181,13 @@ eon-format-KEY = STR
 </tr>
 <tr>
 <td><code>\s</code></td>
-<td>' ' (半角スペース) 設定ファイルに記述するときに使用</td>
+<td>&rsquo; &rsquo; (半角スペース) 設定ファイルに記述するときに使用</td>
 </tr>
 </tbody>
 </table>
 <h2 id="例">例</h2>
 <p>dicrc より抜粋した例</p>
-<pre><code>; yomi
+<pre tabindex="0"><code>; yomi
 node-format-yomi = %pS%f[7]
 unk-format-yomi = %M
 eos-format-yomi  = \n
