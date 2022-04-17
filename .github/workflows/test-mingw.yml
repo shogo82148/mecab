@@ -21,11 +21,11 @@ jobs:
       - uses: msys2/setup-msys2@v2
         with:
           install: >
-            autoconf2.71
-            automake1.16
+            autoconf-wrapper
+            automake-wrapper
+            autotools
             bison
             make
-            automake-wrapper
             mingw-w64-x86_64-gcc
             mingw-w64-x86_64-libtool
             mingw-w64-x86_64-libiconv
