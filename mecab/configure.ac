@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT([mecab], [0.996.6])
+AC_INIT([mecab],[0.996.6])
 AC_CONFIG_SRCDIR([src/mecab.cpp])
 AM_INIT_AUTOMAKE
 AH_TEMPLATE([HAVE_CXX11_ATOMIC_OPS], [])
@@ -92,8 +92,7 @@ MECAB_USE_UTF8_ONLY=""
 fi
 
 AC_ARG_WITH(pkgconfigdir,
-	AC_HELP_STRING([--with-pkgconfigdir],
-	[Use the specified pkgconfig dir (default is libdir/pkgconfig)]),
+	AS_HELP_STRING([--with-pkgconfigdir],[Use the specified pkgconfig dir (default is libdir/pkgconfig)]),
 	[pkgconfigdir=${withval}],
 	[pkgconfigdir='${libdir}/pkgconfig'])
 AC_MSG_NOTICE([pkgconfig directory is ${pkgconfigdir}])
@@ -473,7 +472,7 @@ AC_SUBST(datarootdir)
 AC_SUBST(DIC_VERSION)
 
 AM_CONFIG_HEADER(config.h)
-AC_OUTPUT([
+AC_CONFIG_FILES([
   Makefile
   src/Makefile
   src/Makefile.msvc
@@ -485,7 +484,8 @@ AC_OUTPUT([
   mecab.iss
   mecab-config
   mecab-config.bat
-  mecabrc ],
-  chmod +x mecab-config \
-)
+  mecabrc ])
+AC_CONFIG_COMMANDS([default],[chmod +x mecab-config \
+],[])
+AC_OUTPUT
 
