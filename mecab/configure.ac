@@ -92,9 +92,9 @@ MECAB_USE_UTF8_ONLY=""
 fi
 
 AC_ARG_WITH(pkgconfigdir,
-	AS_HELP_STRING([--with-pkgconfigdir],[Use the specified pkgconfig dir (default is libdir/pkgconfig)]),
-	[pkgconfigdir=${withval}],
-	[pkgconfigdir='${libdir}/pkgconfig'])
+        AS_HELP_STRING([--with-pkgconfigdir],[Use the specified pkgconfig dir (default is libdir/pkgconfig)]),
+        [pkgconfigdir=${withval}],
+        [pkgconfigdir='${libdir}/pkgconfig'])
 AC_MSG_NOTICE([pkgconfig directory is ${pkgconfigdir}])
 MECAB_PKGCONFIG_DIR=${pkgconfigdir}
 AC_SUBST(MECAB_PKGCONFIG_DIR)
@@ -150,16 +150,15 @@ dnl check C++ features
 dnl
 AC_DEFUN([CHECK_CXX_STL], [
   AC_MSG_CHECKING(if ${CXX-c++} supports stl <$1> (required))
-  AC_TRY_COMPILE(
-	[
-	  #include <$1>
-	], [
-	;
-	], [
-	  ac_stl_$1=yes
-	], [
-	  config_error=yes
-	  AC_WARN(${CXX-c++} stl <$1> does not work)
+  AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+          #include <$1>
+        ]], [[
+        ;
+        ]])],[
+          ac_stl_$1=yes
+        ],[
+          config_error=yes
+          AC_MSG_WARN(${CXX-c++} stl <$1> does not work)
         ])
   AC_MSG_RESULT([$ac_stl_$1])
 ])
