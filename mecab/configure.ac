@@ -193,18 +193,17 @@ AC_MSG_RESULT([$ac_template])
 
 # check for const_cast
 AC_MSG_CHECKING([if ${CXX-c++} supports const_cast<> (required)])
-AC_TRY_COMPILE(
-[
-   class foo;
-],[
-   const foo *c=0;
-   foo *c1=const_cast<foo*>(c);
-],[
-  ac_const_cast=yes
-],[
-  AC_WARN(${CXX-c++} const_cast<> does not work)
-  config_error=yes
-])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+          class foo;
+        ]], [[
+          const foo *c=0;
+          foo *c1=const_cast<foo*>(c);
+        ]])],[
+          ac_const_cast=yes
+        ],[
+          config_error=yes
+          AC_MSG_WARN(${CXX-c++} const_cast<> does not work)
+        ])
 AC_MSG_RESULT([$ac_const_cast])
 
 # check for static_cast<>
