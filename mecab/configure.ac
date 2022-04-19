@@ -458,7 +458,7 @@ AC_SUBST(MECAB_DEFAULT_RC)
 AC_SUBST(datarootdir)
 AC_SUBST(DIC_VERSION)
 
-AM_CONFIG_HEADER(config.h)
+AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([
   Makefile
   src/Makefile
