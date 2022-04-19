@@ -291,19 +291,18 @@ if test "$enable_tls$enable_cxx11_tls" = "nono"; then
 fi
 
 AC_MSG_CHECKING([if ${CXX-c++} supports template <class T> (required)])
-AC_TRY_COMPILE(
-[
-   template <class T> T foo (T &i) { return i++; };
-],[
-   int i = 0;
-   double d = 0.0;
-   foo(i); foo(d);
-],[
-  ac_template=yes
-],[
-  AC_WARN(${CXX-c++} template <class T> does not work)
-  config_error=yes
-])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+          template <class T> T foo (T &i) { return i++; };
+        ]],[[
+          int i = 0;
+          double d = 0.0;
+          foo(i); foo(d);
+        ]])],[
+          ac_template=yes
+        ],[
+          config_error=yes
+          AC_MSG_WARN(${CXX-c++} template <class T> does not work)
+        ])
 AC_MSG_RESULT([$ac_template])
 
 AC_MSG_CHECKING([if ${CXX-c++} supports C++11 atomic operations (optional)])
