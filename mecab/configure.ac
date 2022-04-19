@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT([mecab], [0.996.6])
+AC_INIT([mecab],[0.996.6])
 AC_CONFIG_SRCDIR([src/mecab.cpp])
 AM_INIT_AUTOMAKE
 AH_TEMPLATE([HAVE_CXX11_ATOMIC_OPS], [])
@@ -34,15 +34,16 @@ AC_PROG_CC
 AC_PROG_CXX
 AC_PROG_GCC_TRADITIONAL
 AC_PROG_MAKE_SET
-AC_LIBTOOL_WIN32_DLL
-AM_PROG_LIBTOOL
-AC_ISC_POSIX
+LT_INIT([win32-dll])
+AC_SEARCH_LIBS([strerror],[cposix])
 AC_C_BIGENDIAN
-AC_CYGWIN
 AM_ICONV
-AC_LANG_CPLUSPLUS
+AC_LANG([C++])
 AC_LANG(C)
-AC_HEADER_STDC
+# Old autoconf doesn't have this macro, so it is commented out.
+# Except in unusual embedded environments, We can safely include all ISO C90 headers unconditionally.
+# AC_CHECK_INCLUDES_DEFAULT
+AC_PROG_EGREP
 AC_C_CONST
 AC_C_BIGENDIAN
 AC_CHECK_HEADERS(string.h stdlib.h unistd.h fcntl.h stdint.h \
@@ -92,10 +93,9 @@ MECAB_USE_UTF8_ONLY=""
 fi
 
 AC_ARG_WITH(pkgconfigdir,
-	AC_HELP_STRING([--with-pkgconfigdir],
-	[Use the specified pkgconfig dir (default is libdir/pkgconfig)]),
-	[pkgconfigdir=${withval}],
-	[pkgconfigdir='${libdir}/pkgconfig'])
+        AS_HELP_STRING([--with-pkgconfigdir],[Use the specified pkgconfig dir (default is libdir/pkgconfig)]),
+        [pkgconfigdir=${withval}],
+        [pkgconfigdir='${libdir}/pkgconfig'])
 AC_MSG_NOTICE([pkgconfig directory is ${pkgconfigdir}])
 MECAB_PKGCONFIG_DIR=${pkgconfigdir}
 AC_SUBST(MECAB_PKGCONFIG_DIR)
@@ -151,16 +151,15 @@ dnl check C++ features
 dnl
 AC_DEFUN([CHECK_CXX_STL], [
   AC_MSG_CHECKING(if ${CXX-c++} supports stl <$1> (required))
-  AC_TRY_COMPILE(
-	[
-	  #include <$1>
-	], [
-	;
-	], [
-	  ac_stl_$1=yes
-	], [
-	  config_error=yes
-	  AC_WARN(${CXX-c++} stl <$1> does not work)
+  AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+          #include <$1>
+        ]],[[
+        ;
+        ]])],[
+          ac_stl_$1=yes
+        ],[
+          config_error=yes
+          AC_MSG_WARN(${CXX-c++} stl <$1> does not work)
         ])
   AC_MSG_RESULT([$ac_stl_$1])
 ])
@@ -179,276 +178,264 @@ CHECK_CXX_STL(fstream)
 
 # check for const_cast
 AC_MSG_CHECKING([if ${CXX-c++} supports template <class T> (required)])
-AC_TRY_COMPILE(
-[
-   template <class T> T foo (T &i) { return i++; };
-],[
-   int i = 0;
-   double d = 0.0;
-   foo(i); foo(d);
-],[
-  ac_template=yes
-],[
-  AC_WARN(${CXX-c++} template <class T> does not work)
-  config_error=yes
-])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+          template <class T> T foo (T &i) { return i++; };
+        ]],[[
+          int i = 0;
+          double d = 0.0;
+          foo(i); foo(d);
+        ]])],[
+          ac_template=yes
+        ],[
+          config_error=yes
+          AC_MSG_WARN(${CXX-c++} template <class T> does not work)
+        ])
 AC_MSG_RESULT([$ac_template])
 
 # check for const_cast
 AC_MSG_CHECKING([if ${CXX-c++} supports const_cast<> (required)])
-AC_TRY_COMPILE(
-[
-   class foo;
-],[
-   const foo *c=0;
-   foo *c1=const_cast<foo*>(c);
-],[
-  ac_const_cast=yes
-],[
-  AC_WARN(${CXX-c++} const_cast<> does not work)
-  config_error=yes
-])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+          class foo;
+        ]],[[
+          const foo *c=0;
+          foo *c1=const_cast<foo*>(c);
+        ]])],[
+          ac_const_cast=yes
+        ],[
+          config_error=yes
+          AC_MSG_WARN(${CXX-c++} const_cast<> does not work)
+        ])
 AC_MSG_RESULT([$ac_const_cast])
 
 # check for static_cast<>
-AC_MSG_CHECKING(if ${CXX-c++} supports static_cast<> (required))
-AC_TRY_COMPILE(
-[
-   class foo;
-],[
-   foo *c = 0;
-   void *c1 = static_cast<void *>(c);
-],[
-  ac_static_cast=yes
-],[
-  AC_WARN(${CXX-c++} static_cast<> does not work)
-  config_error=yes
-])
+AC_MSG_CHECKING([if ${CXX-c++} supports static_cast<> (required)])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+          class foo;
+        ]],[[
+          foo *c = 0;
+          void *c1 = static_cast<void *>(c);
+        ]])],[
+          ac_static_cast=yes
+        ],[
+          config_error=yes
+          AC_MSG_WARN(${CXX-c++} static_cast<> does not work)
+        ])
 AC_MSG_RESULT([$ac_static_cast])
 
 # check for reinterpret_cast
-AC_MSG_CHECKING(if ${CXX-c++} supports reinterpret_cast<> (required))
-AC_TRY_COMPILE(
-[
-  int *a = 0;
-],[
-   char *p = reinterpret_cast<char *>(a);
-],[
-  ac_reinterpret_cast=yes
-],[
-  AC_WARN(${CXX-c++} reinterpret_cast<> does not work)
-  config_error=yes
-])
+AC_MSG_CHECKING([if ${CXX-c++} supports reinterpret_cast<> (required)])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+          int *a = 0;
+        ]],[[
+          char *p = reinterpret_cast<char *>(a);
+        ]])],[
+          ac_reinterpret_cast=yes
+        ],[
+          config_error=yes
+          AC_MSG_WARN(${CXX-c++} reinterpret_cast<> does not work)
+        ])
 AC_MSG_RESULT([$ac_reinterpret_cast])
 
 # check for namespaces
-AC_MSG_CHECKING(if ${CXX-c++} supports namespaces (required) )
-AC_TRY_COMPILE(
-[
-namespace Foo { struct A {}; }
-using namespace Foo;
-],[
-A a;
-],[
- ac_namespaces=yes
-dnl AC_DEFINE(HAVE_CXX_NAMESPACE)
-],[
- config_error=yes
- ac_namespaces=no
-])
+AC_MSG_CHECKING([if ${CXX-c++} supports namespaces (required)])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+          namespace Foo { struct A {}; }
+          using namespace Foo;
+        ]],[[
+          A a;
+        ]])],[
+          ac_namespaces=yes
+          dnl AC_DEFINE(HAVE_CXX_NAMESPACE)
+        ],[
+          config_error=yes
+          ac_namespaces=no
+        ])
 AC_MSG_RESULT([$ac_namespaces])
 
 dnl __thread keyword
 AC_MSG_CHECKING([if ${CXX-c++} supports __thread (optional)])
-AC_TRY_COMPILE(
-[
-__thread int a = 0;
-],[
-  a = 10;
-],[
- enable_tls=yes
-],[
- enable_tls=no
-])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+          __thread int a = 0;
+        ]],[[
+          a = 10;
+        ]])],[
+          enable_tls=yes
+        ],[
+          enable_tls=no
+        ])
 AC_MSG_RESULT([$enable_tls])
 
 if test "$enable_tls" = "yes"; then
-AC_DEFINE([HAVE_TLS_KEYWORD])
+  AC_DEFINE([HAVE_TLS_KEYWORD])
 fi
 
 dnl C++11 thread_local keyword
 AC_MSG_CHECKING([if ${CXX-c++} supports C++11 thread_local (optional)])
-AC_COMPILE_IFELSE(
-[AC_LANG_PROGRAM([[
-thread_local int a = 0;
-]],[[
-  a = 10;
-]])
-],[
- enable_cxx11_tls=yes
-],[
- enable_cxx11_tls=no
-])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+          thread_local int a = 0;
+        ]],[[
+          a = 10;
+        ]])],[
+          enable_cxx11_tls=yes
+        ],[
+          enable_cxx11_tls=no
+        ])
 AC_MSG_RESULT([$enable_cxx11_tls])
 
 if test "$enable_cxx11_tls" = "yes"; then
-AC_DEFINE([HAVE_CXX11_TLS_KEYWORD])
+  AC_DEFINE([HAVE_CXX11_TLS_KEYWORD])
 fi
 
 if test "$enable_tls$enable_cxx11_tls" = "nono"; then
-AC_MSG_WARN([thread_local and __thread keywords are not supported on this environment. \
-Error handling of MeCab, e.g., MeCab::getLastError(), is not thread safe.])
+  AC_MSG_WARN([thread_local and __thread keywords are not supported on this environment. \
+  Error handling of MeCab, e.g., MeCab::getLastError(), is not thread safe.])
 fi
 
 AC_MSG_CHECKING([if ${CXX-c++} supports template <class T> (required)])
-AC_TRY_COMPILE(
-[
-   template <class T> T foo (T &i) { return i++; };
-],[
-   int i = 0;
-   double d = 0.0;
-   foo(i); foo(d);
-],[
-  ac_template=yes
-],[
-  AC_WARN(${CXX-c++} template <class T> does not work)
-  config_error=yes
-])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+          template <class T> T foo (T &i) { return i++; };
+        ]],[[
+          int i = 0;
+          double d = 0.0;
+          foo(i); foo(d);
+        ]])],[
+          ac_template=yes
+        ],[
+          config_error=yes
+          AC_MSG_WARN(${CXX-c++} template <class T> does not work)
+        ])
 AC_MSG_RESULT([$ac_template])
 
 AC_MSG_CHECKING([if ${CXX-c++} supports C++11 atomic operations (optional)])
-AC_TRY_COMPILE(
-[
-#include <thread>
-#include <atomic>
-],[
-  std::atomic<int> foo(0);
-  std::this_thread::yield();
-],[
-  enable_cxx11_atomic_ops=yes
-],[
-  enable_cxx11_atomic_ops=no
-])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+          #include <thread>
+          #include <atomic>
+        ]],[[
+          std::atomic<int> foo(0);
+          std::this_thread::yield();
+        ]])],[
+          enable_cxx11_atomic_ops=yes
+        ],[
+          enable_cxx11_atomic_ops=no
+        ])
 AC_MSG_RESULT([$enable_cxx11_atomic_ops])
 if test "$enable_cxx11_atomic_ops" = "yes"; then
-AC_DEFINE([HAVE_CXX11_ATOMIC_OPS])
+  AC_DEFINE([HAVE_CXX11_ATOMIC_OPS])
 fi
 
 AC_MSG_CHECKING([if ${CXX-c++} supports GCC native atomic operations (optional)])
-AC_TRY_COMPILE(
-[
-#include <sched.h>
-],[
-  int a = 10;
-  __sync_fetch_and_add(&a, 10);
-  __sync_val_compare_and_swap(&a, 0, 10);
-  sched_yield();
-],[
-  enable_gcc_atomic_ops=yes
-],[
-  enable_gcc_atomic_ops=no
-])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+          #include <sched.h>
+        ]],[[
+          int a = 10;
+          __sync_fetch_and_add(&a, 10);
+          __sync_val_compare_and_swap(&a, 0, 10);
+          sched_yield();
+        ]])],[
+          enable_gcc_atomic_ops=yes
+        ],[
+          enable_gcc_atomic_ops=no
+        ])
 AC_MSG_RESULT([$enable_gcc_atomic_ops])
 if test "$enable_gcc_atomic_ops" = "yes"; then
-AC_DEFINE([HAVE_GCC_ATOMIC_OPS])
+  AC_DEFINE([HAVE_GCC_ATOMIC_OPS])
 fi
 
 AC_MSG_CHECKING([if ${CXX-c++} supports OSX native atomic operations (optional)])
-AC_TRY_COMPILE(
-[
-#include <libkern/OSAtomic.h>
-],[
-  int a = 10;
-  OSAtomicAdd32(10, &a);
-  OSAtomicCompareAndSwapInt(10, 0, &a);
-],[
-  enable_osx_atomic_ops=yes
-],[
-  enable_osx_atomic_ops=no
-])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+          #include <libkern/OSAtomic.h>
+        ]],[[
+          int a = 10;
+          OSAtomicAdd32(10, &a);
+          OSAtomicCompareAndSwapInt(10, 0, &a);
+        ]])],[
+          enable_osx_atomic_ops=yes
+        ],[
+          enable_osx_atomic_ops=no
+        ])
 AC_MSG_RESULT([$enable_osx_atomic_ops])
 if test "$enable_osx_atomic_ops" = "yes"; then
-AC_DEFINE([HAVE_OSX_ATOMIC_OPS])
+  AC_DEFINE([HAVE_OSX_ATOMIC_OPS])
 fi
 
 AC_MSG_CHECKING([if ${CXX-c++} supports GCC fallthrough attribute (optional)])
-AC_TRY_COMPILE(
-[],[
-  int a = 10;
-  switch(a) {
-  case 10:
-    __attribute__((fallthrough));
-  default:
-    break;
-  }
-],[
-  enable_gcc_fallthrough_attribute=yes
-],[
-  enable_gcc_fallthrough_attribute=no
-])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+        ]],[[
+          int a = 10;
+          switch(a) {
+          case 10:
+            __attribute__((fallthrough));
+          default:
+            break;
+          }
+        ]])],[
+          enable_gcc_fallthrough_attribute=yes
+        ],[
+          enable_gcc_fallthrough_attribute=no
+        ])
 AC_MSG_RESULT([$enable_gcc_fallthrough_attribute])
-if test "x$enable_gcc_fallthrough_attribute" = "xyes"; then
-AC_DEFINE([HAVE_GCC_FALLTHROUGH_ATTRIBUTE])
+if test "$enable_gcc_fallthrough_attribute" = "yes"; then
+  AC_DEFINE([HAVE_GCC_FALLTHROUGH_ATTRIBUTE])
 fi
 
 AC_MSG_CHECKING([if ${CXX-c++} supports GNU fallthrough attribute (optional)])
-AC_TRY_COMPILE(
-[],[
-  int a = 10;
-  switch(a) {
-  case 10:
-    [[gnu::fallthrough]];
-  default:
-    break;
-  }
-],[
-  enable_gnu_fallthrough_attribute=yes
-],[
-  enable_gnu_fallthrough_attribute=no
-])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+        ]],[[
+          int a = 10;
+          switch(a) {
+          case 10:
+            [[gnu::fallthrough]];
+          default:
+            break;
+          }
+        ]])],[
+          enable_gnu_fallthrough_attribute=yes
+        ],[
+          enable_gnu_fallthrough_attribute=no
+        ])
 AC_MSG_RESULT([$enable_gnu_fallthrough_attribute])
-if test "x$enable_gnu_fallthrough_attribute" = "xyes"; then
-AC_DEFINE([HAVE_GNU_FALLTHROUGH_ATTRIBUTE])
+if test "$enable_gnu_fallthrough_attribute" = "yes"; then
+  AC_DEFINE([HAVE_GNU_FALLTHROUGH_ATTRIBUTE])
 fi
 
 AC_MSG_CHECKING([if ${CXX-c++} supports clang fallthrough attribute (optional)])
-AC_TRY_COMPILE(
-[],[
-  int a = 10;
-  switch(a) {
-  case 10:
-    [[clang::fallthrough]];
-  default:
-    break;
-  }
-],[
-  enable_clang_fallthrough_attribute=yes
-],[
-  enable_clang_fallthrough_attribute=no
-])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+        ]],[[
+          int a = 10;
+          switch(a) {
+          case 10:
+            [[clang::fallthrough]];
+          default:
+            break;
+          }
+        ]])],[
+          enable_clang_fallthrough_attribute=yes
+        ],[
+          enable_clang_fallthrough_attribute=no
+        ])
 AC_MSG_RESULT([$enable_clang_fallthrough_attribute])
-if test "x$enable_clang_fallthrough_attribute" = "xyes"; then
-AC_DEFINE([HAVE_CLANG_FALLTHROUGH_ATTRIBUTE])
+if test "$enable_clang_fallthrough_attribute" = "yes"; then
+  AC_DEFINE([HAVE_CLANG_FALLTHROUGH_ATTRIBUTE])
 fi
 
 AC_MSG_CHECKING([if ${CXX-c++} supports C++17 fallthrough attribute (optional)])
-AC_TRY_COMPILE(
-[],[
-  int a = 10;
-  switch(a) {
-  case 10:
-    [[fallthrough]];
-  default:
-    break;
-  }
-],[
-  enable_cxx17_fallthrough_attribute=yes
-],[
-  enable_cxx17_fallthrough_attribute=no
-])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+        ]],[[
+          int a = 10;
+          switch(a) {
+          case 10:
+            [[fallthrough]];
+          default:
+            break;
+          }
+        ]])],[
+          enable_cxx17_fallthrough_attribute=yes
+        ],[
+          enable_cxx17_fallthrough_attribute=no
+        ])
 AC_MSG_RESULT([$enable_cxx17_fallthrough_attribute])
-if test "x$enable_cxx17_fallthrough_attribute" = "xyes"; then
-AC_DEFINE([HAVE_CXX17_FALLTHROUGH_ATTRIBUTE])
+if test "$enable_cxx17_fallthrough_attribute" = "yes"; then
+  AC_DEFINE([HAVE_CXX17_FALLTHROUGH_ATTRIBUTE])
 fi
 
 AC_MSG_CHECKING(if ${CXX-c++} environment provides all required features)
@@ -472,8 +459,8 @@ AC_SUBST(MECAB_DEFAULT_RC)
 AC_SUBST(datarootdir)
 AC_SUBST(DIC_VERSION)
 
-AM_CONFIG_HEADER(config.h)
-AC_OUTPUT([
+AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_FILES([
   Makefile
   src/Makefile
   src/Makefile.msvc
@@ -485,7 +472,8 @@ AC_OUTPUT([
   mecab.iss
   mecab-config
   mecab-config.bat
-  mecabrc ],
-  chmod +x mecab-config \
-)
+  mecabrc ])
+AC_CONFIG_COMMANDS([default],[chmod +x mecab-config \
+],[])
+AC_OUTPUT
 
