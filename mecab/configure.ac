@@ -253,16 +253,15 @@ AC_MSG_RESULT([$ac_namespaces])
 
 dnl __thread keyword
 AC_MSG_CHECKING([if ${CXX-c++} supports __thread (optional)])
-AC_TRY_COMPILE(
-[
-__thread int a = 0;
-],[
-  a = 10;
-],[
- enable_tls=yes
-],[
- enable_tls=no
-])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+          __thread int a = 0;
+        ]],[[
+          a = 10;
+        ],[
+          enable_tls=yes
+        ],[
+          enable_tls=no
+        ])
 AC_MSG_RESULT([$enable_tls])
 
 if test "$enable_tls" = "yes"; then
