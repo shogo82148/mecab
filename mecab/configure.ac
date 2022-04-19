@@ -265,31 +265,29 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
 AC_MSG_RESULT([$enable_tls])
 
 if test "$enable_tls" = "yes"; then
-AC_DEFINE([HAVE_TLS_KEYWORD])
+  AC_DEFINE([HAVE_TLS_KEYWORD])
 fi
 
 dnl C++11 thread_local keyword
 AC_MSG_CHECKING([if ${CXX-c++} supports C++11 thread_local (optional)])
-AC_COMPILE_IFELSE(
-[AC_LANG_PROGRAM([[
-thread_local int a = 0;
-]],[[
-  a = 10;
-]])
-],[
- enable_cxx11_tls=yes
-],[
- enable_cxx11_tls=no
-])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+          thread_local int a = 0;
+        ]],[[
+          a = 10;
+        ]])],[
+          enable_cxx11_tls=yes
+        ],[
+          enable_cxx11_tls=no
+        ])
 AC_MSG_RESULT([$enable_cxx11_tls])
 
 if test "$enable_cxx11_tls" = "yes"; then
-AC_DEFINE([HAVE_CXX11_TLS_KEYWORD])
+  AC_DEFINE([HAVE_CXX11_TLS_KEYWORD])
 fi
 
 if test "$enable_tls$enable_cxx11_tls" = "nono"; then
-AC_MSG_WARN([thread_local and __thread keywords are not supported on this environment. \
-Error handling of MeCab, e.g., MeCab::getLastError(), is not thread safe.])
+  AC_MSG_WARN([thread_local and __thread keywords are not supported on this environment. \
+  Error handling of MeCab, e.g., MeCab::getLastError(), is not thread safe.])
 fi
 
 AC_MSG_CHECKING([if ${CXX-c++} supports template <class T> (required)])
