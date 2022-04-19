@@ -418,23 +418,23 @@ if test "$enable_clang_fallthrough_attribute" = "yes"; then
 fi
 
 AC_MSG_CHECKING([if ${CXX-c++} supports C++17 fallthrough attribute (optional)])
-AC_TRY_COMPILE(
-[],[
-  int a = 10;
-  switch(a) {
-  case 10:
-    [[fallthrough]];
-  default:
-    break;
-  }
-],[
-  enable_cxx17_fallthrough_attribute=yes
-],[
-  enable_cxx17_fallthrough_attribute=no
-])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+        ]],[[
+          int a = 10;
+          switch(a) {
+          case 10:
+            [[fallthrough]];
+          default:
+            break;
+          }
+        ]])],[
+          enable_cxx17_fallthrough_attribute=yes
+        ],[
+          enable_cxx17_fallthrough_attribute=no
+        ])
 AC_MSG_RESULT([$enable_cxx17_fallthrough_attribute])
-if test "x$enable_cxx17_fallthrough_attribute" = "xyes"; then
-AC_DEFINE([HAVE_CXX17_FALLTHROUGH_ATTRIBUTE])
+if test "$enable_cxx17_fallthrough_attribute" = "yes"; then
+  AC_DEFINE([HAVE_CXX17_FALLTHROUGH_ATTRIBUTE])
 fi
 
 AC_MSG_CHECKING(if ${CXX-c++} environment provides all required features)
