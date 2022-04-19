@@ -40,7 +40,9 @@ AC_C_BIGENDIAN
 AM_ICONV
 AC_LANG([C++])
 AC_LANG(C)
-AC_CHECK_INCLUDES_DEFAULT
+# Old autoconf doesn't have this macro, so it is commented out.
+# Except in unusual embedded environments, We can safely include all ISO C90 headers unconditionally.
+# AC_CHECK_INCLUDES_DEFAULT
 AC_PROG_EGREP
 AC_C_CONST
 AC_C_BIGENDIAN
