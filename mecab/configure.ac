@@ -341,21 +341,20 @@ if test "$enable_gcc_atomic_ops" = "yes"; then
 fi
 
 AC_MSG_CHECKING([if ${CXX-c++} supports OSX native atomic operations (optional)])
-AC_TRY_COMPILE(
-[
-#include <libkern/OSAtomic.h>
-],[
-  int a = 10;
-  OSAtomicAdd32(10, &a);
-  OSAtomicCompareAndSwapInt(10, 0, &a);
-],[
-  enable_osx_atomic_ops=yes
-],[
-  enable_osx_atomic_ops=no
-])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+          #include <libkern/OSAtomic.h>
+        ]],[[
+          int a = 10;
+          OSAtomicAdd32(10, &a);
+          OSAtomicCompareAndSwapInt(10, 0, &a);
+        ]])],[
+          enable_osx_atomic_ops=yes
+        ],[
+          enable_osx_atomic_ops=no
+        ])
 AC_MSG_RESULT([$enable_osx_atomic_ops])
 if test "$enable_osx_atomic_ops" = "yes"; then
-AC_DEFINE([HAVE_OSX_ATOMIC_OPS])
+  AC_DEFINE([HAVE_OSX_ATOMIC_OPS])
 fi
 
 AC_MSG_CHECKING([if ${CXX-c++} supports GCC fallthrough attribute (optional)])
