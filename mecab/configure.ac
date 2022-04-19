@@ -242,7 +242,7 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
           using namespace Foo;
         ]],[[
           A a;
-        ],[
+        ]])],[
           ac_namespaces=yes
           dnl AC_DEFINE(HAVE_CXX_NAMESPACE)
         ],[
@@ -257,7 +257,7 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
           __thread int a = 0;
         ]],[[
           a = 10;
-        ],[
+        ]])],[
           enable_tls=yes
         ],[
           enable_tls=no
