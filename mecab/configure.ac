@@ -236,20 +236,19 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
 AC_MSG_RESULT([$ac_reinterpret_cast])
 
 # check for namespaces
-AC_MSG_CHECKING(if ${CXX-c++} supports namespaces (required) )
-AC_TRY_COMPILE(
-[
-namespace Foo { struct A {}; }
-using namespace Foo;
-],[
-A a;
-],[
- ac_namespaces=yes
-dnl AC_DEFINE(HAVE_CXX_NAMESPACE)
-],[
- config_error=yes
- ac_namespaces=no
-])
+AC_MSG_CHECKING([if ${CXX-c++} supports namespaces (required)])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+          namespace Foo { struct A {}; }
+          using namespace Foo;
+        ]],[[
+          A a;
+        ],[
+          ac_namespaces=yes
+          dnl AC_DEFINE(HAVE_CXX_NAMESPACE)
+        ],[
+          config_error=yes
+          ac_namespaces=no
+        ])
 AC_MSG_RESULT([$ac_namespaces])
 
 dnl __thread keyword
