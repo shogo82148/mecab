@@ -323,22 +323,21 @@ if test "$enable_cxx11_atomic_ops" = "yes"; then
 fi
 
 AC_MSG_CHECKING([if ${CXX-c++} supports GCC native atomic operations (optional)])
-AC_TRY_COMPILE(
-[
-#include <sched.h>
-],[
-  int a = 10;
-  __sync_fetch_and_add(&a, 10);
-  __sync_val_compare_and_swap(&a, 0, 10);
-  sched_yield();
-],[
-  enable_gcc_atomic_ops=yes
-],[
-  enable_gcc_atomic_ops=no
-])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+          #include <sched.h>
+        ]],[[
+          int a = 10;
+          __sync_fetch_and_add(&a, 10);
+          __sync_val_compare_and_swap(&a, 0, 10);
+          sched_yield();
+        ]])],[
+          enable_gcc_atomic_ops=yes
+        ],[
+          enable_gcc_atomic_ops=no
+        ])
 AC_MSG_RESULT([$enable_gcc_atomic_ops])
 if test "$enable_gcc_atomic_ops" = "yes"; then
-AC_DEFINE([HAVE_GCC_ATOMIC_OPS])
+  AC_DEFINE([HAVE_GCC_ATOMIC_OPS])
 fi
 
 AC_MSG_CHECKING([if ${CXX-c++} supports OSX native atomic operations (optional)])
