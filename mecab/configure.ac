@@ -152,7 +152,7 @@ AC_DEFUN([CHECK_CXX_STL], [
   AC_MSG_CHECKING(if ${CXX-c++} supports stl <$1> (required))
   AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
           #include <$1>
-        ]], [[
+        ]],[[
         ;
         ]])],[
           ac_stl_$1=yes
@@ -179,7 +179,7 @@ CHECK_CXX_STL(fstream)
 AC_MSG_CHECKING([if ${CXX-c++} supports template <class T> (required)])
 AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
           template <class T> T foo (T &i) { return i++; };
-        ]], [[
+        ]],[[
           int i = 0;
           double d = 0.0;
           foo(i); foo(d);
@@ -195,7 +195,7 @@ AC_MSG_RESULT([$ac_template])
 AC_MSG_CHECKING([if ${CXX-c++} supports const_cast<> (required)])
 AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
           class foo;
-        ]], [[
+        ]],[[
           const foo *c=0;
           foo *c1=const_cast<foo*>(c);
         ]])],[
@@ -207,19 +207,18 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
 AC_MSG_RESULT([$ac_const_cast])
 
 # check for static_cast<>
-AC_MSG_CHECKING(if ${CXX-c++} supports static_cast<> (required))
-AC_TRY_COMPILE(
-[
-   class foo;
-],[
-   foo *c = 0;
-   void *c1 = static_cast<void *>(c);
-],[
-  ac_static_cast=yes
-],[
-  AC_WARN(${CXX-c++} static_cast<> does not work)
-  config_error=yes
-])
+AC_MSG_CHECKING([if ${CXX-c++} supports static_cast<> (required)])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+          class foo;
+        ]],[[
+          foo *c = 0;
+          void *c1 = static_cast<void *>(c);
+        ]])],[
+          ac_static_cast=yes
+        ],[
+          config_error=yes
+          AC_MSG_WARN(${CXX-c++} static_cast<> does not work)
+        ])
 AC_MSG_RESULT([$ac_static_cast])
 
 # check for reinterpret_cast
