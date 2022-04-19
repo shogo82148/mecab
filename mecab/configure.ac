@@ -222,18 +222,17 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
 AC_MSG_RESULT([$ac_static_cast])
 
 # check for reinterpret_cast
-AC_MSG_CHECKING(if ${CXX-c++} supports reinterpret_cast<> (required))
-AC_TRY_COMPILE(
-[
-  int *a = 0;
-],[
-   char *p = reinterpret_cast<char *>(a);
-],[
-  ac_reinterpret_cast=yes
-],[
-  AC_WARN(${CXX-c++} reinterpret_cast<> does not work)
-  config_error=yes
-])
+AC_MSG_CHECKING([if ${CXX-c++} supports reinterpret_cast<> (required)])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+          int *a = 0;
+        ]],[[
+          char *p = reinterpret_cast<char *>(a);
+        ]])],[
+          ac_reinterpret_cast=yes
+        ],[
+          config_error=yes
+          AC_MSG_WARN(${CXX-c++} reinterpret_cast<> does not work)
+        ])
 AC_MSG_RESULT([$ac_reinterpret_cast])
 
 # check for namespaces
