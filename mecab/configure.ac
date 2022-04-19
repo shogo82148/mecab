@@ -358,23 +358,23 @@ if test "$enable_osx_atomic_ops" = "yes"; then
 fi
 
 AC_MSG_CHECKING([if ${CXX-c++} supports GCC fallthrough attribute (optional)])
-AC_TRY_COMPILE(
-[],[
-  int a = 10;
-  switch(a) {
-  case 10:
-    __attribute__((fallthrough));
-  default:
-    break;
-  }
-],[
-  enable_gcc_fallthrough_attribute=yes
-],[
-  enable_gcc_fallthrough_attribute=no
-])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+        ]],[[
+          int a = 10;
+          switch(a) {
+          case 10:
+            __attribute__((fallthrough));
+          default:
+            break;
+          }
+        ]])],[
+          enable_gcc_fallthrough_attribute=yes
+        ],[
+          enable_gcc_fallthrough_attribute=no
+        ])
 AC_MSG_RESULT([$enable_gcc_fallthrough_attribute])
-if test "x$enable_gcc_fallthrough_attribute" = "xyes"; then
-AC_DEFINE([HAVE_GCC_FALLTHROUGH_ATTRIBUTE])
+if test "$enable_gcc_fallthrough_attribute" = "yes"; then
+  AC_DEFINE([HAVE_GCC_FALLTHROUGH_ATTRIBUTE])
 fi
 
 AC_MSG_CHECKING([if ${CXX-c++} supports GNU fallthrough attribute (optional)])
