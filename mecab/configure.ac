@@ -306,21 +306,20 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
 AC_MSG_RESULT([$ac_template])
 
 AC_MSG_CHECKING([if ${CXX-c++} supports C++11 atomic operations (optional)])
-AC_TRY_COMPILE(
-[
-#include <thread>
-#include <atomic>
-],[
-  std::atomic<int> foo(0);
-  std::this_thread::yield();
-],[
-  enable_cxx11_atomic_ops=yes
-],[
-  enable_cxx11_atomic_ops=no
-])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+          #include <thread>
+          #include <atomic>
+        ]],[[
+          std::atomic<int> foo(0);
+          std::this_thread::yield();
+        ]])],[
+          enable_cxx11_atomic_ops=yes
+        ],[
+          enable_cxx11_atomic_ops=no
+        ])
 AC_MSG_RESULT([$enable_cxx11_atomic_ops])
 if test "$enable_cxx11_atomic_ops" = "yes"; then
-AC_DEFINE([HAVE_CXX11_ATOMIC_OPS])
+  AC_DEFINE([HAVE_CXX11_ATOMIC_OPS])
 fi
 
 AC_MSG_CHECKING([if ${CXX-c++} supports GCC native atomic operations (optional)])
