@@ -378,23 +378,23 @@ if test "$enable_gcc_fallthrough_attribute" = "yes"; then
 fi
 
 AC_MSG_CHECKING([if ${CXX-c++} supports GNU fallthrough attribute (optional)])
-AC_TRY_COMPILE(
-[],[
-  int a = 10;
-  switch(a) {
-  case 10:
-    [[gnu::fallthrough]];
-  default:
-    break;
-  }
-],[
-  enable_gnu_fallthrough_attribute=yes
-],[
-  enable_gnu_fallthrough_attribute=no
-])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+        ]],[[
+          int a = 10;
+          switch(a) {
+          case 10:
+            [[gnu::fallthrough]];
+          default:
+            break;
+          }
+        ]])],[
+          enable_gnu_fallthrough_attribute=yes
+        ],[
+          enable_gnu_fallthrough_attribute=no
+        ])
 AC_MSG_RESULT([$enable_gnu_fallthrough_attribute])
-if test "x$enable_gnu_fallthrough_attribute" = "xyes"; then
-AC_DEFINE([HAVE_GNU_FALLTHROUGH_ATTRIBUTE])
+if test "$enable_gnu_fallthrough_attribute" = "yes"; then
+  AC_DEFINE([HAVE_GNU_FALLTHROUGH_ATTRIBUTE])
 fi
 
 AC_MSG_CHECKING([if ${CXX-c++} supports clang fallthrough attribute (optional)])
