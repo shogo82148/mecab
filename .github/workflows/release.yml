@@ -74,7 +74,7 @@ jobs:
       - name: check mecab version
         id: mecab
         run: |
-          echo "::set-output name=version::$(cat mecab-version.txt)"
+          echo "version=$(cat mecab-version.txt)" >> "$GITHUB_OUTPUT"
         shell: bash
         working-directory: dist
       - name: untar mecab
