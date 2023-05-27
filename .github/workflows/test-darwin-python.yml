@@ -67,9 +67,11 @@ jobs:
           echo "LIBRARY_PATH=$HOME/local/lib" >> "$GITHUB_ENV"
           echo "CPATH=$HOME/local/include" >> "$GITHUB_ENV"
       - run: python -V
-      - name: build and test
+      - name: build
         run: |
-          python setup.py build
-          python setup.py install
+          python -m pip install .
+        working-directory: mecab/python
+      - name: test
+        run: |
           python test.py
         working-directory: mecab/python
