@@ -14,7 +14,7 @@ namespace MeCab {
 
 #define _ITOA(n)  do { char fbuf[64]; itoa(n, fbuf); return this->write(fbuf); } while (0)
 #define _UITOA(n) do { char fbuf[64]; uitoa(n, fbuf); return this->write(fbuf);} while (0)
-#define _DTOA(n)  do { char fbuf[64]; dtoa(n, fbuf); return this->write(fbuf); } while (0)
+#define _DTOA(n)  do { char fbuf[64]; dtoa(n, fbuf, sizeof(fbuf)); return this->write(fbuf); } while (0)
 
 class StringBuffer {
  private:
