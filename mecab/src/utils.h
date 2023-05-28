@@ -43,8 +43,8 @@ class Param;
 enum { EUC_JP, CP932, UTF8, UTF16, UTF16LE, UTF16BE, ASCII };
 int decode_charset(const char *charset);
 
-void inline dtoa(double val, char *s) {
-  std::sprintf(s, "%-16f", val);
+void inline dtoa(double val, char *s, size_t n) {
+  snprintf(s, n, "%-16f", val);
   char *p = s;
   for (; *p != ' '; ++p) {}
   *p = '\0';

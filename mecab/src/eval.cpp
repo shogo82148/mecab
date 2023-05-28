@@ -75,7 +75,7 @@ class Eval {
     double re = (r == 0) ? 0 : 100.0 * c/r;
     double F = ((pr + re) == 0.0) ? 0 : 2 * pr * re /(pr + re);
     scoped_fixed_array<char, BUF_SIZE> buf;
-    sprintf(buf.get(), "%4.4f(%d/%d) %4.4f(%d/%d) %4.4f\n",
+    snprintf(buf.get(), buf.size(), "%4.4f(%d/%d) %4.4f(%d/%d) %4.4f\n",
             pr,
             static_cast<int>(c),
             static_cast<int>(p),

@@ -20,11 +20,20 @@
 #include "config.h"
 #endif
 
-#if defined(_MSC_VER) || defined(__CYGWIN__)
+#if defined(_MSC_VER)
 #ifndef NOMINMAX
 #define NOMINMAX 1
 #endif
-#define snprintf _snprintf
+# if _MSC_VER < 1900
+#  define snprintf _snprintf
+# endif
+#include <iterator>
+#endif
+
+#if defined(__CYGWIN__)
+#ifndef NOMINMAX
+#define NOMINMAX 1
+#endif
 #include <iterator>
 #endif
 
