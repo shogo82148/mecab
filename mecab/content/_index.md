@@ -222,7 +222,7 @@ MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<re
 - JUMAN 辞書
   - JUMAN 辞書, 京都コーパスに基づき [CRF][CRF] でパラメータ推定した辞書です。 [ダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.6/mecab-jumandic-7.0-20130310.tar.gz)
 - Unidic 辞書
-  - Unidic 辞書, BCCWJコーパスに基づき CRF でパラーメータ推定した辞書です。ダウンロード
+  - Unidic 辞書, BCCWJコーパスに基づき CRF でパラーメータ推定した辞書です。[ダウンロード](https://clrd.ninjal.ac.jp/unidic/)
 
 ### perl/ruby/python/java バインディング
 
