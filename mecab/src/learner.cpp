@@ -248,7 +248,7 @@ class CRFLearner {
                                      &alpha[0], obj,
                                      &expected[0], false, C);
 
-      CHECK_DIE(ret >= 0) << "unexpected error in LBFGS routin";
+      CHECK_DIE(ret >= 0) << "unexpected error in LBFGS routine";
 
       if (ret == 0) {
         break;

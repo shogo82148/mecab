@@ -113,7 +113,7 @@ bool EncoderLearnerTagger::read(std::istream *is,
       }
     }
 
-    // cannot find node even using UNKNOWN WORD PROSESSING
+    // cannot find node even using UNKNOWN WORD PROCESSING
     if (!found) {
       LearnerNode *node = allocator_->newNode();
       node->surface  = begin_ + pos;
