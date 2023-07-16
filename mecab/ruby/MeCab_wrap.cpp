@@ -6755,6 +6755,6 @@ SWIGEXPORT void Init_MeCab(void) {
   SwigClassTagger.mark = 0;
   SwigClassTagger.destroy = (void (*)(void *)) free_MeCab_Tagger;
   SwigClassTagger.trackObjects = 0;
-  rb_define_const(mMeCab, "VERSION", SWIG_FromCharPtr("0.996.7"));
+  rb_define_const(mMeCab, "VERSION", SWIG_FromCharPtr("0.996.8"));
 }
 

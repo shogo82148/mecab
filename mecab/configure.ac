@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT([mecab],[0.996.7])
+AC_INIT([mecab],[0.996.8])
 AC_CONFIG_SRCDIR([src/mecab.cpp])
 AM_INIT_AUTOMAKE
 AH_TEMPLATE([HAVE_CXX11_ATOMIC_OPS], [])
@@ -26,7 +26,7 @@ DIC_VERSION="102"
 # - If binary compatibility has been broken (eg removed or changed interfaces)
 #   change to C+1:0:0
 # - If the interface is the same as the previous version, change to C:R+1:A
-LTVERSION="2:1:0"
+LTVERSION="2:2:0"
 AC_SUBST(LTVERSION)
 
 dnl Checks for programs.
