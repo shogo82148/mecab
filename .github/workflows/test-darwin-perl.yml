@@ -31,7 +31,7 @@ jobs:
           - "5.22"
           - "5.20"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: setup
         run: .github/setup-darwin.sh
 

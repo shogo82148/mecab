@@ -18,7 +18,7 @@ jobs:
     runs-on: windows-2019
     steps:
       - run: git config --global core.autoCRLF false
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: actions/cache@v3
         id: cache
