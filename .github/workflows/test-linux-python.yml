@@ -27,7 +27,7 @@ jobs:
           - "3.7"
     steps:
       - run: sudo apt-get install gettext
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: restore cache
         id: cache
