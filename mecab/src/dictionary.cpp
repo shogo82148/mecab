@@ -65,18 +65,10 @@ int progress_bar_darts(size_t current, size_t total) {
   return progress_bar("emitting double-array", current, total);
 }
 
-#if defined(_MSC_VER)
-#  if _MSC_VER >= 1930 // Visual Studio 2022 version 17.0.1
-#    define HAS_STD_FUNCTION 1
-#  else
-#    define HAS_STD_FUNCTION 0
-#  endif
+#if defined(__cplusplus) && __cplusplus >= 201103L
+#  define HAS_STD_FUNCTION 1
 #else
-#  if defined(__cplusplus) && __cplusplus >= 201103L
-#    define HAS_STD_FUNCTION 1
-#  else
-#    define HAS_STD_FUNCTION 0
-#  endif
+#  define HAS_STD_FUNCTION 0
 #endif
 
 #if HAS_STD_FUNCTION
