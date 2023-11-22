@@ -30,16 +30,16 @@ set PATH=%GITHUB_WORKSPACE%\dist\zip\;%PATH%
 cd %GITHUB_WORKSPACE%\dist\scripts
 if "%BUILD_TYPE%" == "x64" (
     py -3.8-64 -m pip install -U setuptools wheel pip
-    py -3.8-64 setup.py bdist_wheel
+    py -3.8-64 -m pip wheel
     py -3.7-64 -m pip install -U setuptools wheel pip
-    py -3.7-64 setup.py bdist_wheel
+    py -3.7-64 -m pip wheel
     py -3.6-64 -m pip install -U setuptools wheel pip
-    py -3.6-64 setup.py bdist_wheel
+    py -3.6-64 -m pip wheel
 ) else if "%BUILD_TYPE%" == "x86" (
     py -3.8-32 -m pip install -U setuptools wheel pip
-    py -3.8-32 setup.py bdist_wheel
+    py -3.8-32 -m pip wheel
     py -3.7-32 -m pip install -U setuptools wheel pip
-    py -3.7-32 setup.py bdist_wheel
+    py -3.7-32 -m pip wheel
     py -3.6-32 -m pip install -U setuptools wheel pip
-    py -3.6-32 setup.py bdist_wheel
+    py -3.6-32 -m pip wheel
 )
