@@ -64,6 +64,15 @@ int progress_bar_darts(size_t current, size_t total) {
   return progress_bar("emitting double-array", current, total);
 }
 
+#if defined(__cplusplus) && __cplusplus >= 201103L
+template <typename T1, typename T2>
+struct pair_1st_cmp: public std::binary_function<bool, T1, T2> {
+  bool operator()(const std::pair<T1, T2> &x1,
+                  const std::pair<T1, T2> &x2)  {
+    return x1.first < x2.first;
+  }
+};
+#else
 template <typename T1, typename T2>
 struct pair_1st_cmp: public std::function<bool(T1, T2)> {
   bool operator()(const std::pair<T1, T2> &x1,
@@ -71,6 +80,7 @@ struct pair_1st_cmp: public std::function<bool(T1, T2)> {
     return x1.first < x2.first;
   }
 };
+#endif
 }  // namespace
 
 bool Dictionary::open(const char *file, const char *mode) {
