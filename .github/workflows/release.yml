@@ -118,5 +118,5 @@ jobs:
           upload_url: ${{ github.event.release.upload_url }}
           asset_path: |
             dist/mecab-msvc-*.zip
-            dist/scripts/dist/*.whl
+            dist/scripts/*.whl
         if: github.event_name == 'release'
