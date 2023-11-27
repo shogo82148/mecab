@@ -111,7 +111,9 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: python-wheel-${{ matrix.machine }}
-          path: dist/scripts/dist
+          path: |
+            dist/mecab-msvc-*.zip
+            dist/scripts/*.whl
       - name: Upload Release Assets
         uses: shogo82148/actions-upload-release-asset@v1
         with:
