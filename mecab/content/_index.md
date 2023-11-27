@@ -87,6 +87,9 @@ MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<re
 
 ## 新着情報 {#news}
 
+- **2023-11-25** MeCab 0.996.9
+  - [C++11で非推奨,C++17で削除された `std::binary_function` を削除](https://github.com/shogo82148/mecab/pull/102)
+  - [Python 3.12, 3.11, 3.10, 3.9 向けの wheel 追加、Python 3.7, 3.6向けの wheelを削除](https://github.com/shogo82148/mecab/pull/101)
 - **2023-07-15** MeCab 0.996.8
   - [jumandicの助動詞・無活用型のエントリを修正](https://github.com/shogo82148/mecab/pull/96)
 - **2023-05-28** MeCab 0.996.7
