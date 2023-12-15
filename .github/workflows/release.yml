@@ -42,7 +42,7 @@ jobs:
           mkdir -p ../dist/mecab-jumandic/
           mv mecab-jumandic-*.tar.gz ../dist/mecab-jumandic/
         working-directory: mecab-jumandic
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: dist
           path: dist
@@ -104,11 +104,11 @@ jobs:
         env:
           BUILD_TYPE: ${{ matrix.machine }}
           MECAB_VERSION: ${{ steps.mecab.outputs.version }}
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: mecab-msvc-${{ matrix.machine }}-${{ steps.mecab.outputs.version }}.zip
           path: dist/mecab-msvc-${{ matrix.machine }}-${{ steps.mecab.outputs.version }}.zip
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: python-wheel-${{ matrix.machine }}
           path: |
