@@ -27,6 +27,9 @@ jobs:
           - "11"
           - "17"
           - "21"
+        exclude:
+          - distribution: temurin
+            java: "8"
     steps:
       - run: sudo apt-get install gettext
       - uses: actions/checkout@v4
