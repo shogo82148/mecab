@@ -15,16 +15,23 @@ on:
 jobs:
   test:
     name: Test
-    runs-on: macos-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        python:
-          - "3.12"
-          - "3.11"
-          - "3.10"
-          - "3.9"
-          - "3.8"
+        include:
+          - os: macos-latest
+            python: "3.12"
+          - os: macos-latest
+            python: "3.11"
+          - os: macos-latest
+            python: "3.10"
+          - os: macos-latest
+            python: "3.9"
+          - os: macos-latest
+            python: "3.8"
+          - os: macos-13
+            python: "3.7"
     steps:
       - uses: actions/checkout@v4
       - name: setup
