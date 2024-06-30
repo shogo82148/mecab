@@ -5,6 +5,11 @@ on:
   release:
     types: [created]
 
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+
 jobs:
   build:
     name: build
@@ -51,6 +56,12 @@ jobs:
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_path: |
+            dist/**/*.tar.gz
+        if: github.event_name == 'release'
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: |
             dist/**/*.tar.gz
         if: github.event_name == 'release'
 
@@ -119,6 +130,13 @@ jobs:
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_path: |
+            dist/mecab-msvc-*.zip
+            dist/scripts/*.whl
+        if: github.event_name == 'release'
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: |
             dist/mecab-msvc-*.zip
             dist/scripts/*.whl
         if: github.event_name == 'release'
