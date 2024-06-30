@@ -42,7 +42,7 @@ jobs:
         with:
           path: |
             ~/local
-          key: v1-mecab-${{ runner.os }}-${{ hashFiles('mecab/src/*.cpp', 'mecab/src/*.h') }}
+          key: v1-mecab-${{ matrix.os }}-${{ hashFiles('mecab/src/*.cpp', 'mecab/src/*.h') }}
 
       - name: configure PATH
         run: |
