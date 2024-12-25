@@ -82,5 +82,6 @@ jobs:
         working-directory: mecab/python
       - name: test
         run: |
+          mecab -D # show dictionary information
           python test.py
         working-directory: mecab/python
