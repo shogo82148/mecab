@@ -21,6 +21,8 @@ jobs:
       matrix:
         include:
           - os: macos-latest
+            ruby: "3.4"
+          - os: macos-latest
             ruby: "3.3"
           - os: macos-latest
             ruby: "3.2"
