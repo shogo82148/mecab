@@ -13,7 +13,7 @@ try:
 
     t = MeCab.Tagger (" ".join(sys.argv))
 
-    print(t.parse(sentence))
+    print(t.parse(sentence).encode('utf-8', errors='replace').decode('utf-8'))
 
     m = t.parseToNode(sentence)
     while m:
