@@ -10,7 +10,7 @@ maintainers = [
 ]
 description = "a Python binding for unofficial fork of MeCab"
 readme = "README.md"
-license = "GPL-2.0-only OR LGPL-2.1-only OR BSD-3-Clause"
+license = { text = "GPL-2.0-only OR LGPL-2.1-only OR BSD-3-Clause" }
 classifiers = [
   "Development Status :: 3 - Alpha",
   "License :: OSI Approved :: BSD License",
