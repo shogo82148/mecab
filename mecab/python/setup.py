@@ -9,7 +9,7 @@ def cmd1(command):
 def cmd2(command):
     return cmd1(command).split()
 
-setup(name = "mecab-python",
+setup(
     version = cmd1("mecab-config --version"),
     py_modules=["MeCab"],
     ext_modules = [
