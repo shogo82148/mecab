@@ -1,3 +1,28 @@
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "mecab"
+dynamic = ["version"]
+maintainers = [
+  {name = "ICHINOSE Shogo", email = "shogo82148@gmail.com" }
+]
+description = "a Python binding for unofficial fork of MeCab"
+readme = "README.md"
+license = { text = "GPL-2.0-only OR LGPL-2.1-only OR BSD-3-Clause" }
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "License :: OSI Approved :: BSD License",
+  "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+  "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)",
+  "Operating System :: Microsoft :: Windows :: Windows 10",
+  "Operating System :: MacOS :: MacOS X",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Text Processing"
+]

@@ -65,6 +65,19 @@ jobs:
             dist/**/*.tar.gz
         if: github.event_name == 'release'
 
+  manylinux:
+    name: manylinux
+    runs-on: ubuntu-24.04
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - name: build wheel
+        run: docker run --rm -v $PWD:/mecab quay.io/pypa/manylinux2014_x86_64 /mecab/.github/build-wheel-many-linux.sh
+
   windows:
     name: windows
     runs-on: windows-2019
