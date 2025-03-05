@@ -65,8 +65,8 @@ jobs:
             dist/**/*.tar.gz
         if: github.event_name == 'release'
 
-  manylinux:
-    name: manylinux
+  manylinux-amd64:
+    name: manylinux-amd64
     runs-on: ubuntu-24.04
     needs: build
     steps:
@@ -79,7 +79,25 @@ jobs:
         run: docker run --rm -v $PWD:/mecab quay.io/pypa/manylinux2014_x86_64 /mecab/.github/build-wheel-many-linux.sh
       - uses: actions/upload-artifact@v4
         with:
-          name: python-wheel-manylinux-x64
+          name: python-wheel-manylinux-amd64
+          path: |
+            manylinux-wheels/*.whl
+
+  manylinux-arm64:
+    name: manylinux-arm64
+    runs-on: ubuntu-24.04-arm64
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - name: build wheel
+        run: docker run --rm -v $PWD:/mecab quay.io/pypa/manylinux2014_aarch64 /mecab/.github/build-wheel-many-linux.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: python-wheel-manylinux-arm64
           path: |
             manylinux-wheels/*.whl
 
