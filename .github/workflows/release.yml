@@ -77,6 +77,11 @@ jobs:
           path: dist
       - name: build wheel
         run: docker run --rm -v $PWD:/mecab quay.io/pypa/manylinux2014_x86_64 /mecab/.github/build-wheel-many-linux.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: python-wheel-manylinux-x64
+          path: |
+            manylinux-wheels/*.whl
 
   windows:
     name: windows
@@ -134,9 +139,8 @@ jobs:
           path: dist/mecab-msvc-${{ matrix.machine }}-${{ steps.mecab.outputs.version }}.zip
       - uses: actions/upload-artifact@v4
         with:
-          name: python-wheel-${{ matrix.machine }}
+          name: python-wheel-windows-${{ matrix.machine }}
           path: |
-            dist/mecab-msvc-*.zip
             dist/scripts/*.whl
       - name: Upload Release Assets
         uses: shogo82148/actions-upload-release-asset@v1
