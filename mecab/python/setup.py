@@ -2,6 +2,7 @@
 
 from setuptools import setup, Extension
 import subprocess
+import os
 
 def cmd1(command):
     return subprocess.check_output(command, shell=True).decode().rstrip()
