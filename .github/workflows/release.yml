@@ -101,6 +101,32 @@ jobs:
           path: |
             manylinux-wheels/*.whl
 
+  macos:
+    name: macos
+    runs-on: macos-15
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - name: check mecab version
+        id: mecab
+        run: |
+          echo "version=$(cat mecab-version.txt)" >> "$GITHUB_OUTPUT"
+        shell: bash
+        working-directory: dist
+      - name: build wheels
+        run: ./.github/build-wheel-macos.sh
+        env:
+          MECAB_VERSION: ${{ steps.mecab.outputs.version }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: python-wheel-macos
+          path: |
+            wheels/*.whl
+
   windows:
     name: windows
     runs-on: windows-2019
