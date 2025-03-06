@@ -9,6 +9,13 @@ def cmd1(command):
 def cmd2(command):
     return cmd1(command).split()
 
+# Windows requires special prep
+if os.name == 'nt':
+    data_files = [(r"lib\site-packages",
+                  [r"{}\bin\libmecab.dll".format(cmd1("mecab-config --prefix"))])]
+else:
+    data_files = []
+
 setup(
     version = cmd1("mecab-config --version"),
     py_modules=["MeCab"],
@@ -18,4 +25,5 @@ setup(
             include_dirs=cmd2("mecab-config --inc-dir"),
             library_dirs=cmd2("mecab-config --libs-only-L"),
             libraries=cmd2("mecab-config --libs-only-l"))
-        ])
+        ],
+    data_files=data_files)
