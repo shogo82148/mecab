@@ -6,9 +6,9 @@
     ) else if "%~1" == "--cc" (
         echo cl.exe
     ) else if "%~1" == "--prefix" (
-        rem TODO
+        echo %~dp0
     ) else if "%~1" == "--exec-prefix" (
-        rem TODO
+        echo %~dp0
     ) else if "%~1" == "--version" (
         echo @VERSION@
         exit /B 0
