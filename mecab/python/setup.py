@@ -12,8 +12,8 @@ def cmd2(command):
 
 # Windows requires special prep
 if os.name == 'nt':
-    data_files = [(r"lib\site-packages",
-                  [r"{}\libmecab.dll".format(cmd1("mecab-config --prefix"))])]
+    data_files = [("lib/site-packages",
+                  ["libmecab.dll"])]
 else:
     data_files = []
 
