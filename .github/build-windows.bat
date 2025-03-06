@@ -26,6 +26,7 @@ copy %GITHUB_WORKSPACE%\.github\mecabrc zip
 cd zip
 7z a ..\mecab-msvc-%BUILD_TYPE%-%MECAB_VERSION%.zip *
 
+rem Build python wheels
 set PATH=%GITHUB_WORKSPACE%\dist\zip\;%PATH%
 cd %GITHUB_WORKSPACE%\dist\scripts
 copy %GITHUB_WORKSPACE%\dist\mecab\src\*.dll .
