@@ -246,6 +246,56 @@ jobs:
             dist/scripts/*.whl
         if: github.event_name == 'release'
 
+  publish-to-pypi:
+    name: Publish Python 🐍 distribution 📦 to TestPyPI
+    if: github.event_name == 'release'
+    needs:
+      - python
+      - manylinux-amd64
+      - manylinux-arm64
+      - macos
+      - windows
+    runs-on: ubuntu-latest
+
+    environment:
+      name: pypi
+      url: https://test.pypi.org/p/mecab
+  
+    steps:
+      # Download wheels from previous jobs
+      - name: download source distribution
+        uses: actions/download-artifact@v4
+        with:
+          name: python-source
+      - name: download manylinux amd64 wheels
+        uses: actions/download-artifact@v4
+        with:
+          name: python-wheel-manylinux-amd64 
+          path: dist
+      - name: download manylinux arm64 wheels
+        uses: actions/download-artifact@v4
+        with:
+          name: python-wheel-manylinux-arm64
+          path: dist
+      - name: download macos wheels
+        uses: actions/download-artifact@v4
+        with:
+          name: python-wheel-macos
+          path: dist
+      - name: download windows x64 wheels
+        uses: actions/download-artifact@v4
+        with:
+          name: python-wheel-windows-x64
+          path: dist
+      - name: download windows x86 wheels
+        uses: actions/download-artifact@v4
+        with:
+          name: python-wheel-windows-x86
+          path: dist
+
+      - name: Publish distribution 📦 to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+
   publish-to-testpypi:
     name: Publish Python 🐍 distribution 📦 to TestPyPI
     needs:
@@ -291,10 +341,6 @@ jobs:
         with:
           name: python-wheel-windows-x86
           path: dist
-
-      - run: |
-          cd dist
-          ls -la
 
       - name: Publish distribution 📦 to TestPyPI
         uses: pypa/gh-action-pypi-publish@release/v1
