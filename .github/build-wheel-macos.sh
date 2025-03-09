@@ -12,7 +12,7 @@ ARM_TRIPLET=arm64-apple-macos11
 tar xzvf "dist/mecab/mecab-$MECAB_VERSION.tar.gz"
 
 # build MeCab
-{
+(
   cd "mecab-$MECAB_VERSION"
   rm -rf src/.libs-arm64 src/.libs-x86_64 src/.libs.combined
 
@@ -53,14 +53,14 @@ tar xzvf "dist/mecab/mecab-$MECAB_VERSION.tar.gz"
   mv src/.libs.combined src/.libs
 
   sudo make install
-}
+)
 
 pwd
 ls -la
 
 # install Python binding
 tar xzvf "dist/scripts/mecab-python-$MECAB_VERSION.tar.gz"
-{
+(
   cd "mecab-python-$MECAB_VERSION"
   python -m pip install --upgrade setuptools wheel pip setuptools-scm
   python -m pip install cibuildwheel==2.23.0
@@ -68,4 +68,4 @@ tar xzvf "dist/scripts/mecab-python-$MECAB_VERSION.tar.gz"
   # don't bother with pypy wheels
   export CIBW_SKIP="pp*"
   python -m cibuildwheel --platform macos --archs x86_64,arm64,universal2 --output-dir ../dist
-}
+)
