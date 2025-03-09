@@ -125,7 +125,7 @@ jobs:
         with:
           name: python-wheel-macos
           path: |
-            wheels/*.whl
+            dist/*.whl
 
   windows:
     name: windows

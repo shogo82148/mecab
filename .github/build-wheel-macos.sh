@@ -53,9 +53,12 @@ mv src/.libs.combined src/.libs
 sudo make install
 cd ../..
 
+# install Python binding
+tar xzvf "dist/scripts/mecab-python-$MECAB_VERSION.tar.gz"
+cd "mecab-python-$MECAB_VERSION"
 python -m pip install --upgrade setuptools wheel pip setuptools-scm
-python -m pip install cibuildwheel==2.21.3
+python -m pip install cibuildwheel==2.23.0
 
 # don't bother with pypy wheels
 export CIBW_SKIP="pp*"
-python -m cibuildwheel --platform macos --archs x86_64,arm64,universal2 --output-dir dist
+python -m cibuildwheel --platform macos --archs x86_64,arm64,universal2 --output-dir ../dist
