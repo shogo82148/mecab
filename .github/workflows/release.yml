@@ -65,6 +65,34 @@ jobs:
             dist/**/*.tar.gz
         if: github.event_name == 'release'
 
+  python:
+    name: build python source distribution
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - name: check mecab version
+        id: mecab
+        run: |
+          echo "version=$(cat mecab-version.txt)" >> "$GITHUB_OUTPUT"
+        shell: bash
+        working-directory: dist
+      - name: build wheels
+        run: |
+          tar xzvf "dist/scripts/mecab-python-$MECAB_VERSION.tar.gz"
+          cd "mecab-python-$MECAB_VERSION"
+          python -m build --sdist --outdir ../dist
+        env:
+          MECAB_VERSION: ${{ steps.mecab.outputs.version }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: python-source
+          path: |
+            dist/*.tar.gz
+
   manylinux-amd64:
     name: manylinux-amd64
     runs-on: ubuntu-24.04
@@ -217,6 +245,10 @@ jobs:
   
     steps:
       # Download wheels from previous jobs
+      - name: download source distribution
+        uses: actions/download-artifact@v4
+        with:
+          name: python-source
       - name: download manylinux amd64 wheels
         uses: actions/download-artifact@v4
         with:
