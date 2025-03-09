@@ -249,6 +249,7 @@ jobs:
   publish-to-testpypi:
     name: Publish Python 🐍 distribution 📦 to TestPyPI
     needs:
+      - python
       - manylinux-amd64
       - manylinux-arm64
       - macos
