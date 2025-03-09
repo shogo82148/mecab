@@ -55,6 +55,9 @@ tar xzvf "dist/mecab/mecab-$MECAB_VERSION.tar.gz"
   sudo make install
 }
 
+pwd
+ls -la
+
 # install Python binding
 tar xzvf "dist/scripts/mecab-python-$MECAB_VERSION.tar.gz"
 {
