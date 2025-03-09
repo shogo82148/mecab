@@ -83,7 +83,16 @@ jobs:
           echo "version=$(cat mecab-version.txt)" >> "$GITHUB_OUTPUT"
         shell: bash
         working-directory: dist
-      - name: build wheels
+      - name: build MeCab
+        run: |
+          tar xzvf "dist/mecab/mecab-$MECAB_VERSION.tar.gz"
+          cd "mecab-$MECAB_VERSION"
+          ./configure
+          make -j$(nproc) all
+          sudo make install
+        env:
+          MECAB_VERSION: ${{ steps.mecab.outputs.version }}
+      - name: build python source distribution
         run: |
           tar xzvf "dist/scripts/mecab-python-$MECAB_VERSION.tar.gz"
           cd "mecab-python-$MECAB_VERSION"
