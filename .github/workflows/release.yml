@@ -87,6 +87,7 @@ jobs:
         run: |
           tar xzvf "dist/scripts/mecab-python-$MECAB_VERSION.tar.gz"
           cd "mecab-python-$MECAB_VERSION"
+          python3 -m pip install build
           python -m build --sdist --outdir ../dist
         env:
           MECAB_VERSION: ${{ steps.mecab.outputs.version }}
