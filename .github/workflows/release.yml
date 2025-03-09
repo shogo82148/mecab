@@ -247,7 +247,7 @@ jobs:
         if: github.event_name == 'release'
 
   publish-to-pypi:
-    name: Publish Python 🐍 distribution 📦 to TestPyPI
+    name: Publish Python 🐍 distribution 📦 to PyPI
     if: github.event_name == 'release'
     needs:
       - python
