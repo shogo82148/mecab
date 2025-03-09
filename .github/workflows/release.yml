@@ -65,6 +65,112 @@ jobs:
             dist/**/*.tar.gz
         if: github.event_name == 'release'
 
+  python:
+    name: build python source distribution
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - name: check mecab version
+        id: mecab
+        run: |
+          echo "version=$(cat mecab-version.txt)" >> "$GITHUB_OUTPUT"
+        shell: bash
+        working-directory: dist
+      - name: build MeCab
+        run: |
+          tar xzvf "dist/mecab/mecab-$MECAB_VERSION.tar.gz"
+          cd "mecab-$MECAB_VERSION"
+          ./configure
+          make -j$(nproc) all
+          sudo make install
+        env:
+          MECAB_VERSION: ${{ steps.mecab.outputs.version }}
+      - name: build python source distribution
+        run: |
+          tar xzvf "dist/scripts/mecab-python-$MECAB_VERSION.tar.gz"
+          cd "mecab-python-$MECAB_VERSION"
+          python3 -m pip install build
+          python -m build --sdist --outdir ../dist
+        env:
+          MECAB_VERSION: ${{ steps.mecab.outputs.version }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: python-source
+          path: |
+            dist/*.tar.gz
+
+  manylinux-amd64:
+    name: manylinux-amd64
+    runs-on: ubuntu-24.04
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - name: build wheel
+        run: docker run --rm -v $PWD:/mecab quay.io/pypa/manylinux2014_x86_64 /mecab/.github/build-wheel-many-linux.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: python-wheel-manylinux-amd64
+          path: |
+            manylinux-wheels/*.whl
+
+  manylinux-arm64:
+    name: manylinux-arm64
+    runs-on: ubuntu-24.04-arm
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - name: build wheel
+        run: docker run --rm -v $PWD:/mecab quay.io/pypa/manylinux2014_aarch64 /mecab/.github/build-wheel-many-linux.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: python-wheel-manylinux-arm64
+          path: |
+            manylinux-wheels/*.whl
+
+  macos:
+    name: macos
+    runs-on: macos-15
+    needs: build
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - name: check mecab version
+        id: mecab
+        run: |
+          echo "version=$(cat mecab-version.txt)" >> "$GITHUB_OUTPUT"
+        shell: bash
+        working-directory: dist
+      - name: build wheels
+        run: ./.github/build-wheel-macos.sh
+        env:
+          MECAB_VERSION: ${{ steps.mecab.outputs.version }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: python-wheel-macos
+          path: |
+            dist/*.whl
+
   windows:
     name: windows
     runs-on: windows-2019
@@ -121,9 +227,8 @@ jobs:
           path: dist/mecab-msvc-${{ matrix.machine }}-${{ steps.mecab.outputs.version }}.zip
       - uses: actions/upload-artifact@v4
         with:
-          name: python-wheel-${{ matrix.machine }}
+          name: python-wheel-windows-${{ matrix.machine }}
           path: |
-            dist/mecab-msvc-*.zip
             dist/scripts/*.whl
       - name: Upload Release Assets
         uses: shogo82148/actions-upload-release-asset@v1
@@ -140,3 +245,104 @@ jobs:
             dist/mecab-msvc-*.zip
             dist/scripts/*.whl
         if: github.event_name == 'release'
+
+  publish-to-pypi:
+    name: Publish Python 🐍 distribution 📦 to PyPI
+    if: github.event_name == 'release'
+    needs:
+      - python
+      - manylinux-amd64
+      - manylinux-arm64
+      - macos
+      - windows
+    runs-on: ubuntu-latest
+
+    environment:
+      name: pypi
+      url: https://test.pypi.org/p/mecab
+  
+    steps:
+      # Download wheels from previous jobs
+      - name: download source distribution
+        uses: actions/download-artifact@v4
+        with:
+          name: python-source
+      - name: download manylinux amd64 wheels
+        uses: actions/download-artifact@v4
+        with:
+          name: python-wheel-manylinux-amd64 
+          path: dist
+      - name: download manylinux arm64 wheels
+        uses: actions/download-artifact@v4
+        with:
+          name: python-wheel-manylinux-arm64
+          path: dist
+      - name: download macos wheels
+        uses: actions/download-artifact@v4
+        with:
+          name: python-wheel-macos
+          path: dist
+      - name: download windows x64 wheels
+        uses: actions/download-artifact@v4
+        with:
+          name: python-wheel-windows-x64
+          path: dist
+      - name: download windows x86 wheels
+        uses: actions/download-artifact@v4
+        with:
+          name: python-wheel-windows-x86
+          path: dist
+
+      - name: Publish distribution 📦 to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+
+  publish-to-testpypi:
+    name: Publish Python 🐍 distribution 📦 to TestPyPI
+    needs:
+      - python
+      - manylinux-amd64
+      - manylinux-arm64
+      - macos
+      - windows
+    runs-on: ubuntu-latest
+
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/p/mecab
+  
+    steps:
+      # Download wheels from previous jobs
+      - name: download source distribution
+        uses: actions/download-artifact@v4
+        with:
+          name: python-source
+      - name: download manylinux amd64 wheels
+        uses: actions/download-artifact@v4
+        with:
+          name: python-wheel-manylinux-amd64 
+          path: dist
+      - name: download manylinux arm64 wheels
+        uses: actions/download-artifact@v4
+        with:
+          name: python-wheel-manylinux-arm64
+          path: dist
+      - name: download macos wheels
+        uses: actions/download-artifact@v4
+        with:
+          name: python-wheel-macos
+          path: dist
+      - name: download windows x64 wheels
+        uses: actions/download-artifact@v4
+        with:
+          name: python-wheel-windows-x64
+          path: dist
+      - name: download windows x86 wheels
+        uses: actions/download-artifact@v4
+        with:
+          name: python-wheel-windows-x86
+          path: dist
+
+      - name: Publish distribution 📦 to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
