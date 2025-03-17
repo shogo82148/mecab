@@ -198,7 +198,7 @@ bool Param::open(const char *arg, const Option *opts) {
     argv[i+1] = const_cast<char *>(v[i].c_str());
   }
   argv[v.size()+1] = 0;
-  bool r = open(v.size(), argv, opts);
+  bool r = open(v.size()+1, argv, opts);
   delete [] argv;
   return r;
 }
