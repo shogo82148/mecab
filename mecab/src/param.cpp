@@ -7,6 +7,7 @@
 #include <fstream>
 #include "common.h"
 #include "param.h"
+#include "shlex.h"
 #include "string_buffer.h"
 #include "utils.h"
 
@@ -190,22 +191,16 @@ void Param::clear() {
 }
 
 bool Param::open(const char *arg, const Option *opts) {
-  scoped_fixed_array<char, BUF_SIZE> str;
-  std::strncpy(str.get(), arg, str.size() - 1);
-  str[str.size() - 1] = '\0';
-  char* ptr[64];
-  unsigned int size = 1;
-  ptr[0] = const_cast<char*>(PACKAGE);
-
-  for (char *p = str.get(); *p;) {
-    while (isspace(*p)) *p++ = '\0';
-    if (*p == '\0') break;
-    ptr[size++] = p;
-    if (size == sizeof(ptr)) break;
-    while (*p && !isspace(*p)) p++;
+  std::vector<std::string> v = shlex::split(arg);
+  char **argv = new char *[v.size() + 2];
+  argv[0] = const_cast<char *>(PACKAGE);
+  for (size_t i = 0; i < v.size(); ++i) {
+    argv[i+1] = const_cast<char *>(v[i].c_str());
   }
-
-  return open(size, ptr, opts);
+  argv[v.size()+1] = 0;
+  bool r = open(v.size()+1, argv, opts);
+  delete [] argv;
+  return r;
 }
 
 int Param::help_version() const {

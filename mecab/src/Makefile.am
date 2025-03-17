@@ -16,7 +16,8 @@ libmecab_la_SOURCES = viterbi.cpp tagger.cpp  utils.cpp utils.h eval.cpp iconv_u
                         param.h mecab.h dictionary.cpp \
                         feature_index.cpp  feature_index.h  lbfgs.cpp \
                         lbfgs.h  learner_tagger.cpp  learner_tagger.h  learner.cpp  \
-                        learner_node.h libmecab.cpp
+                        learner_node.h libmecab.cpp \
+                        shlex.cpp shlex.h
 libmecab_la_LIBADD = $(MECAB_LIBS) $(LTLIBICONV)
 
 include_HEADERS = mecab.h
