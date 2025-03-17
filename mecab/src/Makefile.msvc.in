@@ -20,7 +20,8 @@ OBJ =   feature_index.obj param.obj  learner.obj string_buffer.obj \
 	context_id.obj            dictionary.obj  utils.obj \
 	dictionary_compiler.obj   viterbi.obj \
 	dictionary_generator.obj  writer.obj iconv_utils.obj \
-	dictionary_rewriter.obj   lbfgs.obj eval.obj nbest_generator.obj
+	dictionary_rewriter.obj   lbfgs.obj eval.obj nbest_generator.obj \
+	shlex.obj
 
 .c.obj:
 	$(CC) $(CFLAGS) $(INC) $(DEFS) -c  $<
