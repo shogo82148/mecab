@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT([mecab],[0.996.11rc1])
+AC_INIT([mecab],[0.996.11])
 AC_CONFIG_SRCDIR([src/mecab.cpp])
 AM_INIT_AUTOMAKE
 AH_TEMPLATE([HAVE_CXX11_ATOMIC_OPS], [])
