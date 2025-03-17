@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# build wheels for manylinux
+# build wheels for manylinux/musllinux
 # based on https://github.com/SamuraiT/mecab-python3/blob/5575170dc71dc5d4e0c79a23c20d71edad5c2845/.github/workflows/entrypoint.sh
 
 set -euxo pipefail
@@ -25,5 +25,5 @@ done
 
 # fix the wheels (bundles libs)
 for wheel in /mecab/wheels/*.whl; do
-  auditwheel repair "$wheel" -w /mecab/manylinux-wheels
+  auditwheel repair "$wheel" -w /mecab/linux-wheels
 done

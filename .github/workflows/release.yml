@@ -4,6 +4,7 @@ on:
   pull_request:
   release:
     types: [created]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -117,12 +118,30 @@ jobs:
           name: dist
           path: dist
       - name: build wheel
-        run: docker run --rm -v $PWD:/mecab quay.io/pypa/manylinux2014_x86_64 /mecab/.github/build-wheel-many-linux.sh
+        run: docker run --rm -v $PWD:/mecab quay.io/pypa/manylinux2014_x86_64 /mecab/.github/build-wheel-linux.sh
       - uses: actions/upload-artifact@v4
         with:
           name: python-wheel-manylinux-amd64
           path: |
-            manylinux-wheels/*.whl
+            linux-wheels/*.whl
+
+  musllinux-amd64:
+    name: musllinux-amd64
+    runs-on: ubuntu-24.04
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - name: build wheel
+        run: docker run --rm -v $PWD:/mecab quay.io/pypa/musllinux_1_2_x86_64 /mecab/.github/build-wheel-linux.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: python-wheel-musllinux-amd64
+          path: |
+            linux-wheels/*.whl
 
   manylinux-arm64:
     name: manylinux-arm64
@@ -135,12 +154,30 @@ jobs:
           name: dist
           path: dist
       - name: build wheel
-        run: docker run --rm -v $PWD:/mecab quay.io/pypa/manylinux2014_aarch64 /mecab/.github/build-wheel-many-linux.sh
+        run: docker run --rm -v $PWD:/mecab quay.io/pypa/manylinux2014_aarch64 /mecab/.github/build-wheel-linux.sh
       - uses: actions/upload-artifact@v4
         with:
           name: python-wheel-manylinux-arm64
           path: |
-            manylinux-wheels/*.whl
+            linux-wheels/*.whl
+
+  musllinux-arm64:
+    name: musllinux-arm64
+    runs-on: ubuntu-24.04-arm
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - name: build wheel
+        run: docker run --rm -v $PWD:/mecab quay.io/pypa/musllinux_1_2_aarch64 /mecab/.github/build-wheel-linux.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: python-wheel-musllinux-arm64
+          path: |
+            linux-wheels/*.whl
 
   macos:
     name: macos
@@ -252,14 +289,16 @@ jobs:
     needs:
       - python
       - manylinux-amd64
+      - musllinux-amd64
       - manylinux-arm64
+      - musllinux-arm64
       - macos
       - windows
     runs-on: ubuntu-latest
 
     environment:
       name: pypi
-      url: https://test.pypi.org/p/mecab
+      url: https://pypi.org/p/mecab
   
     steps:
       # Download wheels from previous jobs
@@ -272,10 +311,20 @@ jobs:
         with:
           name: python-wheel-manylinux-amd64 
           path: dist
+      - name: download musllinux amd64 wheels
+        uses: actions/download-artifact@v4
+        with:
+          name: python-wheel-musllinux-amd64 
+          path: dist
       - name: download manylinux arm64 wheels
         uses: actions/download-artifact@v4
         with:
           name: python-wheel-manylinux-arm64
+          path: dist
+      - name: download musllinux arm64 wheels
+        uses: actions/download-artifact@v4
+        with:
+          name: python-wheel-musllinux-arm64
           path: dist
       - name: download macos wheels
         uses: actions/download-artifact@v4
@@ -298,10 +347,13 @@ jobs:
 
   publish-to-testpypi:
     name: Publish Python 🐍 distribution 📦 to TestPyPI
+    if: github.event_name == 'workflow_dispatch'
     needs:
       - python
       - manylinux-amd64
+      - musllinux-amd64
       - manylinux-arm64
+      - musllinux-arm64
       - macos
       - windows
     runs-on: ubuntu-latest
@@ -321,10 +373,20 @@ jobs:
         with:
           name: python-wheel-manylinux-amd64 
           path: dist
+      - name: download musllinux amd64 wheels
+        uses: actions/download-artifact@v4
+        with:
+          name: python-wheel-musllinux-amd64 
+          path: dist
       - name: download manylinux arm64 wheels
         uses: actions/download-artifact@v4
         with:
           name: python-wheel-manylinux-arm64
+          path: dist
+      - name: download musllinux arm64 wheels
+        uses: actions/download-artifact@v4
+        with:
+          name: python-wheel-musllinux-arm64
           path: dist
       - name: download macos wheels
         uses: actions/download-artifact@v4
