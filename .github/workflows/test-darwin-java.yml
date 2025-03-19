@@ -31,12 +31,12 @@ jobs:
           - distribution: temurin
             java: "8"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: setup
         run: .github/setup-darwin.sh
       - name: restore cache
         id: cache
-        uses: actions/cache@v4
+        uses: actions/cache@d4323d4df104b026a6aa633fdb11d772146be0bf # v4.2.2
         with:
           path: |
             ~/local
@@ -63,7 +63,7 @@ jobs:
         working-directory: mecab-ipadic
 
       - name: setup java ${{ matrix.java }}
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@3a4f6e1af504cf6a31855fa899c6aa5355ba6c12 # v4.7.0
         with:
           distribution: ${{ matrix.distribution }}
           java-version: ${{ matrix.java }}
