@@ -63,7 +63,7 @@ jobs:
         working-directory: mecab-ipadic
 
       - name: setup ruby ${{ matrix.ruby }}
-        uses: ruby/setup-ruby@fb404b9557c186e349162b0d8efb06e2bc36edea # v1.232.0
+        uses: ruby/setup-ruby@ca041f971d66735f3e5ff1e21cc13e2d51e7e535 # v1.233.0
         with:
           ruby-version: ${{ matrix.ruby }}
       - name: configure C/C++
