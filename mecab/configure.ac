@@ -32,7 +32,6 @@ AC_SUBST(LTVERSION)
 dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_CXX
-AC_PROG_GCC_TRADITIONAL
 AC_PROG_MAKE_SET
 LT_INIT([win32-dll])
 AC_SEARCH_LIBS([strerror],[cposix])
