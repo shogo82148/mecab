@@ -15,7 +15,7 @@ on:
 jobs:
   test:
     name: Test
-    runs-on: windows-2019
+    runs-on: windows-2022
     steps:
       - run: git config --global core.autoCRLF false
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
