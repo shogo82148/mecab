@@ -31,6 +31,8 @@ set PATH=%GITHUB_WORKSPACE%\dist\zip\;%PATH%
 cd %GITHUB_WORKSPACE%\dist\scripts
 copy %GITHUB_WORKSPACE%\dist\mecab\src\*.dll .
 if "%BUILD_TYPE%" == "x64" (
+    py -3.14-64 -m pip install -U setuptools wheel pip
+    py -3.14-64 -m pip wheel .
     py -3.13-64 -m pip install -U setuptools wheel pip
     py -3.13-64 -m pip wheel .
     py -3.12-64 -m pip install -U setuptools wheel pip
@@ -42,6 +44,8 @@ if "%BUILD_TYPE%" == "x64" (
     py -3.9-64 -m pip install -U setuptools wheel pip
     py -3.9-64 -m pip wheel .
 ) else if "%BUILD_TYPE%" == "x86" (
+    py -3.14-32 -m pip install -U setuptools wheel pip
+    py -3.14-32 -m pip wheel .
     py -3.13-32 -m pip install -U setuptools wheel pip
     py -3.13-32 -m pip wheel .
     py -3.12-32 -m pip install -U setuptools wheel pip
