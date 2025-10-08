@@ -21,6 +21,8 @@ jobs:
       matrix:
         include:
           - os: macos-latest
+            python: "3.14"
+          - os: macos-latest
             python: "3.13"
           - os: macos-latest
             python: "3.12"

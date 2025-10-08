@@ -19,7 +19,7 @@ cd /
 tar xzvf "/mecab/dist/scripts/mecab-python-${MECAB_VERSION}.tar.gz"
 
 # Build the wheels
-for PYVER in cp38-cp38 cp39-cp39 cp310-cp310 cp311-cp311 cp312-cp312 cp313-cp313; do
+for PYVER in cp38-cp38 cp39-cp39 cp310-cp310 cp311-cp311 cp312-cp312 cp313-cp313 cp314-cp314; do
   "/opt/python/${PYVER}/bin/pip" wheel "/mecab-python-${MECAB_VERSION}" -w /mecab/wheels
 done
 
