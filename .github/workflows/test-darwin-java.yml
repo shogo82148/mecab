@@ -27,6 +27,7 @@ jobs:
           - "11"
           - "17"
           - "21"
+          - "25"
         exclude:
           - distribution: temurin
             java: "8"
