@@ -3608,7 +3608,7 @@ SWIGEXPORT jstring JNICALL Java_org_chasen_mecab_MeCabJNI_VERSION_1get(JNIEnv *j
   
   (void)jenv;
   (void)jcls;
-  result = (char *)("0.996.11");
+  result = (char *)("0.996.12");
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }

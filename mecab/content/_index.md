@@ -88,6 +88,7 @@ MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<re
 ## 新着情報 {#news}
 - **2025-10-08** MeCab 0.996.12
   - [Python 3.14 向けの wheel を追加](https://github.com/shogo82148/mecab/pull/222)
+  - [SWIG 4.3.1 へアップデート](https://github.com/shogo82148/mecab/pull/170)
 - **2025-03-18** MeCab 0.996.11
   - [Python の wheels を PyPI にアップロード](https://pypi.org/project/mecab/)
   - [各種言語Bindingの引数のパース方式を mecab-python3 互換へ変更](https://github.com/shogo82148/mecab/pull/132)
