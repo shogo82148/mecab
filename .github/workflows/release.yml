@@ -48,7 +48,7 @@ jobs:
           mkdir -p ../dist/mecab-jumandic/
           mv mecab-jumandic-*.tar.gz ../dist/mecab-jumandic/
         working-directory: mecab-jumandic
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
           name: dist
           path: dist
@@ -101,7 +101,7 @@ jobs:
           python -m build --sdist --outdir ../dist
         env:
           MECAB_VERSION: ${{ steps.mecab.outputs.version }}
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
           name: python-source
           path: |
@@ -119,7 +119,7 @@ jobs:
           path: dist
       - name: build wheel
         run: docker run --rm -v $PWD:/mecab quay.io/pypa/manylinux2014_x86_64 /mecab/.github/build-wheel-linux.sh
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
           name: python-wheel-manylinux-amd64
           path: |
@@ -137,7 +137,7 @@ jobs:
           path: dist
       - name: build wheel
         run: docker run --rm -v $PWD:/mecab quay.io/pypa/musllinux_1_2_x86_64 /mecab/.github/build-wheel-linux.sh
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
           name: python-wheel-musllinux-amd64
           path: |
@@ -155,7 +155,7 @@ jobs:
           path: dist
       - name: build wheel
         run: docker run --rm -v $PWD:/mecab quay.io/pypa/manylinux2014_aarch64 /mecab/.github/build-wheel-linux.sh
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
           name: python-wheel-manylinux-arm64
           path: |
@@ -173,7 +173,7 @@ jobs:
           path: dist
       - name: build wheel
         run: docker run --rm -v $PWD:/mecab quay.io/pypa/musllinux_1_2_aarch64 /mecab/.github/build-wheel-linux.sh
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
           name: python-wheel-musllinux-arm64
           path: |
@@ -202,7 +202,7 @@ jobs:
         run: ./.github/build-wheel-macos.sh
         env:
           MECAB_VERSION: ${{ steps.mecab.outputs.version }}
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
           name: python-wheel-macos
           path: |
@@ -258,11 +258,11 @@ jobs:
         env:
           BUILD_TYPE: ${{ matrix.machine }}
           MECAB_VERSION: ${{ steps.mecab.outputs.version }}
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
           name: mecab-msvc-${{ matrix.machine }}-${{ steps.mecab.outputs.version }}.zip
           path: dist/mecab-msvc-${{ matrix.machine }}-${{ steps.mecab.outputs.version }}.zip
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
           name: python-wheel-windows-${{ matrix.machine }}
           path: |
