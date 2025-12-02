@@ -169,7 +169,7 @@ chasen は, `grammar.cha` `cforms.char`
 ## コストの自動推定機能
 
 学習時に出力されたモデルファイルがあれば, 新規単語のコスト値を自動推定することができます.
-mecab-ipadicのモデルファイルは[こちら](https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7bnc5aFZSTE9qNnM)よりダウンロード可能です.
+mecab-ipadicのモデルファイルは[こちら](https://github.com/shogo82148/mecab/blob/main/mecab-ipadic-2.7.0-20070801.model.bz2)よりダウンロード可能です.
 (bzip2で圧縮されているため, 適宜解凍してください.) 自動推定を行なう場合は, -m オプションでモデルファイルを指定し, コストのCSVフィールドを空にします. 空以外の値が設定されると, その値が優先されます.
 
 ```
