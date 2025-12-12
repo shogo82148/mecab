@@ -34,10 +34,6 @@ jobs:
             ruby: "2.7"
           - os: macos-latest
             ruby: "2.6"
-          - os: macos-13
-            ruby: "2.5"
-          - os: macos-13
-            ruby: "2.4"
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       - name: setup
