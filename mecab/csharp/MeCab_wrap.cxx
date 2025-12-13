@@ -3257,7 +3257,7 @@ SWIGEXPORT char * SWIGSTDCALL CSharp_MeCab_VERSION_get() {
   char * jresult ;
   char *result = 0 ;
   
-  result = (char *)(char *)("0.996.12");
+  result = (char *)(char *)("0.996.13");
   jresult = SWIG_csharp_string_callback((const char *)result); 
   return jresult;
 }
