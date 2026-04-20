@@ -41,8 +41,6 @@ if "%BUILD_TYPE%" == "x64" (
     py -3.11-64 -m pip wheel .
     py -3.10-64 -m pip install -U setuptools wheel pip
     py -3.10-64 -m pip wheel .
-    py -3.9-64 -m pip install -U setuptools wheel pip
-    py -3.9-64 -m pip wheel .
 ) else if "%BUILD_TYPE%" == "x86" (
     py -3.14-32 -m pip install -U setuptools wheel pip
     py -3.14-32 -m pip wheel .
@@ -54,6 +52,4 @@ if "%BUILD_TYPE%" == "x64" (
     py -3.11-32 -m pip wheel .
     py -3.10-32 -m pip install -U setuptools wheel pip
     py -3.10-32 -m pip wheel .
-    py -3.9-32 -m pip install -U setuptools wheel pip
-    py -3.9-32 -m pip wheel .
 )
