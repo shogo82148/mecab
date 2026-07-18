@@ -20,6 +20,8 @@ jobs:
       fail-fast: false
       matrix:
         perl:
+          - "5.44"
+          - "5.42"
           - "5.40"
           - "5.38"
           - "5.36"
