@@ -60,7 +60,7 @@ jobs:
             dist/**/*.tar.gz
         if: github.event_name == 'release'
       - name: Generate artifact attestation
-        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
         with:
           subject-path: |
             dist/**/*.tar.gz
@@ -275,7 +275,7 @@ jobs:
             dist/mecab-msvc-*.zip
         if: github.event_name == 'release'
       - name: Generate artifact attestation
-        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
         with:
           subject-path: |
             dist/mecab-msvc-*.zip
