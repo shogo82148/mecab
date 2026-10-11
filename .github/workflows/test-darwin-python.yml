@@ -19,21 +19,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - os: macos-latest
-            python: "3.14"
-          - os: macos-latest
-            python: "3.13"
-          - os: macos-latest
-            python: "3.12"
-          - os: macos-latest
-            python: "3.11"
-          - os: macos-latest
-            python: "3.10"
-          - os: macos-latest
-            python: "3.9"
-          - os: macos-latest
-            python: "3.8"
+        os:
+          - macos-latest
+        python:
+          - "3.15"
+          - "3.14"
+          - "3.13"
+          - "3.12"
+          - "3.11"
+          - "3.10"
+          - "3.9"
+          - "3.8"
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: setup
