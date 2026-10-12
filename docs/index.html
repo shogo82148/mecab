@@ -87,6 +87,7 @@ OSやコンパイラのアップデートへの追従、バグフィックス等
 <th><a href="https://chasen-legacy.osdn.jp/" title="ChaSen">ChaSen</a></th>
 <th><a href="http://nlp.ist.i.kyoto-u.ac.jp/index.php?JUMAN" title="JUMAN">JUMAN</a></th>
 <th><a href="http://kakasi.namazu.org/index.html.en" title="KAKASI">KAKASI</a></th>
+<th></th>
 </tr>
 </thead>
 <tbody>
@@ -95,17 +96,20 @@ OSやコンパイラのアップデートへの追従、バグフィックス等
 <td>bi-gram マルコフモデル</td>
 <td>可変長マルコフモデル</td>
 <td>bi-gram マルコフモデル</td>
+<td>最長一致</td>
 </tr>
 <tr>
 <td>コスト推定</td>
 <td>コーパスから学習</td>
 <td>コーパスから学習</td>
 <td>人手</td>
+<td>コストという概念無し</td>
 </tr>
 <tr>
 <td>学習モデル</td>
 <td><a href="https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&amp;context=cis_papers" title="CRF">CRF</a> (識別モデル)</td>
 <td>HMM (生成モデル)</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
@@ -113,40 +117,47 @@ OSやコンパイラのアップデートへの追従、バグフィックス等
 <td>Double Array</td>
 <td>Double Array</td>
 <td>パトリシア木</td>
+<td>Hash?</td>
 </tr>
 <tr>
 <td>解探索アルゴリズム</td>
 <td>Viterbi</td>
 <td>Viterbi</td>
 <td>Viterbi</td>
+<td>決定的?</td>
 </tr>
 <tr>
 <td>連接表の実装</td>
 <td>2次元 Table</td>
 <td>オートマトン</td>
 <td>2次元 Table?</td>
+<td>連接表無し?</td>
 </tr>
 <tr>
 <td>品詞の階層</td>
 <td>無制限多階層品詞</td>
 <td>無制限多階層品詞</td>
 <td>2段階固定</td>
+<td>品詞という概念無し?</td>
 </tr>
 <tr>
 <td>未知語処理</td>
 <td>字種 (動作定義を変更可能)</td>
 <td>字種 (変更不可能)</td>
 <td>字種 (変更不可能)</td>
+<td></td>
 </tr>
 <tr>
 <td>制約つき解析</td>
 <td>可能</td>
 <td>2.4.0で可能</td>
 <td>不可能</td>
+<td>不可能</td>
 </tr>
 <tr>
 <td>N-best解</td>
 <td>可能</td>
+<td>不可能</td>
 <td>不可能</td>
 <td>不可能</td>
 </tr>
@@ -394,21 +405,21 @@ OSやコンパイラのアップデートへの追従、バグフィックス等
 <p><strong>MeCab</strong> はフリーソフトウェアです．<a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">GPL v2</a>(the GNU General Public License Version 2.0), <a href="https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt">LGPL</a>(Lesser GNU General Public License Version 2.1), または <a href="https://spdx.org/licenses/BSD-3-Clause.html">三条項BSD</a> ライセンスに従って本ソフトウェアを使用,再配布することができます。 詳細は COPYING, GPL, LGPL, BSD各ファイルを参照して下さい．</p>
 </li>
 <li>
-<p><a href="https://github.com/shogo82148/mecab/releases/tag/v0.996.13">v0.996.13</a></p>
+<p><a href="https://github.com/shogo82148/mecab/releases/tag/v0.996.14">v0.996.14</a></p>
 </li>
 </ul>
 <h3 id="mecab-本体">MeCab 本体</h3>
 <ul>
 <li>Source
 <ul>
-<li>mecab-0.996.13.tar.gz: <a href="https://github.com/shogo82148/mecab/releases/download/v0.996.13/mecab-0.996.13.tar.gz">ダウンロード</a></li>
+<li>mecab-0.996.14.tar.gz: <a href="https://github.com/shogo82148/mecab/releases/download/v0.996.14/mecab-0.996.14.tar.gz">ダウンロード</a></li>
 <li>辞書は含まれていません. 動作には別途辞書が必要です。</li>
 </ul>
 </li>
 <li>Binary package for MS-Windows
 <ul>
-<li>mecab-msvc-x64-0.996.13.zip: <a href="https://github.com/shogo82148/mecab/releases/download/v0.996.13/mecab-msvc-x64-0.996.13.zip">64bit版ダウンロード</a></li>
-<li>mecab-msvc-x86-0.996.13.zip: <a href="https://github.com/shogo82148/mecab/releases/download/v0.996.13/mecab-msvc-x86-0.996.13.zip">32bit版ダウンロード</a></li>
+<li>mecab-msvc-x64-0.996.14.zip: <a href="https://github.com/shogo82148/mecab/releases/download/v0.996.14/mecab-msvc-x64-0.996.14.zip">64bit版ダウンロード</a></li>
+<li>mecab-msvc-x86-0.996.14.zip: <a href="https://github.com/shogo82148/mecab/releases/download/v0.996.14/mecab-msvc-x86-0.996.14.zip">32bit版ダウンロード</a></li>
 <li>Windows 版には コンパイル済みの IPA 辞書が含まれています</li>
 </ul>
 </li>
@@ -417,12 +428,12 @@ OSやコンパイラのアップデートへの追従、バグフィックス等
 <ul>
 <li>IPA 辞書
 <ul>
-<li>IPA 辞書, IPAコーパス に基づき <a href="https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&amp;context=cis_papers" title="CRF">CRF</a> でパラメータ推定した辞書です。 <strong>(推奨)</strong> <a href="https://github.com/shogo82148/mecab/releases/download/v0.996.13/mecab-ipadic-2.7.0-20070801.tar.gz">ダウンロード</a></li>
+<li>IPA 辞書, IPAコーパス に基づき <a href="https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&amp;context=cis_papers" title="CRF">CRF</a> でパラメータ推定した辞書です。 <strong>(推奨)</strong> <a href="https://github.com/shogo82148/mecab/releases/download/v0.996.14/mecab-ipadic-2.7.0-20070801.tar.gz">ダウンロード</a></li>
 </ul>
 </li>
 <li>JUMAN 辞書
 <ul>
-<li>JUMAN 辞書, 京都コーパスに基づき <a href="https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&amp;context=cis_papers" title="CRF">CRF</a> でパラメータ推定した辞書です。 <a href="https://github.com/shogo82148/mecab/releases/download/v0.996.13/mecab-jumandic-7.0-20130310.tar.gz">ダウンロード</a></li>
+<li>JUMAN 辞書, 京都コーパスに基づき <a href="https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&amp;context=cis_papers" title="CRF">CRF</a> でパラメータ推定した辞書です。 <a href="https://github.com/shogo82148/mecab/releases/download/v0.996.14/mecab-jumandic-7.0-20130310.tar.gz">ダウンロード</a></li>
 </ul>
 </li>
 <li>Unidic 辞書
@@ -433,14 +444,14 @@ OSやコンパイラのアップデートへの追従、バグフィックス等
 </ul>
 <h3 id="perlrubypythonjava-バインディング">perl/ruby/python/java バインディング</h3>
 <ul>
-<li><a href="https://github.com/shogo82148/mecab/releases/download/v0.996.13/mecab-perl-0.996.13.tar.gz">Perlダウンロード</a></li>
-<li><a href="https://github.com/shogo82148/mecab/releases/download/v0.996.13/mecab-ruby-0.996.13.tar.gz">Rubyダウンロード</a></li>
-<li><a href="https://github.com/shogo82148/mecab/releases/download/v0.996.13/mecab-python-0.996.13.tar.gz">Pythonダウンロード</a>
+<li><a href="https://github.com/shogo82148/mecab/releases/download/v0.996.14/mecab-perl-0.996.14.tar.gz">Perlダウンロード</a></li>
+<li><a href="https://github.com/shogo82148/mecab/releases/download/v0.996.14/mecab-ruby-0.996.14.tar.gz">Rubyダウンロード</a></li>
+<li><a href="https://github.com/shogo82148/mecab/releases/download/v0.996.14/mecab-python-0.996.14.tar.gz">Pythonダウンロード</a>
 <ul>
 <li><a href="https://pypi.org/project/mecab/">ビルド済みのwheelsがPyPIから利用可能</a>です。</li>
 </ul>
 </li>
-<li><a href="https://github.com/shogo82148/mecab/releases/download/v0.996.13/mecab-java-0.996.13.tar.gz">Javaダウンロード</a></li>
+<li><a href="https://github.com/shogo82148/mecab/releases/download/v0.996.14/mecab-java-0.996.14.tar.gz">Javaダウンロード</a></li>
 </ul>
 <h2 id="install">インストール</h2>
 <h3 id="install-unix">UNIX</h3>
@@ -456,7 +467,7 @@ OSやコンパイラのアップデートへの追従、バグフィックス等
 <p>一般的なフリーソフトウェアと同じ手順でインストールできます。</p>
 <pre tabindex="0"><code>% tar zxfv mecab-X.X.tar.gz
 % cd mecab-X.X
-% ./configure 
+% ./configure
 % make
 % make check
 % su
@@ -543,7 +554,7 @@ EOS
 </code></pre><p>ただし, その精度は正確ではありません. 品詞推定をやめ, 未知語は常に
 &ldquo;未知語&rdquo; 品詞を出力したい場合は <code>-x</code> (<code>--unk-feature</code>) オプションを使います。
 オプションで指定された文字列が品詞として使われます。</p>
-<pre tabindex="0"><code>%mecab --unk-feature &#34;未知語&#34; 
+<pre tabindex="0"><code>%mecab --unk-feature &#34;未知語&#34;
 ホリエモンさん
 ホリエモン      未知語
 さん    名詞,接尾,人名,*,*,*,さん,サン,サン
