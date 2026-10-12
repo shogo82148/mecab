@@ -8720,7 +8720,7 @@ SWIGINTERN int SWIG_mod_exec(PyObject *m) {
   SWIG_Python_SetConstant(d, "MECAB_ANY_BOUNDARY",SWIG_From_int(static_cast< int >(MECAB_ANY_BOUNDARY)));
   SWIG_Python_SetConstant(d, "MECAB_TOKEN_BOUNDARY",SWIG_From_int(static_cast< int >(MECAB_TOKEN_BOUNDARY)));
   SWIG_Python_SetConstant(d, "MECAB_INSIDE_TOKEN",SWIG_From_int(static_cast< int >(MECAB_INSIDE_TOKEN)));
-  SWIG_Python_SetConstant(d, "VERSION",SWIG_FromCharPtr("0.996.13"));
+  SWIG_Python_SetConstant(d, "VERSION",SWIG_FromCharPtr("0.996.14"));
   return 0;
 }
 
