@@ -26,8 +26,6 @@ jobs:
           - "3.12"
           - "3.11"
           - "3.10"
-          - "3.9"
-          - "3.8"
     steps:
       - run: sudo apt-get install gettext
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
