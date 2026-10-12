@@ -55,14 +55,17 @@ jobs:
           path: dist
       - name: Create Draft Release
         run: |
-          gh release create "$TAG" --draft --verify-tag --generate-notes --title "$TAG"
+          # reuse the existing draft release on workflow reruns
+          if ! gh release view "$TAG" > /dev/null 2>&1; then
+            gh release create "$TAG" --draft --verify-tag --generate-notes --title "$TAG"
+          fi
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.ref_name }}
         if: github.event_name == 'push'
       - name: Upload Release Assets
         run: |
-          find dist -name '*.tar.gz' -print0 | xargs -0 gh release upload "$TAG"
+          find dist -name '*.tar.gz' -print0 | xargs -0 gh release upload --clobber "$TAG"
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.ref_name }}
@@ -287,7 +290,7 @@ jobs:
             dist/scripts/*.whl
       - name: Upload Release Assets
         run: |
-          gh release upload "$TAG" dist/mecab-msvc-*.zip
+          gh release upload --clobber "$TAG" dist/mecab-msvc-*.zip
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -305,6 +308,12 @@ jobs:
     if: github.event_name == 'push'
     needs:
       - build
+      - python
+      - manylinux-amd64
+      - musllinux-amd64
+      - manylinux-arm64
+      - musllinux-arm64
+      - macos
       - windows
     runs-on: ubuntu-latest
     steps:
@@ -320,13 +329,7 @@ jobs:
     name: Publish Python 🐍 distribution 📦 to PyPI
     if: github.event_name == 'push'
     needs:
-      - python
-      - manylinux-amd64
-      - musllinux-amd64
-      - manylinux-arm64
-      - musllinux-arm64
-      - macos
-      - windows
+      - publish-release
     runs-on: ubuntu-latest
 
     environment:
