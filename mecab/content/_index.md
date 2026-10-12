@@ -4,8 +4,9 @@ date: 2020-01-05T07:41:50+09:00
 ---
 
 ## MeCab @shogo82148 flavored とは {#about-mecab-shogo82148}
+
 MeCabはオープンソースの形態素解析エンジンです。
-[KyTea](http://www.phontron.com/kytea/index-ja.html), [JUMAN++](http://nlp.ist.i.kyoto-u.ac.jp/index.php?JUMAN++), 
+[KyTea](http://www.phontron.com/kytea/index-ja.html), [JUMAN++](http://nlp.ist.i.kyoto-u.ac.jp/index.php?JUMAN++),
 [Sudachi](https://github.com/WorksApplications/Sudachi), [SentencePiece](https://github.com/google/sentencepiece) 等の
 後発の形態素解析エンジンの開発も進んでいますが、使い勝手の良さや使用例の多さから今なお現役で利用されています。
 しかし、2020年1月現在、[オリジナルのMeCab](http://taku910.github.io/mecab/)の最新リリースは **2013-02-18** MeCab 0.996 です。
@@ -61,18 +62,18 @@ MeCabは 京都大学情報学研究科−日本電信電話株式会社コミ�
 
 ## 比較 {#diff}
 
-|MeCab|[ChaSen][ChaSen]|[JUMAN][JUMAN]|[KAKASI][KAKASI]
--|-|-|-
-解析モデル|bi-gram マルコフモデル|可変長マルコフモデル|bi-gram マルコフモデル|最長一致
-コスト推定|コーパスから学習|コーパスから学習|人手|コストという概念無し
-学習モデル|[CRF][CRF] (識別モデル)|HMM (生成モデル)||
-辞書引きアルゴリズム|Double Array|Double Array|パトリシア木|Hash?
-解探索アルゴリズム|Viterbi|Viterbi|Viterbi|決定的?
-連接表の実装|2次元 Table|オートマトン|2次元 Table?|連接表無し?
-品詞の階層|無制限多階層品詞|無制限多階層品詞|2段階固定|品詞という概念無し?
-未知語処理|字種 (動作定義を変更可能)|字種 (変更不可能)|字種 (変更不可能)|
-制約つき解析|可能|2.4.0で可能|不可能|不可能
-N-best解|可能|不可能|不可能|不可能
+| MeCab                | [ChaSen][ChaSen]          | [JUMAN][JUMAN]       | [KAKASI][KAKASI]       |
+| -------------------- | ------------------------- | -------------------- | ---------------------- | -------------------- |
+| 解析モデル           | bi-gram マルコフモデル    | 可変長マルコフモデル | bi-gram マルコフモデル | 最長一致             |
+| コスト推定           | コーパスから学習          | コーパスから学習     | 人手                   | コストという概念無し |
+| 学習モデル           | [CRF][CRF] (識別モデル)   | HMM (生成モデル)     |                        |
+| 辞書引きアルゴリズム | Double Array              | Double Array         | パトリシア木           | Hash?                |
+| 解探索アルゴリズム   | Viterbi                   | Viterbi              | Viterbi                | 決定的?              |
+| 連接表の実装         | 2次元 Table               | オートマトン         | 2次元 Table?           | 連接表無し?          |
+| 品詞の階層           | 無制限多階層品詞          | 無制限多階層品詞     | 2段階固定              | 品詞という概念無し?  |
+| 未知語処理           | 字種 (動作定義を変更可能) | 字種 (変更不可能)    | 字種 (変更不可能)      |
+| 制約つき解析         | 可能                      | 2.4.0で可能          | 不可能                 | 不可能               |
+| N-best解             | 可能                      | 不可能               | 不可能                 | 不可能               |
 
 MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<relref feature.md>}})をご覧ください
 
@@ -84,8 +85,8 @@ MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<re
 本プロジェクトはMeCabのフォークではありますが、あくまでも非公式なものです。
 プロジェクト本家のメーリングリストは利用しないようお願いします。
 
-
 ## 新着情報 {#news}
+
 - **2026-10-12** MeCab 0.996.14
   - [Python 3.15 向けの Linux版、macOS版 wheel を追加](https://github.com/shogo82148/mecab/pull/385)
   - [Python 3.15 向けの Windows版 wheel を追加](https://github.com/shogo82148/mecab/pull/385)
@@ -160,7 +161,7 @@ MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<re
   - 解析中にアトミックに辞書をアップデートする機能の追加 Model::swap()
   - Windows版のバイナリを Unicodeバイナリに変更
   - online learning, HMM, EM learning の各実験コードを削除
-  - MeCab::Node:(begin|end)_node_list メンバの削除
+  - MeCab::Node:(begin|end)\_node_list メンバの削除
   - 細かいバグの修正
 - **2009-09-27** MeCab 0.98
 - UTF16のサポート(実験的)
@@ -228,40 +229,40 @@ MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<re
 
 - **MeCab** はフリーソフトウェアです．[GPL v2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt)(the GNU General Public License Version 2.0), [LGPL](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt)(Lesser GNU General Public License Version 2.1), または [三条項BSD](https://spdx.org/licenses/BSD-3-Clause.html) ライセンスに従って本ソフトウェアを使用,再配布することができます。 詳細は COPYING, GPL, LGPL, BSD各ファイルを参照して下さい．
 
-- [v0.996.13](https://github.com/shogo82148/mecab/releases/tag/v0.996.13)
+- [v0.996.14](https://github.com/shogo82148/mecab/releases/tag/v0.996.14)
 
 ### MeCab 本体
 
 - Source
-  - mecab-0.996.13.tar.gz: [ダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.13/mecab-0.996.13.tar.gz)
+  - mecab-0.996.14.tar.gz: [ダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.14/mecab-0.996.14.tar.gz)
   - 辞書は含まれていません. 動作には別途辞書が必要です。
 - Binary package for MS-Windows
-  - mecab-msvc-x64-0.996.13.zip: [64bit版ダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.13/mecab-msvc-x64-0.996.13.zip)
-  - mecab-msvc-x86-0.996.13.zip: [32bit版ダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.13/mecab-msvc-x86-0.996.13.zip)
+  - mecab-msvc-x64-0.996.14.zip: [64bit版ダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.14/mecab-msvc-x64-0.996.14.zip)
+  - mecab-msvc-x86-0.996.14.zip: [32bit版ダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.14/mecab-msvc-x86-0.996.14.zip)
   - Windows 版には コンパイル済みの IPA 辞書が含まれています
 
 ### MeCab 用の辞書
 
 - IPA 辞書
-  - IPA 辞書, IPAコーパス に基づき [CRF][CRF] でパラメータ推定した辞書です。 **(推奨)** [ダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.13/mecab-ipadic-2.7.0-20070801.tar.gz)
+  - IPA 辞書, IPAコーパス に基づき [CRF][CRF] でパラメータ推定した辞書です。 **(推奨)** [ダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.14/mecab-ipadic-2.7.0-20070801.tar.gz)
 - JUMAN 辞書
-  - JUMAN 辞書, 京都コーパスに基づき [CRF][CRF] でパラメータ推定した辞書です。 [ダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.13/mecab-jumandic-7.0-20130310.tar.gz)
+  - JUMAN 辞書, 京都コーパスに基づき [CRF][CRF] でパラメータ推定した辞書です。 [ダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.14/mecab-jumandic-7.0-20130310.tar.gz)
 - Unidic 辞書
   - Unidic 辞書, BCCWJコーパスに基づき CRF でパラーメータ推定した辞書です。[ダウンロード](https://clrd.ninjal.ac.jp/unidic/)
 
 ### perl/ruby/python/java バインディング
 
-- [Perlダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.13/mecab-perl-0.996.13.tar.gz)
-- [Rubyダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.13/mecab-ruby-0.996.13.tar.gz)
-- [Pythonダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.13/mecab-python-0.996.13.tar.gz)
+- [Perlダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.14/mecab-perl-0.996.14.tar.gz)
+- [Rubyダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.14/mecab-ruby-0.996.14.tar.gz)
+- [Pythonダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.14/mecab-python-0.996.14.tar.gz)
   - [ビルド済みのwheelsがPyPIから利用可能](https://pypi.org/project/mecab/)です。
-- [Javaダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.13/mecab-java-0.996.13.tar.gz)
+- [Javaダウンロード](https://github.com/shogo82148/mecab/releases/download/v0.996.14/mecab-java-0.996.14.tar.gz)
 
 ## インストール {#install}
 
 ### UNIX {#install-unix}
 
-- 動作に必要なもの 
+- 動作に必要なもの
   - C++ コンパイラ (g++ 3.4.3 と VC7 でのコンパイルを確認しています)
   - iconv (libiconv): 辞書のコード変換に使います
 
@@ -272,7 +273,7 @@ MeCab に至るまでの形態素解析器開発の歴史等は[こちら]({{<re
 ```
 % tar zxfv mecab-X.X.tar.gz
 % cd mecab-X.X
-% ./configure 
+% ./configure
 % make
 % make check
 % su
@@ -388,7 +389,7 @@ EOS
 ### UTF-8 only mode {#utf-8}
 
 configure option で `--enable-utf8-only` を指定すると. MeCab が扱う
-文字コードを utf8 に固定します。 euc-jp や shift-jis をサポートする場合, 
+文字コードを utf8 に固定します。 euc-jp や shift-jis をサポートする場合,
 MeCab 内部に変換用のテーブルを埋めこみます。 `--enable-utf8-only` を
 指定することでテーブルの埋めこみを抑制し, 結果として実行バイナリを
 小さくすることができます。
@@ -407,12 +408,12 @@ EOS
 さん    名詞,接尾,人名,*,*,*,さん,サン,サン
 ```
 
-ただし, その精度は正確ではありません. 品詞推定をやめ, 未知語は常に 
+ただし, その精度は正確ではありません. 品詞推定をやめ, 未知語は常に
 "未知語" 品詞を出力したい場合は `-x` (`--unk-feature`) オプションを使います。
 オプションで指定された文字列が品詞として使われます。
 
 ```
-%mecab --unk-feature "未知語" 
+%mecab --unk-feature "未知語"
 ホリエモンさん
 ホリエモン      未知語
 さん    名詞,接尾,人名,*,*,*,さん,サン,サン
