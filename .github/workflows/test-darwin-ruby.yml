@@ -15,7 +15,7 @@ on:
 jobs:
   test:
     name: Test
-    runs-on: macos-latest
+    runs-on: xcode-27
     strategy:
       fail-fast: false
       matrix:
