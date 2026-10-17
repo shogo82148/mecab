@@ -15,7 +15,7 @@ on:
 jobs:
   test:
     name: Test
-    runs-on: macOS-latest
+    runs-on: xcode-27
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: setup
@@ -31,7 +31,7 @@ jobs:
 
   test-utf8:
     name: UTF-8 only mode
-    runs-on: macOS-latest
+    runs-on: xcode-27
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: setup

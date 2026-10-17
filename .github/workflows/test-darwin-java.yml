@@ -15,7 +15,7 @@ on:
 jobs:
   tets:
     name: Test
-    runs-on: macOS-latest
+    runs-on: xcode-27
     strategy:
       fail-fast: false
       matrix:
