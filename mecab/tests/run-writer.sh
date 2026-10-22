@@ -17,7 +17,7 @@ printf 'a\n' > "$tmpdir/input"
   -F '%m%%\n' -U '%m%%\n' < "$tmpdir/input" \
   > "$tmpdir/actual" 2> "$tmpdir/stderr"
 printf 'a%%\n' > "$tmpdir/expected"
-diff "$tmpdir/expected" "$tmpdir/actual"
+tr -d '\r' < "$tmpdir/actual" | diff "$tmpdir/expected" -
 test ! -s "$tmpdir/stderr"
 
 for char in q '?'
@@ -31,6 +31,6 @@ do
     exit 1
   fi
   printf 'unknown meta char: %s\n' "$char" > "$tmpdir/expected"
-  diff "$tmpdir/expected" "$tmpdir/actual"
+  tr -d '\r' < "$tmpdir/actual" | diff "$tmpdir/expected" -
   test ! -s "$tmpdir/stderr"
 done
