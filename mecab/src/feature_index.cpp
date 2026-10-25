@@ -137,12 +137,21 @@ bool DecoderFeatureIndex::open(const Param &param) {
 bool DecoderFeatureIndex::openFromArray(const char *begin, const char *end) {
   const char *ptr = begin;
   unsigned int maxid = 0;
+  const size_t file_size = static_cast<size_t>(end - begin);
+  const size_t header_size = sizeof(maxid) + 32;
+  const size_t entry_size = sizeof(double) + sizeof(uint64_t);
+  if (file_size < header_size) {
+    return false;
+  }
   read_static<unsigned int>(&ptr, maxid);
   maxid_ = static_cast<size_t>(maxid);
-  const size_t file_size = static_cast<size_t>(end - begin);
-  const size_t expected_file_size =
-      (sizeof(double) + sizeof(uint64_t)) * maxid_ + sizeof(maxid) + 32;
-  if (expected_file_size != file_size) {
+  // Check maxid_ before multiplying so that the size cannot overflow
+  // (size_t is 32 bits on 32-bit builds).
+  if (maxid_ > (file_size - header_size) / entry_size ||
+      header_size + entry_size * maxid_ != file_size) {
+    return false;
+  }
+  if (!std::memchr(ptr, '\0', 32)) {
     return false;
   }
   charset_ = ptr;
