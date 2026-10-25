@@ -70,13 +70,6 @@ public class Model : global::System.IDisposable {
     return ret;
   }
 
-  public virtual Node lookup(string begin, string end, Lattice lattice) {
-    global::System.IntPtr cPtr = MeCabPINVOKE.Model_lookup(swigCPtr, begin, end, Lattice.getCPtr(lattice));
-    Node ret = (cPtr == global::System.IntPtr.Zero) ? null : new Node(cPtr, false);
-    if (MeCabPINVOKE.SWIGPendingException.Pending) throw MeCabPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
   public virtual Tagger createTagger() {
     global::System.IntPtr cPtr = MeCabPINVOKE.Model_createTagger(swigCPtr);
     Tagger ret = (cPtr == global::System.IntPtr.Zero) ? null : new Tagger(cPtr, false);
@@ -109,6 +102,13 @@ public class Model : global::System.IDisposable {
 
   public Model() : this(MeCabPINVOKE.new_Model__SWIG_1(), true) {
     if (MeCabPINVOKE.SWIGPendingException.Pending) throw MeCabPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public Node lookup(string str, Lattice lattice) {
+    global::System.IntPtr cPtr = MeCabPINVOKE.Model_lookup(swigCPtr, str, Lattice.getCPtr(lattice));
+    Node ret = (cPtr == global::System.IntPtr.Zero) ? null : new Node(cPtr, false);
+    if (MeCabPINVOKE.SWIGPendingException.Pending) throw MeCabPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
   }
 
 }

@@ -504,9 +504,6 @@ class MeCabPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("MeCab", EntryPoint="CSharp_MeCab_Model_transition_cost")]
   public static extern int Model_transition_cost(global::System.Runtime.InteropServices.HandleRef jarg1, ushort jarg2, ushort jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("MeCab", EntryPoint="CSharp_MeCab_Model_lookup")]
-  public static extern global::System.IntPtr Model_lookup(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2, string jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);
-
   [global::System.Runtime.InteropServices.DllImport("MeCab", EntryPoint="CSharp_MeCab_Model_createTagger")]
   public static extern global::System.IntPtr Model_createTagger(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -527,6 +524,9 @@ class MeCabPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("MeCab", EntryPoint="CSharp_MeCab_new_Model__SWIG_1")]
   public static extern global::System.IntPtr new_Model__SWIG_1();
+
+  [global::System.Runtime.InteropServices.DllImport("MeCab", EntryPoint="CSharp_MeCab_Model_lookup")]
+  public static extern global::System.IntPtr Model_lookup(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
   [global::System.Runtime.InteropServices.DllImport("MeCab", EntryPoint="CSharp_MeCab_Tagger_parse__SWIG_0")]
   public static extern bool Tagger_parse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
