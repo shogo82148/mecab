@@ -365,6 +365,13 @@ N *Tokenizer<N, P>::lookup(const char *begin, const char *end,
     ADDUNKNWON;
 
     if (!result_node) {
+      const char *feature =
+          lattice->feature_constraint(begin - lattice->sentence());
+      if (!feature) {
+        // No token satisfies the constraints here (e.g. a token that
+        // consists only of white space).  Let the caller report it.
+        return 0;
+      }
       N *new_node = allocator->newNode();
       new_node->char_type = cinfo.default_type;
       new_node->surface = begin2;
@@ -372,9 +379,7 @@ N *Tokenizer<N, P>::lookup(const char *begin, const char *end,
       new_node->rlength = begin3 - begin;
       new_node->stat = MECAB_UNK_NODE;
       new_node->bnext = result_node;
-      new_node->feature =
-          lattice->feature_constraint(begin - lattice->sentence());
-      CHECK_DIE(new_node->feature);
+      new_node->feature = feature;
       result_node = new_node;
     }
   }

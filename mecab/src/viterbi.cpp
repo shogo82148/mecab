@@ -384,6 +384,10 @@ bool Viterbi::viterbi(Lattice *lattice) const {
     if (end_node_list[pos]) {
       Node *right_node = tokenizer_->lookup<IsPartial>(begin + pos, end,
                                                        allocator, lattice);
+      if (IsPartial && !right_node) {
+        lattice->set_what("no token satisfies the partial-parsing constraints.");
+        return false;
+      }
       begin_node_list[pos] = right_node;
       if (!connect<IsAllPath>(pos, right_node,
                               begin_node_list,
