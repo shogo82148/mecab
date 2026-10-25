@@ -6,11 +6,22 @@
 
 %newobject surface;
 
+#ifdef SWIGJAVA
+// SWIG_exception returns from a Java wrapper right away, skipping the
+// argument cleanup (e.g. ReleaseStringUTFChars) that follows $action, so
+// run it here.  Other languages jump to a fail label that already does.
+%exception {
+  try { $action }
+  catch (char *e) { $cleanup SWIG_exception (SWIG_RuntimeError, e); }
+  catch (const char *e) { $cleanup SWIG_exception (SWIG_RuntimeError, (char*)e); }
+}
+#else
 %exception {
   try { $action }
   catch (char *e) { SWIG_exception (SWIG_RuntimeError, e); }
   catch (const char *e) { SWIG_exception (SWIG_RuntimeError, (char*)e); }
 }
+#endif
 
 %rename(Node) mecab_node_t;
 %rename(Path) mecab_path_t;

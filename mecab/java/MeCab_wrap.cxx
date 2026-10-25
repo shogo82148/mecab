@@ -2298,11 +2298,13 @@ SWIGEXPORT void JNICALL Java_org_chasen_mecab_MeCabJNI_Lattice_1set_1feature_1co
       (arg1)->set_feature_constraint(SWIG_STD_MOVE(*(&arg2)),SWIG_STD_MOVE(*(&arg3)),(char const *)arg4); 
     }
     catch (char *e) {
+      if (arg4) jenv->ReleaseStringUTFChars(jarg4, (const char *)arg4);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, e); return ; 
       }; 
     }
     catch (const char *e) {
+      if (arg4) jenv->ReleaseStringUTFChars(jarg4, (const char *)arg4);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, (char*)e); return ; 
       }; 
@@ -2330,11 +2332,13 @@ SWIGEXPORT void JNICALL Java_org_chasen_mecab_MeCabJNI_Lattice_1set_1result(JNIE
       (arg1)->set_result((char const *)arg2); 
     }
     catch (char *e) {
+      if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, e); return ; 
       }; 
     }
     catch (const char *e) {
+      if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, (char*)e); return ; 
       }; 
@@ -2391,11 +2395,13 @@ SWIGEXPORT void JNICALL Java_org_chasen_mecab_MeCabJNI_Lattice_1set_1what(JNIEnv
       (arg1)->set_what((char const *)arg2); 
     }
     catch (char *e) {
+      if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, e); return ; 
       }; 
     }
     catch (const char *e) {
+      if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, (char*)e); return ; 
       }; 
@@ -2473,11 +2479,13 @@ SWIGEXPORT void JNICALL Java_org_chasen_mecab_MeCabJNI_Lattice_1set_1sentence(JN
       MeCab_Lattice_set_sentence(arg1,(char const *)arg2); 
     }
     catch (char *e) {
+      if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, e); return ; 
       }; 
     }
     catch (const char *e) {
+      if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, (char*)e); return ; 
       }; 
@@ -2706,11 +2714,13 @@ SWIGEXPORT jlong JNICALL Java_org_chasen_mecab_MeCabJNI_new_1Model_1_1SWIG_10(JN
       result = (MeCab::Model *)new_MeCab_Model((char const *)arg1); 
     }
     catch (char *e) {
+      if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, e); return 0; 
       }; 
     }
     catch (const char *e) {
+      if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, (char*)e); return 0; 
       }; 
@@ -2771,11 +2781,13 @@ SWIGEXPORT jlong JNICALL Java_org_chasen_mecab_MeCabJNI_Model_1lookup(JNIEnv *je
       result = (MeCab::Node *)MeCab_Model_lookup((MeCab::Model const *)arg1,(char const *)arg2,arg3); 
     }
     catch (char *e) {
+      if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, e); return 0; 
       }; 
     }
     catch (const char *e) {
+      if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, (char*)e); return 0; 
       }; 
@@ -2875,11 +2887,13 @@ SWIGEXPORT jstring JNICALL Java_org_chasen_mecab_MeCabJNI_Tagger_1parse_1_1SWIG_
       result = (char *)(arg1)->parse((char const *)arg2); 
     }
     catch (char *e) {
+      if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, e); return 0; 
       }; 
     }
     catch (const char *e) {
+      if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, (char*)e); return 0; 
       }; 
@@ -2911,11 +2925,13 @@ SWIGEXPORT jlong JNICALL Java_org_chasen_mecab_MeCabJNI_Tagger_1parseToNode(JNIE
       result = (MeCab::Node *)(arg1)->parseToNode((char const *)arg2); 
     }
     catch (char *e) {
+      if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, e); return 0; 
       }; 
     }
     catch (const char *e) {
+      if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, (char*)e); return 0; 
       }; 
@@ -2949,11 +2965,13 @@ SWIGEXPORT jstring JNICALL Java_org_chasen_mecab_MeCabJNI_Tagger_1parseNBest(JNI
       result = (char *)(arg1)->parseNBest(SWIG_STD_MOVE(*(&arg2)),(char const *)arg3); 
     }
     catch (char *e) {
+      if (arg3) jenv->ReleaseStringUTFChars(jarg3, (const char *)arg3);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, e); return 0; 
       }; 
     }
     catch (const char *e) {
+      if (arg3) jenv->ReleaseStringUTFChars(jarg3, (const char *)arg3);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, (char*)e); return 0; 
       }; 
@@ -2985,11 +3003,13 @@ SWIGEXPORT jboolean JNICALL Java_org_chasen_mecab_MeCabJNI_Tagger_1parseNBestIni
       result = (bool)(arg1)->parseNBestInit((char const *)arg2); 
     }
     catch (char *e) {
+      if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, e); return 0; 
       }; 
     }
     catch (const char *e) {
+      if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, (char*)e); return 0; 
       }; 
@@ -3496,11 +3516,13 @@ SWIGEXPORT jlong JNICALL Java_org_chasen_mecab_MeCabJNI_new_1Tagger_1_1SWIG_10(J
       result = (MeCab::Tagger *)new_MeCab_Tagger((char const *)arg1); 
     }
     catch (char *e) {
+      if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, e); return 0; 
       }; 
     }
     catch (const char *e) {
+      if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, (char*)e); return 0; 
       }; 
@@ -3560,11 +3582,13 @@ SWIGEXPORT jstring JNICALL Java_org_chasen_mecab_MeCabJNI_Tagger_1parseToString_
       result = (char *)MeCab_Tagger_parseToString__SWIG_0(arg1,(char const *)arg2,SWIG_STD_MOVE(*(&arg3))); 
     }
     catch (char *e) {
+      if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, e); return 0; 
       }; 
     }
     catch (const char *e) {
+      if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, (char*)e); return 0; 
       }; 
@@ -3596,11 +3620,13 @@ SWIGEXPORT jstring JNICALL Java_org_chasen_mecab_MeCabJNI_Tagger_1parseToString_
       result = (char *)MeCab_Tagger_parseToString__SWIG_0(arg1,(char const *)arg2); 
     }
     catch (char *e) {
+      if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, e); return 0; 
       }; 
     }
     catch (const char *e) {
+      if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, (char*)e); return 0; 
       }; 
