@@ -71,6 +71,9 @@ class CharProperty {
       default:      t = utf8_to_ucs2(begin, end, mblen); break;
     }
 #endif
+    // char.bin has 0xffff entries (U+0000..U+FFFE).  Treat U+FFFF like
+    // the characters outside UCS-2, which the decoders map to 0.
+    if (t == 0xffff) t = 0;
     return map_[t];
   }
 
