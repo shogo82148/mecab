@@ -1032,7 +1032,10 @@ void LatticeImpl::set_feature_constraint(size_t begin_pos, size_t end_pos,
     set_boundary_constraint(i, MECAB_INSIDE_TOKEN);
   }
 
-  feature_constraint_[begin_pos] = feature;
+  // Copy the feature: callers (e.g. the SWIG bindings) may pass a
+  // temporary buffer that is freed before the lattice is parsed.
+  feature_constraint_[begin_pos] =
+      allocator()->strdup(feature, std::strlen(feature));
 }
 }  // namespace
 
