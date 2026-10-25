@@ -256,7 +256,12 @@ N *Tokenizer<N, P>::lookup(const char *begin, const char *end,
   size_t mblen = 0;
   size_t clen = 0;
 
-  end = static_cast<size_t>(end - begin) >= 65535 ? begin + 65535 : end;
+  // Node::rlength is an unsigned short.  Unknown-word nodes may extend
+  // up to one character (at most 6 bytes) past end, so leave room for it
+  // to keep rlength from wrapping around.
+  const size_t kMaxLookupLength = 65535 - 6;
+  end = static_cast<size_t>(end - begin) >= kMaxLookupLength ?
+      begin + kMaxLookupLength : end;
 
   if (isPartial) {
     const size_t begin_pos = begin - lattice->sentence();
