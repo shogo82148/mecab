@@ -2344,6 +2344,8 @@ SWIG_AsVal_unsigned_SS_short SWIG_PERL_DECL_ARGS_2(SV * obj, unsigned short *val
 }
 
 SWIGINTERN MeCab::Node *MeCab_Model_lookup(MeCab::Model const *self,char const *str,MeCab::Lattice *lattice){
+     if (!str) throw "lookup: str must not be null";
+     if (!lattice) throw "lookup: lattice must not be null";
      lattice->add_request_type(MECAB_ALLOCATE_SENTENCE);
      lattice->set_sentence(str);
      const char *begin = lattice->sentence();

@@ -488,6 +488,8 @@ SWIGINTERN void MeCab_Lattice_set_sentence(MeCab::Lattice *self,char const *sent
     self->set_sentence(sentence);
   }
 SWIGINTERN MeCab::Node *MeCab_Model_lookup(MeCab::Model const *self,char const *str,MeCab::Lattice *lattice){
+     if (!str) throw "lookup: str must not be null";
+     if (!lattice) throw "lookup: lattice must not be null";
      lattice->add_request_type(MECAB_ALLOCATE_SENTENCE);
      lattice->set_sentence(str);
      const char *begin = lattice->sentence();
