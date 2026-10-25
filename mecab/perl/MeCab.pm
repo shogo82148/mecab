@@ -275,7 +275,6 @@ use vars qw(@ISA %OWNER %ITERATORS %BLESSEDMEMBERS);
 %ITERATORS = ();
 *dictionary_info = *MeCabc::Model_dictionary_info;
 *transition_cost = *MeCabc::Model_transition_cost;
-*lookup = *MeCabc::Model_lookup;
 *createTagger = *MeCabc::Model_createTagger;
 *createLattice = *MeCabc::Model_createLattice;
 *swap = *MeCabc::Model_swap;
@@ -297,6 +296,7 @@ sub new {
     bless $self, $pkg if defined($self);
 }
 
+*lookup = *MeCabc::Model_lookup;
 sub DISOWN {
     my $self = shift;
     my $ptr = tied(%$self);

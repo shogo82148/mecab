@@ -57,11 +57,6 @@ public class Model {
     return MeCabJNI.Model_transition_cost(swigCPtr, this, rcAttr, lcAttr);
   }
 
-  public Node lookup(String begin, String end, Lattice lattice) {
-    long cPtr = MeCabJNI.Model_lookup(swigCPtr, this, begin, end, Lattice.getCPtr(lattice), lattice);
-    return (cPtr == 0) ? null : new Node(cPtr, false);
-  }
-
   public Tagger createTagger() {
     long cPtr = MeCabJNI.Model_createTagger(swigCPtr, this);
     return (cPtr == 0) ? null : new Tagger(cPtr, false);
@@ -86,6 +81,11 @@ public class Model {
 
   public Model() {
     this(MeCabJNI.new_Model__SWIG_1(), true);
+  }
+
+  public Node lookup(String str, Lattice lattice) {
+    long cPtr = MeCabJNI.Model_lookup(swigCPtr, this, str, Lattice.getCPtr(lattice), lattice);
+    return (cPtr == 0) ? null : new Node(cPtr, false);
   }
 
 }

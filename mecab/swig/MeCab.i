@@ -84,9 +84,24 @@
    }
 }
 
+// Model::lookup(begin, end, lattice) needs begin and end to point into one
+// buffer, which no binding can express, and the returned nodes point into
+// the begin buffer, which is a temporary copy.  Copy the string into the
+// lattice as its sentence instead, so the nodes stay valid until the
+// lattice is reused.
+%ignore MeCab::Model::lookup(const char *, const char *, Lattice *) const;
+
 %extend MeCab::Model {
    Model(const char *argc);
    Model();
+   MeCab::Node *lookup(const char *str, MeCab::Lattice *lattice) const {
+     if (!str) throw "lookup: str must not be null";
+     if (!lattice) throw "lookup: lattice must not be null";
+     lattice->add_request_type(MECAB_ALLOCATE_SENTENCE);
+     lattice->set_sentence(str);
+     const char *begin = lattice->sentence();
+     return self->lookup(begin, begin + lattice->size(), lattice);
+   }
 }
 
 %extend MeCab::Lattice {
