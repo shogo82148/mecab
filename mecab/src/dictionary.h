@@ -34,6 +34,9 @@ class Dictionary {
   size_t commonPrefixSearch(const char* key, size_t len,
                             result_type *result,
                             size_t rlen) const {
+    // Darts treats len == 0 as "use strlen(key)", which would read past
+    // the caller-supplied range when key is not NUL-terminated there.
+    if (!len) return 0;
     return da_.commonPrefixSearch(key, result, rlen, len);
   }
 
