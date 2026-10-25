@@ -240,9 +240,6 @@ class Model(object):
     def transition_cost(self, rcAttr, lcAttr):
         return _MeCab.Model_transition_cost(self, rcAttr, lcAttr)
 
-    def lookup(self, begin, end, lattice):
-        return _MeCab.Model_lookup(self, begin, end, lattice)
-
     def createTagger(self):
         return _MeCab.Model_createTagger(self)
 
@@ -259,6 +256,9 @@ class Model(object):
 
     def __init__(self, *args):
         _MeCab.Model_swiginit(self, _MeCab.new_Model(*args))
+
+    def lookup(self, str, lattice):
+        return _MeCab.Model_lookup(self, str, lattice)
 
 # Register Model in _MeCab:
 _MeCab.Model_swigregister(Model)

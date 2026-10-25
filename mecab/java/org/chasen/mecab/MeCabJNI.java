@@ -102,7 +102,6 @@ public class MeCabJNI {
   public final static native void Lattice_set_sentence(long jarg1, Lattice jarg1_, String jarg2);
   public final static native long Model_dictionary_info(long jarg1, Model jarg1_);
   public final static native int Model_transition_cost(long jarg1, Model jarg1_, int jarg2, int jarg3);
-  public final static native long Model_lookup(long jarg1, Model jarg1_, String jarg2, String jarg3, long jarg4, Lattice jarg4_);
   public final static native long Model_createTagger(long jarg1, Model jarg1_);
   public final static native long Model_createLattice(long jarg1, Model jarg1_);
   public final static native boolean Model_swap(long jarg1, Model jarg1_, long jarg2, Model jarg2_);
@@ -110,6 +109,7 @@ public class MeCabJNI {
   public final static native void delete_Model(long jarg1);
   public final static native long new_Model__SWIG_0(String jarg1);
   public final static native long new_Model__SWIG_1();
+  public final static native long Model_lookup(long jarg1, Model jarg1_, String jarg2, long jarg3, Lattice jarg3_);
   public final static native boolean Tagger_parse__SWIG_0(long jarg1, Model jarg1_, long jarg2, Lattice jarg2_);
   public final static native boolean Tagger_parse__SWIG_1(long jarg1, Tagger jarg1_, long jarg2, Lattice jarg2_);
   public final static native String Tagger_parse__SWIG_2(long jarg1, Tagger jarg1_, String jarg2);
