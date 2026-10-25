@@ -266,8 +266,10 @@ bool Viterbi::initPartial(Lattice *lattice) {
                                 std::back_inserter(lines),
                                 lattice->size() + 1);
   char* column[2];
-  scoped_array<char> buf(new char[lattice->size() + 1]);
-  StringBuffer os(buf.get(), lattice->size() + 1);
+  // StringBuffer with a fixed buffer rejects a write that fills it
+  // completely, so reserve one more byte than surfaces + '\0' need.
+  scoped_array<char> buf(new char[lattice->size() + 2]);
+  StringBuffer os(buf.get(), lattice->size() + 2);
 
   std::vector<std::pair<char *, char *> > tokens;
   tokens.reserve(lsize);
@@ -289,6 +291,11 @@ bool Viterbi::initPartial(Lattice *lattice) {
   }
 
   os << '\0';
+
+  if (!os.str()) {
+    lattice->set_what("failed to rebuild the sentence in partial mode.");
+    return false;
+  }
 
   lattice->set_sentence(os.str());
 
