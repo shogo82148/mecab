@@ -3,6 +3,7 @@
 //
 //  Copyright(C) 2001-2011 Taku Kudo <taku@chasen.org>
 //  Copyright(C) 2004-2006 Nippon Telegraph and Telephone Corporation
+#include <algorithm>
 #include "common.h"
 #include "connector.h"
 #include "darts.h"
@@ -267,7 +268,7 @@ N *Tokenizer<N, P>::lookup(const char *begin, const char *end,
     const size_t begin_pos = begin - lattice->sentence();
     for (size_t n = begin_pos + 1; n < lattice->size(); ++n) {
       if (lattice->boundary_constraint(n) == MECAB_TOKEN_BOUNDARY) {
-        end = lattice->sentence() + n;
+        end = std::min(end, lattice->sentence() + n);
         break;
       }
     }
