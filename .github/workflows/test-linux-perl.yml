@@ -35,11 +35,11 @@ jobs:
           - "5.20"
     steps:
       - run: sudo apt-get install gettext
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/checkout@v7.0.1
 
       - name: restore cache
         id: cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        uses: actions/cache@v6.1.0
         with:
           path: |
             ~/local
@@ -67,7 +67,7 @@ jobs:
         working-directory: mecab-ipadic
 
       - name: setup perl ${{ matrix.perl }}
-        uses: shogo82148/actions-setup-perl@a99edab616eaa8a66bbc16363c77a83361e5f2ce # v1.44.3
+        uses: shogo82148/actions-setup-perl@v1.44.3
         with:
           perl-version: ${{ matrix.perl }}
       - name: configure C/C++
