@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-26.04
     steps:
       - run: sudo apt-get install gettext
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/checkout@v7.0.1
       - name: build mecab
         run: |
           ./autogen.sh
@@ -49,7 +49,7 @@ jobs:
           mkdir -p ../dist/mecab-jumandic/
           mv mecab-jumandic-*.tar.gz ../dist/mecab-jumandic/
         working-directory: mecab-jumandic
-      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      - uses: actions/upload-artifact@v7.0.2
         with:
           name: dist
           path: dist
@@ -71,7 +71,7 @@ jobs:
           TAG: ${{ github.ref_name }}
         if: github.event_name == 'push'
       - name: Generate artifact attestation
-        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
+        uses: actions/attest@v4.2.2
         with:
           subject-path: |
             dist/**/*.tar.gz
@@ -82,10 +82,10 @@ jobs:
     runs-on: ubuntu-26.04
     needs: build
     steps:
-      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+      - uses: actions/setup-python@v7.1.0
         with:
           python-version: "3.15"
-      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+      - uses: actions/download-artifact@v8.0.2
         with:
           name: dist
           path: dist
@@ -112,7 +112,7 @@ jobs:
           python -m build --sdist --outdir ../dist
         env:
           MECAB_VERSION: ${{ steps.mecab.outputs.version }}
-      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      - uses: actions/upload-artifact@v7.0.2
         with:
           name: python-source
           path: |
@@ -123,14 +123,14 @@ jobs:
     runs-on: ubuntu-26.04
     needs: build
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/download-artifact@v8.0.2
         with:
           name: dist
           path: dist
       - name: build wheel
         run: docker run --rm -v $PWD:/mecab quay.io/pypa/manylinux2014_x86_64 /mecab/.github/build-wheel-linux.sh
-      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      - uses: actions/upload-artifact@v7.0.2
         with:
           name: python-wheel-manylinux-amd64
           path: |
@@ -141,14 +141,14 @@ jobs:
     runs-on: ubuntu-26.04
     needs: build
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/download-artifact@v8.0.2
         with:
           name: dist
           path: dist
       - name: build wheel
         run: docker run --rm -v $PWD:/mecab quay.io/pypa/musllinux_1_2_x86_64 /mecab/.github/build-wheel-linux.sh
-      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      - uses: actions/upload-artifact@v7.0.2
         with:
           name: python-wheel-musllinux-amd64
           path: |
@@ -159,14 +159,14 @@ jobs:
     runs-on: ubuntu-26.04-arm
     needs: build
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/download-artifact@v8.0.2
         with:
           name: dist
           path: dist
       - name: build wheel
         run: docker run --rm -v $PWD:/mecab quay.io/pypa/manylinux2014_aarch64 /mecab/.github/build-wheel-linux.sh
-      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      - uses: actions/upload-artifact@v7.0.2
         with:
           name: python-wheel-manylinux-arm64
           path: |
@@ -177,14 +177,14 @@ jobs:
     runs-on: ubuntu-26.04-arm
     needs: build
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/download-artifact@v8.0.2
         with:
           name: dist
           path: dist
       - name: build wheel
         run: docker run --rm -v $PWD:/mecab quay.io/pypa/musllinux_1_2_aarch64 /mecab/.github/build-wheel-linux.sh
-      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      - uses: actions/upload-artifact@v7.0.2
         with:
           name: python-wheel-musllinux-arm64
           path: |
@@ -195,11 +195,11 @@ jobs:
     runs-on: macos-15
     needs: build
     steps:
-      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+      - uses: actions/setup-python@v7.1.0
         with:
           python-version: "3.13"
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/download-artifact@v8.0.2
         with:
           name: dist
           path: dist
@@ -213,7 +213,7 @@ jobs:
         run: ./.github/build-wheel-macos.sh
         env:
           MECAB_VERSION: ${{ steps.mecab.outputs.version }}
-      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      - uses: actions/upload-artifact@v7.0.2
         with:
           name: python-wheel-macos
           path: |
@@ -231,8 +231,8 @@ jobs:
           - x86
     steps:
       - run: git config --global core.autoCRLF false
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.1.0
         with:
           python-version: |
             3.10
@@ -242,7 +242,7 @@ jobs:
             3.14
             3.15
           architecture: ${{ matrix.machine }}
-      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+      - uses: actions/download-artifact@v8.0.2
         with:
           name: dist
           path: dist
@@ -279,11 +279,11 @@ jobs:
         env:
           BUILD_TYPE: ${{ matrix.machine }}
           MECAB_VERSION: ${{ steps.mecab.outputs.version }}
-      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      - uses: actions/upload-artifact@v7.0.2
         with:
           name: mecab-msvc-${{ matrix.machine }}-${{ steps.mecab.outputs.version }}.zip
           path: dist/mecab-msvc-${{ matrix.machine }}-${{ steps.mecab.outputs.version }}.zip
-      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      - uses: actions/upload-artifact@v7.0.2
         with:
           name: python-wheel-windows-${{ matrix.machine }}
           path: |
@@ -297,7 +297,7 @@ jobs:
           TAG: ${{ github.ref_name }}
         if: github.event_name == 'push'
       - name: Generate artifact attestation
-        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
+        uses: actions/attest@v4.2.2
         with:
           subject-path: |
             dist/mecab-msvc-*.zip
@@ -339,47 +339,47 @@ jobs:
     steps:
       # Download wheels from previous jobs
       - name: download source distribution
-        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        uses: actions/download-artifact@v8.0.2
         with:
           name: python-source
       - name: download manylinux amd64 wheels
-        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        uses: actions/download-artifact@v8.0.2
         with:
           name: python-wheel-manylinux-amd64 
           path: dist
       - name: download musllinux amd64 wheels
-        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        uses: actions/download-artifact@v8.0.2
         with:
           name: python-wheel-musllinux-amd64 
           path: dist
       - name: download manylinux arm64 wheels
-        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        uses: actions/download-artifact@v8.0.2
         with:
           name: python-wheel-manylinux-arm64
           path: dist
       - name: download musllinux arm64 wheels
-        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        uses: actions/download-artifact@v8.0.2
         with:
           name: python-wheel-musllinux-arm64
           path: dist
       - name: download macos wheels
-        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        uses: actions/download-artifact@v8.0.2
         with:
           name: python-wheel-macos
           path: dist
       - name: download windows x64 wheels
-        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        uses: actions/download-artifact@v8.0.2
         with:
           name: python-wheel-windows-x64
           path: dist
       - name: download windows x86 wheels
-        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        uses: actions/download-artifact@v8.0.2
         with:
           name: python-wheel-windows-x86
           path: dist
 
       - name: Publish distribution 📦 to PyPI
-        uses: pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086 # v1.14.3
+        uses: pypa/gh-action-pypi-publish@v1.14.3
 
   publish-to-testpypi:
     name: Publish Python 🐍 distribution 📦 to TestPyPI
@@ -401,46 +401,46 @@ jobs:
     steps:
       # Download wheels from previous jobs
       - name: download source distribution
-        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        uses: actions/download-artifact@v8.0.2
         with:
           name: python-source
       - name: download manylinux amd64 wheels
-        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        uses: actions/download-artifact@v8.0.2
         with:
           name: python-wheel-manylinux-amd64 
           path: dist
       - name: download musllinux amd64 wheels
-        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        uses: actions/download-artifact@v8.0.2
         with:
           name: python-wheel-musllinux-amd64 
           path: dist
       - name: download manylinux arm64 wheels
-        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        uses: actions/download-artifact@v8.0.2
         with:
           name: python-wheel-manylinux-arm64
           path: dist
       - name: download musllinux arm64 wheels
-        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        uses: actions/download-artifact@v8.0.2
         with:
           name: python-wheel-musllinux-arm64
           path: dist
       - name: download macos wheels
-        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        uses: actions/download-artifact@v8.0.2
         with:
           name: python-wheel-macos
           path: dist
       - name: download windows x64 wheels
-        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        uses: actions/download-artifact@v8.0.2
         with:
           name: python-wheel-windows-x64
           path: dist
       - name: download windows x86 wheels
-        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        uses: actions/download-artifact@v8.0.2
         with:
           name: python-wheel-windows-x86
           path: dist
 
       - name: Publish distribution 📦 to TestPyPI
-        uses: pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086 # v1.14.3
+        uses: pypa/gh-action-pypi-publish@v1.14.3
         with:
           repository-url: https://test.pypi.org/legacy/

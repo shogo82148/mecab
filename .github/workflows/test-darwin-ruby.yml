@@ -25,12 +25,12 @@ jobs:
           - "3.3"
           - "3.2"
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/checkout@v7.0.1
       - name: setup
         run: .github/setup-darwin.sh
       - name: restore cache
         id: cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        uses: actions/cache@v6.1.0
         with:
           path: |
             ~/local
@@ -57,7 +57,7 @@ jobs:
         working-directory: mecab-ipadic
 
       - name: setup ruby ${{ matrix.ruby }}
-        uses: ruby/setup-ruby@7f797815d8adceb1c412e7abefdd1ab4abc47a5f # v1.335.0
+        uses: ruby/setup-ruby@v1.335.0
         with:
           ruby-version: ${{ matrix.ruby }}
       - name: configure C/C++
