@@ -27,7 +27,7 @@ workflows:
     '.github/workflows/test-darwin-perl.yml':
         - 'actions/cache@v6.1.0'
         - 'actions/checkout@v7.0.1'
-        - 'shogo82148/actions-setup-perl@v1.44.3'
+        - 'shogo82148/actions-setup-perl@v1.44.4'
     '.github/workflows/test-darwin-python.yml':
         - 'actions/cache@v6.1.0'
         - 'actions/checkout@v7.0.1'
@@ -49,7 +49,7 @@ workflows:
     '.github/workflows/test-linux-perl.yml':
         - 'actions/cache@v6.1.0'
         - 'actions/checkout@v7.0.1'
-        - 'shogo82148/actions-setup-perl@v1.44.3'
+        - 'shogo82148/actions-setup-perl@v1.44.4'
     '.github/workflows/test-linux-python.yml':
         - 'actions/cache@v6.1.0'
         - 'actions/checkout@v7.0.1'
@@ -130,8 +130,8 @@ dependencies:
         commit: 'sha1-7f797815d8adceb1c412e7abefdd1ab4abc47a5f'
         owner_id: 210414
         repo_id: 231208785
-    'shogo82148/actions-setup-perl@v1.44.3':
-        ref: 'v1.44.3'
-        commit: 'sha1-a99edab616eaa8a66bbc16363c77a83361e5f2ce'
+    'shogo82148/actions-setup-perl@v1.44.4':
+        ref: 'v1.44.4'
+        commit: 'sha1-3b59bd33efdae98406a9bc4b75a4aa041e11993a'
         owner_id: 1157344
         repo_id: 205511355

@@ -67,7 +67,7 @@ jobs:
         working-directory: mecab-ipadic
 
       - name: setup perl ${{ matrix.perl }}
-        uses: shogo82148/actions-setup-perl@v1.44.3
+        uses: shogo82148/actions-setup-perl@v1.44.4
         with:
           perl-version: ${{ matrix.perl }}
       - name: configure C/C++
