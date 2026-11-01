@@ -55,8 +55,10 @@ EOS
 
 Wheels for the free-threaded build of CPython (e.g. `python3.14t`) are also provided,
 and the module runs without re-enabling the GIL.
-`MeCab.Model` can be shared between threads,
+`MeCab.Model` can be shared between threads to create taggers and lattices,
 but `MeCab.Tagger` and `MeCab.Lattice` are not thread-safe; create one per thread.
+Do not call `Model.swap()` while another thread uses `Model.lookup()`, `Model.transition_cost()` or `Model.dictionary_info()`,
+or keeps nodes or dictionary info obtained from them; `swap()` frees the old dictionary they point to.
 
 ## License
 
