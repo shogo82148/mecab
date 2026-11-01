@@ -21,7 +21,7 @@ ruby:
 
 .PHONY: python
 python:	
-	$(SWIG) -python -shadow -c++ $(PREFIX).i
+	$(SWIG) -python -shadow -nogil -c++ $(PREFIX).i
 	mv -f $(PREFIX)_wrap.cxx ../python
 	mv -f $(PREFIX).py ../python
 

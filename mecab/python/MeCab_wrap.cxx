@@ -10,6 +10,7 @@
 #define SWIG_VERSION 0x040501
 #define SWIGPYTHON
 #define SWIG_PYTHON_DIRECTOR_NO_VTABLE
+#define SWIGPYTHON_NOGIL
 
 #define SWIG_name    "_MeCab"
 /* -----------------------------------------------------------------------------
