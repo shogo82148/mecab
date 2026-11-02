@@ -12,6 +12,9 @@ on:
       - ".github/workflows/test-windows.yml"
       - "mecab/**"
 
+permissions:
+  contents: read
+
 jobs:
   test-windows-2022:
     name: Test on Windows 2022

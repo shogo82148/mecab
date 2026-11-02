@@ -12,6 +12,9 @@ on:
       - ".github/workflows/test-linux-ruby.yml"
       - "mecab/**"
 
+permissions:
+  contents: read
+
 jobs:
   test:
     name: Test

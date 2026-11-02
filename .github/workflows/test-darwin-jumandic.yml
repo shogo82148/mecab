@@ -14,6 +14,9 @@ on:
       - "mecab/**"
       - "mecab-jumandic/**"
 
+permissions:
+  contents: read
+
 jobs:
   test:
     name: Test

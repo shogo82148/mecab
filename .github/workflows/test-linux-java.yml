@@ -12,6 +12,9 @@ on:
       - ".github/workflows/test-linux-java.yml"
       - "mecab/**"
 
+permissions:
+  contents: read
+
 jobs:
   tets:
     name: Test

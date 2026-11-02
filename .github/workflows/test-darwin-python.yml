@@ -12,6 +12,9 @@ on:
       - ".github/workflows/test-darwin-python.yml"
       - "mecab/**"
 
+permissions:
+  contents: read
+
 jobs:
   test:
     name: Test
