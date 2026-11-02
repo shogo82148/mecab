@@ -65,6 +65,6 @@ tar xzvf "dist/scripts/mecab-python-$MECAB_VERSION.tar.gz"
   python -m pip install --upgrade setuptools wheel pip setuptools-scm
   python -m pip install cibuildwheel==4.3.1
 
-  export CIBW_BUILD="cp310-* cp311-* cp312-* cp313-* cp314-* cp315-*"
+  export CIBW_BUILD="cp310-* cp311-* cp312-* cp313-* cp314-* cp315-* cp314t-* cp315t-*"
   python -m cibuildwheel --platform macos --archs x86_64,arm64,universal2 --output-dir ../dist
 )

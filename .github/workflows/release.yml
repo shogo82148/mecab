@@ -241,6 +241,8 @@ jobs:
             3.13
             3.14
             3.15
+            3.14t
+            3.15t
           architecture: ${{ matrix.machine }}
       - uses: actions/download-artifact@v8.0.2
         with:

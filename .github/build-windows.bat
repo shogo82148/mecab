@@ -31,6 +31,10 @@ set PATH=%GITHUB_WORKSPACE%\dist\zip\;%PATH%
 cd %GITHUB_WORKSPACE%\dist\scripts
 copy %GITHUB_WORKSPACE%\dist\mecab\src\*.dll .
 if "%BUILD_TYPE%" == "x64" (
+    py -3.15t-64 -m pip install -U setuptools wheel pip || exit /b 1
+    py -3.15t-64 -m pip wheel . || exit /b 1
+    py -3.14t-64 -m pip install -U setuptools wheel pip || exit /b 1
+    py -3.14t-64 -m pip wheel . || exit /b 1
     py -3.15-64 -m pip install -U setuptools wheel pip || exit /b 1
     py -3.15-64 -m pip wheel . || exit /b 1
     py -3.14-64 -m pip install -U setuptools wheel pip || exit /b 1
@@ -44,6 +48,10 @@ if "%BUILD_TYPE%" == "x64" (
     py -3.10-64 -m pip install -U setuptools wheel pip || exit /b 1
     py -3.10-64 -m pip wheel . || exit /b 1
 ) else if "%BUILD_TYPE%" == "x86" (
+    py -3.15t-32 -m pip install -U setuptools wheel pip || exit /b 1
+    py -3.15t-32 -m pip wheel . || exit /b 1
+    py -3.14t-32 -m pip install -U setuptools wheel pip || exit /b 1
+    py -3.14t-32 -m pip wheel . || exit /b 1
     py -3.15-32 -m pip install -U setuptools wheel pip || exit /b 1
     py -3.15-32 -m pip wheel . || exit /b 1
     py -3.14-32 -m pip install -U setuptools wheel pip || exit /b 1

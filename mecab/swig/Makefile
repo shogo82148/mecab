@@ -19,9 +19,10 @@ ruby:
 	$(SWIG) -ruby -c++ $(PREFIX).i
 	mv -f $(PREFIX)_wrap.cxx ../ruby/$(PREFIX)_wrap.cpp
 
+# -nogil requires SWIG 4.4.0 or newer
 .PHONY: python
-python:	
-	$(SWIG) -python -shadow -c++ $(PREFIX).i
+python:
+	$(SWIG) -python -shadow -nogil -c++ $(PREFIX).i
 	mv -f $(PREFIX)_wrap.cxx ../python
 	mv -f $(PREFIX).py ../python
 
