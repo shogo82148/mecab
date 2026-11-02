@@ -35,7 +35,7 @@ workflows:
     '.github/workflows/test-darwin-ruby.yml':
         - 'actions/cache@v6.1.0'
         - 'actions/checkout@v7.0.1'
-        - 'ruby/setup-ruby@v1.335.0'
+        - 'ruby/setup-ruby@v1.336.0'
     '.github/workflows/test-darwin.yml':
         - 'actions/checkout@v7.0.1'
     '.github/workflows/test-linux-ipadic.yml':
@@ -57,7 +57,7 @@ workflows:
     '.github/workflows/test-linux-ruby.yml':
         - 'actions/cache@v6.1.0'
         - 'actions/checkout@v7.0.1'
-        - 'ruby/setup-ruby@v1.335.0'
+        - 'ruby/setup-ruby@v1.336.0'
     '.github/workflows/test-linux.yml':
         - 'actions/checkout@v7.0.1'
     '.github/workflows/test-mingw.yml':
@@ -125,9 +125,9 @@ dependencies:
         repo_id: 178055147
         uses:
             - 'actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405'
-    'ruby/setup-ruby@v1.335.0':
-        ref: 'v1.335.0'
-        commit: 'sha1-7f797815d8adceb1c412e7abefdd1ab4abc47a5f'
+    'ruby/setup-ruby@v1.336.0':
+        ref: 'v1.336.0'
+        commit: 'sha1-de492cf36cbab201753d720ce4f4e336cd688c94'
         owner_id: 210414
         repo_id: 231208785
     'shogo82148/actions-setup-perl@v1.44.4':
