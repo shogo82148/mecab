@@ -171,7 +171,7 @@ static bool contains_unsafe_char(const std::string &s)
     {
       continue;
     }
-    if (c == '@' || c == '_' || c == '%' || c == '+' || c == '=' || c == ':' || c == ',' || c == '.' || c == '/' || c == '-' || c == '\'')
+    if (c == '@' || c == '_' || c == '%' || c == '+' || c == '=' || c == ':' || c == ',' || c == '.' || c == '/' || c == '-')
     {
       continue;
     }
