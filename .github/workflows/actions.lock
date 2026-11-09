@@ -21,7 +21,7 @@ workflows:
     '.github/workflows/test-darwin-java.yml':
         - 'actions/cache@v6.1.0'
         - 'actions/checkout@v7.0.1'
-        - 'actions/setup-java@v6.1.0'
+        - 'actions/setup-java@v6.2.0'
     '.github/workflows/test-darwin-jumandic.yml':
         - 'actions/checkout@v7.0.1'
     '.github/workflows/test-darwin-perl.yml':
@@ -43,7 +43,7 @@ workflows:
     '.github/workflows/test-linux-java.yml':
         - 'actions/cache@v6.1.0'
         - 'actions/checkout@v7.0.1'
-        - 'actions/setup-java@v6.1.0'
+        - 'actions/setup-java@v6.2.0'
     '.github/workflows/test-linux-jumandic.yml':
         - 'actions/checkout@v7.0.1'
     '.github/workflows/test-linux-perl.yml':
@@ -88,9 +88,9 @@ dependencies:
         commit: 'sha1-9000827ccba6bdab643e8b6fd33ac0654aef8333'
         owner_id: 44036562
         repo_id: 192626254
-    'actions/setup-java@v6.1.0':
-        ref: 'v6.1.0'
-        commit: 'sha1-b843ebf9b913146b38da2eaa7aeddf76074ae1ad'
+    'actions/setup-java@v6.2.0':
+        ref: 'v6.2.0'
+        commit: 'sha1-77dd5b2ce225ea11469928ac317850245a74ae78'
         owner_id: 44036562
         repo_id: 196057608
     'actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405':
