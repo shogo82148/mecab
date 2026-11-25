@@ -62,7 +62,7 @@ workflows:
         - 'actions/checkout@v7.0.1'
     '.github/workflows/test-mingw.yml':
         - 'actions/checkout@v7.0.1'
-        - 'msys2/setup-msys2@v2.33.0'
+        - 'msys2/setup-msys2@v2.34.0'
     '.github/workflows/test-windows.yml':
         - 'actions/checkout@v7.0.1'
     '.github/workflows/update-docs.yml':
@@ -113,9 +113,9 @@ dependencies:
         commit: 'sha1-33d7b85da1a04171e211befe2c739303b9a4c066'
         owner_id: 9919
         repo_id: 259445878
-    'msys2/setup-msys2@v2.33.0':
-        ref: 'v2.33.0'
-        commit: 'sha1-ec48f7c5447b3140e2b088413ae3a55687bccb6e'
+    'msys2/setup-msys2@v2.34.0':
+        ref: 'v2.34.0'
+        commit: 'sha1-3c51bf698df1e37b2261f53cb67797b97761185c'
         owner_id: 6759993
         repo_id: 213203501
     'pypa/gh-action-pypi-publish@v1.14.3':
